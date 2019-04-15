@@ -53,7 +53,5 @@ def main():
     after_proc.close()
 
 
-
-
 if __name__ == '__main__':
     main()

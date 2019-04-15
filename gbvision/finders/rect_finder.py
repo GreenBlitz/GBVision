@@ -1,5 +1,7 @@
 from .object_finder import ObjectFinder
 from gbvision.models.contours import *
+from gbvision.models.shapes import filter_inner_rects
+import numpy as np
 
 
 class RectFinder(ObjectFinder):
@@ -17,7 +19,8 @@ class RectFinder(ObjectFinder):
                                find_contours +
                                filter_contours(min_area=contour_min_area) +
                                sort_contours +
-                               contours_to_rects_sorted)
+                               contours_to_rects_sorted +
+                               filter_inner_rects)
         self.area_scalar = area_scalar
 
     def __call__(self, frame, camera):
