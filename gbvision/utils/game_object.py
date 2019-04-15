@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 from .camera import Camera
+from models import contour_center
 
 
 class GameObject:
@@ -51,9 +52,7 @@ class GameObject:
         """
         frame_center = camera.width, camera.height
         frame_center = np.array(frame_center) / 2
-        m = cv2.moments(cnt)
-        vp = m['m10'] / (m['m00'] + 0.000001), m['m01'] / (
-                m['m00'] + 0.000001)  # TODO replace with models.contour_center
+        vp = contour_center(cnt)
         x, y = np.array(vp) - frame_center
         alpha = x * camera.fov / frame_center[0]
         return np.array([np.sin(alpha), np.cos(alpha)]) * self.distance_by_contours(camera, cnt)
@@ -101,9 +100,7 @@ class GameObject:
         """
         frame_center = camera.width, camera.height
         frame_center = np.array(frame_center) / 2
-        m = cv2.moments(cnt)
-        vp = m['m10'] / (m['m00'] + 0.000001), m['m01'] / (
-                    m['m00'] + 0.000001)  # TODO replace with models.contour_center
+        vp = contour_center(cnt)
         x, y = np.array(vp) - frame_center
         alpha = x * camera.fov / frame_center[0]
         beta = y * camera.fov / frame_center[1]
