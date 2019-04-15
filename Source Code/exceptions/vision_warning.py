@@ -1,0 +1,2 @@
+class VisionWarning(Warning):
+    pass
