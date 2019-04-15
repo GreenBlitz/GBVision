@@ -96,7 +96,7 @@ class GameObject:
         """
         :param camera: the camera, can be either Camera or CameraList
         :param cnt: the contours of this object in the frame
-        :return: a 2d vector of the relative [x z] location between the object and the camera (in meters)
+        :return: a 3d vector of the relative [x y z] location between the object and the camera (in meters)
         """
         frame_center = camera.width, camera.height
         frame_center = np.array(frame_center) / 2
@@ -113,7 +113,7 @@ class GameObject:
         :param area: a float representing the square root of the area of the object
         (in pixels)
         :param center: the center (x,y) of this object in the frame
-        :return: a 2d vector of the relative [x z] location between the object and the camera (in meters)
+        :return: a 3d vector of the relative [x y z] location between the object and the camera (in meters)
         """
         frame_center = camera.width, camera.height
         frame_center = np.array(frame_center) / 2

@@ -4,7 +4,7 @@ from .stream_camera import Camera, StreamCamera
 class CameraList(StreamCamera):
     """
     behaves as both a camera and a list of cameras
-    camera list holds in it a dictionary of cameras referenced as cameras
+    camera list holds in it a list of cameras referenced as the field cameras
     and also a single camera to be the current camera used for every operation on the camera list
     as a single camera
     """
@@ -22,15 +22,42 @@ class CameraList(StreamCamera):
         self.camera: Camera or StreamCamera = self.cameras[select_cam] if select_cam is not None else None
 
     def __getitem__(self, item: int):
+        """
+        returns the camera at the index
+        :param item: the index
+        :return: the camera
+        """
         return self.cameras[item]
 
-    def set_camera(self, index: int):
+    def __setitem__(self, item: int, value: Camera):
+        """
+        sets the camera at the index to the new camera
+        :param item: the index
+        :param value: the new camera
+        """
+        self.cameras[item] = value
+
+    def select_camera(self, index: int):
+        """
+        sets the selected camera to be the camera at the index
+        :param index: the new selected camera's index
+        """
         self.camera = self.cameras[index]
 
     def __delitem__(self, item: int):
+        """
+        deletes the camera at the index
+        :param item:
+        """
         if self.camera is self.cameras[item]:
             self.camera = None
         del self.cameras[item]
+
+    def __iter__(self):
+        """
+        :return: an iterator that iterates through all the cameras
+        """
+        return iter(self.cameras)
 
     def read(self, image=None, foreach=False):
         if foreach:
@@ -43,6 +70,10 @@ class CameraList(StreamCamera):
         return self.camera.is_opened()
 
     def add_camera(self, cam: Camera):
+        """
+        adds a new camera to the end of the list
+        :param cam: the new camera
+        """
         self.cameras.append(cam)
 
     def release(self, foreach=False):
@@ -54,6 +85,9 @@ class CameraList(StreamCamera):
             self.camera = None
 
     def default(self):
+        """
+        sets the selected camera to the default camera
+        """
         self.camera = self.cameras[0] if len(self.cameras) > 0 else None
 
     def set_exposure(self, exposure, foreach=False):
