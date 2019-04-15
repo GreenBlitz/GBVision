@@ -3,7 +3,15 @@ from models import *
 
 
 class RotatedRectFinder(ObjectFinder):
+    """
+    finds a rectangular object, but rotated. recommended to use when you know the shape isn't parallel to the camera
+    """
     def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=3.0):
+        """
+
+        :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
+        :param contour_min_area: the minimal area of a contour, used in filter_contours
+        """
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (threshold_func +
                                find_contours +

@@ -1,13 +1,24 @@
-from .object_finder import ObjectFinder
-from models import filter_contours, find_contours, sort_contours, contours_to_rotated_rects, contours_to_polygons
-from tools import split_list
 import numpy as np
 
-ENCLOSING_RECT_MAX_RATIO = 0.549719211778
+from models import filter_contours, find_contours, sort_contours, contours_to_rotated_rects, contours_to_polygons
+from tools import split_list
+from .object_finder import ObjectFinder
 
 
 class TargetPairFinder(ObjectFinder):
-    def __init__(self, threshold_func, game_object, vt_distance=0.2866, contour_min_area=3.0):
+    """
+    finds a pair of vision targets
+    """
+
+    def __init__(self, threshold_func, game_object, vt_distance=0.2866, enclosing_rect_ratio=0.549,
+                 contour_min_area=3.0):
+        """
+        
+        :param vt_distance: the distance between the centers of both vision targets
+        :param enclosing_rect_ratio: the ratio between the width and height of the parallel enclosing rect of the vision
+        target
+        :param contour_min_area: the minimal area of a contour, used in filter_contours
+        """
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (threshold_func +
                                find_contours +
@@ -15,6 +26,7 @@ class TargetPairFinder(ObjectFinder):
                                sort_contours)
         self.__vector_distance = np.array([vt_distance / 2, 0, 0])
         self.vt_distance = vt_distance
+        self.enclosing_rect_ratio = enclosing_rect_ratio
 
     def __call__(self, frame, camera):
         cnts = self._full_pipeline(frame)
@@ -82,7 +94,7 @@ class TargetPairFinder(ObjectFinder):
             rightest = sorted_polys[3]
 
             sng = np.sign(np.linalg.norm(rightest - highest) - np.linalg.norm(leftest - lowest))
-            angle = sng * np.arccos(min(min(w_s / h_s, h_s / w_s) / ENCLOSING_RECT_MAX_RATIO, 1))
+            angle = sng * np.arccos(min(min(w_s / h_s, h_s / w_s) / self.enclosing_rect_ratio, 1))
 
             rot_matrix = np.array([[np.cos(angle), 0, np.sin(angle)],
                                    [0, 1, 0],
@@ -110,7 +122,7 @@ class TargetPairFinder(ObjectFinder):
             rightest = sorted_polys[3]
 
             sng = np.sign(np.linalg.norm(rightest - lowest) - np.linalg.norm(leftest - highest))
-            angle = sng * np.arccos(min(min(w_s / h_s, h_s / w_s) / ENCLOSING_RECT_MAX_RATIO, 1))
+            angle = sng * np.arccos(min(min(w_s / h_s, h_s / w_s) / self.enclosing_rect_ratio, 1))
 
             rot_matrix = np.array([[np.cos(angle), 0, np.sin(angle)],
                                    [0, 1, 0],

@@ -4,6 +4,9 @@ CONTOURS_INDEX = 1 if cv2.getVersionString()[0] == '3' else 0
 
 
 def cv_config():
+    """
+    configure some opencv stuff so that it doesn't cause problems
+    """
     if cv2.__version__[0] == '2':
         for i in [attr for attr in dir(cv2.cv) if attr.startswith("CV_CAP_PROP")]:
             object.__setattr__(cv2, i[3:], cv2.cv.__getattribute__(i))

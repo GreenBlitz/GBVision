@@ -26,7 +26,7 @@ def main():
         if k == ord('r'):
             bbox = cv2.selectROI('window', frame)
             frame = convert(frame)
-            ftag = frame[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2]]
+            ftag = gbv.crop(frame, *bbox)
             med = np.median(ftag, axis=(0, 1)).astype(int)
 
             params = np.vectorize(lambda x: min(255, max(0, x)))(np.array([med - stdv, med + stdv])).T
@@ -40,8 +40,8 @@ def main():
     after_proc = gbv.FeedWindow(window_name='after threshold',
                                 drawing_pipeline=gbv.PipeLine(convert, lambda f: threshold(f, params)))
 
-    original.start()
-    after_proc.start()
+    original.open()
+    after_proc.open()
     while True:
         ok, frame = camera.read()
         if not original.show_frame(frame):
@@ -49,8 +49,8 @@ def main():
         if not after_proc.show_frame(frame):
             break
 
-    original.stop()
-    after_proc.stop()
+    original.close()
+    after_proc.close()
 
 
 
