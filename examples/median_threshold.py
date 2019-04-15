@@ -16,7 +16,7 @@ def convert(frame):
 
 
 def main():
-    camera = gbv.USBCamera(0, None)
+    camera = gbv.USBCamera(0, gbv.GENERIC_CAMERA)
 
     while True:
         ok, frame = camera.read()
