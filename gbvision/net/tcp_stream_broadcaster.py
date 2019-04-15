@@ -5,7 +5,7 @@ import time
 
 import cv2
 
-from gbvision.constants import LOCAL_SERVER_IP
+from gbvision.constants.net import LOCAL_SERVER_IP
 from .stream_broadcaster import StreamBroadcaster
 
 

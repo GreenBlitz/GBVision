@@ -1,5 +1,5 @@
+from gbvision.net.stream_broadcaster import StreamBroadcaster
 from .camera import Camera, AbstractMethodCallingException
-from gbvision.net import StreamBroadcaster
 
 
 class StreamCamera(Camera):
@@ -8,6 +8,7 @@ class StreamCamera(Camera):
     the streaming camera is very similar to a regular camera, but has an option
     which allows it to stream the frames when it reads them
     """
+
     def is_streaming(self) -> bool:
         """
         checks if the camera is currently streaming
@@ -31,6 +32,7 @@ class StreamCamera(Camera):
         :param camera_class: the class to wrap
         :return: the wrapped class
         """
+
         class _StreamCamera(camera_class, StreamCamera):
             def __init__(self, broadcaster: StreamBroadcaster, *args, **kwargs):
                 camera_class.__init__(self, *args, **kwargs)

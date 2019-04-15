@@ -1,4 +1,4 @@
-from gbvision.utils import PipeLine
+from gbvision.utils.pipeline import PipeLine
 
 
 def circle_collision(center1, r1, center2, r2):

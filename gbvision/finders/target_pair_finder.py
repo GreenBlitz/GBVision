@@ -1,7 +1,8 @@
 import numpy as np
 
-from gbvision.models import filter_contours, find_contours, sort_contours, contours_to_rotated_rects, contours_to_polygons
-from gbvision.tools import split_list
+from gbvision.models.contours import filter_contours, find_contours, sort_contours, contours_to_rotated_rects, \
+    contours_to_polygons
+from gbvision.tools.list_tools import split_list
 from .object_finder import ObjectFinder
 
 

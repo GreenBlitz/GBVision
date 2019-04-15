@@ -1,5 +1,5 @@
 from .object_finder import ObjectFinder
-from gbvision.models import *
+from gbvision.models.contours import *
 
 
 class RotatedRectFinder(ObjectFinder):
