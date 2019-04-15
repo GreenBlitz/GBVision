@@ -4,11 +4,11 @@ from .object_finder import ObjectFinder
 
 
 class CircleFinder(ObjectFinder):
-    def __init__(self, threshold_func, game_object):
+    def __init__(self, threshold_func, game_object, min_contour_area=3.0):
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (threshold_func +
                                find_contours +
-                               filter_contours +
+                               filter_contours(min_area=min_contour_area) +
                                contours_to_circles_sorted +
                                filter_inner_circles)
 
