@@ -3,7 +3,6 @@ import socket
 import cv2
 import pickle
 import struct
-import time
 
 
 class TCPStreamReceiver(StreamReceiver):

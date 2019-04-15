@@ -1,5 +1,4 @@
 from .stream_broadcaster import StreamBroadcaster
-from constants import LOCAL_SERVER_IP
 import socket
 import time
 import pickle

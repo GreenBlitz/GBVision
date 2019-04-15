@@ -1,6 +1,6 @@
 from .stream_receiver import StreamReceiver
 import socket
-from constants import LOCAL_SERVER_IP
+from gbvision.constants import LOCAL_SERVER_IP
 import cv2
 import pickle
 import struct
