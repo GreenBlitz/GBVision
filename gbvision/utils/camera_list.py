@@ -32,10 +32,10 @@ class CameraList(StreamCamera):
             self.camera = None
         del self.cameras[item]
 
-    def read(self, frame=None, foreach=False):
+    def read(self, image=None, foreach=False):
         if foreach:
-            return [cam.read(frame=frame) for cam in self.cameras]
-        return self.camera.read(frame=frame)
+            return [cam.read(image=image) for cam in self.cameras]
+        return self.camera.read(image=image)
 
     def is_opened(self, foreach=False):
         if foreach:

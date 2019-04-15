@@ -5,7 +5,7 @@ import numpy as np
 
 class Camera:
 
-    def read(self, frame=None) -> (bool, np.ndarray):
+    def read(self, image=None) -> (bool, np.ndarray):
         raise AbstractMethodCallingException()
 
     def release(self):

@@ -23,8 +23,8 @@ class StreamCamera(Camera):
             def toggle_stream(self, should_stream: bool):
                 self._is_streaming = should_stream
 
-            def read(self, frame=None):
-                ok, frame = camera_class.read(self)
+            def read(self, image=None):
+                ok, frame = camera_class.read(self, image=image)
                 if self._is_streaming:
                     self.stream_broadcaster.send_frame(frame)
                 return ok, frame

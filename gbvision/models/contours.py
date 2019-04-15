@@ -1,6 +1,7 @@
 import cv2
 
-from constants import EPSILON, CONTOURS_INDEX
+from constants.math import EPSILON
+from constants.system import CONTOURS_INDEX
 from utils import PipeLine
 
 find_contours = PipeLine(lambda frame: cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[CONTOURS_INDEX])

@@ -5,5 +5,5 @@ from .usb_camera import USBCamera
 from .usb_stream_camera import USBStreamCamera
 from .threshold import Threshold
 from .threshold_group import ThresholdGroup
-from .game_object import GameObject
 from .pipeline import PipeLine
+from .game_object import GameObject

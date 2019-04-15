@@ -2,7 +2,7 @@ import functools
 
 
 class PipeLine:
-    def __init__(self, *functions: function):
+    def __init__(self, *functions):
         self.functions = list(functions)
 
     def __call__(self, image):
