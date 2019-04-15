@@ -23,5 +23,4 @@ class StreamReceiver:
         reads a frame from the stream and returns in
         :returns: the frame read as a numpy array
         """
-        raise AbstractMethodCallingException(
-            "attempting to call abstract method get_frame on abstract class StreamReceiver")
+        raise AbstractMethodCallingException()

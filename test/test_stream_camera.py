@@ -3,7 +3,7 @@ import cv2
 
 
 def main():
-    camera = gbv.USBStreamCamera(gbv.UDPStreamBroadcaster(ip='127.0.0.1', port=1337), 0, None)
+    camera = gbv.USBStreamCamera(gbv.UDPStreamBroadcaster(ip='127.0.0.1', port=1337), 0, gbv.LIFECAM_3000)
 
     while 1:
         ok, frame = camera.read()

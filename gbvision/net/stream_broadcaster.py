@@ -27,5 +27,4 @@ class StreamBroadcaster:
         sends the given frame to the stream receiver
         :param frame: the frame to send
         """
-        raise AbstractMethodCallingException(
-            "attempting to call abstract method send_frame on abstract class StreamBroadcaster")
+        raise AbstractMethodCallingException()
