@@ -12,7 +12,7 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     this class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
     the broadcaster is the server and the receiver is the client
     """
-    def __init__(self, port: int, fx: float = 1.0, fy: float = 1, im_encode: str = '.jpg', use_grayscale: bool = False,
+    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg', use_grayscale: bool = False,
                  max_fps: int = None):
         """
         initializes the streamer

@@ -8,7 +8,7 @@ from utils import PipeLine
 
 class StreamWindow:
     def __init__(self, stream_receiver: StreamReceiver, drawing_pipeline=PipeLine(), exit_button=('q', 'Q'),
-                 window_name='feed'):
+                 window_name='stream'):
         self.stream_receiver = stream_receiver
         self.drawing_pipeline = drawing_pipeline
         self.exit_button = exit_button
@@ -20,7 +20,7 @@ class StreamWindow:
             frame = self.stream_receiver.get_frame()
             if frame is not None:
                 cv2.imshow(self.window_name, self.drawing_pipeline(frame))
-            k = cv2.waitKey(1)
+            k = chr(cv2.waitKey(1) & 0xFF)
             if k == self.exit_button or k in self.exit_button:
                 cv2.destroyWindow(self.window_name)
                 return
