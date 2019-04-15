@@ -1,5 +1,5 @@
 from .camera import Camera, AbstractMethodCallingException
-from net import StreamBroadcaster
+from gbvision.net import StreamBroadcaster
 
 
 class StreamCamera(Camera):

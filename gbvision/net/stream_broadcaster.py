@@ -1,4 +1,4 @@
-from exceptions import AbstractMethodCallingException
+from gbvision.exceptions import AbstractMethodCallingException
 
 
 class StreamBroadcaster:

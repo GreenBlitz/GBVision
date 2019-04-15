@@ -1,5 +1,5 @@
-from constants import SQRT_PI
-from models import find_contours, filter_contours, contours_to_circles_sorted, filter_inner_circles
+from gbvision.constants import SQRT_PI
+from gbvision.models import find_contours, filter_contours, contours_to_circles_sorted, filter_inner_circles
 from .object_finder import ObjectFinder
 
 

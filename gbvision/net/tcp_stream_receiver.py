@@ -1,8 +1,10 @@
-from .stream_receiver import StreamReceiver
-import socket
-import cv2
 import pickle
+import socket
 import struct
+
+import cv2
+
+from .stream_receiver import StreamReceiver
 
 
 class TCPStreamReceiver(StreamReceiver):

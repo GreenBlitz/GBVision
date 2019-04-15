@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 from .camera import Camera
-from models import contour_center
+from gbvision.models import contour_center
 
 
 class GameObject:

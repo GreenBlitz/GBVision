@@ -1,9 +1,11 @@
-from .stream_receiver import StreamReceiver
-import socket
-from gbvision.constants import LOCAL_SERVER_IP
-import cv2
 import pickle
+import socket
 import struct
+
+import cv2
+
+from gbvision.constants import LOCAL_SERVER_IP
+from .stream_receiver import StreamReceiver
 
 
 class UDPStreamReceiver(StreamReceiver):

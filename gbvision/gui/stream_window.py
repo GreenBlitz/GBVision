@@ -2,8 +2,8 @@ from threading import Thread
 
 import cv2
 
-from net import StreamReceiver
-from utils import PipeLine
+from gbvision.net import StreamReceiver
+from gbvision.utils import PipeLine
 
 
 class StreamWindow:

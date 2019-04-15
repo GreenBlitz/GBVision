@@ -1,10 +1,12 @@
-from .stream_broadcaster import StreamBroadcaster
-from constants import LOCAL_SERVER_IP
-import socket
-import time
 import pickle
+import socket
 import struct
+import time
+
 import cv2
+
+from gbvision.constants import LOCAL_SERVER_IP
+from .stream_broadcaster import StreamBroadcaster
 
 
 class TCPStreamBroadcaster(StreamBroadcaster):
@@ -12,7 +14,9 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     this class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
     the broadcaster is the server and the receiver is the client
     """
-    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg', use_grayscale: bool = False,
+
+    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
+                 use_grayscale: bool = False,
                  max_fps: int = None):
         """
         initializes the streamer

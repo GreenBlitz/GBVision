@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from models import *
+from gbvision.models import *
 from .object_finder import ObjectFinder
 
 

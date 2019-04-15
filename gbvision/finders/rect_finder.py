@@ -1,5 +1,5 @@
 from .object_finder import ObjectFinder
-from models import *
+from gbvision.models import *
 
 
 class RectFinder(ObjectFinder):

@@ -1,6 +1,6 @@
 import numpy as np
 
-from exceptions import AbstractMethodCallingException
+from gbvision.exceptions import AbstractMethodCallingException
 from .camera_data import CameraData
 
 

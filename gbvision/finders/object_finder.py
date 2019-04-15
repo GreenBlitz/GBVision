@@ -1,5 +1,5 @@
-from exceptions import AbstractMethodCallingException
-from utils import GameObject, Camera
+from gbvision.exceptions import AbstractMethodCallingException
+from gbvision.utils import GameObject, Camera
 
 
 class ObjectFinder:

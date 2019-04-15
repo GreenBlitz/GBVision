@@ -2,7 +2,7 @@ from threading import Thread
 
 import cv2
 
-from utils import PipeLine, Camera
+from gbvision.utils import PipeLine, Camera
 
 
 class CameraWindow:

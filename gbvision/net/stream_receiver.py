@@ -1,5 +1,6 @@
-from exceptions import AbstractMethodCallingException
 import numpy as np
+
+from gbvision.exceptions import AbstractMethodCallingException
 
 
 class StreamReceiver:

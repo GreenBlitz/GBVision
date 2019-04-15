@@ -1,9 +1,11 @@
-from .stream_broadcaster import StreamBroadcaster
-import socket
-import time
 import pickle
+import socket
 import struct
+import time
+
 import cv2
+
+from .stream_broadcaster import StreamBroadcaster
 
 
 class UDPStreamBroadcaster(StreamBroadcaster):

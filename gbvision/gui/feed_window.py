@@ -1,6 +1,6 @@
 import cv2
 
-from utils import PipeLine
+from gbvision.utils import PipeLine
 
 
 class FeedWindow:

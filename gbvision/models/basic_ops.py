@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from utils import PipeLine
+from gbvision.utils import PipeLine
 
 
 def _corners(im):
