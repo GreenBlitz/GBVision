@@ -1,6 +1,6 @@
+import sys
 from functools import reduce
 
-import sys
 import cv2
 
 
@@ -22,9 +22,10 @@ class ThresholdGroup:
         return reduce(lambda th_frame, threshold: self.binary_mask(th_frame, threshold(frame)), self.thresholds, 0)
 
     def __add__(self, other):
-        if isinstance(other, ThresholdGroup):
-            return ThresholdGroup(self.thresholds + other.thresholds)
-        return ThresholdGroup(self.thresholds + [other])
+        return ThresholdGroup(self.thresholds + [other], binary_mask=self.binary_mask, default_pixel=self.default_pixel)
+
+    def __iadd__(self, other):
+        self.thresholds += [other]
 
     def __iter__(self):
         return iter(self.thresholds)

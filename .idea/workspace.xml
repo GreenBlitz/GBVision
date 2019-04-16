@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a07d452-4ccf-45be-96f4-4447d03c9ec2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gbvision.egg-info/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/gbvision.egg-info/PKG-INFO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gbvision.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/gbvision.egg-info/SOURCES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,16 +27,16 @@
           <entry key="PKG-INFO" value="2" />
           <entry key="gitignore" value="1" />
           <entry key="md" value="2" />
-          <entry key="py" value="327" />
+          <entry key="py" value="331" />
           <entry key="pyi" value="1" />
-          <entry key="txt" value="8" />
+          <entry key="txt" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Markdown" value="2" />
-          <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="327" />
+          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="Python" value="331" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
@@ -41,15 +44,15 @@
         <counts>
           <entry key="dummy" value="121" />
           <entry key="gitignore" value="5" />
-          <entry key="md" value="11" />
-          <entry key="py" value="26223" />
+          <entry key="md" value="40" />
+          <entry key="py" value="26244" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Markdown" value="11" />
+          <entry key="Markdown" value="40" />
           <entry key="PLAIN_TEXT" value="126" />
-          <entry key="Python" value="26223" />
+          <entry key="Python" value="26244" />
         </counts>
       </usages-collector>
     </session>
@@ -57,63 +60,16 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gbvision/finders/rect_finder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gbvision/finders/rotated_rect_finder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gbvision/finders/target_pair_finder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gbvision.egg-info/PKG-INFO">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gbvision.egg-info/requires.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gbvision.egg-info/SOURCES.txt">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="51">
-                <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+              <first_editor relative-caret-position="85">
+                <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
               </first_editor>
               <second_editor />
             </state>
@@ -128,24 +84,52 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+            <state relative-caret-position="17">
+              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gbvision.egg-info/top_level.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/send_tcp_stream.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <marker date="1555353070670" expanded="true" signature="36:41" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/show_edges.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+              <folding>
+                <marker date="1555413038597" expanded="true" signature="36:41" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gbvision/utils/async_usb_camera.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
+              <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <marker date="1555412988231" expanded="true" signature="75:78" ph="..." />
-                <marker date="1555412988231" expanded="true" signature="272:277" ph="..." />
-                <marker date="1555412988231" expanded="true" signature="488:494" ph="..." />
-                <marker date="1555412988231" expanded="true" signature="521:530" ph="..." />
-                <marker date="1555412988231" expanded="true" signature="711:712" ph="..." />
+                <marker date="1555414396323" expanded="true" signature="75:78" ph="..." />
+                <marker date="1555414396323" expanded="true" signature="272:277" ph="..." />
+                <marker date="1555414396323" expanded="true" signature="488:494" ph="..." />
+                <marker date="1555414396323" expanded="true" signature="521:530" ph="..." />
+                <marker date="1555414396323" expanded="true" signature="711:712" ph="..." />
               </folding>
             </state>
           </provider>
@@ -217,7 +201,6 @@
         <option value="$PROJECT_DIR$/gbvision/utils/stream_camera.py" />
         <option value="$PROJECT_DIR$/gbvision/finders/circle_finder.py" />
         <option value="$PROJECT_DIR$/gbvision/finders/rect_finder.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/examples/median_threshold.py" />
         <option value="$PROJECT_DIR$/gbvision/gui/stream_window.py" />
         <option value="$PROJECT_DIR$/gbvision/gui/camera_window.py" />
@@ -225,10 +208,11 @@
         <option value="$PROJECT_DIR$/gbvision/gui/__init__.py" />
         <option value="$PROJECT_DIR$/gbvision/utils/__init__.py" />
         <option value="$PROJECT_DIR$/gbvision/__init__.py" />
-        <option value="$PROJECT_DIR$/gbvision/utils/async_usb_camera.py" />
         <option value="$PROJECT_DIR$/examples/show_edges.py" />
         <option value="$PROJECT_DIR$/gbvision/finders/target_pair_finder.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/gbvision/utils/async_usb_camera.py" />
       </list>
     </option>
   </component>
@@ -263,54 +247,6 @@
               <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
               <item name="GBVision" type="462c0819:PsiDirectoryNode" />
               <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="finders" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GBVision" type="462c0819:PsiDirectoryNode" />
-              <item name="gbvision" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GBVision" type="b2602c69:ProjectViewProjectNode" />
@@ -484,18 +420,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2247191" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32907802" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -509,20 +444,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gbvision/net/udp_stream_receiver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gbvision/tools/image_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gbvision/tools/list_tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -766,25 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/send_tcp_stream.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <marker date="1555353070670" expanded="true" signature="36:41" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/show_edges.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <marker date="1555413038597" expanded="true" signature="36:41" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gbvision/exceptions/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -862,13 +764,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gbvision.egg-info/top_level.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/gbvision.egg-info/PKG-INFO">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -878,38 +777,74 @@
     <entry file="file://$PROJECT_DIR$/gbvision.egg-info/dependency_links.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gbvision/utils/async_usb_camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <marker date="1555412988231" expanded="true" signature="75:78" ph="..." />
-            <marker date="1555412988231" expanded="true" signature="272:277" ph="..." />
-            <marker date="1555412988231" expanded="true" signature="488:494" ph="..." />
-            <marker date="1555412988231" expanded="true" signature="521:530" ph="..." />
-            <marker date="1555412988231" expanded="true" signature="711:712" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gbvision.egg-info/SOURCES.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="51">
-            <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <first_editor relative-caret-position="85">
+            <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gbvision.egg-info/top_level.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/send_tcp_stream.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1555353070670" expanded="true" signature="36:41" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/show_edges.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+          <folding>
+            <marker date="1555413038597" expanded="true" signature="36:41" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/conda/conda/envs/tensorflow_env/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-1944113599/_thread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gbvision/utils/async_usb_camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <marker date="1555414396323" expanded="true" signature="75:78" ph="..." />
+            <marker date="1555414396323" expanded="true" signature="272:277" ph="..." />
+            <marker date="1555414396323" expanded="true" signature="488:494" ph="..." />
+            <marker date="1555414396323" expanded="true" signature="521:530" ph="..." />
+            <marker date="1555414396323" expanded="true" signature="711:712" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

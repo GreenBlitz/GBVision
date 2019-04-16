@@ -27,6 +27,7 @@ gbvision/gui/__init__.py
 gbvision/gui/camera_window.py
 gbvision/gui/feed_window.py
 gbvision/gui/stream_window.py
+gbvision/gui/window.py
 gbvision/models/__init__.py
 gbvision/models/basic_ops.py
 gbvision/models/contours.py
@@ -43,6 +44,7 @@ gbvision/tools/finding_tools.py
 gbvision/tools/image_tools.py
 gbvision/tools/list_tools.py
 gbvision/utils/__init__.py
+gbvision/utils/async_usb_camera.py
 gbvision/utils/camera.py
 gbvision/utils/camera_data.py
 gbvision/utils/camera_list.py
