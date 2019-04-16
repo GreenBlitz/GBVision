@@ -14,7 +14,7 @@ class TargetPairFinder(ObjectFinder):
     def __init__(self, threshold_func, game_object, vt_distance=0.2866, enclosing_rect_ratio=0.549,
                  contour_min_area=3.0):
         """
-        
+        initializes the finder
         :param vt_distance: the distance between the centers of both vision targets
         :param enclosing_rect_ratio: the ratio between the width and height of the parallel enclosing rect of the vision
         target

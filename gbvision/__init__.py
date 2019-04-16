@@ -20,6 +20,7 @@ from .finders.rotated_rect_finder import RotatedRectFinder
 from .finders.target_pair_finder import TargetPairFinder
 
 # gui
+from .gui.window import Window
 from .gui.stream_window import StreamWindow
 from .gui.feed_window import FeedWindow
 from .gui.camera_window import CameraWindow
@@ -51,6 +52,7 @@ from .utils.stream_camera import StreamCamera
 from .utils.camera_data import CameraData
 from .utils.usb_camera import USBCamera
 from .utils.usb_stream_camera import USBStreamCamera
+from .utils.async_usb_camera import AsyncUSBCamera
 from .utils.threshold import Threshold
 from .utils.threshold_group import ThresholdGroup
 from .utils.pipeline import PipeLine

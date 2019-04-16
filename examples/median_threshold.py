@@ -3,7 +3,7 @@ import numpy as np
 
 import gbvision as gbv
 
-stdv = np.array([5, 30, 30])
+stdv = np.array([20, 30, 30])
 
 
 def threshold(frame, params):
