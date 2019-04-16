@@ -38,10 +38,3 @@ class ThresholdGroup:
 
     def __setitem__(self, key, value):
         self.thresholds[key] = value
-
-    def __iadd__(self, other):
-        if isinstance(other, ThresholdGroup):
-            self.thresholds += other.thresholds
-        else:
-            self.thresholds += [other]
-        return self
