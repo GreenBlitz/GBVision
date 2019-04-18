@@ -1,13 +1,13 @@
 import cv2
 
-from gbvision.utils.pipeline import PipeLine
+from gbvision.constants.system import EMPTY_PIPELINE
 
 
 class FeedWindow:
     """
     a basic window class
     """
-    def __init__(self, drawing_pipeline=PipeLine(), exit_key: str='qQ', window_name='feed'):
+    def __init__(self, drawing_pipeline=EMPTY_PIPELINE, exit_key: str='qQ', window_name='feed'):
         """
         initializes the window
         :param drawing_pipeline: optional, a pre-processing pipeline that draws on the frame before displaying it

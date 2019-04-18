@@ -2,7 +2,7 @@
 from .constants.net import *
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, GENERIC_CAMERA
 from .constants.math import EPSILON, SQRT_PI
-from .constants.system import CONTOURS_INDEX, cv_config
+from .constants.system import CONTOURS_INDEX, cv_config, EMPTY_PIPELINE
 
 # exceptions
 from .exceptions.vision_warning import VisionWarning
@@ -24,6 +24,8 @@ from .gui.window import Window
 from .gui.stream_window import StreamWindow
 from .gui.feed_window import FeedWindow
 from .gui.camera_window import CameraWindow
+from .gui.recording_camera_window import RecordingCameraWindow
+from .gui.recording_stream_window import RecordingStreamWindow
 
 # models
 from .models.basic_ops import corners, edges, sharpen, blur, blue, red, green, gray

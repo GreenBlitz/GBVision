@@ -1,14 +1,14 @@
 from threading import Thread
 
 from gbvision.exceptions import AbstractMethodCallingException
-from gbvision.utils.pipeline import PipeLine
+from gbvision.constants.system import EMPTY_PIPELINE
 
 
 class Window:
     """
     an abstract window class
     """
-    def __init__(self, window_name: str, exit_button='qQ', drawing_pipeline=PipeLine()):
+    def __init__(self, window_name: str, exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the window
         :param window_name: the title of the new window
