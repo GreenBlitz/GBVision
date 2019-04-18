@@ -35,19 +35,39 @@ class ThresholdGroup:
         self.thresholds = list(thresholds)
 
     def __call__(self, frame):
+        """
+        apply the threshold filter to the frame
+        :param frame: the frame to apply the filter to
+        :return: the binary image, the frame after the threshold group filter
+        """
         return reduce(lambda th_frame, threshold: self.binary_mask(th_frame, threshold(frame)), self.thresholds,
                       self.default_pixel)
 
     def __add__(self, other):
+        """
+        adds another threshold to the group and returns the new threshold group
+        :param other: a threshold function ,can be a threshold, threshold group, or any type of function
+        :return: a new threshold group with the other threshold joined
+        """
         return ThresholdGroup(self.thresholds + [other], binary_mask=self.binary_mask, default_pixel=self.default_pixel)
 
     def __iadd__(self, other):
+        """
+        adds a new threshold filter to this threshold group
+        :param other: a threshold function ,can be a threshold, threshold group, or any type of function
+        """
         self.thresholds += [other]
 
     def __iter__(self):
+        """
+        :return: an iterator that iterates through all this group's filters
+        """
         return iter(self.thresholds)
 
     def __len__(self):
+        """
+        :return: the amount of filters in this threshold group
+        """
         return len(self.thresholds)
 
     def __getitem__(self, item):

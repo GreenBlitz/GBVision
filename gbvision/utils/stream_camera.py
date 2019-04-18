@@ -24,13 +24,13 @@ class StreamCamera(Camera):
         raise AbstractMethodCallingException()
 
     @staticmethod
-    def create_type(camera_class):
+    def create_type(camera_class) -> type:
         """
         creates a new class that is similar to the given class, but has the stream feature
         the constructor of the new class is the same as the given class, but adds a new parameter at the beginning
         the first parameter to the new constructor is a stream broadcaster
         :param camera_class: the class to wrap
-        :return: the wrapped class
+        :return: the wrapped class as a type that can be instanced
         """
 
         class _StreamCamera(camera_class, StreamCamera):

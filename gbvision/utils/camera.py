@@ -50,6 +50,7 @@ class Camera:
     def data(self) -> CameraData:
         """
         :return: this camera's constant descriptor (must be the real descriptor, can't be a copy)
+        when the values of this descriptor are changed, the values of the real camera descriptor must also change
         """
         raise AbstractMethodCallingException()
 
