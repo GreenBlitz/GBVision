@@ -1,3 +1,4 @@
+README.md
 setup.py
 gbvision/__init__.py
 gbvision.egg-info/PKG-INFO
@@ -7,9 +8,11 @@ gbvision.egg-info/requires.txt
 gbvision.egg-info/top_level.txt
 gbvision/constants/__init__.py
 gbvision/constants/cameras.py
+gbvision/constants/images.py
 gbvision/constants/math.py
 gbvision/constants/net.py
 gbvision/constants/system.py
+gbvision/constants/video.py
 gbvision/exceptions/__init__.py
 gbvision/exceptions/abstract_method_calling_exception.py
 gbvision/exceptions/could_not_read_frame_exception.py
@@ -25,12 +28,16 @@ gbvision/finders/rotated_rect_finder.py
 gbvision/finders/target_pair_finder.py
 gbvision/gui/__init__.py
 gbvision/gui/camera_window.py
+gbvision/gui/drawing_tools.py
 gbvision/gui/feed_window.py
+gbvision/gui/recording_camera_window.py
+gbvision/gui/recording_stream_window.py
 gbvision/gui/stream_window.py
 gbvision/gui/window.py
 gbvision/models/__init__.py
 gbvision/models/basic_ops.py
 gbvision/models/contours.py
+gbvision/models/denoising.py
 gbvision/models/shapes.py
 gbvision/net/__init__.py
 gbvision/net/stream_broadcaster.py
@@ -77,6 +84,7 @@ gbvision/gui/__init__.py
 gbvision/gui/camera_window.py
 gbvision/gui/feed_window.py
 gbvision/gui/stream_window.py
+gbvision/gui/window.py
 gbvision/models/__init__.py
 gbvision/models/basic_ops.py
 gbvision/models/contours.py
@@ -93,6 +101,7 @@ gbvision/tools/finding_tools.py
 gbvision/tools/image_tools.py
 gbvision/tools/list_tools.py
 gbvision/utils/__init__.py
+gbvision/utils/async_usb_camera.py
 gbvision/utils/camera.py
 gbvision/utils/camera_data.py
 gbvision/utils/camera_list.py

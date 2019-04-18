@@ -1,12 +1,12 @@
 Metadata-Version: 1.1
 Name: gbvision
-Version: 0.1.0
+Version: 0.1.1
 Summary: A Python Vision Library for object tracking in the 3D physical space
 Home-page: https://github.com/GreenBlitz/GBVision
 Author: Ido Heinemann
 Author-email: idohaineman@gmail.com
 License: Apache License 2.0
-Download-URL: https://github.com/GreenBlitz/GBVision/archive/v0.1.0.tar.gz
+Download-URL: https://github.com/GreenBlitz/GBVision/archive/v0.1.1.tar.gz
 Description: UNKNOWN
 Keywords: computer vision,frc,first,image processing
 Platform: UNKNOWN
