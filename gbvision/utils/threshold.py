@@ -1,5 +1,7 @@
 import cv2
 
+from .threshold_group import ThresholdGroup
+
 
 def hls_threshold(frame, params):
     """
@@ -208,3 +210,15 @@ class Threshold:
         :return: a binary image, the frame after the threshold filter
         """
         return THRESHOLD_NAME_TABLE[self.type](frame, self.params)
+
+    def __repr__(self):
+        return '<%s>' % str(self)
+
+    def __str__(self):
+        return '%s Threshold(%s)' % (self.type, self.params)
+
+    def __or__(self, other):
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)
+
+    def __and__(self, other):
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_and, default_pixel=0xFF)

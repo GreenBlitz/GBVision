@@ -75,3 +75,9 @@ class ThresholdGroup:
 
     def __setitem__(self, key, value):
         self.thresholds[key] = value
+
+    def __or__(self, other):
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)
+
+    def __and__(self, other):
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_and, default_pixel=0xFF)
