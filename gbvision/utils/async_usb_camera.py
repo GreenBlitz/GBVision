@@ -1,4 +1,4 @@
-from threading import Thread, main_thread
+from threading import Thread
 from .usb_camera import USBCamera
 
 
@@ -17,5 +17,5 @@ class AsyncUSBCamera(USBCamera):
         return self._ok, self._frame
 
     def _async_camera_read(self):
-        while self.is_opened() and main_thread().is_alive():
+        while self.is_opened():
             self._ok, self._frame = USBCamera.read(self)

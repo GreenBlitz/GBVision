@@ -5,7 +5,23 @@ import cv2
 
 
 class ThresholdGroup:
+    """
+    a class that constructs a threshold filter out of several threshold filters and a binary mask function
+    for example, use of the function on two thresholds with the binary function "bitwise_or" will result
+    in a filter that outputs 255 for a pixel if it is in either one of the threshold's range
+    using the "bitwise_and" function will output 255 for a pixel only if it is in both the threshold's range
+    """
+
     def __init__(self, *thresholds, **kwargs):
+        """
+        initializes the threshold group
+        :param thresholds: all the thresholds to join in the threshold group
+        :param binary_mask: a binary function that maps from a pair of binary images to a single binary image
+        default value is cv2.bitwise_or
+        :param default_pixel: the default value of a pixel before the threshold function
+        when using the 'bitwise_or' function this should be initialized to 0, when using cv2.bitwise_and this should be
+        initialized to 255
+        """
         self.binary_mask = cv2.bitwise_or
         self.default_pixel = 0
         if 'binary_mask' in kwargs:
@@ -19,7 +35,8 @@ class ThresholdGroup:
         self.thresholds = list(thresholds)
 
     def __call__(self, frame):
-        return reduce(lambda th_frame, threshold: self.binary_mask(th_frame, threshold(frame)), self.thresholds, 0)
+        return reduce(lambda th_frame, threshold: self.binary_mask(th_frame, threshold(frame)), self.thresholds,
+                      self.default_pixel)
 
     def __add__(self, other):
         return ThresholdGroup(self.thresholds + [other], binary_mask=self.binary_mask, default_pixel=self.default_pixel)

@@ -20,3 +20,7 @@ def main():
                 gbv.distance_from_object(nearest_cargo),
                 gbv.angle_by_location3d(nearest_cargo)
             ))
+
+
+if __name__ == '__main__':
+    main()
