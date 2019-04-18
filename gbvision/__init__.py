@@ -1,5 +1,4 @@
 # constants
-from .constants.net import *
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
 from .constants.system import CONTOURS_INDEX, cv_config, EMPTY_PIPELINE
