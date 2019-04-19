@@ -35,6 +35,14 @@ class PipeLine:
             return PipeLine(*self.functions + other.functions)
         return PipeLine(*self.functions + [other])
 
+    def __radd__(self, other):
+        """
+        adds this PipeLine to another function that isn't a PipeLine
+        :param other: the function
+        :return: a new PipeLine which performs self(other(image)) on the parameter image
+        """
+        return PipeLine(other) + self
+
     def __iadd__(self, fun):
         """
         adds a function or pipeline to the end of this pipeline (changes this pipeline, doesn't return a new one)
