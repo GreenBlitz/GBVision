@@ -22,7 +22,7 @@ def main():
         objects = finder(frame, camera)
         if len(objects):
             print("object is at distance: %s meters" % (gbv.distance_from_object(objects[0])))
-
+    window.close()
 
 if __name__ == '__main__':
     main()
