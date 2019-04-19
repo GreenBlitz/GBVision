@@ -3,11 +3,12 @@ import numpy as np
 
 import gbvision as gbv
 
-stdv = np.array([20, 30, 30])
+stdv = np.array([10, 30, 50])
 
 
 def main():
-    camera = gbv.USBCamera(0, gbv.UNKNOWN_CAMERA)
+    camera = gbv.USBCamera(1, gbv.UNKNOWN_CAMERA)
+    camera.set_exposure(-1)
 
     while True:
         ok, frame = camera.read()

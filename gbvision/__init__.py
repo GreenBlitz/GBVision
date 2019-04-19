@@ -33,7 +33,8 @@ from .models.contours import contour_center, contours_centers, contours_to_circl
     contours_to_ellipses, contours_to_ellipses_sorted, contours_to_polygons, contours_to_rects, \
     contours_to_rects_sorted, contours_to_rotated_rects, contours_to_rotated_rects_sorted, filter_contours, \
     find_contours, sort_contours, sort_rects, sort_circles, sort_rotated_rects, sort_ellipses
-from .models.shapes import circle_collision, filter_inner_circles, filter_inner_rects, rect_collision
+from .models.shapes import circle_collision, filter_inner_circles, filter_inner_rects, rect_collision, \
+    rotated_rect_collision, convex_shape_collision, filter_inner_convex_shape, filter_inner_rotated_rects
 from .models.denoising import dilate, median_blur, erode
 
 # net
@@ -60,6 +61,5 @@ from .utils.threshold import Threshold
 from .utils.threshold_group import ThresholdGroup
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
-
 
 cv_config()

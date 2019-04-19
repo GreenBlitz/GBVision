@@ -36,7 +36,7 @@ def median_blur(ksize: int):
     """
     creates a pipeline that blurs the given frame using the median blur method
     works very good for denoising purposes
-    :param ksize: the size of the kernel used by the filter, must be an integer
+    :param ksize: the size of the kernel used by the filter, must be an odd number
     :return: a pipeline that filters the image using the median blur method
     """
     return PipeLine(lambda frame: cv2.medianBlur(frame, ksize))

@@ -2,6 +2,7 @@ import numpy as np
 
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, filter_contours, sort_contours, contours_to_rotated_rects_sorted
+from gbvision.models.shapes import filter_inner_rotated_rects
 from .object_finder import ObjectFinder
 
 
@@ -22,15 +23,16 @@ class RotatedRectFinder(ObjectFinder):
                                find_contours +
                                filter_contours(min_area=contour_min_area) +
                                sort_contours +
-                               contours_to_rotated_rects_sorted)
+                               contours_to_rotated_rects_sorted +
+                               filter_inner_rotated_rects)
         self.area_scalar = area_scalar
 
     def __call__(self, frame, camera):
         rects = self._full_pipeline(frame)
-        return map(
+        return list(map(
             lambda rect: self.game_object.location3d_by_params(camera,
                                                                self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
-                                                               rect[0]), rects)
+                                                               rect[0]), rects))
         # d = []
         # for rect in rects:
         #    area = self.area_scalar * np.sqrt(rect[2] * rect[3])

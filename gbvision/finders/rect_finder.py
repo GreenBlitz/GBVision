@@ -27,9 +27,9 @@ class RectFinder(ObjectFinder):
 
     def __call__(self, frame, camera):
         rects = self._full_pipeline(frame)
-        return map(
+        return list(map(
             lambda rect: self.game_object.location3d_by_params(camera, self.area_scalar * np.sqrt(rect[2] * rect[3]),
-                                                             [(rect[0] + rect[2]) / 2, (rect[1] + rect[3]) / 2]), rects)
+                                                             [(rect[0] + rect[2]) / 2, (rect[1] + rect[3]) / 2]), rects))
         # d = []
         # for rect in rects:
         #    area = self.area_scalar * np.sqrt(rect[2] * rect[3])

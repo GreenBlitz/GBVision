@@ -27,6 +27,6 @@ class PolygonFinder(ObjectFinder):
 
     def __call__(self, frame, camera):
         contours = self._full_pipeline(frame)
-        return map(
+        return list(map(
             lambda cnt: self.game_object.location3d_by_params(camera, self.area_scalar * np.sqrt(cv2.contourArea(cnt)),
-                                                              contour_center(cnt)), contours)
+                                                              contour_center(cnt)), contours))

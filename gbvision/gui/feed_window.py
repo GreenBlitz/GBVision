@@ -7,7 +7,7 @@ class FeedWindow:
     """
     a basic window class
     """
-    def __init__(self, drawing_pipeline=EMPTY_PIPELINE, exit_key: str='qQ', window_name='feed'):
+    def __init__(self, window_name='feed', exit_key: str='qQ', drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the window
         :param drawing_pipeline: optional, a pre-processing pipeline that draws on the frame before displaying it
@@ -31,11 +31,12 @@ class FeedWindow:
         :param frame: the frame to show
         :return: True if the window is still open, False otherwise
         """
-        cv2.imshow(self.window_name, self.drawing_pipeline(frame))
-        k = chr(cv2.waitKey(1) & 0xFF)
-        if k in self.exit_key:
-            self.close()
-            return False
+        if frame is not None:
+            cv2.imshow(self.window_name, self.drawing_pipeline(frame))
+            k = chr(cv2.waitKey(1) & 0xFF)
+            if k in self.exit_key:
+                self.close()
+                return False
         return True
 
     def close(self):
