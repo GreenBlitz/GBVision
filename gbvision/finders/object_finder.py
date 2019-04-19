@@ -1,4 +1,5 @@
 from gbvision.exceptions import AbstractMethodCallingException
+from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.utils.game_object import GameObject, Camera
 
 
@@ -16,7 +17,7 @@ class ObjectFinder:
         have to be perfect)
         :param game_object: the game object descriptor for the real-life parameters of the finder's target
         """
-        self.threshold = threshold_func
+        self.threshold = EMPTY_PIPELINE + threshold_func
         self.game_object = game_object
 
     def __call__(self, frame, camera: Camera):

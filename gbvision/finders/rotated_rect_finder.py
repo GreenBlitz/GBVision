@@ -1,11 +1,15 @@
+import numpy as np
+
+from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.contours import find_contours, filter_contours, sort_contours, contours_to_rotated_rects_sorted
 from .object_finder import ObjectFinder
-from gbvision.models.contours import *
 
 
 class RotatedRectFinder(ObjectFinder):
     """
     finds a rectangular object, but rotated. recommended to use when you know the shape isn't parallel to the camera
     """
+
     def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=3.0):
         """
 
@@ -13,7 +17,8 @@ class RotatedRectFinder(ObjectFinder):
         :param contour_min_area: the minimal area of a contour, used in filter_contours
         """
         ObjectFinder.__init__(self, threshold_func, game_object)
-        self._full_pipeline = (threshold_func +
+        self._full_pipeline = (EMPTY_PIPELINE +
+                               threshold_func +
                                find_contours +
                                filter_contours(min_area=contour_min_area) +
                                sort_contours +
@@ -24,8 +29,8 @@ class RotatedRectFinder(ObjectFinder):
         rects = self._full_pipeline(frame)
         return map(
             lambda rect: self.game_object.location3d_by_params(camera,
-                                                             self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
-                                                             rect[0]), rects)
+                                                               self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
+                                                               rect[0]), rects)
         # d = []
         # for rect in rects:
         #    area = self.area_scalar * np.sqrt(rect[2] * rect[3])

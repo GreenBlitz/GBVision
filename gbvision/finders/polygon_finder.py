@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
 
-from gbvision.models.contours import *
+from gbvision.models.contours import filter_contours, find_contours, sort_contours, contour_center
+from gbvision.constants.system import EMPTY_PIPELINE
 from .object_finder import ObjectFinder
 
 
@@ -17,7 +18,8 @@ class PolygonFinder(ObjectFinder):
         :param contour_min_area:  the minimal area of a contour, used in filter_contours
         """
         ObjectFinder.__init__(self, threshold_func, game_object)
-        self._full_pipeline = (threshold_func +
+        self._full_pipeline = (EMPTY_PIPELINE +
+                               threshold_func +
                                find_contours +
                                filter_contours(min_area=contour_min_area) +
                                sort_contours)
