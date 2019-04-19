@@ -110,7 +110,7 @@ def _filter_inner_convex_shapes(shapes):
     return filtered_shapes
 
 
-filter_inner_convex_shape = PipeLine(_filter_inner_convex_shapes)
+filter_inner_convex_shapes = PipeLine(_filter_inner_convex_shapes)
 
 
 def rotated_rect_collision(rr1, rr2):
