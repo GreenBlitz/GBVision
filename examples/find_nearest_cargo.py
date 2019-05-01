@@ -18,7 +18,7 @@ def main():
             nearest_cargo = all_cargos[0]
             print('found cargo at distance %f meters and %f angles' % (
                 gbv.distance_from_object(nearest_cargo),
-                gbv.angle_by_location3d(nearest_cargo)
+                gbv.angle_by_location(nearest_cargo)
             ))
 
 

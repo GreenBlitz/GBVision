@@ -48,7 +48,7 @@ from .net.udp_stream_receiver import UDPStreamReceiver
 # tools
 from .tools.list_tools import split_list
 from .tools.image_tools import crop, median_threshold
-from .tools.finding_tools import distance_from_object, angle_by_location2d, angle_by_location3d
+from .tools.finding_tools import distance_from_object, angle_by_location, plane_distance_from_object
 
 # utils
 from .utils.camera import Camera

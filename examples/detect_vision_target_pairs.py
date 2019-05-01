@@ -24,7 +24,7 @@ def main():
             if len(hatches) > 0:
                 closest_hatch = hatches[0]
                 print('found hatch at distance: %s\nand angle %s' % (
-                    gbv.distance_from_object(closest_hatch), gbv.angle_by_location3d(closest_hatch)))
+                    gbv.distance_from_object(closest_hatch), gbv.angle_by_location(closest_hatch)))
 
 if __name__ == '__main__':
     main()
