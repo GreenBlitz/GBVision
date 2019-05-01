@@ -7,6 +7,28 @@ class PipeLine:
     each function receives one input, which is the output of the previous function in the pipeline
     pipelines are great for representing a long computer vision function (which is why such functions
     are called pipelines)
+    the PipeLine class can also be used as a function decorator
+    for example, creating a pipeline that adds 1 to it's output can be done in two ways:
+    inc = PipeLine(lambda x: x + 1)
+    or
+    @PipeLine
+    def inc(x):
+        return x + 1
+    when inheriting from the PipeLine class (to make a pipeline factory), the subclass cannot have any attributes or methods
+    so for example, to create a pipeline factory that generates adding functions:
+    this will not work:
+    class Adder(PipeLine):
+        def __init__(self, num):
+            self.num = num
+            PipeLine.__init__(self, self.adding_func)
+        def adding_func(self, item):
+            return item + self.num
+    instead we will implement it as follows:
+    class Adder(PipeLine):
+        def __init__(self, num):
+            def adding_func(item):
+                return item + num
+            PipeLine.__init__(self, adding_func)
     """
     def __init__(self, *functions):
         """
@@ -51,6 +73,7 @@ class PipeLine:
         if isinstance(fun, PipeLine):
             self.functions += fun.functions
         self.functions.append(fun)
+        return self
 
     def __getitem__(self, item):
         """

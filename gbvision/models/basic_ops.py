@@ -4,59 +4,41 @@ import numpy as np
 from gbvision.utils.pipeline import PipeLine
 
 
-def _corners(im):
-    return cv2.filter2D(im, -1, np.array([[-1, 1], [1, -1]]))
+@PipeLine
+def corners(frame):
+    return cv2.filter2D(frame, -1, np.array([[-1, 1], [1, -1]]))
 
 
-corners = PipeLine(_corners)
+@PipeLine
+def edges(frame):
+    return cv2.filter2D(frame, -1, np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]))
 
 
-def _edges(im):
-    return cv2.filter2D(im, -1, np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]))
+@PipeLine
+def sharpen(frame):
+    return cv2.filter2D(frame, -1, np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]]))
 
 
-edges = PipeLine(_edges)
+@PipeLine
+def blur(frame):
+    return cv2.filter2D(frame, -1, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9)
 
 
-def _sharpen(im):
-    return cv2.filter2D(im, -1, np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]]))
+@PipeLine
+def blue(frame):
+    return frame[:, :, 0]
 
 
-sharpen = PipeLine(_sharpen)
+@PipeLine
+def green(frame):
+    return frame[:, :, 1]
 
 
-def _blur(im):
-    return cv2.filter2D(im, -1, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9)
+@PipeLine
+def red(frame):
+    return frame[:, :, 2]
 
 
-blur = PipeLine(_blur)
-
-
-def _blue(im):
-    return im[:, :, 0]
-
-
-blue = PipeLine(_blue)
-
-
-def _green(im):
-    return im[:, :, 1]
-
-
-green = PipeLine(_green)
-
-
-def _red(im):
-    return im[:, :, 2]
-
-
-red = PipeLine(_red)
-
-
-def _gray(im):
-    return cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-
-
-gray = PipeLine(_gray)
-
-
+@PipeLine
+def gray(frame):
+    return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

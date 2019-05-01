@@ -9,7 +9,7 @@ class Camera:
     an abstract class representing a camera
     """
 
-    def read(self, image: np.ndarray = None) -> (bool, np.ndarray):
+    def read(self, image=None):
         """
         reads from the camera and returns a tuple of a boolean and the frame
         :param image: if not None, the frame will be read to this ndarray
@@ -55,46 +55,32 @@ class Camera:
         raise AbstractMethodCallingException()
 
     @property
-    def focal_length(self):
-        """
-        :return: this camera's focal length at the current moment
-        """
-        return self.data.focal_length
-
-    @property
-    def fov(self):
-        """
-        :return: this cameras field of view angle in radians
-        """
-        return self.data.fov
-
-    @property
-    def width(self):
+    def width(self) -> int:
         """
         :return: the width of a frame read from this camera
         """
         raise AbstractMethodCallingException()
 
     @property
-    def height(self):
+    def height(self) -> int:
         """
         :return: the height of a frame read from this camera
         """
         raise AbstractMethodCallingException()
 
-    def _set_width(self, width):
+    def _set_width(self, width: int):
         """
         unsafe set width
-        supposed to be overriden and only used by rescale, resize and set_frame size methods
+        supposed to be overridden and only used by rescale, resize and set_frame size methods
         never to be used by the programmer, only by the api
         :param width: new width
         """
         raise AbstractMethodCallingException()
 
-    def _set_height(self, height):
+    def _set_height(self, height: int):
         """
         unsafe set height
-        supposed to be overriden and only used by rescale, resize and set_frame size methods
+        supposed to be overridden and only used by rescale, resize and set_frame size methods
         never to be used by the programmer, only by the api
         :param height: new height
         """
@@ -105,21 +91,21 @@ class Camera:
         rescale the size of the frames read from this camera by a factor
         :param factor: the rescaling factor
         """
-        self._set_width(self.width * factor)
-        self._set_height(self.height * factor)
+        self._set_width(int(self.width * factor))
+        self._set_height(int(self.height * factor))
         self.data.focal_length *= factor
 
-    def resize(self, fx, fy):
+    def resize(self, fx: float, fy: float):
         """
         rescale the size of the frames read from this camera by different width and height factors
         :param fx: the width factor
         :param fy: the height factor
         """
-        self._set_width(self.width * fx)
-        self._set_height(self.height * fy)
+        self._set_width(int(self.width * fx))
+        self._set_height(int(self.height * fy))
         self.data.focal_length *= np.sqrt(fx * fy)
 
-    def set_frame_size(self, width, height):
+    def set_frame_size(self, width: int, height: int):
         """
         reset the width and height of frames read from this camera to given values
         :param width: the new width

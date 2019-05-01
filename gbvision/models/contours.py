@@ -4,52 +4,90 @@ from gbvision.constants.math import EPSILON
 from gbvision.constants.system import CONTOURS_INDEX
 from gbvision.utils.pipeline import PipeLine
 
-find_contours = PipeLine(lambda frame: cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[CONTOURS_INDEX])
 
-sort_contours = PipeLine(lambda cnts: sorted(cnts, key=lambda x: cv2.contourArea(x), reverse=True))
+@PipeLine
+def find_contours(frame):
+    return cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[CONTOURS_INDEX]
 
 
-def filter_contours(min_area: float):
-    return PipeLine((lambda cnts: filter(lambda c: cv2.contourArea(c) >= min_area, cnts))) + list
+@PipeLine
+def sort_contours(cnts):
+    return sorted(cnts, key=lambda x: cv2.contourArea(x), reverse=True)
+
+
+class FilterContours(PipeLine):
+    def __init__(self, min_area: float):
+        PipeLine.__init__(self, lambda cnts: filter(lambda c: cv2.contourArea(c) >= min_area, cnts), list)
 
 
 convex_hull = PipeLine(cv2.convexHull)
 
-contour_center = PipeLine(lambda cnt: cv2.moments(cnt),
-                          lambda m: (int(m['m10'] / (m['m00'] + EPSILON)), int(m['m01'] / (m['m00'] + EPSILON))))
 
-contours_centers = PipeLine(lambda cnts: map(contour_center, cnts)) + list
+@PipeLine
+def convex_hull_multiple(cnts):
+    return list(map(convex_hull, cnts))
+
+
+@PipeLine
+def contour_center(cnt):
+    m = cv2.moments(cnt)
+    return int(m['m10'] / (m['m00'] + EPSILON)), int(m['m01'] / (m['m00'] + EPSILON))
+
+@PipeLine
+def contours_centers(cnts):
+    return list(map(contour_center, cnts))
 
 # SHAPES
 
-contours_to_rects = PipeLine(lambda cnts: map(cv2.boundingRect, cnts)) + list
+@PipeLine
+def contours_to_rects(cnts):
+    return list(map(cv2.boundingRect, cnts))
 
-sort_rects = PipeLine(lambda rects: sorted(rects, key=lambda x: x[2] * x[3], reverse=True)) + list
+@PipeLine
+def sort_rects(rects):
+    return list(sorted(rects, key=lambda x: x[2] * x[3], reverse=True))
 
 contours_to_rects_sorted = contours_to_rects + sort_rects
 
-contours_to_circles = PipeLine(lambda cnts: map(cv2.minEnclosingCircle, cnts)) + list
+@PipeLine
+def contours_to_circles(cnts):
+    return list(map(cv2.minEnclosingCircle, cnts))
 
-sort_circles = PipeLine(lambda rects: sorted(rects, key=lambda x: x[1], reverse=True)) + list
+@PipeLine
+def sort_circles(circs):
+    return list(sorted(circs, key=lambda x: x[1], reverse=True))
 
 contours_to_circles_sorted = contours_to_circles + sort_circles
 
-contours_to_rotated_rects = PipeLine(lambda cnts: map(cv2.minAreaRect, cnts)) + list
+@PipeLine
+def contours_to_rotated_rects(cnts):
+    return list(map(cv2.minAreaRect, cnts))
 
-sort_rotated_rects = PipeLine(lambda rects: sorted(rects, key=lambda x: x[1][0] * x[1][1], reverse=True)) + list
+@PipeLine
+def sort_rotated_rects(rects):
+    return list(sorted(rects, key=lambda x: x[1][0] * x[1][1], reverse=True))
 
 contours_to_rotated_rects_sorted = contours_to_rotated_rects + sort_rotated_rects
 
-contours_to_ellipses = PipeLine(lambda cnts: filter(lambda x: len(x) >= 5, cnts),
-                                # ellipse must get contours of at least five points
-                                lambda cnts: map(cv2.fitEllipse, cnts)) + list
+@PipeLine
+def contours_to_ellipses(cnts):
+    cnts = filter(lambda x: len(x) >= 5, cnts)
+    # ellipse must get contours of at least five points
+    return list(map(cv2.fitEllipse, cnts))
 
 sort_ellipses = sort_rotated_rects
 
 contours_to_ellipses_sorted = contours_to_ellipses + sort_ellipses
 
-contours_to_polygons = PipeLine(lambda cnts: map(lambda cnt: (cnt, 0.05 * cv2.arcLength(cnt, True)), cnts),
-                                lambda cnts: map(lambda cnt0_eps1: cv2.approxPolyDP(cnt0_eps1[0], cnt0_eps1[1], True),
-                                                 cnts),
-                                lambda polydps: map(lambda polydp: map(lambda x: x[0], polydp), polydps),
-                                lambda polydps: map(lambda polydp: list(map(tuple, polydp)), polydps)) + list
+@PipeLine
+def contours_to_polygons(cnts):
+    arc_lengts = map(lambda cnt: 0.05 * cv2.arcLength(cnt, True), cnts)
+    return list(map(lambda cnt: cv2.approxPolyDP(cnt, next(arc_lengts), True), cnts))
+
+sort_polygons = sort_contours
+
+polygon_center = contour_center
+
+polygons_centers = contours_centers
+
+

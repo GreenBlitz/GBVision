@@ -22,7 +22,8 @@ class AsyncUSBCamera(USBCamera):
         while self.is_opened():
             self._ok, self._frame = USBCamera.read(self)
 
-    def open(self, filename, apiPreference=None):
-        USBCamera.open(self, filename, apiPreference)
+    def open(self, filename):
+        self.release()
+        USBCamera.open(self, filename)
         self._thread = Thread(target=self._async_camera_read)
         self._thread.start()

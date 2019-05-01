@@ -9,6 +9,7 @@ class ObjectFinder:
     an object finder is a type that outputs an object's 3d real location based on an of it image it's
     GameObject real-life parameters
     """
+
     def __init__(self, threshold_func, game_object: GameObject):
         """
         initializes the finder

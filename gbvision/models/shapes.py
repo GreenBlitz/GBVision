@@ -6,8 +6,8 @@ import cv2
 def circle_collision(center1, r1, center2, r2):
     return (center1[0] - center2[0]) ** 2 + (center1[1] - center2[1]) ** 2 < (r1 + r2) ** 2
 
-
-def _filter_inner_circles(circles):
+@PipeLine
+def filter_inner_circles(circles):
     filtered_circles = []
     for i, circle in enumerate(circles):
         circle_invalid = False
@@ -21,17 +21,14 @@ def _filter_inner_circles(circles):
     return filtered_circles
 
 
-filter_inner_circles = PipeLine(_filter_inner_circles)
-
-
 def rect_collision(r1, r2):
     return not (r1[0] > r2[0] + r2[2] or
                 r1[0] + r1[2] < r1[0] or
                 r1[1] > r2[1] + r2[3] or
                 r1[1] + r1[3] < r2[1])
 
-
-def _filter_inner_rects(rects):
+@PipeLine
+def filter_inner_rects(rects):
     filtered_rects = []
     for i, rect in enumerate(rects):
         rect_invalid = False
@@ -42,9 +39,6 @@ def _filter_inner_rects(rects):
         if not rect_invalid:
             filtered_rects.append(rect)
     return filtered_rects
-
-
-filter_inner_rects = PipeLine(_filter_inner_rects)
 
 
 def convex_shape_collision(shape1, shape2):
@@ -97,7 +91,8 @@ def convex_shape_collision(shape1, shape2):
     return True
 
 
-def _filter_inner_convex_shapes(shapes):
+@PipeLine
+def filter_inner_convex_shapes(shapes):
     filtered_shapes = []
     for i, shape in enumerate(shapes):
         shape_invalid = False
@@ -110,13 +105,11 @@ def _filter_inner_convex_shapes(shapes):
     return filtered_shapes
 
 
-filter_inner_convex_shapes = PipeLine(_filter_inner_convex_shapes)
-
-
 def rotated_rect_collision(rr1, rr2):
     return convex_shape_collision(np.array([cv2.boxPoints(rr1)]), np.array([cv2.boxPoints(rr2)]))
 
-def _filter_inner_rotated_rects(rotated_rects):
+@PipeLine
+def filter_inner_rotated_rects(rotated_rects):
     filtered_rotated_rects = []
     for i, rotated_rect in enumerate(rotated_rects):
         rotated_rect_invalid = False
@@ -127,5 +120,3 @@ def _filter_inner_rotated_rects(rotated_rects):
         if not rotated_rect_invalid:
             filtered_rotated_rects.append(rotated_rect)
     return filtered_rotated_rects
-
-filter_inner_rotated_rects = PipeLine(_filter_inner_rotated_rects)

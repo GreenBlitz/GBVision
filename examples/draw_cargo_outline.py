@@ -14,12 +14,12 @@ def main():
     # switch to auto exposure mode
     # this works on windows, when using a raspberry pi use booleans instead
 
-    threshold_func = gbv.EMPTY_PIPELINE + CARGO_THRESHOLD + gbv.erode(3) + gbv.dilate(3)
+    threshold_func = gbv.EMPTY_PIPELINE + CARGO_THRESHOLD + gbv.Erode(3) + gbv.Dilate(3)
     # the full pipeline of thresholding and denoising
 
-    window = gbv.CameraWindow(camera, drawing_pipeline=gbv.draw_circles(  # draw the outline circles of the cargos
+    window = gbv.CameraWindow(camera, drawing_pipeline=gbv.DrawCircles(  # draw the outline circles of the cargos
         threshold_func, (255, 0, 0),  # threshold and color is blue (bgr)
-        contours_process=gbv.filter_contours(100),  # filter small contours
+        contours_process=gbv.FilterContours(100),  # filter small contours
         circle_process=gbv.sort_circles + gbv.filter_inner_circles))  # sort circles and delete the inner circles
 
     window.show()

@@ -1,9 +1,13 @@
+import numpy as np
+
+
 class CameraData:
     """
     describes constant about a camera in it's default state used to approximate distance
     between the camera and an object seen in a frame
     """
-    def __init__(self, focal_length, fov):
+
+    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0):
         """
 
         :param focal_length: the focal length of the camera at it's default state, in units of pixels
@@ -28,11 +32,73 @@ class CameraData:
         Wf is the width of the frame (pixels unit)
         to calculate the FOV just apply the inverse tangent
         FOV = arctan(tan(FOV))
+        :param yaw_angle:
+        the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
+        it's output only affects the x and z axises.
+        set this variable when the camera is rotated around the y axis and you want the output of finder functions
+        to represent the original space, rather then the rotated one.
+        :param pitch_angle:
+        the clockwise pitch angle (in radians) in which the camera is rotated, the pitch angle is the angle around the x axis,
+        it's output only affects the y and z axises.
+        set this variable when the camera is rotated around the x axis and you want the output of finder functions
+        to represent the original space, rather then the rotated one.
+        :param roll_angle:
+        the clockwise roll angle (in radians) in which the camera is rotated, the roll angle is the angle around the z axis,
+        it's output only affects the x and y axises.
+        set this variable when the camera is rotated around the z axis and you want the output of finder functions
+        to represent the original space, rather then the rotated one.
+        :param x_offset:
+        the x offset in which the camera is placed
+        the distance from the measuring point (usually the center of the robot) to the camera on the x axis (left/right),
+        if the camera is to the right this should be positive and if it is left this should be negative
+        :param y_offset:
+        the y offset in which the camera is placed
+        the distance from the measuring point to the camera on the y axis (up/down), if the camera is above the measuring point
+        this variable should be positive and if it is below this should be negative
+        :param z_offset:
+        the z offset in which the camera is placed
+        the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point
+        this variable should be positive and if it is inner this should be negative
         """
         self.focal_length = focal_length
         self.fov = fov
+        sin, cos = np.sin(yaw_angle), np.cos(yaw_angle)
+        rotation_matrix = np.array([[cos, 0, sin],
+                                    [0, 1, 0],
+                                    [-sin, 0, cos]])
+        sin, cos = np.sin(pitch_angle), np.cos(pitch_angle)
+        rotation_matrix = rotation_matrix.dot(np.array([[1, 0, 0],
+                                                        [0, cos, -sin],
+                                                        [0, sin, cos]]))
+        sin, cos = np.sin(roll_angle), np.cos(roll_angle)
+        rotation_matrix = rotation_matrix.dot(np.array([[cos, -sin, 0],
+                                                        [sin, cos, 0],
+                                                        [0, 0, 1]]))
+        self.rotation_matrix = rotation_matrix
+        self.offset = np.array([x_offset, y_offset, z_offset])
 
     def __copy__(self):
         return CameraData(self.focal_length, self.fov)
+
+    def rotate_yaw(self, angle):
+        sin, cos = np.sin(angle), np.cos(angle)
+        self.rotation_matrix = self.rotation_matrix.dot(np.array([[cos, 0, sin],
+                                                                  [0, 1, 0],
+                                                                  [-sin, 0, cos]]))
+        return self
+
+    def rotate_pitch(self, angle):
+        sin, cos = np.sin(angle), np.cos(angle)
+        self.rotation_matrix = self.rotation_matrix.dot(np.array([[1, 0, 0],
+                                                                  [0, cos, -sin],
+                                                                  [0, sin, cos]]))
+        return self
+
+    def rotate_roll(self, angle):
+        sin, cos = np.sin(angle), np.cos(angle)
+        self.rotation_matrix = self.rotation_matrix.dot(np.array([[cos, -sin, 0],
+                                                                  [sin, cos, 0],
+                                                                  [0, 0, 1]]))
+        return self
 
     copy = __copy__

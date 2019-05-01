@@ -8,7 +8,7 @@ VISION_TARGET = gbv.GameObject(0.08424226967)
 # the square root of this size is the constant above (0.0842422...)
 
 def main():
-    finder = gbv.TargetPairFinder(VISION_TARGET_THRESHOLD + gbv.erode(3) + gbv.dilate(4),
+    finder = gbv.TargetPairFinder(VISION_TARGET_THRESHOLD + gbv.Erode(3) + gbv.Dilate(4),
                                   VISION_TARGET)
     # define the target finder
     camera = gbv.USBCamera(0, gbv.LIFECAM_3000)

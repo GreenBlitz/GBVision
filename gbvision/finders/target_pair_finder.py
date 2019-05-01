@@ -1,6 +1,6 @@
 import numpy as np
 
-from gbvision.models.contours import filter_contours, find_contours, sort_contours, contours_to_rotated_rects, \
+from gbvision.models.contours import FilterContours, find_contours, sort_contours, contours_to_rotated_rects, \
     contours_to_polygons
 from gbvision.tools.list_tools import split_list
 from .object_finder import ObjectFinder
@@ -19,13 +19,13 @@ class TargetPairFinder(ObjectFinder):
         :param vt_distance: the distance between the centers of both vision targets
         :param enclosing_rect_ratio: the ratio between the width and height of the parallel enclosing rect of the vision
         target
-        :param contour_min_area: the minimal area of a contour, used in filter_contours
+        :param contour_min_area: the minimal area of a contour, used in FilterContours
         """
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
-                               filter_contours(min_area=contour_min_area) +
+                               FilterContours(min_area=contour_min_area) +
                                sort_contours)
         self.__vector_distance = np.array([vt_distance / 2, 0, 0])
         self.vt_distance = vt_distance
@@ -44,9 +44,9 @@ class TargetPairFinder(ObjectFinder):
 
         left_targets_real, right_targets_real = [], []
         for i in left_targets:
-            left_targets_real.append(self.game_object.location3d_by_params(camera, np.sqrt(i[1][0] * i[1][1]), i[0]))
+            left_targets_real.append(self.game_object.location_by_params(camera, np.sqrt(i[1][0] * i[1][1]), i[0]))
         for i in right_targets:
-            right_targets_real.append(self.game_object.location3d_by_params(camera, np.sqrt(i[1][0] * i[1][1]), i[0]))
+            right_targets_real.append(self.game_object.location_by_params(camera, np.sqrt(i[1][0] * i[1][1]), i[0]))
 
         target_pairs = []
         i = 0

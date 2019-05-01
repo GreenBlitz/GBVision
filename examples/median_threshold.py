@@ -7,7 +7,7 @@ stdv = np.array([10, 30, 50])
 
 
 def main():
-    camera = gbv.USBCamera(1, gbv.UNKNOWN_CAMERA)
+    camera = gbv.USBCamera(0, gbv.UNKNOWN_CAMERA)
     camera.set_exposure(-1)
 
     while True:
