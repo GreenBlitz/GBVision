@@ -1,1 +1,3 @@
 *.pyc
+dist/
+gbvision.egg-info/
