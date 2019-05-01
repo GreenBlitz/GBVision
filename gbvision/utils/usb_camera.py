@@ -13,7 +13,7 @@ class USBCamera(cv2.VideoCapture, Camera):
         :param data: the camera data object that describes this camera
         """
         cv2.VideoCapture.__init__(self, port)
-        self._data = data
+        self._data = data.copy()
         self.port = port
 
     def is_opened(self) -> bool:

@@ -18,7 +18,7 @@ def crop(frame, x, y, w, h):
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame, stdv: int or float or np.ndarray = 5, box=None, color_encoding='BGR'):
+def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_encoding='BGR'):
     """
     finds a threshold using the median threshold method
     the median threshold method defines the lower bounds of the threshold as the median of a given region of the image
