@@ -15,7 +15,7 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     the broadcaster is the server and the receiver is the client
     """
 
-    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
+    def __init__(self, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
                  use_grayscale: bool = False,
                  max_fps: int = None):
         """
@@ -24,7 +24,7 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         :param im_encode: the type of image encoding to send over the network, default is .jpg (JPEG)
         for missing parameters, see documentation on StreamBroadcaster
         """
-        StreamBroadcaster.__init__(self, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
+        StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)

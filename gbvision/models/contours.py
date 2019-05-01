@@ -84,6 +84,20 @@ def contours_to_polygons(cnts):
     arc_lengts = map(lambda cnt: 0.05 * cv2.arcLength(cnt, True), cnts)
     return list(map(lambda cnt: cv2.approxPolyDP(cnt, next(arc_lengts), True), cnts))
 
+@PipeLine
+def fix_contours_shape(cnts):
+    """
+    fixes the contours to a usable shape
+    the shape of the contours is a list of tuples of integers/floats, where eahc tuple is a point
+    an example of two rectangles represented with this shape will be:
+    [[(0, 0), (0, 2), (1, 2), (1, 0)],
+    [(5, 4), (7, 4), (7, 9), (9, 5)]]
+    :param cnts: the contours / polygons list whose shape should be fixed
+    :return: a list of all the contours with the fixed shape
+    """
+    cnts = map(lambda polydp: map(lambda x: x[0], polydp), cnts)
+    return list(map(lambda polydp: list(map(tuple, polydp)), cnts))
+
 sort_polygons = sort_contours
 
 polygon_center = contour_center

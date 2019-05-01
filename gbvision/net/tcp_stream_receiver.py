@@ -13,13 +13,13 @@ class TCPStreamReceiver(StreamReceiver):
     the broadcaster is the server and the receiver is the client
     """
 
-    def __init__(self, ip: str, port: int, fx: float = 1.0, fy: float = 1.0):
+    def __init__(self, ip: str, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
         """
         initializes the stream receiver
         :param ip: the IPv4 address of the stream broadcaster, for example '10.45.90.8'
         :param port: the port which TCP should use
         """
-        StreamReceiver.__init__(self, fx=fx, fy=fy)
+        StreamReceiver.__init__(self, shape=shape, fx=fx, fy=fy)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.socket.connect(self.server_addr)

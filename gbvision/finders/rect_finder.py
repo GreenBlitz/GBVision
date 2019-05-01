@@ -10,11 +10,11 @@ class RectFinder(ObjectFinder):
     finds a rectangular shaped object
     """
 
-    def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=3.0):
+    def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=0):
         """
 
         :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
-        :param contour_min_area: the minimal area of a contour, used in FilterContours
+        :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
         """
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (EMPTY_PIPELINE +

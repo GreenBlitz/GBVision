@@ -15,7 +15,7 @@ class RecordingCameraWindow(Window):
     """
 
     def __init__(self, camera: Camera, file_name: str, window_name='stream', fps=20.0, exit_button='qQ',
-                 drawing_pipeline=EMPTY_PIPELINE):
+                 drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE):
         """
         initializes the stream window
         :param camera: the camera to display the window from
@@ -25,8 +25,10 @@ class RecordingCameraWindow(Window):
         :param exit_button: an array of keys (a string), when one of the keys are pressed the window will be closed
         :param window_name: the title of the window
         :param fps: the fps of the video file
+        :param recording_pipeline: optional, a drawing pipeline to run on the frames being recorded
         """
         Window.__init__(self, window_name, exit_button, drawing_pipeline)
+        self.recording_pipeline = recording_pipeline
         self.camera = camera
         self.file_name = file_name
 
@@ -47,7 +49,7 @@ class RecordingCameraWindow(Window):
         while True:
             ok, frame = self.camera.read()
             if ok:
-                video_writer.write(frame)
+                video_writer.write(self.recording_pipeline(frame))
                 cv2.imshow(self.window_name, self.drawing_pipeline(frame))
             k = chr(cv2.waitKey(1) & 0xFF)
             if k in self.exit_button:

@@ -15,7 +15,7 @@ class UDPStreamBroadcaster(StreamBroadcaster):
     WARNING: do not use this class to send large images, udp has a limited packet size
     """
 
-    def __init__(self, ip: str, port: int, fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
+    def __init__(self, ip: str, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
                  use_grayscale: bool = False, max_fps: int = None):
         """
         initializes a new udp stream broadcaster
@@ -23,7 +23,7 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         :param port: the port that UDP uses to send packets on
         :param im_encode: the type of image encoding to send over the network, default is '.jpg' (JPEG)
         """
-        StreamBroadcaster.__init__(self, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
+        StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.payload_size = struct.calcsize("I")

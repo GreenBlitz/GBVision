@@ -15,12 +15,12 @@ class UDPStreamReceiver(StreamReceiver):
     WARNING: do not use this class to send large images, udp has a limited packet size
     """
 
-    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0):
+    def __init__(self, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
         """
 
         :param port: the port which udp should use
         """
-        StreamReceiver.__init__(self, fx=fx, fy=fy)
+        StreamReceiver.__init__(self, shape=shape, fx=fx, fy=fy)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)

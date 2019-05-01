@@ -10,10 +10,10 @@ class CircleFinder(ObjectFinder):
     finds a circular shaped object, like a ball or a disk
     """
 
-    def __init__(self, threshold_func, game_object, contour_min_area=3.0):
+    def __init__(self, threshold_func, game_object, contour_min_area=0):
         """
         initializes the finder
-        :param contour_min_area: the minimal area of a contour, used in FilterContours
+        :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
         """
         ObjectFinder.__init__(self, threshold_func, game_object)
         self._full_pipeline = (EMPTY_PIPELINE +

@@ -1,4 +1,5 @@
 import numpy as np
+from copy import deepcopy
 
 
 class CameraData:
@@ -77,9 +78,6 @@ class CameraData:
         self.rotation_matrix = rotation_matrix
         self.offset = np.array([x_offset, y_offset, z_offset])
 
-    def __copy__(self):
-        return CameraData(self.focal_length, self.fov)
-
     def rotate_yaw(self, angle):
         sin, cos = np.sin(angle), np.cos(angle)
         self.rotation_matrix = self.rotation_matrix.dot(np.array([[cos, 0, sin],
@@ -101,4 +99,5 @@ class CameraData:
                                                                   [0, 0, 1]]))
         return self
 
-    copy = __copy__
+    def copy(self):
+        return deepcopy(self)

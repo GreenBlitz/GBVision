@@ -1,7 +1,7 @@
 import numpy as np
 
 from gbvision.models.contours import FilterContours, find_contours, sort_contours, contours_to_rotated_rects, \
-    contours_to_polygons
+    contours_to_polygons, fix_contours_shape
 from gbvision.tools.list_tools import split_list
 from .object_finder import ObjectFinder
 from gbvision.constants.system import EMPTY_PIPELINE
@@ -34,7 +34,7 @@ class TargetPairFinder(ObjectFinder):
     def __call__(self, frame, camera):
         cnts = self._full_pipeline(frame)
         rects = contours_to_rotated_rects(cnts)
-        polys = contours_to_polygons(cnts)
+        polys = fix_contours_shape(contours_to_polygons(cnts))
         rects_polys = zip(rects, polys)
         left_targets_polys, right_targets_polys = split_list(
             lambda rotated_rect: rotated_rect[0][2] < -45.0, rects_polys)
