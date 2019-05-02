@@ -1,4 +1,10 @@
+# python binary files
 *.pyc
+__pycache__/
+
+# library info
 dist/
-gbvision.egg-info/
+*.egg-info/
+
+# editor files
 .idea/
