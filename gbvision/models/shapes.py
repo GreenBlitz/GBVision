@@ -49,17 +49,7 @@ def convex_shape_collision(shape1, shape2):
     :param shape2: the second shape, as a contour
     :return:
     """
-    # shape1_lines = shape1 - np.roll(shape1, 1, axis=0)
-    # shape2_lines = shape2 - np.roll(shape2, 1, axis=0)
-    # shape1_normals = shape1_lines[:, :, ::-1].reshape(-1, 2, 1) * np.array([[1], [-1]])
-    # shape1_normals = shape1_normals.reshape(1, *shape1_normals.shape)
-    # shape2_normals = shape2_lines[:, :, ::-1].reshape(-1, 2, 1) * np.array([[1], [-1]])
-    # shape2_normals = shape2_normals.reshape(1, *shape2_normals.shape)
-    # dot1_1 = shape1.dot(shape1_normals)
-    # dot1_2 = shape1.dot(shape2_normals)
-    # dot2_1 = shape2.dot(shape1_normals)
-    # dot2_2 = shape2.dot(shape2_normals)
-
+    
     for shape in [shape1, shape2]:
         for idx, edge1 in enumerate(shape):
             edge2 = shape[idx % len(shape1)]
