@@ -3,7 +3,7 @@ import functools
 
 class PipeLine:
     """
-    a class representing a pipeline of function
+    a class representing a pipeline of functions
     each function receives one input, which is the output of the previous function in the pipeline
     pipelines are great for representing a long computer vision function (which is why such functions
     are called pipelines)
