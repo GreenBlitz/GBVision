@@ -32,9 +32,3 @@ class RectFinder(ObjectFinder):
             lambda rect: self.game_object.location_by_params(camera, self.area_scalar * np.sqrt(rect[2] * rect[3]),
                                                              [(rect[0] + rect[2]) / 2, (rect[1] + rect[3]) / 2]),
             rects))
-        # d = []
-        # for rect in rects:
-        #    area = self.area_scalar * np.sqrt(rect[2] * rect[3])
-        #    center = [(rect[0] + rect[2]) / 2, (rect[1] + rect[3]) / 2]
-        #    d.append(self.im_object.location_by_params(camera, area, center))
-        # return d
