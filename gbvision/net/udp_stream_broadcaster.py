@@ -1,7 +1,6 @@
 import pickle
 import socket
 import struct
-import time
 
 import cv2
 
@@ -31,15 +30,13 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         self.prev_time = 0
 
     def send_frame(self, frame):
-        if self.max_fps is not None and (time.time() - self.prev_time) * self.max_fps < 1:
+        if not self._legal_time():
             return
         if frame is not None:
-            frame = cv2.resize(frame, (0, 0), fx=self.fx, fy=self.fy)
-            if self.use_grayscale:
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frame = self._prep_frame(frame)
 
             frame = cv2.imencode(self.im_encode, frame)[1]
         data = pickle.dumps(frame)
         data = struct.pack("I", len(data)) + data
-        self.socket.sendto(data, self.server_addr)  # to(data, self.server_addr)
-        self.prev_time = time.time()
+        self.socket.sendto(data, self.server_addr)
+        self._update_time()

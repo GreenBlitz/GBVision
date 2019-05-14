@@ -42,4 +42,4 @@ class UDPStreamReceiver(StreamReceiver):
         if frame is None:
             return None
         frame = cv2.imdecode(frame, -1)
-        return cv2.resize(frame, (0, 0), fx=self.fx, fy=self.fy)
+        return self._prep_frame(frame)

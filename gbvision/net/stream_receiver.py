@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 from gbvision.exceptions import AbstractMethodCallingException
 
@@ -28,3 +29,17 @@ class StreamReceiver:
         :returns: the frame read as a numpy array
         """
         raise AbstractMethodCallingException()
+
+    def _prep_frame(self, frame):
+        """
+        prepares the frame to be returned and used
+        resize and convert to bgr channeled image
+        :param frame: the frame to be prepared
+        :return: the frame after preparations
+        """
+        if frame is None:
+            return frame
+        if len(frame.shape) < 3:
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+        frame = cv2.resize(frame, self.shape, fx=self.fx, fy=self.fy)
+        return frame

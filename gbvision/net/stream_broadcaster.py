@@ -1,5 +1,6 @@
 from gbvision.exceptions import AbstractMethodCallingException
-
+import cv2
+import time
 
 class StreamBroadcaster:
     """
@@ -24,6 +25,7 @@ class StreamBroadcaster:
         self.fy = fy
         self.use_grayscale = use_grayscale
         self.max_fps = max_fps
+        self.prev_time = 0.0
 
     def send_frame(self, frame):
         """
@@ -31,3 +33,28 @@ class StreamBroadcaster:
         :param frame: the frame to send
         """
         raise AbstractMethodCallingException()
+
+    def _prep_frame(self, frame):
+        """
+        prepares an image to be sent
+        resize and convert the colors of the image by the parameters of the stream broadcaster
+        :param frame: the frame to prepare
+        :return: the frame after preparation
+        """
+        frame = cv2.resize(frame, self.shape, fx=self.fx, fy=self.fy)
+        if self.use_grayscale and len(frame.shape) > 2:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        return frame
+
+    def _legal_time(self) -> bool:
+        """
+        checks if at the fps will not pass the max fps limit if an image will be sent at the current moment
+        :return: true if the image can be sent, false otherwise
+        """
+        return self.max_fps is None or (time.time() - self.prev_time) * self.max_fps >= 1
+
+    def _update_time(self):
+        """
+        updates the previous time a frame was sent, used at the end of send_frame
+        """
+        self.prev_time = time.time()

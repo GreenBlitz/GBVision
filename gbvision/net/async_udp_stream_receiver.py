@@ -8,8 +8,8 @@ class AsyncUDPStreamReceiver(UDPStreamReceiver):
     and also when the reading thread gets paused a lot
     for example when running a window that get's paused or moved around a lot
     """
-    def __init__(self, port: int, fx: float = 1.0, fy: float = 1.0):
-        UDPStreamReceiver.__init__(self, port, fx, fy)
+    def __init__(self, port: int, shape=(0, 0), fx=1.0, fy=1.0):
+        UDPStreamReceiver.__init__(self, port=port, shape=shape, fx=fx, fy=fy)
         self._frame = None
         self._thread = Thread(target=self._receive_thread_function)
         self._thread.start()

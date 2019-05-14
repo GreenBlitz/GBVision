@@ -8,7 +8,7 @@ from gbvision.utils.pipeline import PipeLine
 
 
 class DrawContours(PipeLine):
-    def __init__(self, threshold_func, color: (int, int, int), thickness=2, contours_process=EMPTY_PIPELINE):
+    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE):
         contour_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process
 
         def _draw(frame):
@@ -21,7 +21,7 @@ class DrawContours(PipeLine):
 
 
 class DrawCircles(PipeLine):
-    def __init__(self, threshold_func, color: (int, int, int), thickness=2, contours_process=EMPTY_PIPELINE,
+    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
                 circle_process=EMPTY_PIPELINE):
         circle_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_circles + \
                          circle_process
@@ -37,7 +37,7 @@ class DrawCircles(PipeLine):
 
 
 class DrawRects(PipeLine):
-    def __init__(self, threshold_func, color: (int, int, int), thickness=2, contours_process=EMPTY_PIPELINE,
+    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
               rects_process=EMPTY_PIPELINE):
         rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rects + \
                        rects_process
@@ -53,7 +53,7 @@ class DrawRects(PipeLine):
 
 
 class DrawRotatedRects(PipeLine):
-    def __init__(self, threshold_func, color: (int, int, int), thickness=2, contours_process=EMPTY_PIPELINE,
+    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
                      rotated_rects_process=EMPTY_PIPELINE):
         rotated_rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rotated_rects + \
                                rotated_rects_process
@@ -71,7 +71,7 @@ class DrawRotatedRects(PipeLine):
 
 
 class DrawEllipses(PipeLine):
-    def __init__(self, threshold_func, color: (int, int, int), thickness=2, contours_process=EMPTY_PIPELINE,
+    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
                  ellipses_process=EMPTY_PIPELINE):
         ellipses_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_ellipses + \
                                ellipses_process

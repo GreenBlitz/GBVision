@@ -1,7 +1,6 @@
 import pickle
 import socket
 import struct
-import time
 
 import cv2
 
@@ -15,9 +14,8 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     the broadcaster is the server and the receiver is the client
     """
 
-    def __init__(self, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
-                 use_grayscale: bool = False,
-                 max_fps: int = None):
+    def __init__(self, port: int, shape=(0, 0), fx=1.0, fy=1.0, im_encode='.jpg',
+                 use_grayscale=False, max_fps: int = None):
         """
         initializes the streamer
         :param port: the port which TCP will be using
@@ -32,18 +30,15 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         self.socket, addr = self.socket.accept()
         self.payload_size = struct.calcsize("I")
         self.im_encode = im_encode
-        self.prev_time = 0.0
 
     def send_frame(self, frame):
-        if self.max_fps is not None and (time.time() - self.prev_time) * self.max_fps < 1:
+        if not self._legal_time():
             return
         if frame is not None:
-            frame = cv2.resize(frame, (0, 0), fx=self.fx, fy=self.fy)
-            if self.use_grayscale:
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frame = self._prep_frame(frame)
 
             frame = cv2.imencode(self.im_encode, frame)[1]
         data = pickle.dumps(frame)
         data = struct.pack("I", len(data)) + data
-        self.socket.send(data)  # to(data, self.server_addr)
-        self.prev_time = time.time()
+        self.socket.send(data)
+        self._update_time()
