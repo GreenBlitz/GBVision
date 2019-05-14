@@ -12,7 +12,7 @@ class StreamWindow(Window):
     a basic window that displays the stream from a stream receiver
     """
 
-    def __init__(self, stream_receiver: StreamReceiver, window_name='stream', exit_button='qQ',
+    def __init__(self, stream_receiver: StreamReceiver, window_name: str, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the stream window

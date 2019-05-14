@@ -14,7 +14,7 @@ class RecordingCameraWindow(Window):
     a basic window that displays the stream from a stream receiver
     """
 
-    def __init__(self, camera: Camera, file_name: str, window_name='stream', fps=20.0, exit_button='qQ',
+    def __init__(self, camera: Camera, file_name: str, window_name: str, fps=20.0, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE):
         """
         initializes the stream window

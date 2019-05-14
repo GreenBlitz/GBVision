@@ -7,7 +7,8 @@ class FeedWindow:
     """
     a basic window class
     """
-    def __init__(self, window_name='feed', exit_button: str='qQ', drawing_pipeline=EMPTY_PIPELINE):
+
+    def __init__(self, window_name: str, exit_button: str = 'qQ', drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the window
         :param drawing_pipeline: optional, a pre-processing pipeline that draws on the frame before displaying it
@@ -44,5 +45,3 @@ class FeedWindow:
         closes this window
         """
         cv2.destroyWindow(self.window_name)
-
-

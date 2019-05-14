@@ -13,7 +13,7 @@ class RecordingFeedWindow(FeedWindow):
     a basic window that displays the stream from a stream receiver
     """
 
-    def __init__(self, file_name: str, window_name='stream', fps=20.0, exit_button='qQ',
+    def __init__(self, file_name: str, window_name: str, fps=20.0, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE):
         """
         initializes the feed window
@@ -45,4 +45,3 @@ class RecordingFeedWindow(FeedWindow):
             self.video_writer = cv2.VideoWriter(self.file_name, self.fourcc, self.fps, frame.shape[:2][::-1])
         self.video_writer.write(self.recording_pipeline(frame))
         return FeedWindow.show_frame(self, frame)
-

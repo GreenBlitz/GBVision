@@ -14,7 +14,7 @@ class RecordingStreamWindow(Window):
     a basic window that displays the stream from a stream receiver
     """
 
-    def __init__(self, stream_receiver: StreamReceiver, file_name: str, window_name='stream', fps=20.0,
+    def __init__(self, stream_receiver: StreamReceiver, file_name: str, window_name: str, fps=20.0,
                  exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE):
         """
         initializes the stream window
@@ -28,6 +28,7 @@ class RecordingStreamWindow(Window):
         :param recording_pipeline: optional, a drawing pipeline to run on each frame of the recorded video
         """
         Window.__init__(self, window_name, exit_button, drawing_pipeline)
+        self.recording_pipeline = recording_pipeline
         self.stream_receiver = stream_receiver
 
         self.file_name = file_name
@@ -50,7 +51,7 @@ class RecordingStreamWindow(Window):
             if frame is not None:
                 if video_writer is None:
                     video_writer = cv2.VideoWriter(self.file_name, self.fourcc, self.fps, frame.shape[:2][::-1])
-                video_writer.write(frame)
+                video_writer.write(self.recording_pipeline(frame))
                 cv2.imshow(self.window_name, self.drawing_pipeline(frame))
             k = chr(cv2.waitKey(1) & 0xFF)
             if k in self.exit_button:

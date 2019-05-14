@@ -12,7 +12,7 @@ class CameraWindow(Window):
     a basic window that displays a feed from a camera
     """
 
-    def __init__(self, camera: Camera, window_name='stream', exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE):
+    def __init__(self, camera: Camera, window_name: str, exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the stream window
         :param camera: the camera to display the window from
