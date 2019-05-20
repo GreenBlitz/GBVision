@@ -99,5 +99,17 @@ class CameraData:
                                                                   [0, 0, 1]]))
         return self
 
+    def move_x(self, x):
+        self.offset[0] += x
+        return self
+
+    def move_y(self, y):
+        self.offset[1] += y
+        return self
+
+    def move_z(self, z):
+        self.offset[2] += z
+        return self
+
     def copy(self):
         return deepcopy(self)
