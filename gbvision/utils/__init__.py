@@ -8,3 +8,4 @@ from .threshold_group import ThresholdGroup
 from .pipeline import PipeLine
 from .game_object import GameObject
 from .async_usb_camera import AsyncUSBCamera
+from .camera_list import CameraList

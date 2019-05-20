@@ -58,6 +58,7 @@ from .utils.camera import Camera
 from .utils.stream_camera import StreamCamera
 from .utils.camera_data import CameraData
 from .utils.usb_camera import USBCamera
+from .utils.camera_list import CameraList
 from .utils.usb_stream_camera import USBStreamCamera
 from .utils.async_usb_camera import AsyncUSBCamera
 from .utils.threshold import Threshold
