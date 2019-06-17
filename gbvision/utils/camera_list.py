@@ -21,7 +21,7 @@ class CameraList(StreamCamera):
             select_cam = 0
         self.camera: Camera or StreamCamera = self.cameras[select_cam] if select_cam is not None else None
 
-    def __getitem__(self, item: int):
+    def __getitem__(self, item: int) -> Camera:
         """
         returns the camera at the index
         :param item: the index
@@ -58,6 +58,9 @@ class CameraList(StreamCamera):
         :return: an iterator that iterates through all the cameras
         """
         return iter(self.cameras)
+
+    def __len__(self):
+        return len(self.cameras)
 
     def read(self, image=None, foreach=False):
         if foreach:

@@ -8,7 +8,7 @@ class CameraData:
     between the camera and an object seen in a frame
     """
 
-    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0):
+    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0, constant=False):
         """
 
         :param focal_length: the focal length of the camera at it's default state, in units of pixels
@@ -60,6 +60,7 @@ class CameraData:
         the z offset in which the camera is placed
         the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point
         this variable should be positive and if it is inner this should be negative
+        :param constant: determines whether the camera data object's values are immutable (True) or mutable (False)
         """
         self.focal_length = focal_length
         self.fov = fov
@@ -77,39 +78,48 @@ class CameraData:
                                                         [0, 0, 1]]))
         self.rotation_matrix = rotation_matrix
         self.offset = np.array([x_offset, y_offset, z_offset])
+        self.__is_immutable = constant
 
     def rotate_yaw(self, angle):
+        data = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
-        self.rotation_matrix = self.rotation_matrix.dot(np.array([[cos, 0, sin],
+        data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, 0, sin],
                                                                   [0, 1, 0],
                                                                   [-sin, 0, cos]]))
-        return self
+        return data
 
     def rotate_pitch(self, angle):
+        data = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
-        self.rotation_matrix = self.rotation_matrix.dot(np.array([[1, 0, 0],
+        data.rotation_matrix = data.rotation_matrix.dot(np.array([[1, 0, 0],
                                                                   [0, cos, -sin],
                                                                   [0, sin, cos]]))
-        return self
+        return data
 
     def rotate_roll(self, angle):
+        data = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
-        self.rotation_matrix = self.rotation_matrix.dot(np.array([[cos, -sin, 0],
+        data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, -sin, 0],
                                                                   [sin, cos, 0],
                                                                   [0, 0, 1]]))
-        return self
+        return data
 
     def move_x(self, x):
-        self.offset[0] += x
-        return self
+        data = self.copy() if self.__is_immutable else self
+        data.offset[0] += x
+        return data
 
     def move_y(self, y):
-        self.offset[1] += y
-        return self
+        data = self.copy() if self.__is_immutable else self
+        data.offset[1] += y
+        return data
 
     def move_z(self, z):
-        self.offset[2] += z
-        return self
+        data = self.copy() if self.__is_immutable else self
+        data.offset[2] += z
+        return data
 
     def copy(self):
-        return deepcopy(self)
+        copy = deepcopy(self)
+        copy.__is_immutable = False
+        return copy
