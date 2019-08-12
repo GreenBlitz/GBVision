@@ -1,7 +1,7 @@
 # constants
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
-from .constants.system import CONTOURS_INDEX, cv_config, EMPTY_PIPELINE
+from .constants.system import EMPTY_PIPELINE
 
 # exceptions
 from .exceptions.vision_warning import VisionWarning
@@ -75,4 +75,19 @@ from .utils.threshold_group import ThresholdGroup
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
 
+
+# configure opencv
+def cv_config():
+    """
+    configure some opencv stuff so that it doesn't cause problems
+    called automatically when importing gbvision, and does not need to be called by the user
+    """
+    import cv2
+    if cv2.__version__[0] == '2':
+        for i in filter(lambda attr: attr.startswith("CV_CAP_PROP"), dir(cv2.cv)):
+            object.__setattr__(cv2, i[3:], cv2.cv.__getattribute__(i))
+            cv2.__dict__[i[3:]] = cv2.cv.__dict__[i]
+
+
 cv_config()
+del cv_config
