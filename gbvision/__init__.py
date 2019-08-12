@@ -9,6 +9,8 @@ from .exceptions.vision_exception import VisionException
 from .exceptions.could_not_read_frame_exception import CouldNotReadFrameException
 from .exceptions.device_not_found_exception import DeviceNotFoundException
 from .exceptions.abstract_method_calling_exception import AbstractMethodCallingException
+from .exceptions.stream_closed import StreamClosed
+from .exceptions.tcp_stream_closed import TCPStreamClosed
 
 # finders
 from .finders.object_finder import ObjectFinder
@@ -27,6 +29,13 @@ from .gui.recording_camera_window import RecordingCameraWindow
 from .gui.recording_stream_window import RecordingStreamWindow
 from .gui.drawing_tools import DrawCircles, DrawContours, DrawEllipses, DrawRects, DrawRotatedRects
 from .gui.recording_feed_window import RecordingFeedWindow
+from .gui.drawing_functions import draw_ellipses, draw_rotated_rects, draw_rects, draw_circles, draw_contours
+from .gui.recording_wrapper_opencv_window import RecordingWrapperOpenCVWindow
+from .gui.recording_opencv_window import RecordingOpenCVWindow
+from .gui.recording_window import RecordingWindow
+from .gui.wrapper_opencv_window import WrapperOpenCVWindow
+from .gui.wrapper_window import WrapperWindow
+from .gui.opencv_window import OpenCVWindow
 
 # models
 from .models.basic_ops import corners, edges, sharpen, blur, blue, red, green, gray

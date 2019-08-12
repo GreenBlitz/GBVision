@@ -8,3 +8,5 @@ dist/
 
 # editor files
 .idea/
+
+*.avi

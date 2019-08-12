@@ -5,82 +5,52 @@ from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects,\
     contours_to_ellipses
 from gbvision.utils.pipeline import PipeLine
+from .drawing_functions import draw_contours, draw_circles, draw_rects, draw_rotated_rects, draw_ellipses
 
-
-class DrawContours(PipeLine):
-    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE):
-        contour_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process
-
+class _DrawObject(PipeLine):
+    def __init__(self, finding_func, color, drawing_func, *args, **kwargs):
         def _draw(frame):
-            frame = frame.copy()
-            cnts = contour_finding(frame)
-            cv2.drawContours(frame, cnts, -1, color, thickness)
-            return frame
+            return drawing_func(frame, finding_func(frame), color, *args, **kwargs)
 
         PipeLine.__init__(self, _draw)
 
+class DrawContours(_DrawObject):
+    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE, *args, **kwargs):
+        contour_finding = threshold_func + find_contours + contours_process
+        _DrawObject.__init__(contour_finding, color, draw_contours, *args, **kwargs)
 
-class DrawCircles(PipeLine):
-    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
-                circle_process=EMPTY_PIPELINE):
+
+class DrawCircles(_DrawObject):
+    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
+                circle_process=EMPTY_PIPELINE, *args, **kwargs):
         circle_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_circles + \
                          circle_process
 
-        def _draw(frame):
-            frame = frame.copy()
-            circs = circle_finding(frame)
-            for c in circs:
-                cv2.circle(frame, (int(c[0][0]), int(c[0][1])), int(c[1]), color, thickness)
-            return frame
-
-        PipeLine.__init__(self, _draw)
+        _DrawObject.__init__(self, circle_finding, color, draw_circles, *args, **kwargs)
 
 
-class DrawRects(PipeLine):
-    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
-              rects_process=EMPTY_PIPELINE):
+class DrawRects(_DrawObject):
+    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
+              rects_process=EMPTY_PIPELINE, *args, **kwargs):
         rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rects + \
                        rects_process
 
-        def _draw(frame):
-            frame = frame.copy()
-            rects = rect_finding(frame)
-            for r in rects:
-                cv2.rectangle(frame, (int(r[0]), int(r[1])), (int(r[0] + r[2]), int(r[1] + r[3])), color, thickness)
-            return frame
-
-        PipeLine.__init__(self, _draw)
+        _DrawObject.__init__(self, rect_finding, color, draw_rects, *args, **kwargs)
 
 
-class DrawRotatedRects(PipeLine):
-    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
-                     rotated_rects_process=EMPTY_PIPELINE):
+class DrawRotatedRects(_DrawObject):
+    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
+                     rotated_rects_process=EMPTY_PIPELINE, *args, **kwargs):
         rotated_rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rotated_rects + \
                                rotated_rects_process
 
-        def _draw(frame):
-            frame = frame.copy()
-            rotated_rects = rotated_rect_finding(frame)
-            for r in rotated_rects:
-                box = cv2.boxPoints(r)
-                box = np.int0(box)
-                cv2.drawContours(frame, [box], 0, color, thickness)
-            return frame
-
-        PipeLine.__init__(self, _draw)
+        _DrawObject.__init__(self, rotated_rect_finding, color, draw_rotated_rects, *args, **kwargs)
 
 
-class DrawEllipses(PipeLine):
-    def __init__(self, threshold_func, color, thickness=2, contours_process=EMPTY_PIPELINE,
-                 ellipses_process=EMPTY_PIPELINE):
+class DrawEllipses(_DrawObject):
+    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
+                 ellipses_process=EMPTY_PIPELINE, *args, **kwargs):
         ellipses_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_ellipses + \
                                ellipses_process
 
-        def _draw(frame):
-            frame = frame.copy()
-            ellipses = ellipses_finding(frame)
-            for e in ellipses:
-                cv2.ellipse(frame, e, color, thickness)
-            return frame
-
-        PipeLine.__init__(self, _draw)
+        _DrawObject.__init__(self, ellipses_finding, color, draw_ellipses, *args, **kwargs)

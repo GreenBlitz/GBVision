@@ -6,6 +6,7 @@ import cv2
 
 from gbvision.constants.net import LOCAL_SERVER_IP
 from .stream_broadcaster import StreamBroadcaster
+from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
 
 
 class TCPStreamBroadcaster(StreamBroadcaster):
@@ -40,5 +41,8 @@ class TCPStreamBroadcaster(StreamBroadcaster):
             frame = cv2.imencode(self.im_encode, frame)[1]
         data = pickle.dumps(frame)
         data = struct.pack("I", len(data)) + data
-        self.socket.send(data)
+        try:
+            self.socket.send(data)
+        except IOError:
+            raise TCPStreamClosed()
         self._update_time()

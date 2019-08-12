@@ -10,6 +10,7 @@ EMPTY_PIPELINE = PipeLine()
 def cv_config():
     """
     configure some opencv stuff so that it doesn't cause problems
+    called automatically when importing gbvision, and does not need to be called by the user
     """
     if cv2.__version__[0] == '2':
         for i in [attr for attr in dir(cv2.cv) if attr.startswith("CV_CAP_PROP")]:

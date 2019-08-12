@@ -5,6 +5,7 @@ import struct
 import cv2
 
 from .stream_receiver import StreamReceiver
+from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
 
 
 class TCPStreamReceiver(StreamReceiver):
@@ -27,8 +28,11 @@ class TCPStreamReceiver(StreamReceiver):
         self.data = b''
 
     def get_frame(self):
-        while len(self.data) < self.payload_size:
-            self.data += self.socket.recv(4096)
+        try:
+            while len(self.data) < self.payload_size:
+                self.data += self.socket.recv(4096)
+        except OSError:
+            raise TCPStreamClosed()
 
         packed_msg_size = self.data[:self.payload_size]
 
