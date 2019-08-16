@@ -10,7 +10,7 @@ def main():
     camera = gbv.USBCamera(0, gbv.LIFECAM_3000)
     threshold_function = THRESHOLD_CONST + gbv.MedianBlur(5)
     finder = gbv.RotatedRectFinder(threshold_function, OBJECT_CONST, contour_min_area=100)
-    window = gbv.CameraWindow('feed', drawing_pipeline=gbv.DrawRotatedRects(
+    window = gbv.CameraWindow('feed', camera, drawing_pipeline=gbv.DrawRotatedRects(
         threshold_func=threshold_function,
         color=(255, 0, 0),
         contours_process=gbv.FilterContours(1000),
