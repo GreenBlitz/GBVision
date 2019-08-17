@@ -14,19 +14,7 @@ class GameObject:
         """
         self.area = area
 
-    def distance_by_pipeline(self, camera: Camera, pipeline, frame=None):
-        """
-        Note: this measures the distance between the camera and the object, to use another measuring point
-        calculate the norm of the location
-        :param camera: the camera, can be either Camera or CameraList
-        :param pipeline: a pipeline that returns a float representing the square root of the area of the object
-        (in pixels)
-        :param frame: optional, a frame to be used instead of the next image from the camera
-        :return: the norm of the vector between the camera and the object (in meters)
-        """
-        return self.distance_by_params(camera, pipeline(camera.read()[1] if frame is None else frame))
-
-
+        
     def distance_by_contours(self, camera: Camera, cnt):
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
@@ -50,18 +38,6 @@ class GameObject:
         return camera.data.focal_length * self.area / area
 
 
-    def location_by_pipeline(self, camera: Camera, pipeline, frame=None):
-        """
-        calculates the 2d location [x z] between the object and the camera
-        :param camera: the camera, can be either Camera or CameraList
-        :param pipeline: a pipeline that returns the contour of the object
-        :param frame: optional, a frame to be used instead of the next image from the camera
-        :return: a 3d vector of the relative [x y z] location between the object and the camera (in meters)
-        """
-        frame = camera.read() if frame is None else frame
-        cnt = pipeline(frame)
-        return self.location_by_contours(camera, cnt)
-
     def location_by_contours(self, camera: Camera, cnt):
         """
         :param camera: the camera, can be either Camera or CameraList
@@ -70,6 +46,7 @@ class GameObject:
         """
         return self.location_by_params(camera, np.sqrt(cv2.contourArea(cnt)), contour_center(cnt))
 
+    
     def location_by_params(self, camera: Camera, area: float, center: (float or int, float or int)):
         """
         :param camera: the camera, can be either Camera or CameraList
