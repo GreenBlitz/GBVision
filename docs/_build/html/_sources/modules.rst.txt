@@ -5,4 +5,4 @@ GBVision
    :maxdepth: 4
 
    gbvision
-   setup
+

@@ -9,7 +9,8 @@ Welcome to GBvision's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   /gbvision
+   
+   modules
 
   
 
