@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbvision.net package &#8212; GBvision  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbvision.tools package" href="gbvision.tools.html" />
+    <link rel="prev" title="gbvision.models package" href="gbvision.models.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="gbvision-net-package">
+<h1>gbvision.net package<a class="headerlink" href="#gbvision-net-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.net.async_tcp_stream_receiver">
+<span id="gbvision-net-async-tcp-stream-receiver-module"></span><h2>gbvision.net.async_tcp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.async_tcp_stream_receiver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.async_tcp_stream_receiver.</code><code class="sig-name descname">AsyncTCPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">ip: str</em>, <em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx=1.0</em>, <em class="sig-param">fy=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.tcp_stream_receiver.TCPStreamReceiver" title="gbvision.net.tcp_stream_receiver.TCPStreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.tcp_stream_receiver.TCPStreamReceiver</span></code></a></p>
+<p>a tcp streamer that reads from the socket on another thread
+recommended for use when multiple threads are reading from the streamer at the same time
+and also when the reading thread gets paused a lot
+for example when running a window that get’s paused or moved around a lot</p>
+<dl class="method">
+<dt id="gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in
+:returns: the frame read as a numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.async_udp_stream_receiver">
+<span id="gbvision-net-async-udp-stream-receiver-module"></span><h2>gbvision.net.async_udp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.async_udp_stream_receiver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.async_udp_stream_receiver.</code><code class="sig-name descname">AsyncUDPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx=1.0</em>, <em class="sig-param">fy=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.udp_stream_receiver.UDPStreamReceiver" title="gbvision.net.udp_stream_receiver.UDPStreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.udp_stream_receiver.UDPStreamReceiver</span></code></a></p>
+<p>a udp streamer that reads from the socket on another thread
+recommended for use when multiple threads are reading from the streamer at the same time
+and also when the reading thread gets paused a lot
+for example when running a window that get’s paused or moved around a lot</p>
+<dl class="method">
+<dt id="gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in
+:returns: the frame read as a numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.stream_broadcaster">
+<span id="gbvision-net-stream-broadcaster-module"></span><h2>gbvision.net.stream_broadcaster module<a class="headerlink" href="#module-gbvision.net.stream_broadcaster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.stream_broadcaster.StreamBroadcaster">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.stream_broadcaster.</code><code class="sig-name descname">StreamBroadcaster</code><span class="sig-paren">(</span><em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em>, <em class="sig-param">use_grayscale: bool = False</em>, <em class="sig-param">max_fps: int = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_broadcaster.StreamBroadcaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>this is an abstract broadcaster that sends stream to a broadcast receiver
+this class should not be instanced but inherited from</p>
+<dl class="method">
+<dt id="gbvision.net.stream_broadcaster.StreamBroadcaster.send_frame">
+<code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_broadcaster.StreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>sends the given frame to the stream receiver
+:param frame: the frame to send</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.stream_receiver">
+<span id="gbvision-net-stream-receiver-module"></span><h2>gbvision.net.stream_receiver module<a class="headerlink" href="#module-gbvision.net.stream_receiver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.stream_receiver.StreamReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.stream_receiver.</code><code class="sig-name descname">StreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_receiver.StreamReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>this is an abstract receiver that receives stream from a broadcast receiver
+this class should not be instanced but inherited from</p>
+<dl class="method">
+<dt id="gbvision.net.stream_receiver.StreamReceiver.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.net.stream_receiver.StreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in
+:returns: the frame read as a numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.tcp_stream_broadcaster">
+<span id="gbvision-net-tcp-stream-broadcaster-module"></span><h2>gbvision.net.tcp_stream_broadcaster module<a class="headerlink" href="#module-gbvision.net.tcp_stream_broadcaster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.tcp_stream_broadcaster.</code><code class="sig-name descname">TCPStreamBroadcaster</code><span class="sig-paren">(</span><em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx=1.0</em>, <em class="sig-param">fy=1.0</em>, <em class="sig-param">im_encode='.jpg'</em>, <em class="sig-param">use_grayscale=False</em>, <em class="sig-param">max_fps: int = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_broadcaster.StreamBroadcaster" title="gbvision.net.stream_broadcaster.StreamBroadcaster"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_broadcaster.StreamBroadcaster</span></code></a></p>
+<p>this class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
+the broadcaster is the server and the receiver is the client</p>
+<dl class="method">
+<dt id="gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster.send_frame">
+<code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>sends the given frame to the stream receiver
+:param frame: the frame to send</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.tcp_stream_receiver">
+<span id="gbvision-net-tcp-stream-receiver-module"></span><h2>gbvision.net.tcp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.tcp_stream_receiver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.tcp_stream_receiver.TCPStreamReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.tcp_stream_receiver.</code><code class="sig-name descname">TCPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">ip: str</em>, <em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_receiver.TCPStreamReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_receiver.StreamReceiver" title="gbvision.net.stream_receiver.StreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_receiver.StreamReceiver</span></code></a></p>
+<p>this class uses TCP to receive a stream over the network, the stream is by default set to be MJPEG
+the broadcaster is the server and the receiver is the client</p>
+<dl class="method">
+<dt id="gbvision.net.tcp_stream_receiver.TCPStreamReceiver.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_receiver.TCPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in
+:returns: the frame read as a numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.udp_stream_broadcaster">
+<span id="gbvision-net-udp-stream-broadcaster-module"></span><h2>gbvision.net.udp_stream_broadcaster module<a class="headerlink" href="#module-gbvision.net.udp_stream_broadcaster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.udp_stream_broadcaster.</code><code class="sig-name descname">UDPStreamBroadcaster</code><span class="sig-paren">(</span><em class="sig-param">ip: str</em>, <em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em>, <em class="sig-param">im_encode: str = '.jpg'</em>, <em class="sig-param">use_grayscale: bool = False</em>, <em class="sig-param">max_fps: int = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_broadcaster.StreamBroadcaster" title="gbvision.net.stream_broadcaster.StreamBroadcaster"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_broadcaster.StreamBroadcaster</span></code></a></p>
+<p>this class uses UDP to send a stream over the network, the stream is by default set to be MJPEG
+the broadcaster is the client and the receiver is the server
+WARNING: do not use this class to send large images, udp has a limited packet size</p>
+<dl class="method">
+<dt id="gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster.send_frame">
+<code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>sends the given frame to the stream receiver
+:param frame: the frame to send</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net.udp_stream_receiver">
+<span id="gbvision-net-udp-stream-receiver-module"></span><h2>gbvision.net.udp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.udp_stream_receiver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.net.udp_stream_receiver.UDPStreamReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.udp_stream_receiver.</code><code class="sig-name descname">UDPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_receiver.UDPStreamReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_receiver.StreamReceiver" title="gbvision.net.stream_receiver.StreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_receiver.StreamReceiver</span></code></a></p>
+<p>this class uses UDP to receive a stream over the network, the stream is by default set to be MJPEG
+the broadcaster is the client and the receiver is the server
+WARNING: do not use this class to send large images, udp has a limited packet size</p>
+<dl class="method">
+<dt id="gbvision.net.udp_stream_receiver.UDPStreamReceiver.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_receiver.UDPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in
+:returns: the frame read as a numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.net">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.net" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBvision</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">GBVision</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gbvision.html">gbvision package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">GBVision</a><ul>
+  <li><a href="gbvision.html">gbvision package</a><ul>
+      <li>Previous: <a href="gbvision.models.html" title="previous chapter">gbvision.models package</a></li>
+      <li>Next: <a href="gbvision.tools.html" title="next chapter">gbvision.tools package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, GreenBlitz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/gbvision.net.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
