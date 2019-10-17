@@ -8,7 +8,7 @@ from gbvision.net.stream_receiver import StreamReceiver
 
 class AsyncStreamReceiver(StreamReceiver, abc.ABC):
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
-        StreamReceiver.__init__(shape, fx, fy)
+        StreamReceiver.__init__(self, shape, fx, fy)
         self.__frame = None
         self.__thread = Thread(target=self.__receive_thread_function)
         self.__thread.start()
