@@ -3,6 +3,8 @@ from threading import Thread
 from typing import Tuple
 
 import numpy as np
+
+from gbvision.constants.types import Frame
 from .camera import Camera
 
 
@@ -22,29 +24,28 @@ class AsyncCamera(Camera, abc.ABC):
         return self.__ok, self.__frame
 
     @abc.abstractmethod
-    def _async_read(self) -> Tuple[bool, np.ndarray]:
+    def _read(self) -> Tuple[bool, Frame]:
         """
-        reads asynchronously from the camera
+        reads from the camera synchronously (similar to Camera.read), unsafe, not to use by the programmer
         :return: tuple of bool (indicates if read was successful) and the frame (if successful, else None)
         """
         pass
 
     def __async_read_wrapper(self):
         while self.is_opened():
-            self.__ok, self.__frame = self._async_read()
+            self.__ok, self.__frame = self._read()
 
     @staticmethod
     def create_type(camera_class) -> type:
         """
         creates a new class that is similar to the given class, but has the async feature
-        the constructor of the new class is the same as the given class, but adds a new parameter at the beginning
-        the first parameter to the new constructor is a stream broadcaster
+        the constructor of the new class is the same as the given class
         :param camera_class: the class to wrap
         :return: the wrapped class as a type that can be instanced
         """
 
         class _AsyncCamera(AsyncCamera, camera_class):
-            def _async_read(self):
+            def _read(self):
                 return camera_class.read(self)
 
             def __init__(self, *args, **kwargs):
