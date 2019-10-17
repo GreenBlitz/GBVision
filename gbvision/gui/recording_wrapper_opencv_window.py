@@ -1,9 +1,11 @@
+from abc import ABC
+
 from .recording_opencv_window import RecordingOpenCVWindow
 from .wrapper_opencv_window import WrapperOpenCVWindow
 from gbvision.constants.system import EMPTY_PIPELINE
 
 
-class RecordingWrapperOpenCVWindow(RecordingOpenCVWindow, WrapperOpenCVWindow):
+class RecordingWrapperOpenCVWindow(RecordingOpenCVWindow, WrapperOpenCVWindow, ABC):
     def __init__(self, window_name: str, wrap_object, file_name: str, fps=20.0, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE, width=0, height=0):
         RecordingOpenCVWindow.__init__(self, window_name, file_name=file_name, fps=fps,

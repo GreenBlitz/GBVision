@@ -1,4 +1,5 @@
 import sys
+from typing import Union
 from functools import reduce
 
 import cv2

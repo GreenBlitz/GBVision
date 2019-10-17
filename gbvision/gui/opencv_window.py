@@ -1,8 +1,11 @@
+from abc import ABC
+
 from .window import Window
 import cv2
 from gbvision.constants.system import EMPTY_PIPELINE
 
-class OpenCVWindow(Window):
+
+class OpenCVWindow(Window, ABC):
 
     def __init__(self, window_name: str, exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE, flags=cv2.WINDOW_FREERATIO):
         Window.__init__(self, window_name=window_name, drawing_pipeline=drawing_pipeline)

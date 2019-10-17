@@ -1,11 +1,14 @@
-import cv2
-import numpy as np
+from typing import Union
+
+from gbvision.constants.types import Color
+from gbvision.utils.threshold import Threshold
 
 from gbvision.constants.system import EMPTY_PIPELINE
-from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects,\
+from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects, \
     contours_to_ellipses
 from gbvision.utils.pipeline import PipeLine
 from .drawing_functions import draw_contours, draw_circles, draw_rects, draw_rotated_rects, draw_ellipses
+
 
 class _DrawObject(PipeLine):
     def __init__(self, finding_func, color, drawing_func, *args, **kwargs):
@@ -14,15 +17,22 @@ class _DrawObject(PipeLine):
 
         PipeLine.__init__(self, _draw)
 
+
 class DrawContours(_DrawObject):
-    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE, *args, **kwargs):
+    """
+    a pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing
+    """
+    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE, *args, **kwargs):
         contour_finding = threshold_func + find_contours + contours_process
         _DrawObject.__init__(contour_finding, color, draw_contours, *args, **kwargs)
 
 
 class DrawCircles(_DrawObject):
-    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
-                circle_process=EMPTY_PIPELINE, *args, **kwargs):
+    """
+    a pipeline that draws all circles according to the given parameters, and returns a copy of the frame after drawing
+    """
+    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE,
+                 circle_process=EMPTY_PIPELINE, *args, **kwargs):
         circle_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_circles + \
                          circle_process
 
@@ -30,8 +40,11 @@ class DrawCircles(_DrawObject):
 
 
 class DrawRects(_DrawObject):
-    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
-              rects_process=EMPTY_PIPELINE, *args, **kwargs):
+    """
+    a pipeline that draws all rects according to the given parameters, and returns a copy of the frame after drawing
+    """
+    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE,
+                 rects_process=EMPTY_PIPELINE, *args, **kwargs):
         rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rects + \
                        rects_process
 
@@ -39,8 +52,11 @@ class DrawRects(_DrawObject):
 
 
 class DrawRotatedRects(_DrawObject):
-    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
-                     rotated_rects_process=EMPTY_PIPELINE, *args, **kwargs):
+    """
+    a pipeline that draws all rotated rects according to the given parameters, and returns a copy of the frame after drawing
+    """
+    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE,
+                 rotated_rects_process=EMPTY_PIPELINE, *args, **kwargs):
         rotated_rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rotated_rects + \
                                rotated_rects_process
 
@@ -48,9 +64,12 @@ class DrawRotatedRects(_DrawObject):
 
 
 class DrawEllipses(_DrawObject):
-    def __init__(self, threshold_func, color, contours_process=EMPTY_PIPELINE,
+    """
+    a pipeline that draws all ellipses according to the given parameters, and returns a copy of the frame after drawing
+    """
+    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE,
                  ellipses_process=EMPTY_PIPELINE, *args, **kwargs):
         ellipses_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_ellipses + \
-                               ellipses_process
+                           ellipses_process
 
         _DrawObject.__init__(self, ellipses_finding, color, draw_ellipses, *args, **kwargs)

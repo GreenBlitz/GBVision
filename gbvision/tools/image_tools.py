@@ -5,7 +5,7 @@ from gbvision.constants.images import COLOR_TYPE
 from gbvision.utils.threshold import Threshold
 
 
-def crop(frame, x, y, w, h):
+def crop(frame, x, y, w, h) -> np.ndarray:
     """
     crops the image from (x, y) to (x+w, y+h)
     :param frame: the frame to crop
@@ -18,7 +18,7 @@ def crop(frame, x, y, w, h):
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_encoding='BGR'):
+def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_encoding='BGR') -> Threshold:
     """
     finds a threshold using the median threshold method
     the median threshold method defines the lower bounds of the threshold as the median of a given region of the image

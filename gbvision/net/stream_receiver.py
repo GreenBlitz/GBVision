@@ -1,10 +1,10 @@
+import abc
+
 import numpy as np
 import cv2
 
-from gbvision.exceptions import AbstractMethodCallingException
 
-
-class StreamReceiver:
+class StreamReceiver(abc.ABC):
     """
     this is an abstract receiver that receives stream from a broadcast receiver
     this class should not be instanced but inherited from
@@ -23,12 +23,13 @@ class StreamReceiver:
         self.fx = fx
         self.fy = fy
 
+    @abc.abstractmethod
     def get_frame(self) -> np.ndarray:
         """
         reads a frame from the stream and returns in
         :returns: the frame read as a numpy array
         """
-        raise AbstractMethodCallingException()
+        pass
 
     def _prep_frame(self, frame):
         """
