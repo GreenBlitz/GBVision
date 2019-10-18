@@ -42,26 +42,44 @@
 <dl class="function">
 <dt id="gbvision.tools.finding_tools.distance_from_object">
 <code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">distance_from_object</code><span class="sig-paren">(</span><em class="sig-param">loc</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#gbvision.tools.finding_tools.distance_from_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>the absolute distance from the camera to this object
-:param loc: the object’s location (2d or 3d)
-:returns: the absolute distance (float)</p>
+<dd><p>the absolute distance from the camera to this object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the object’s location (2d or 3d)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the absolute distance (float)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="gbvision.tools.finding_tools.plane_angle_by_location">
 <code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">plane_angle_by_location</code><span class="sig-paren">(</span><em class="sig-param">loc</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#gbvision.tools.finding_tools.plane_angle_by_location" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculates the angle from the camera to the object’s projection on the x-z plane (y=0 plane)
-:param loc: the 3d location
-:return: the angle (in radians)</p>
+<dd><p>calculates the angle from the camera to the object’s projection on the x-z plane (y=0 plane)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the 3d location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the angle (in radians)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="gbvision.tools.finding_tools.plane_distance_from_object">
 <code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">plane_distance_from_object</code><span class="sig-paren">(</span><em class="sig-param">loc</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#gbvision.tools.finding_tools.plane_distance_from_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculates the distance from the object’s projection on the x-z plane (y=0 plane)
-the distance on the y axis is ignored in this calculation
-:param loc: the 3d location
-:return: the distance without regarding the y axis</p>
+the distance on the y axis is ignored in this calculation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the 3d location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the distance without regarding the y axis</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -69,31 +87,47 @@ the distance on the y axis is ignored in this calculation
 <span id="gbvision-tools-image-tools-module"></span><h2>gbvision.tools.image_tools module<a class="headerlink" href="#module-gbvision.tools.image_tools" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="gbvision.tools.image_tools.crop">
-<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">w</em>, <em class="sig-param">h</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.tools.image_tools.crop" title="Permalink to this definition">¶</a></dt>
-<dd><p>crops the image from (x, y) to (x+w, y+h)
-:param frame: the frame to crop
-:param x: the x coordinate to crop from
-:param y: the y coordinate to crop from
-:param w: the width of the cropped image
-:param h: the height of the cropped image
-:return: the cropped image</p>
+<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">w</em>, <em class="sig-param">h</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.tools.image_tools.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>crops the image from (x, y) to (x+w, y+h)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to crop</p></li>
+<li><p><strong>x</strong> – the x coordinate to crop from</p></li>
+<li><p><strong>y</strong> – the y coordinate to crop from</p></li>
+<li><p><strong>w</strong> – the width of the cropped image</p></li>
+<li><p><strong>h</strong> – the height of the cropped image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the cropped image</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="gbvision.tools.image_tools.median_threshold">
-<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">median_threshold</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">stdv: int</em>, <em class="sig-param">box=None</em>, <em class="sig-param">color_encoding='BGR'</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.tools.image_tools.median_threshold" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">median_threshold</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">stdv: int</em>, <em class="sig-param">box=None</em>, <em class="sig-param">color_encoding='BGR'</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.threshold.Threshold<a class="headerlink" href="#gbvision.tools.image_tools.median_threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>finds a threshold using the median threshold method
 the median threshold method defines the lower bounds of the threshold as the median of a given region of the image
 minus some deviation variable, and the upper bounds as the same median plus the deviation variable
 in a mathematical term, the threshold is defined to be [median(X) - V, median(X) + V] where X is the frame region
-and V is the deviation variable
-:param frame: the frame
-:param stdv: the deviation variable, can be a scalar (same deviation for every channel) or a numpy array with the
-same size as the number of channels in the threshold, the deviation will be defined for each channel separately
-:param box: optional, a sub region of the frame from which the median is calculated, when set to None the median is
-calculated from the entire frame
-:param color_encoding: the type of color encoding the threshold should use, default is BGR
-:return: a Threshold object</p>
+and V is the deviation variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame</p></li>
+<li><p><strong>stdv</strong> – the deviation variable, can be a scalar (same deviation for every channel) or a numpy array with the
+same size as the number of channels in the threshold, the deviation will be defined for each channel separately</p></li>
+<li><p><strong>box</strong> – optional, a sub region of the frame from which the median is calculated, when set to None the median is
+calculated from the entire frame</p></li>
+<li><p><strong>color_encoding</strong> – the type of color encoding the threshold should use, default is BGR</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a Threshold object</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -102,13 +136,21 @@ calculated from the entire frame
 <dl class="function">
 <dt id="gbvision.tools.list_tools.split_list">
 <code class="sig-prename descclassname">gbvision.tools.list_tools.</code><code class="sig-name descname">split_list</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">lst</em>, <em class="sig-param">amount=2</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.tools.list_tools.split_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>splits the list into several list according to the function f
-:param lst: the list to split
-:param f: a function which maps from an argument to the index of the list it should go to
+<dd><p>splits the list into several list according to the function f</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> – the list to split</p></li>
+<li><p><strong>f</strong> – a function which maps from an argument to the index of the list it should go to
 for example if we wanted a function to split a list into a list of positive and negative number f could look like
-lambda x: int(x &gt;= 0)
-:param amount: the amount of lists to split the data to (2 by default)
-:return: a tuple of all the lists created,</p>
+lambda x: int(x &gt;= 0)</p></li>
+<li><p><strong>amount</strong> – the amount of lists to split the data to (2 by default)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a tuple of all the lists created,</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

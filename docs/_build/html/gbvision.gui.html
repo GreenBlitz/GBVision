@@ -45,7 +45,7 @@
 <dd><p>Bases: <a class="reference internal" href="#gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow" title="gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow</span></code></a></p>
 <p>a basic window that displays a feed from a camera
 in this class, self.wrap_object will be of type Camera
-:type gbvision.Camera:</p>
+:type self.wrap_object: gbvision.Camera</p>
 </dd></dl>
 
 </div>
@@ -53,60 +53,140 @@ in this class, self.wrap_object will be of type Camera
 <span id="gbvision-gui-drawing-functions-module"></span><h2>gbvision.gui.drawing_functions module<a class="headerlink" href="#module-gbvision.gui.drawing_functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="gbvision.gui.drawing_functions.draw_circles">
-<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_circles</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">circs</em>, <em class="sig-param">color</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_functions.draw_circles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_circles</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray, circs: List[Tuple[Tuple[float, float], float]], color: Tuple[int, int, int], *args, **kwargs</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.drawing_functions.draw_circles" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws all circles on a copy of the frame and returns the copy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to draw on</p></li>
+<li><p><strong>circs</strong> – the circles to draw</p></li>
+<li><p><strong>color</strong> – the color to draw in</p></li>
+<li><p><strong>args</strong> – all extra args to opencv’s circle (for example thickness)</p></li>
+<li><p><strong>kwargs</strong> – all extra keyword args to opencv’s circle (for example thickness)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a copy of the frame, after drawing</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="gbvision.gui.drawing_functions.draw_contours">
-<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">cnts</em>, <em class="sig-param">color</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_functions.draw_contours" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray, cnts: List[numpy.ndarray], color: Tuple[int, int, int], *args, **kwargs</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.drawing_functions.draw_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws all contours on a copy of the frame and returns the copy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to draw on</p></li>
+<li><p><strong>cnts</strong> – the contours to draw</p></li>
+<li><p><strong>color</strong> – the color to draw in</p></li>
+<li><p><strong>args</strong> – all extra args to opencv’s  drawContours (for example thickness)</p></li>
+<li><p><strong>kwargs</strong> – all extra keyword args to opencv’s  drawContours (for example thickness)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a copy of the frame, after drawing</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="gbvision.gui.drawing_functions.draw_ellipses">
-<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_ellipses</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">ellipses</em>, <em class="sig-param">color</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_functions.draw_ellipses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_ellipses</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray, ellipses: List[Tuple[Tuple[float, float], Tuple[float, float], float]], color: Tuple[int, int, int], *args, **kwargs</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.drawing_functions.draw_ellipses" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws all contours on a copy of the frame and returns the copy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to draw on</p></li>
+<li><p><strong>ellipses</strong> – the ellipses to draw</p></li>
+<li><p><strong>color</strong> – the color to draw in</p></li>
+<li><p><strong>args</strong> – all extra args to opencv’s ellipse (for example thickness)</p></li>
+<li><p><strong>kwargs</strong> – all extra keyword args to opencv’s ellipse (for example thickness)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a copy of the frame, after drawing</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="gbvision.gui.drawing_functions.draw_rects">
-<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_rects</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">rects</em>, <em class="sig-param">color</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_functions.draw_rects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_rects</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray, rects: List[Tuple[float, float, float, float]], color: Tuple[int, int, int], *args, **kwargs</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.drawing_functions.draw_rects" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws all rects on a copy of the frame and returns the copy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to draw on</p></li>
+<li><p><strong>rects</strong> – the rects to draw</p></li>
+<li><p><strong>color</strong> – the color to draw in</p></li>
+<li><p><strong>args</strong> – all extra args to opencv’s rectangle (for example thickness)</p></li>
+<li><p><strong>kwargs</strong> – all extra keyword args to opencv’s rectangle (for example thickness)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a copy of the frame, after drawing</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="gbvision.gui.drawing_functions.draw_rotated_rects">
-<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_rotated_rects</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">rotated_rects</em>, <em class="sig-param">color</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_functions.draw_rotated_rects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">gbvision.gui.drawing_functions.</code><code class="sig-name descname">draw_rotated_rects</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray, rotated_rects: List[Tuple[Tuple[float, float], Tuple[float, float], float]], color: Tuple[int, int, int], *args, **kwargs</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.drawing_functions.draw_rotated_rects" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws all rotated rects on a copy of the frame and returns the copy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to draw on</p></li>
+<li><p><strong>rotated_rects</strong> – the rotated rects to draw</p></li>
+<li><p><strong>color</strong> – the color to draw in</p></li>
+<li><p><strong>args</strong> – all extra args to opencv’s drawContours (for example thickness)</p></li>
+<li><p><strong>kwargs</strong> – all extra keyword args to opencv’s drawContours (for example thickness)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a copy of the frame, after drawing</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-gbvision.gui.drawing_tools">
 <span id="gbvision-gui-drawing-tools-module"></span><h2>gbvision.gui.drawing_tools module<a class="headerlink" href="#module-gbvision.gui.drawing_tools" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="gbvision.gui.drawing_tools.DrawCircles">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawCircles</code><span class="sig-paren">(</span><em class="sig-param">threshold_func</em>, <em class="sig-param">color</em>, <em class="sig-param">contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">circle_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawCircles" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawCircles</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Union[gbvision.utils.threshold.Threshold, gbvision.utils.pipeline.PipeLine], color: Tuple[int, int, int], contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, circle_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, *args, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawCircles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.drawing_tools._DrawObject</span></code></p>
+<p>a pipeline that draws all circles according to the given parameters, and returns a copy of the frame after drawing</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="gbvision.gui.drawing_tools.DrawContours">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawContours</code><span class="sig-paren">(</span><em class="sig-param">threshold_func</em>, <em class="sig-param">color</em>, <em class="sig-param">contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawContours" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawContours</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Union[gbvision.utils.threshold.Threshold, gbvision.utils.pipeline.PipeLine], color: Tuple[int, int, int], contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, *args, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawContours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.drawing_tools._DrawObject</span></code></p>
+<p>a pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="gbvision.gui.drawing_tools.DrawEllipses">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawEllipses</code><span class="sig-paren">(</span><em class="sig-param">threshold_func</em>, <em class="sig-param">color</em>, <em class="sig-param">contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">ellipses_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawEllipses" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawEllipses</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Union[gbvision.utils.threshold.Threshold, gbvision.utils.pipeline.PipeLine], color: Tuple[int, int, int], contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, ellipses_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, *args, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawEllipses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.drawing_tools._DrawObject</span></code></p>
+<p>a pipeline that draws all ellipses according to the given parameters, and returns a copy of the frame after drawing</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="gbvision.gui.drawing_tools.DrawRects">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawRects</code><span class="sig-paren">(</span><em class="sig-param">threshold_func</em>, <em class="sig-param">color</em>, <em class="sig-param">contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawRects" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawRects</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Union[gbvision.utils.threshold.Threshold, gbvision.utils.pipeline.PipeLine], color: Tuple[int, int, int], contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, *args, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawRects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.drawing_tools._DrawObject</span></code></p>
+<p>a pipeline that draws all rects according to the given parameters, and returns a copy of the frame after drawing</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="gbvision.gui.drawing_tools.DrawRotatedRects">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawRotatedRects</code><span class="sig-paren">(</span><em class="sig-param">threshold_func</em>, <em class="sig-param">color</em>, <em class="sig-param">contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">rotated_rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawRotatedRects" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.drawing_tools.</code><code class="sig-name descname">DrawRotatedRects</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Union[gbvision.utils.threshold.Threshold, gbvision.utils.pipeline.PipeLine], color: Tuple[int, int, int], contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, rotated_rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, *args, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.drawing_tools.DrawRotatedRects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.drawing_tools._DrawObject</span></code></p>
+<p>a pipeline that draws all rotated rects according to the given parameters, and returns a copy of the frame after drawing</p>
 </dd></dl>
 
 </div>
@@ -125,7 +205,7 @@ in this class, self.wrap_object will be of type Camera
 <dl class="class">
 <dt id="gbvision.gui.opencv_window.OpenCVWindow">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.opencv_window.</code><code class="sig-name descname">OpenCVWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">exit_button='qQ'</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">flags=256</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.opencv_window.OpenCVWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 </dd></dl>
 
 </div>
@@ -155,6 +235,19 @@ in this class, self.wrap_object will be of type Camera
 <dt id="gbvision.gui.recording_opencv_window.RecordingOpenCVWindow">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.recording_opencv_window.</code><code class="sig-name descname">RecordingOpenCVWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">file_name: str</em>, <em class="sig-param">fps=20.0</em>, <em class="sig-param">exit_button='qQ'</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">recording_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">width=0</em>, <em class="sig-param">height=0</em>, <em class="sig-param">flags=256</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.recording_opencv_window.RecordingOpenCVWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#gbvision.gui.opencv_window.OpenCVWindow" title="gbvision.gui.opencv_window.OpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.opencv_window.OpenCVWindow</span></code></a>, <a class="reference internal" href="#gbvision.gui.recording_window.RecordingWindow" title="gbvision.gui.recording_window.RecordingWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.recording_window.RecordingWindow</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – the name of the output file</p></li>
+<li><p><strong>drawing_pipeline</strong> – optional, a pipeline of drawing functions that will run on the frame before displaying
+it</p></li>
+<li><p><strong>exit_button</strong> – an array of keys (a string), when one of the keys are pressed the window will be closed</p></li>
+<li><p><strong>window_name</strong> – the title of the window</p></li>
+<li><p><strong>fps</strong> – the fps of the video file</p></li>
+<li><p><strong>recording_pipeline</strong> – optional, a drawing pipeline to run on the frames being recorded</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -174,7 +267,7 @@ and records the stream to a video file</p>
 <dl class="class">
 <dt id="gbvision.gui.recording_window.RecordingWindow">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.recording_window.</code><code class="sig-name descname">RecordingWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">recording_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.recording_window.RecordingWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="method">
 <dt id="gbvision.gui.recording_window.RecordingWindow.show_frame">
 <code class="sig-name descname">show_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.recording_window.RecordingWindow.show_frame" title="Permalink to this definition">¶</a></dt>
@@ -191,7 +284,7 @@ and records the stream to a video file</p>
 <dl class="class">
 <dt id="gbvision.gui.recording_wrapper_opencv_window.RecordingWrapperOpenCVWindow">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.recording_wrapper_opencv_window.</code><code class="sig-name descname">RecordingWrapperOpenCVWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">wrap_object</em>, <em class="sig-param">file_name: str</em>, <em class="sig-param">fps=20.0</em>, <em class="sig-param">exit_button='qQ'</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">recording_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">width=0</em>, <em class="sig-param">height=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.recording_wrapper_opencv_window.RecordingWrapperOpenCVWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.recording_opencv_window.RecordingOpenCVWindow" title="gbvision.gui.recording_opencv_window.RecordingOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.recording_opencv_window.RecordingOpenCVWindow</span></code></a>, <a class="reference internal" href="#gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow" title="gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.recording_opencv_window.RecordingOpenCVWindow" title="gbvision.gui.recording_opencv_window.RecordingOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.recording_opencv_window.RecordingOpenCVWindow</span></code></a>, <a class="reference internal" href="#gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow" title="gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 </dd></dl>
 
 </div>
@@ -202,6 +295,8 @@ and records the stream to a video file</p>
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.stream_window.</code><code class="sig-name descname">StreamWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">wrap_object</em>, <em class="sig-param">exit_button='qQ'</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">flags=256</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.stream_window.StreamWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow" title="gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow</span></code></a></p>
 <p>a basic window that displays the stream from a stream receiver</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </div>
@@ -210,13 +305,20 @@ and records the stream to a video file</p>
 <dl class="class">
 <dt id="gbvision.gui.window.Window">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.window.</code><code class="sig-name descname">Window</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.window.Window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>an abstract window class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window_name</strong> – the title of the new window</p></li>
+<li><p><strong>drawing_pipeline</strong> – optional, a pipeline that draws on each frame before displaying it</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.gui.window.Window.close">
 <code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.window.Window.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>closes the window
-:return:</p>
+<dd><p>closes the window</p>
 </dd></dl>
 
 <dl class="method">
@@ -237,7 +339,7 @@ and records the stream to a video file</p>
 
 <dl class="method">
 <dt id="gbvision.gui.window.Window.show_frame">
-<code class="sig-name descname">show_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gbvision.gui.window.Window.show_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">show_frame</code><span class="sig-paren">(</span><em class="sig-param">frame: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gbvision.gui.window.Window.show_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>shows the frame on the window
 :param frame: the frame to show
 :return: false if the window was closed, true otherwise</p>
@@ -251,8 +353,19 @@ and records the stream to a video file</p>
 <dl class="class">
 <dt id="gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.wrapper_opencv_window.</code><code class="sig-name descname">WrapperOpenCVWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">wrap_object</em>, <em class="sig-param">exit_button='qQ'</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em>, <em class="sig-param">flags=256</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.wrapper_opencv_window.WrapperOpenCVWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.opencv_window.OpenCVWindow" title="gbvision.gui.opencv_window.OpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.opencv_window.OpenCVWindow</span></code></a>, <a class="reference internal" href="#gbvision.gui.wrapper_window.WrapperWindow" title="gbvision.gui.wrapper_window.WrapperWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_window.WrapperWindow</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.opencv_window.OpenCVWindow" title="gbvision.gui.opencv_window.OpenCVWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.opencv_window.OpenCVWindow</span></code></a>, <a class="reference internal" href="#gbvision.gui.wrapper_window.WrapperWindow" title="gbvision.gui.wrapper_window.WrapperWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.wrapper_window.WrapperWindow</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>a basic window that displays a feed from a camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wrap_object</strong> – the object from which to read the frame</p></li>
+<li><p><strong>drawing_pipeline</strong> – optional, a pipeline of drawing functions that will run on the frame before displaying
+it</p></li>
+<li><p><strong>exit_button</strong> – an array of keys (a string), when one of the keys are pressed the window will be closed</p></li>
+<li><p><strong>window_name</strong> – the title of the window</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -260,20 +373,23 @@ and records the stream to a video file</p>
 <span id="gbvision-gui-wrapper-window-module"></span><h2>gbvision.gui.wrapper_window module<a class="headerlink" href="#module-gbvision.gui.wrapper_window" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="gbvision.gui.wrapper_window.WrapperWindow">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.wrapper_window.</code><code class="sig-name descname">WrapperWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">wrap_object</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.wrapper_window.WrapperWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.gui.wrapper_window.</code><code class="sig-name descname">WrapperWindow</code><span class="sig-paren">(</span><em class="sig-param">window_name: str</em>, <em class="sig-param">wrap_object: Any</em>, <em class="sig-param">drawing_pipeline=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.wrapper_window.WrapperWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.gui.window.Window" title="gbvision.gui.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.gui.window.Window</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="method">
 <dt id="gbvision.gui.wrapper_window.WrapperWindow.show">
 <code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.wrapper_window.WrapperWindow.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads from the wrap object and shows the frame until the window is closed
-:return:</p>
+<dd><p>reads from the wrap object and shows the frame until the window is closed</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="gbvision.gui.wrapper_window.WrapperWindow.show_and_get_frame">
-<code class="sig-name descname">show_and_get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.gui.wrapper_window.WrapperWindow.show_and_get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>shows one frame and returns it
-:return: the frame if the window was not closed, None otherwise</p>
+<code class="sig-name descname">show_and_get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.gui.wrapper_window.WrapperWindow.show_and_get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>shows one frame and returns it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the frame if the window was not closed, None otherwise</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">

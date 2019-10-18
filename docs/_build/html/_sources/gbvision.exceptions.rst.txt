@@ -4,14 +4,6 @@ gbvision.exceptions package
 Submodules
 ----------
 
-gbvision.exceptions.abstract\_method\_calling\_exception module
----------------------------------------------------------------
-
-.. automodule:: gbvision.exceptions.abstract_method_calling_exception
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 gbvision.exceptions.could\_not\_read\_frame\_exception module
 -------------------------------------------------------------
 

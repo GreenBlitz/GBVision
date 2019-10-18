@@ -7,13 +7,14 @@ from gbvision.constants.types import Frame
 class Window(abc.ABC):
     """
     an abstract window class
+
+    :param window_name: the title of the new window
+    :param drawing_pipeline: optional, a pipeline that draws on each frame before displaying it
     """
 
     def __init__(self, window_name: str, drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the window
-        :param window_name: the title of the new window
-        :param drawing_pipeline: optional, a pipeline that draws on each frame before displaying it
         """
         self.window_name = window_name
         self._is_opened = False
