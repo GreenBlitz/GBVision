@@ -1,3 +1,4 @@
+from typing import Any, Callable
 import functools
 
 
@@ -30,7 +31,7 @@ class PipeLine:
                 return item + num
             PipeLine.__init__(self, adding_func)
     """
-    def __init__(self, *functions):
+    def __init__(self, *functions: Callable[[Any], Any]):
         """
         initializes this pipeline
         :param functions: a tuple of functions to run one after the other as a pipeline
@@ -64,16 +65,6 @@ class PipeLine:
         :return: a new PipeLine which performs self(other(image)) on the parameter image
         """
         return PipeLine(other) + self
-
-    def __iadd__(self, fun):
-        """
-        adds a function or pipeline to the end of this pipeline (changes this pipeline, doesn't return a new one)
-        :param fun: the function or pipeline
-        """
-        if isinstance(fun, PipeLine):
-            self.functions += fun.functions
-        self.functions.append(fun)
-        return self
 
     def __getitem__(self, item):
         """

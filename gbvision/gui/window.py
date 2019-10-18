@@ -1,11 +1,14 @@
-from gbvision.exceptions import AbstractMethodCallingException
+import abc
+
 from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.constants.types import Frame
 
 
-class Window:
+class Window(abc.ABC):
     """
     an abstract window class
     """
+
     def __init__(self, window_name: str, drawing_pipeline=EMPTY_PIPELINE):
         """
         initializes the window
@@ -16,13 +19,14 @@ class Window:
         self._is_opened = False
         self.drawing_pipeline = drawing_pipeline
 
-    def _show_frame(self, frame) -> bool:
+    @abc.abstractmethod
+    def _show_frame(self, frame: Frame) -> bool:
         """
         shows the frame
         :param frame: the frame to show
         :return: False if the window should be closed, True otherwise
         """
-        raise AbstractMethodCallingException()
+        pass
 
     def is_opened(self) -> bool:
         """
@@ -31,7 +35,7 @@ class Window:
         """
         return self._is_opened
 
-    def show_frame(self, frame) -> bool:
+    def show_frame(self, frame: Frame) -> bool:
         """
         shows the frame on the window
         :param frame: the frame to show
@@ -44,11 +48,21 @@ class Window:
         self.close()
         return False
 
+    @abc.abstractmethod
     def _open(self):
-        raise AbstractMethodCallingException()
+        """
+        unsafely opens the window
+        not to be used by the programmer, only by the function open
+        """
+        pass
 
+    @abc.abstractmethod
     def _close(self):
-        raise AbstractMethodCallingException()
+        """
+        unsafely closes the window
+        not to be used by the programmer, only by the function close
+        """
+        pass
 
     def open(self):
         """
@@ -60,7 +74,6 @@ class Window:
     def close(self):
         """
         closes the window
-        :return:
         """
         self._close()
         self._is_opened = False

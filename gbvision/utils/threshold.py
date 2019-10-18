@@ -212,10 +212,10 @@ class Threshold:
         return THRESHOLD_NAME_TABLE[self.type](frame, self.params)
 
     def __repr__(self):
-        return '<%s>' % str(self)
+        return f'<{self}>'
 
     def __str__(self):
-        return '%s Threshold(%s)' % (self.type, self.params)
+        return f"Threshold({self.params},'{self.type}')"
 
     def __or__(self, other):
         return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)

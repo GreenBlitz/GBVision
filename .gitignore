@@ -9,4 +9,5 @@ dist/
 # editor files
 .idea/
 
+# test videos
 *.avi

@@ -1,8 +1,10 @@
 import gbvision as gbv
+import time
 
 
 def main():
     camera = gbv.AsyncUSBCamera(0, gbv.UNKNOWN_CAMERA)
+    time.sleep(5)  # wait for read thread to start
     camera.set_frame_size(640, 480)
     orig_window = gbv.CameraWindow('original', camera)
     edges_window = gbv.CameraWindow('edges', camera, drawing_pipeline=gbv.edges + gbv.gray)

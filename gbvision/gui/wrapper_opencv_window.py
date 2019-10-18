@@ -1,3 +1,5 @@
+from abc import ABC
+
 import cv2
 
 from gbvision.constants.system import EMPTY_PIPELINE
@@ -5,7 +7,7 @@ from .opencv_window import OpenCVWindow
 from .wrapper_window import WrapperWindow
 
 
-class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow):
+class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow, ABC):
     """
     a basic window that displays a feed from a camera
     """

@@ -20,6 +20,7 @@ def plane_angle_by_location(loc) -> float:
     """
     return np.arctan(loc[0] / loc[2])
 
+
 def plane_distance_from_object(loc) -> float:
     """
     calculates the distance from the object's projection on the x-z plane (y=0 plane)
@@ -27,4 +28,4 @@ def plane_distance_from_object(loc) -> float:
     :param loc: the 3d location
     :return: the distance without regarding the y axis
     """
-    return np.sqrt(loc[0]**2 + loc[2]**2)
+    return np.sqrt(loc[0] ** 2 + loc[2] ** 2)

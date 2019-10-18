@@ -1,7 +1,10 @@
+from typing import List
+
 import cv2
 
 from gbvision.constants.math import EPSILON
 from gbvision.constants.system import CONTOURS_INDEX
+from gbvision.constants.types import Contour, Polygon
 from gbvision.utils.pipeline import PipeLine
 
 
@@ -33,9 +36,11 @@ def contour_center(cnt):
     m = cv2.moments(cnt)
     return int(m['m10'] / (m['m00'] + EPSILON)), int(m['m01'] / (m['m00'] + EPSILON))
 
+
 @PipeLine
 def contours_centers(cnts):
     return list(map(contour_center, cnts))
+
 
 # SHAPES
 
@@ -43,31 +48,40 @@ def contours_centers(cnts):
 def contours_to_rects(cnts):
     return list(map(cv2.boundingRect, cnts))
 
+
 @PipeLine
 def sort_rects(rects):
     return list(sorted(rects, key=lambda x: x[2] * x[3], reverse=True))
 
+
 contours_to_rects_sorted = contours_to_rects + sort_rects
+
 
 @PipeLine
 def contours_to_circles(cnts):
     return list(map(cv2.minEnclosingCircle, cnts))
 
+
 @PipeLine
 def sort_circles(circs):
     return list(sorted(circs, key=lambda x: x[1], reverse=True))
 
+
 contours_to_circles_sorted = contours_to_circles + sort_circles
+
 
 @PipeLine
 def contours_to_rotated_rects(cnts):
     return list(map(cv2.minAreaRect, cnts))
 
+
 @PipeLine
 def sort_rotated_rects(rects):
     return list(sorted(rects, key=lambda x: x[1][0] * x[1][1], reverse=True))
 
+
 contours_to_rotated_rects_sorted = contours_to_rotated_rects + sort_rotated_rects
+
 
 @PipeLine
 def contours_to_ellipses(cnts):
@@ -75,17 +89,20 @@ def contours_to_ellipses(cnts):
     # ellipse must get contours of at least five points
     return list(map(cv2.fitEllipse, cnts))
 
+
 sort_ellipses = sort_rotated_rects
 
 contours_to_ellipses_sorted = contours_to_ellipses + sort_ellipses
+
 
 @PipeLine
 def contours_to_polygons(cnts):
     arc_lengts = map(lambda cnt: 0.05 * cv2.arcLength(cnt, True), cnts)
     return list(map(lambda cnt: cv2.approxPolyDP(cnt, next(arc_lengts), True), cnts))
 
+
 @PipeLine
-def fix_contours_shape(cnts):
+def fix_contours_shape(cnts: List[Contour]) -> List[Polygon]:
     """
     fixes the contours to a usable shape
     the shape of the contours is a list of tuples of integers/floats, where eahc tuple is a point
@@ -98,10 +115,9 @@ def fix_contours_shape(cnts):
     cnts = map(lambda polydp: map(lambda x: x[0], polydp), cnts)
     return list(map(lambda polydp: list(map(tuple, polydp)), cnts))
 
+
 sort_polygons = sort_contours
 
 polygon_center = contour_center
 
 polygons_centers = contours_centers
-
-

@@ -81,7 +81,7 @@ class CameraData:
         self.__is_immutable = constant
 
     def rotate_yaw(self, angle):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
         data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, 0, sin],
                                                                   [0, 1, 0],
@@ -89,7 +89,7 @@ class CameraData:
         return data
 
     def rotate_pitch(self, angle):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
         data.rotation_matrix = data.rotation_matrix.dot(np.array([[1, 0, 0],
                                                                   [0, cos, -sin],
@@ -97,7 +97,7 @@ class CameraData:
         return data
 
     def rotate_roll(self, angle):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         sin, cos = np.sin(angle), np.cos(angle)
         data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, -sin, 0],
                                                                   [sin, cos, 0],
@@ -105,17 +105,17 @@ class CameraData:
         return data
 
     def move_x(self, x):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         data.offset[0] += x
         return data
 
     def move_y(self, y):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         data.offset[1] += y
         return data
 
     def move_z(self, z):
-        data = self.copy() if self.__is_immutable else self
+        data: CameraData = self.copy() if self.__is_immutable else self
         data.offset[2] += z
         return data
 

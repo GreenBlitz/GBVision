@@ -1,14 +1,17 @@
-from gbvision.exceptions import AbstractMethodCallingException
+import abc
+
 import cv2
 import time
 
-class StreamBroadcaster:
+
+class StreamBroadcaster(abc.ABC):
     """
     this is an abstract broadcaster that sends stream to a broadcast receiver
     this class should not be instanced but inherited from
     """
 
-    def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False, max_fps: int = None):
+    def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False,
+                 max_fps: int = None):
         """
         creates a new stream broadcaster with all parameters that are used in every broadcaster
         :param shape: optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
@@ -27,12 +30,13 @@ class StreamBroadcaster:
         self.max_fps = max_fps
         self.prev_time = 0.0
 
+    @abc.abstractmethod
     def send_frame(self, frame):
         """
         sends the given frame to the stream receiver
         :param frame: the frame to send
         """
-        raise AbstractMethodCallingException()
+        pass
 
     def _prep_frame(self, frame):
         """

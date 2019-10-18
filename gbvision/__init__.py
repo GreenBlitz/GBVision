@@ -2,13 +2,13 @@
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
+from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point
 
 # exceptions
 from .exceptions.vision_warning import VisionWarning
 from .exceptions.vision_exception import VisionException
 from .exceptions.could_not_read_frame_exception import CouldNotReadFrameException
 from .exceptions.device_not_found_exception import DeviceNotFoundException
-from .exceptions.abstract_method_calling_exception import AbstractMethodCallingException
 from .exceptions.stream_closed import StreamClosed
 from .exceptions.tcp_stream_closed import TCPStreamClosed
 
@@ -69,6 +69,7 @@ from .utils.camera_data import CameraData
 from .utils.usb_camera import USBCamera
 from .utils.camera_list import CameraList
 from .utils.usb_stream_camera import USBStreamCamera
+from .utils.async_camera import AsyncCamera
 from .utils.async_usb_camera import AsyncUSBCamera
 from .utils.threshold import Threshold
 from .utils.threshold_group import ThresholdGroup

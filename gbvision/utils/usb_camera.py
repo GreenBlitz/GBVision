@@ -1,4 +1,5 @@
 from .camera import CameraData, Camera
+from gbvision.constants.cameras import UNKNOWN_CAMERA
 import cv2
 
 
@@ -6,7 +7,7 @@ class USBCamera(cv2.VideoCapture, Camera):
     """
     a basic usb connected camera which inherits from cv2 VideoCapture
     """
-    def __init__(self, port, data: CameraData):
+    def __init__(self, port: int, data: CameraData = UNKNOWN_CAMERA):
         """
         initializes the camera
         :param port: the usb port to which the camera is connected
@@ -19,26 +20,23 @@ class USBCamera(cv2.VideoCapture, Camera):
     def is_opened(self) -> bool:
         return self.isOpened()
 
-    def set_exposure(self, exposure: int or float or bool) -> bool:
+    def set_exposure(self, exposure) -> bool:
         if type(exposure) is bool:
             return self.set(cv2.CAP_PROP_EXPOSURE, int(exposure))
         return self.set(cv2.CAP_PROP_EXPOSURE, exposure)
 
-    def set_auto_exposure(self, auto: int or float or bool) -> bool:
+    def set_auto_exposure(self, auto) -> bool:
         if type(auto) is bool:
             return self.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.75 if auto else 0.25)
         return self.set(cv2.CAP_PROP_AUTO_EXPOSURE, auto)
 
-    @property
-    def data(self):
+    def get_data(self):
         return self._data
 
-    @property
-    def width(self):
+    def get_width(self):
         return self.get(cv2.CAP_PROP_FRAME_WIDTH)
 
-    @property
-    def height(self):
+    def get_height(self):
         return self.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
     def _set_width(self, width):

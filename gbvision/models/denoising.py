@@ -1,3 +1,4 @@
+from typing import Union, Tuple
 import cv2
 import numpy as np
 
@@ -5,7 +6,7 @@ from gbvision.utils.pipeline import PipeLine
 
 
 class Erode(PipeLine):
-    def __init__(self, ksize, iterations=1):
+    def __init__(self, ksize: Union[int, Tuple[int, int]], iterations=1):
         """
         creates a pipeline that erodes the image by a kernel of ones
         used mainly for Erode & Dilate denoise filters
@@ -20,7 +21,7 @@ class Erode(PipeLine):
 
 
 class Dilate(PipeLine):
-    def __init__(self, ksize, iterations=1):
+    def __init__(self, ksize: Union[int, Tuple[int, int]], iterations=1):
         """
         creates a pipeline that dilates the image by a kernel of ones
         used mainly for Erode & Dilate denoise filters
@@ -36,7 +37,6 @@ class Dilate(PipeLine):
 
 class MedianBlur(PipeLine):
     def __init__(self, ksize: int):
-
         """
         creates a pipeline that blurs the given frame using the median blur method
         works very good for denoising purposes

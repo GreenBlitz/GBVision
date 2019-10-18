@@ -1,18 +1,24 @@
+from typing import List
+
+from gbvision.constants.types import RotatedRect, Polygon, Rect, Circle
 from gbvision.utils.pipeline import PipeLine
 import numpy as np
 import cv2
 
 
-def circle_collision(center1, r1, center2, r2):
+def circle_collision(circ1: Circle, circ2: Circle) -> bool:
+    center1, r1 = circ1
+    center2, r2 = circ2
     return (center1[0] - center2[0]) ** 2 + (center1[1] - center2[1]) ** 2 < (r1 + r2) ** 2
 
+
 @PipeLine
-def filter_inner_circles(circles):
+def filter_inner_circles(circles: List[Circle]) -> List[Circle]:
     filtered_circles = []
     for i, circle in enumerate(circles):
         circle_invalid = False
         for j in range(i):
-            circle_invalid = circle_collision(circle[0], circle[1], circles[j][0], circles[j][1])
+            circle_invalid = circle_collision(circle, circles[j])
             if circle_invalid:
                 break
         if not circle_invalid:
@@ -21,14 +27,15 @@ def filter_inner_circles(circles):
     return filtered_circles
 
 
-def rect_collision(r1, r2):
+def rect_collision(r1: Rect, r2: Rect) -> bool:
     return not (r1[0] > r2[0] + r2[2] or
                 r1[0] + r1[2] < r1[0] or
                 r1[1] > r2[1] + r2[3] or
                 r1[1] + r1[3] < r2[1])
 
+
 @PipeLine
-def filter_inner_rects(rects):
+def filter_inner_rects(rects: List[Rect]) -> List[Rect]:
     filtered_rects = []
     for i, rect in enumerate(rects):
         rect_invalid = False
@@ -41,7 +48,7 @@ def filter_inner_rects(rects):
     return filtered_rects
 
 
-def convex_shape_collision(shape1, shape2):
+def convex_shape_collision(shape1: Polygon, shape2: Polygon) -> bool:
     """
     detects collision between two convex shapes
     Note: if you are uncertain if a shape is convex, use convex_hull on it, it will make it convex
@@ -49,17 +56,6 @@ def convex_shape_collision(shape1, shape2):
     :param shape2: the second shape, as a contour
     :return:
     """
-    # shape1_lines = shape1 - np.roll(shape1, 1, axis=0)
-    # shape2_lines = shape2 - np.roll(shape2, 1, axis=0)
-    # shape1_normals = shape1_lines[:, :, ::-1].reshape(-1, 2, 1) * np.array([[1], [-1]])
-    # shape1_normals = shape1_normals.reshape(1, *shape1_normals.shape)
-    # shape2_normals = shape2_lines[:, :, ::-1].reshape(-1, 2, 1) * np.array([[1], [-1]])
-    # shape2_normals = shape2_normals.reshape(1, *shape2_normals.shape)
-    # dot1_1 = shape1.dot(shape1_normals)
-    # dot1_2 = shape1.dot(shape2_normals)
-    # dot2_1 = shape2.dot(shape1_normals)
-    # dot2_2 = shape2.dot(shape2_normals)
-
     for shape in [shape1, shape2]:
         for idx, edge1 in enumerate(shape):
             edge2 = shape[idx % len(shape1)]
@@ -92,7 +88,7 @@ def convex_shape_collision(shape1, shape2):
 
 
 @PipeLine
-def filter_inner_convex_shapes(shapes):
+def filter_inner_convex_shapes(shapes: List[Polygon]) -> List[Polygon]:
     filtered_shapes = []
     for i, shape in enumerate(shapes):
         shape_invalid = False
@@ -105,11 +101,12 @@ def filter_inner_convex_shapes(shapes):
     return filtered_shapes
 
 
-def rotated_rect_collision(rr1, rr2):
+def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
     return convex_shape_collision(np.array([cv2.boxPoints(rr1)]), np.array([cv2.boxPoints(rr2)]))
 
+
 @PipeLine
-def filter_inner_rotated_rects(rotated_rects):
+def filter_inner_rotated_rects(rotated_rects: List[RotatedRect]) -> List[RotatedRect]:
     filtered_rotated_rects = []
     for i, rotated_rect in enumerate(rotated_rects):
         rotated_rect_invalid = False

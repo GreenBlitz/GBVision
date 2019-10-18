@@ -1,27 +1,31 @@
+import abc
+
 from gbvision.net.stream_broadcaster import StreamBroadcaster
-from .camera import Camera, AbstractMethodCallingException
+from .camera import Camera
 
 
-class StreamCamera(Camera):
+class StreamCamera(Camera, abc.ABC):
     """
     an abstract class that represents a streaming camera
     the streaming camera is very similar to a regular camera, but has an option
     which allows it to stream the frames when it reads them
     """
 
+    @abc.abstractmethod
     def is_streaming(self) -> bool:
         """
         checks if the camera is currently streaming
         :return: True if camera is streaming, otherwise Fasle
         """
-        raise AbstractMethodCallingException()
+        pass
 
+    @abc.abstractmethod
     def toggle_stream(self, should_stream: bool):
         """
         turn on or off the stream feature
         :param should_stream: True to activate stream, False to deactivate
         """
-        raise AbstractMethodCallingException()
+        pass
 
     @staticmethod
     def create_type(camera_class) -> type:
