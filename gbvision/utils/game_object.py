@@ -3,6 +3,7 @@ import numpy as np
 
 from .camera import Camera
 from gbvision.models.contours import contour_center
+from gbvision.constants.types import Point
 
 
 class GameObject:
@@ -48,7 +49,7 @@ class GameObject:
         """
         return self.location_by_params(camera, np.sqrt(cv2.contourArea(cnt)), contour_center(cnt))
 
-    def location_by_params(self, camera: Camera, area: float, center: (float or int, float or int)):
+    def location_by_params(self, camera: Camera, area: float, center: Point):
         """
         :param camera: the camera, can be either Camera or CameraList
         :param area: a float representing the square root of the area of the object \
