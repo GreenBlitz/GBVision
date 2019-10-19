@@ -7,18 +7,21 @@ from gbvision.constants.video import VIDEO_FILE_TYPE
 
 
 class RecordingOpenCVWindow(OpenCVWindow, RecordingWindow):
+    """
+    :param file_name: the name of the output file
+    :param drawing_pipeline: optional, a pipeline of drawing functions that will run on the frame before displaying
+        it
+    :param exit_button: an array of keys (a string), when one of the keys are pressed the window will be closed
+    :param window_name: the title of the window
+    :param fps: the fps of the video file
+    :param recording_pipeline: optional, a drawing pipeline to run on the frames being recorded
+    """
     def __init__(self, window_name: str, file_name: str, fps=20.0, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE, width=0, height=0,
                  flags=cv2.WINDOW_FREERATIO):
         """
         initializes the stream window
-        :param file_name: the name of the output file
-        :param drawing_pipeline: optional, a pipeline of drawing functions that will run on the frame before displaying
-        it
-        :param exit_button: an array of keys (a string), when one of the keys are pressed the window will be closed
-        :param window_name: the title of the window
-        :param fps: the fps of the video file
-        :param recording_pipeline: optional, a drawing pipeline to run on the frames being recorded
+        
         """
         OpenCVWindow.__init__(self, window_name, exit_button=exit_button, flags=flags)
         RecordingWindow.__init__(self, window_name=window_name, drawing_pipeline=drawing_pipeline,

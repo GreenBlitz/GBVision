@@ -6,12 +6,14 @@ import cv2
 class USBCamera(cv2.VideoCapture, Camera):
     """
     a basic usb connected camera which inherits from cv2 VideoCapture
+
+    :param port: the usb port to which the camera is connected
+    :param data: the camera data object that describes this camera
     """
     def __init__(self, port: int, data: CameraData = UNKNOWN_CAMERA):
         """
         initializes the camera
-        :param port: the usb port to which the camera is connected
-        :param data: the camera data object that describes this camera
+        
         """
         cv2.VideoCapture.__init__(self, port)
         self._data = data.copy()

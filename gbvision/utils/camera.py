@@ -15,6 +15,7 @@ class Camera(abc.ABC):
     def read(self, image=None) -> Tuple[bool, np.ndarray]:
         """
         reads from the camera and returns a tuple of a boolean and the frame
+
         :param image: if not None, the frame will be read to this ndarray
         :return: a boolean indicating if the action was successful, and the frame if read was successful, otherwise None
         """
@@ -31,6 +32,7 @@ class Camera(abc.ABC):
     def is_opened(self) -> bool:
         """
         checks if the camera can be read from
+
         :return: True if the camera can be read from, otherwise False
         """
         pass
@@ -39,6 +41,7 @@ class Camera(abc.ABC):
     def set_exposure(self, exposure: Union[int, float, bool]) -> bool:
         """
         sets the camera's exposure
+
         :param exposure: the new exposure
         :return: True on success, False on failure
         """
@@ -47,6 +50,7 @@ class Camera(abc.ABC):
     def set_auto_exposure(self, auto: Union[int, float, bool]) -> bool:
         """
         sets the camera's auto exposure
+
         :param auto: the new auto exposure
         :return: True on success, False on failure
         """
@@ -55,8 +59,8 @@ class Camera(abc.ABC):
     @abc.abstractmethod
     def get_data(self) -> CameraData:
         """
-        :return: this camera's constant descriptor (must be the real descriptor, can't be a copy)
-        when the values of this descriptor are changed, the values of the real camera descriptor must also change
+        :return: this camera's constant descriptor (must be the real descriptor, can't be a copy) \
+            when the values of this descriptor are changed, the values of the real camera descriptor must also change
         """
         pass
 
@@ -80,6 +84,7 @@ class Camera(abc.ABC):
         unsafe set width
         supposed to be overridden and only used by rescale, resize and set_frame size methods
         never to be used by the programmer, only by the api
+
         :param width: new width
         """
         pass
@@ -90,6 +95,7 @@ class Camera(abc.ABC):
         unsafe set height
         supposed to be overridden and only used by rescale, resize and set_frame size methods
         never to be used by the programmer, only by the api
+
         :param height: new height
         """
         pass
@@ -97,6 +103,7 @@ class Camera(abc.ABC):
     def rescale(self, factor: float):
         """
         rescale the size of the frames read from this camera by a factor
+
         :param factor: the rescaling factor
         """
         self._set_width(int(self.get_width() * factor))
@@ -106,6 +113,7 @@ class Camera(abc.ABC):
     def resize(self, fx: float, fy: float):
         """
         rescale the size of the frames read from this camera by different width and height factors
+
         :param fx: the width factor
         :param fy: the height factor
         """
@@ -116,6 +124,7 @@ class Camera(abc.ABC):
     def set_frame_size(self, width: int, height: int):
         """
         reset the width and height of frames read from this camera to given values
+        
         :param width: the new width
         :param height: the new height
         """

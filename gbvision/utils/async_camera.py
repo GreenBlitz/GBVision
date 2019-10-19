@@ -27,6 +27,7 @@ class AsyncCamera(Camera, abc.ABC):
     def _read(self) -> Tuple[bool, Frame]:
         """
         reads from the camera synchronously (similar to Camera.read), unsafe, not to use by the programmer
+        
         :return: tuple of bool (indicates if read was successful) and the frame (if successful, else None)
         """
         pass
@@ -40,6 +41,7 @@ class AsyncCamera(Camera, abc.ABC):
         """
         creates a new class that is similar to the given class, but has the async feature
         the constructor of the new class is the same as the given class
+        
         :param camera_class: the class to wrap
         :return: the wrapped class as a type that can be instanced
         """

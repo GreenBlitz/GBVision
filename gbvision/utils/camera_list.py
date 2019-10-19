@@ -8,15 +8,14 @@ class CameraList(StreamCamera):
     camera list holds in it a list of cameras referenced as the field cameras
     and also a single camera to be the current camera used for every operation on the camera list
     as a single camera
+
+    :param cameras: list of the cameras which will be part of the camera list
+        you can also add and remove cameras later using the
+    :param select_cam: optional, an initial camera to be selected, if not set default camera is the first
+        one in the list
     """
 
     def __init__(self, cameras: List[Camera], select_cam: int = None):
-        """
-        :param cameras: list of the cameras which will be part of the camera list
-        you can also add and remove cameras later using the
-        :param select_cam: optional, an initial camera to be selected, if not set default camera is the first
-        one in the list
-        """
         self.cameras: List[Camera] = cameras.copy()
         if select_cam is None and len(cameras) > 0:
             select_cam = 0

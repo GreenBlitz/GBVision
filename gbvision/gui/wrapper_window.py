@@ -15,6 +15,7 @@ class WrapperWindow(Window, abc.ABC):
     def show_and_get_frame(self) -> Frame:
         """
         shows one frame and returns it
+
         :return: the frame if the window was not closed, None otherwise
         """
         frame = self._get_frame()
@@ -34,6 +35,7 @@ class WrapperWindow(Window, abc.ABC):
     def _get_frame(self) -> Frame:
         """
         unsafely reads a frame from the wrapped object and returns the read frame
+        
         :return: the read frame
         """
         pass

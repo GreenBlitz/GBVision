@@ -11,17 +11,19 @@ class ThresholdGroup:
     for example, use of the function on two thresholds with the binary function "bitwise_or" will result
     in a filter that outputs 255 for a pixel if it is in either one of the threshold's range
     using the "bitwise_and" function will output 255 for a pixel only if it is in both the threshold's range
+
+    :param thresholds: all the thresholds to join in the threshold group
+    :param binary_mask: a binary function that maps from a pair of binary images to a single binary image
+        default value is cv2.bitwise_or
+    :param default_pixel: the default value of a pixel before the threshold function
+        when using the 'bitwise_or' function this should be initialized to 0, when using cv2.bitwise_and this should be
+        initialized to 255
     """
 
     def __init__(self, *thresholds, **kwargs):
         """
         initializes the threshold group
-        :param thresholds: all the thresholds to join in the threshold group
-        :param binary_mask: a binary function that maps from a pair of binary images to a single binary image
-        default value is cv2.bitwise_or
-        :param default_pixel: the default value of a pixel before the threshold function
-        when using the 'bitwise_or' function this should be initialized to 0, when using cv2.bitwise_and this should be
-        initialized to 255
+        
         """
         self.binary_mask = cv2.bitwise_or
         self.default_pixel = 0

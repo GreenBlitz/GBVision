@@ -9,6 +9,7 @@ from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, Rotate
 def draw_contours(frame: Frame, cnts: List[Contour], color: Color, *args, **kwargs) -> Frame:
     """
     draws all contours on a copy of the frame and returns the copy
+
     :param frame: the frame to draw on
     :param cnts: the contours to draw
     :param color: the color to draw in
@@ -24,6 +25,7 @@ def draw_contours(frame: Frame, cnts: List[Contour], color: Color, *args, **kwar
 def draw_circles(frame: Frame, circs: List[Circle], color: Color, *args, **kwargs) -> Frame:
     """
     draws all circles on a copy of the frame and returns the copy
+
     :param frame: the frame to draw on
     :param circs: the circles to draw
     :param color: the color to draw in
@@ -40,6 +42,7 @@ def draw_circles(frame: Frame, circs: List[Circle], color: Color, *args, **kwarg
 def draw_rects(frame: Frame, rects: List[Rect], color: Color, *args, **kwargs) -> Frame:
     """
     draws all rects on a copy of the frame and returns the copy
+
     :param frame: the frame to draw on
     :param rects: the rects to draw
     :param color: the color to draw in
@@ -56,6 +59,7 @@ def draw_rects(frame: Frame, rects: List[Rect], color: Color, *args, **kwargs) -
 def draw_rotated_rects(frame: Frame, rotated_rects: List[RotatedRect], color: Color, *args, **kwargs) -> Frame:
     """
     draws all rotated rects on a copy of the frame and returns the copy
+
     :param frame: the frame to draw on
     :param rotated_rects: the rotated rects to draw
     :param color: the color to draw in
@@ -74,6 +78,7 @@ def draw_rotated_rects(frame: Frame, rotated_rects: List[RotatedRect], color: Co
 def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **kwargs) -> Frame:
     """
     draws all contours on a copy of the frame and returns the copy
+    
     :param frame: the frame to draw on
     :param ellipses: the ellipses to draw
     :param color: the color to draw in
