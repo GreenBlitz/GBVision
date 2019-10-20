@@ -7,8 +7,8 @@ stdv = np.array([40, 40, 40])
 
 
 def main():
-    camera = gbv.USBCamera(0, gbv.UNKNOWN_CAMERA)
-    #camera.set_exposure(-1)
+    camera = gbv.USBCamera(0)
+    camera.set_exposure(-8)
     cv2.namedWindow('window', cv2.WINDOW_FREERATIO)
     ok, frame = camera.read()
     while ok:
@@ -25,7 +25,7 @@ def main():
     print(thr)
 
     original = gbv.FeedWindow(window_name='original')
-    after_proc = gbv.FeedWindow(window_name='after threshold', drawing_pipeline=thr + gbv.Erode(3) + gbv.Dilate(3))
+    after_proc = gbv.FeedWindow(window_name='after threshold', drawing_pipeline=thr + gbv.MedianBlur(15))
 
     original.open()
     after_proc.open()
