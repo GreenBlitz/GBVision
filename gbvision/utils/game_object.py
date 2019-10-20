@@ -3,21 +3,26 @@ import numpy as np
 
 from .camera import Camera
 from gbvision.models.contours import contour_center
+from gbvision.constants.types import Point
 
 
 class GameObject:
+    """
+    constructor of the image object
+    which is an object on field
+
+    :param area: the square root of the surface area of the object in real life
+
+    """
     def __init__(self, area: float):
-        """
-        constructor of the image object
-        which is an object on field
-        :param area: the square root of the surface area of the object in real life
-        """
+       
         self.area = area
 
     def distance_by_contours(self, camera: Camera, cnt):
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
         calculate the norm of the location
+        
         :param camera: the camera, can be either Camera or CameraList
         :param cnt: the contours of this object in the frame
         :return: the norm of the vector between the camera and the object (in meters)
@@ -28,9 +33,10 @@ class GameObject:
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
         calculate the norm of the location
+
         :param camera: the camera, can be either Camera or CameraList
         :param area: a float representing the square root of the area of the object
-        (in pixels)
+            (in pixels)
         :return: the norm of the vector between the camera and the object (in meters)
         """
         return camera.get_data().focal_length * self.area / area
@@ -43,11 +49,11 @@ class GameObject:
         """
         return self.location_by_params(camera, np.sqrt(cv2.contourArea(cnt)), contour_center(cnt))
 
-    def location_by_params(self, camera: Camera, area: float, center: (float or int, float or int)):
+    def location_by_params(self, camera: Camera, area: float, center: Point):
         """
         :param camera: the camera, can be either Camera or CameraList
-        :param area: a float representing the square root of the area of the object
-        (in pixels)
+        :param area: a float representing the square root of the area of the object \
+            (in pixels)
         :param center: the center (x,y) of this object in the frame
         :return: a 3d vector of the relative [x y z] location between the object and the camera/measuring point (in meters)
         """

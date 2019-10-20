@@ -39,55 +39,36 @@
 </div>
 <div class="section" id="module-gbvision.net.async_tcp_stream_receiver">
 <span id="gbvision-net-async-tcp-stream-receiver-module"></span><h2>gbvision.net.async_tcp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.async_tcp_stream_receiver" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.async_tcp_stream_receiver.</code><code class="sig-name descname">AsyncTCPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">ip: str</em>, <em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx=1.0</em>, <em class="sig-param">fy=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.net.tcp_stream_receiver.TCPStreamReceiver" title="gbvision.net.tcp_stream_receiver.TCPStreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.tcp_stream_receiver.TCPStreamReceiver</span></code></a></p>
-<p>a tcp streamer that reads from the socket on another thread
-recommended for use when multiple threads are reading from the streamer at the same time
-and also when the reading thread gets paused a lot
-for example when running a window that get’s paused or moved around a lot</p>
-<dl class="method">
-<dt id="gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver.get_frame">
-<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_tcp_stream_receiver.AsyncTCPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads a frame from the stream and returns in
-:returns: the frame read as a numpy array</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-gbvision.net.async_udp_stream_receiver">
 <span id="gbvision-net-async-udp-stream-receiver-module"></span><h2>gbvision.net.async_udp_stream_receiver module<a class="headerlink" href="#module-gbvision.net.async_udp_stream_receiver" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver">
-<em class="property">class </em><code class="sig-prename descclassname">gbvision.net.async_udp_stream_receiver.</code><code class="sig-name descname">AsyncUDPStreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">port: int</em>, <em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx=1.0</em>, <em class="sig-param">fy=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#gbvision.net.udp_stream_receiver.UDPStreamReceiver" title="gbvision.net.udp_stream_receiver.UDPStreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.udp_stream_receiver.UDPStreamReceiver</span></code></a></p>
-<p>a udp streamer that reads from the socket on another thread
-recommended for use when multiple threads are reading from the streamer at the same time
-and also when the reading thread gets paused a lot
-for example when running a window that get’s paused or moved around a lot</p>
-<dl class="method">
-<dt id="gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver.get_frame">
-<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.async_udp_stream_receiver.AsyncUDPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads a frame from the stream and returns in
-:returns: the frame read as a numpy array</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-gbvision.net.stream_broadcaster">
 <span id="gbvision-net-stream-broadcaster-module"></span><h2>gbvision.net.stream_broadcaster module<a class="headerlink" href="#module-gbvision.net.stream_broadcaster" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="gbvision.net.stream_broadcaster.StreamBroadcaster">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.net.stream_broadcaster.</code><code class="sig-name descname">StreamBroadcaster</code><span class="sig-paren">(</span><em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em>, <em class="sig-param">use_grayscale: bool = False</em>, <em class="sig-param">max_fps: int = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_broadcaster.StreamBroadcaster" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>this is an abstract broadcaster that sends stream to a broadcast receiver
-this class should not be instanced but inherited from</p>
+this class should not be instanced but inherited from
+creates a new stream broadcaster with all parameters that are used in every broadcaster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
+the fx and fy parameters, when set to (0, 0) it is not used</p></li>
+<li><p><strong>fx</strong> – ratio between width of the given frame to the width of the frame sent, default is 1 (same width)</p></li>
+<li><p><strong>fy</strong> – ratio between height of the given frame to the height of the frame sent, default is 1 (same height)</p></li>
+<li><p><strong>use_grayscale</strong> – boolean indicating if the frame should be converted to grayscale when sent,
+default is False</p></li>
+<li><p><strong>max_fps</strong> – integer representing the maximum fps (frames per second) of the stream, when set to None
+there is no fps limitation, default is None</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.stream_broadcaster.StreamBroadcaster.send_frame">
-<code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_broadcaster.StreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_broadcaster.StreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>sends the given frame to the stream receiver
 :param frame: the frame to send</p>
 </dd></dl>
@@ -100,14 +81,29 @@ this class should not be instanced but inherited from</p>
 <dl class="class">
 <dt id="gbvision.net.stream_receiver.StreamReceiver">
 <em class="property">class </em><code class="sig-prename descclassname">gbvision.net.stream_receiver.</code><code class="sig-name descname">StreamReceiver</code><span class="sig-paren">(</span><em class="sig-param">shape=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">fx: float = 1.0</em>, <em class="sig-param">fy: float = 1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.stream_receiver.StreamReceiver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>this is an abstract receiver that receives stream from a broadcast receiver
 this class should not be instanced but inherited from</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
+the fx and fy parameters, when set to (0, 0) it is not used</p></li>
+<li><p><strong>fx</strong> – ratio between width of the read frame to the width of the frame returned, default is 1 (same width)</p></li>
+<li><p><strong>fy</strong> – ratio between height of the read frame to the height of the frame returned,
+default is 1 (same height)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.stream_receiver.StreamReceiver.get_frame">
-<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.net.stream_receiver.StreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads a frame from the stream and returns in
-:returns: the frame read as a numpy array</p>
+<em class="property">abstract </em><code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#gbvision.net.stream_receiver.StreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads a frame from the stream and returns in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the frame read as a numpy array</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -121,6 +117,15 @@ this class should not be instanced but inherited from</p>
 <dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_broadcaster.StreamBroadcaster" title="gbvision.net.stream_broadcaster.StreamBroadcaster"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_broadcaster.StreamBroadcaster</span></code></a></p>
 <p>this class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
 the broadcaster is the server and the receiver is the client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – the port which TCP will be using</p></li>
+<li><p><strong>im_encode</strong> – the type of image encoding to send over the network, default is .jpg (JPEG)
+for missing parameters, see documentation on StreamBroadcaster</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster.send_frame">
 <code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_broadcaster.TCPStreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
@@ -139,11 +144,23 @@ the broadcaster is the server and the receiver is the client</p>
 <dd><p>Bases: <a class="reference internal" href="#gbvision.net.stream_receiver.StreamReceiver" title="gbvision.net.stream_receiver.StreamReceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.net.stream_receiver.StreamReceiver</span></code></a></p>
 <p>this class uses TCP to receive a stream over the network, the stream is by default set to be MJPEG
 the broadcaster is the server and the receiver is the client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – the IPv4 address of the stream broadcaster, for example ‘10.45.90.8’</p></li>
+<li><p><strong>port</strong> – the port which TCP should use</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.tcp_stream_receiver.TCPStreamReceiver.get_frame">
 <code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.tcp_stream_receiver.TCPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads a frame from the stream and returns in
-:returns: the frame read as a numpy array</p>
+<dd><p>reads a frame from the stream and returns in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the frame read as a numpy array</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -158,6 +175,15 @@ the broadcaster is the server and the receiver is the client</p>
 <p>this class uses UDP to send a stream over the network, the stream is by default set to be MJPEG
 the broadcaster is the client and the receiver is the server
 WARNING: do not use this class to send large images, udp has a limited packet size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – the IPv4 address of the udp stream receiver, for example ‘10.45.90.5’</p></li>
+<li><p><strong>port</strong> – the port that UDP uses to send packets on</p></li>
+<li><p><strong>im_encode</strong> – the type of image encoding to send over the network, default is ‘.jpg’ (JPEG)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster.send_frame">
 <code class="sig-name descname">send_frame</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_broadcaster.UDPStreamBroadcaster.send_frame" title="Permalink to this definition">¶</a></dt>
@@ -177,11 +203,20 @@ WARNING: do not use this class to send large images, udp has a limited packet si
 <p>this class uses UDP to receive a stream over the network, the stream is by default set to be MJPEG
 the broadcaster is the client and the receiver is the server
 WARNING: do not use this class to send large images, udp has a limited packet size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – the port which udp should use</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="gbvision.net.udp_stream_receiver.UDPStreamReceiver.get_frame">
 <code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbvision.net.udp_stream_receiver.UDPStreamReceiver.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>reads a frame from the stream and returns in
-:returns: the frame read as a numpy array</p>
+<dd><p>reads a frame from the stream and returns in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the frame read as a numpy array</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

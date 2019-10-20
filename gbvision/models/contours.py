@@ -109,6 +109,7 @@ def fix_contours_shape(cnts: List[Contour]) -> List[Polygon]:
     an example of two rectangles represented with this shape will be:
     [[(0, 0), (0, 2), (1, 2), (1, 0)],
     [(5, 4), (7, 4), (7, 9), (9, 5)]]
+    
     :param cnts: the contours / polygons list whose shape should be fixed
     :return: a list of all the contours with the fixed shape
     """

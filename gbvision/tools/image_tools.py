@@ -8,6 +8,7 @@ from gbvision.utils.threshold import Threshold
 def crop(frame, x, y, w, h) -> np.ndarray:
     """
     crops the image from (x, y) to (x+w, y+h)
+
     :param frame: the frame to crop
     :param x: the x coordinate to crop from
     :param y: the y coordinate to crop from
@@ -25,11 +26,12 @@ def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_en
     minus some deviation variable, and the upper bounds as the same median plus the deviation variable
     in a mathematical term, the threshold is defined to be [median(X) - V, median(X) + V] where X is the frame region
     and V is the deviation variable
+
     :param frame: the frame
     :param stdv: the deviation variable, can be a scalar (same deviation for every channel) or a numpy array with the
-    same size as the number of channels in the threshold, the deviation will be defined for each channel separately
+        same size as the number of channels in the threshold, the deviation will be defined for each channel separately
     :param box: optional, a sub region of the frame from which the median is calculated, when set to None the median is
-    calculated from the entire frame
+        calculated from the entire frame
     :param color_encoding: the type of color encoding the threshold should use, default is BGR
     :return: a Threshold object
     """

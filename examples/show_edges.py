@@ -3,7 +3,7 @@ import time
 
 
 def main():
-    camera = gbv.AsyncUSBCamera(1)
+    camera = gbv.AsyncUSBCamera(0)
     time.sleep(5)  # wait for read thread to start
     camera.set_frame_size(640, 480)
     orig_window = gbv.CameraWindow('original', camera)

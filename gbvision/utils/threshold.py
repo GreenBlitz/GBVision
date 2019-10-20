@@ -6,9 +6,10 @@ from .threshold_group import ThresholdGroup
 def hls_threshold(frame, params):
     """
     thresholds the image according to HLS values
+    
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [hmin hmax]
-                                                 [lmin lmax]
+    :param params: the hls values, 3x2 matrix of [hmin hmax] \
+                                                 [lmin lmax] \
                                                  [smin smax]
     :return: binary threshold image
     """
@@ -21,9 +22,10 @@ def hls_threshold(frame, params):
 def hsv_threshold(frame, params):
     """
     thresholds the image according to HSV values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [hmin hmax]
-                                                 [smin smax]
+    :param params: the hls values, 3x2 matrix of [hmin hmax] \
+                                                 [smin smax] \
                                                  [vmin vmax]
     :return: binary threshold image
     """
@@ -35,9 +37,10 @@ def hsv_threshold(frame, params):
 def rgb_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [rmin rmax]
-                                                 [gmin gmax]
+    :param params: the hls values, 3x2 matrix of [rmin rmax] \
+                                                 [gmin gmax] \
                                                  [bmin bmax]
     :return: binary threshold image
     """
@@ -49,9 +52,10 @@ def rgb_threshold(frame, params):
 def bgr_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [bmin bmax]
-                                                 [gmin gmax]
+    :param params: the hls values, 3x2 matrix of [bmin bmax] \
+                                                 [gmin gmax] \
                                                  [rmin rmax]
     :return: binary threshold image
     """
@@ -62,9 +66,10 @@ def bgr_threshold(frame, params):
 def luv_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [lmin lmax]
-                                                 [umin umax]
+    :param params: the hls values, 3x2 matrix of [lmin lmax] \
+                                                 [umin umax] \
                                                  [vmin vmax]
     :return: binary threshold image
     """
@@ -76,9 +81,10 @@ def luv_threshold(frame, params):
 def lab_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [lmin lmax]
-                                                 [amin amax]
+    :param params: the hls values, 3x2 matrix of [lmin lmax] \
+                                                 [amin amax] \
                                                  [bmin bmax]
     :return: binary threshold image
     """
@@ -90,9 +96,10 @@ def lab_threshold(frame, params):
 def yuv_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [ymin ymax]
-                                                 [umin umax]
+    :param params: the hls values, 3x2 matrix of [ymin ymax] \
+                                                 [umin umax] \
                                                  [vmin vmax]
     :return: binary threshold image
     """
@@ -104,9 +111,10 @@ def yuv_threshold(frame, params):
 def xyz_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
-    :param params: the hls values, 3x2 matrix of [xmin xmax]
-                                                 [ymin ymax]
+    :param params: the hls values, 3x2 matrix of [xmin xmax] \
+                                                 [ymin ymax] \
                                                  [zmin zmax]
     :return: binary threshold image
     """
@@ -118,6 +126,7 @@ def xyz_threshold(frame, params):
 def gray_threshold(frame, params):
     """
     thresholds the image according to RGB values
+
     :param frame: the image
     :param params: the hls values, 1x2 matrix of [min max]
     :return: binary threshold image

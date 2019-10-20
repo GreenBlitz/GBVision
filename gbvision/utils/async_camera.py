@@ -27,6 +27,7 @@ class AsyncCamera(Camera, abc.ABC):
     def _read(self) -> Tuple[bool, Frame]:
         """
         reads from the camera synchronously (similar to Camera.read), unsafe, not to use by the programmer
+        
         :return: tuple of bool (indicates if read was successful) and the frame (if successful, else None)
         """
         pass
@@ -34,11 +35,3 @@ class AsyncCamera(Camera, abc.ABC):
     def __async_read_wrapper(self):
         while self.is_opened():
             self.__ok, self.__frame = self._read()
-
-
-class SimpleAsyncCamera(AsyncCamera, abc.ABC):
-    """
-    this class implements the features of the
-    """
-    def _read(self):
-        return self.read()

@@ -4,6 +4,7 @@ import numpy as np
 def distance_from_object(loc) -> float:
     """
     the absolute distance from the camera to this object
+
     :param loc: the object's location (2d or 3d)
     :returns: the absolute distance (float)
     """
@@ -15,6 +16,7 @@ def distance_from_object(loc) -> float:
 def plane_angle_by_location(loc) -> float:
     """
     calculates the angle from the camera to the object's projection on the x-z plane (y=0 plane)
+
     :param loc: the 3d location
     :return: the angle (in radians)
     """
@@ -25,6 +27,7 @@ def plane_distance_from_object(loc) -> float:
     """
     calculates the distance from the object's projection on the x-z plane (y=0 plane)
     the distance on the y axis is ignored in this calculation
+    
     :param loc: the 3d location
     :return: the distance without regarding the y axis
     """

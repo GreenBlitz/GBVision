@@ -52,6 +52,7 @@ def convex_shape_collision(shape1: Polygon, shape2: Polygon) -> bool:
     """
     detects collision between two convex shapes
     Note: if you are uncertain if a shape is convex, use convex_hull on it, it will make it convex
+    
     :param shape1: the first shape, as a contour
     :param shape2: the second shape, as a contour
     :return:
