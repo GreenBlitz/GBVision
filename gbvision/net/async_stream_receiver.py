@@ -7,6 +7,11 @@ from gbvision.net.stream_receiver import StreamReceiver
 
 
 class AsyncStreamReceiver(StreamReceiver, abc.ABC):
+    """
+    an abstract async tcp stream receiver that receives frames on another thread
+    None! when inheriting from this class and another StreamReceiver class, make sure you call the other class'
+    constructor before this class' constructor, but also make sure you inherit from this class first in order
+    """
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
         StreamReceiver.__init__(self, shape, fx, fy)
         self.__frame = None
@@ -30,22 +35,3 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
 
     def get_frame(self):
         return self.__frame
-
-    @staticmethod
-    def create_type(stream_receiver_class) -> type:
-        """
-        creates a new class that is similar to the given class, but has the async feature
-        the constructor of the new class is the same as the given class
-        :param stream_receiver_class: the class to wrap
-        :return: the wrapped class as a type that can be instanced
-        """
-
-        class _AsyncStreamReceiver(AsyncStreamReceiver, stream_receiver_class):
-            def _get_frame(self):
-                return stream_receiver_class.get_frame(self)
-
-            def __init__(self, *args, **kwargs):
-                stream_receiver_class.__init__(self, *args, **kwargs)
-                AsyncStreamReceiver.__init__(self)
-
-        return _AsyncStreamReceiver

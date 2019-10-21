@@ -3,6 +3,8 @@ import abc
 import cv2
 import time
 
+from gbvision.constants.types import Frame
+
 
 class StreamBroadcaster(abc.ABC):
     """
@@ -30,7 +32,7 @@ class StreamBroadcaster(abc.ABC):
         self.prev_time = 0.0
 
     @abc.abstractmethod
-    def send_frame(self, frame):
+    def send_frame(self, frame: Frame):
         """
         sends the given frame to the stream receiver
         :param frame: the frame to send

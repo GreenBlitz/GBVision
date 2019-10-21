@@ -39,6 +39,8 @@ class RecordingOpenCVWindow(OpenCVWindow, RecordingWindow):
         self.height = height
 
     def _record(self, frame):
+        if frame is None or len(frame.shape) == 0:
+            return
         if self.video_writer is None:
             width = self.width if self.width != 0 else frame.shape[1]
             height = self.height if self.height != 0 else frame.shape[0]

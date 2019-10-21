@@ -1,18 +1,13 @@
 import gbvision as gbv
 
-CARGO_THRESHOLD = gbv.Threshold(  # cargo threshold constant, found using median threshold
-    [[0, 28], [210, 250], [235, 255]],
-    # [[14, 54], [1, 41], [233, 255]],
-    'HSV'
-)
-
+CARGO_THRESHOLD = gbv.Threshold([[0, 73], [167, 247], [40, 120]],'HSV')
 
 def main():
-    camera = gbv.USBCamera(0, gbv.LIFECAM_3000)
+    camera = gbv.USBCamera(1, gbv.LIFECAM_3000)
     camera.resize(0.75, 0.75)
     # connect to camera
 
-    camera.set_exposure(-4)
+    camera.set_exposure(-8)
     # switch to auto exposure mode
     # this works on windows, when using a raspberry pi use booleans instead
 
