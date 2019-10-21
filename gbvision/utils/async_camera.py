@@ -35,23 +35,3 @@ class AsyncCamera(Camera, abc.ABC):
     def __async_read_wrapper(self):
         while self.is_opened():
             self.__ok, self.__frame = self._read()
-
-    @staticmethod
-    def create_type(camera_class) -> type:
-        """
-        creates a new class that is similar to the given class, but has the async feature
-        the constructor of the new class is the same as the given class
-        
-        :param camera_class: the class to wrap
-        :return: the wrapped class as a type that can be instanced
-        """
-
-        class _AsyncCamera(AsyncCamera, camera_class):
-            def _read(self):
-                return camera_class.read(self)
-
-            def __init__(self, *args, **kwargs):
-                camera_class.__init__(self, *args, **kwargs)
-                AsyncCamera.__init__(self)
-
-        return _AsyncCamera
