@@ -1,8 +1,5 @@
-import pickle
 import socket
 import struct
-
-import cv2
 
 from .stream_broadcaster import StreamBroadcaster
 
@@ -24,21 +21,12 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         initializes a new udp stream broadcaster
         
         """
-        StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
+        StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps,
+                                   im_encode=im_encode)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.payload_size = struct.calcsize("I")
-        self.im_encode = im_encode
         self.prev_time = 0
 
-    def send_frame(self, frame):
-        if not self._legal_time():
-            return
-        if frame is not None:
-            frame = self._prep_frame(frame)
-
-            frame = cv2.imencode(self.im_encode, frame)[1]
-        data = pickle.dumps(frame)
-        data = struct.pack("I", len(data)) + data
-        self.socket.sendto(data, self.server_addr)
-        self._update_time()
+    def _send_frame(self, frame):
+        self.socket.sendto(frame, self.server_addr)

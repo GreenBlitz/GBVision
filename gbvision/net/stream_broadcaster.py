@@ -1,5 +1,6 @@
 import abc
-
+import pickle
+import struct
 import cv2
 import time
 
@@ -23,19 +24,33 @@ class StreamBroadcaster(abc.ABC):
     """
 
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False,
-                 max_fps: int = None):
+                 max_fps: int = None, im_encode='.jpg'):
         self.shape = shape
         self.fx = fx
         self.fy = fy
         self.use_grayscale = use_grayscale
         self.max_fps = max_fps
         self.prev_time = 0.0
+        self.im_encode = im_encode
+
+    def send_frame(self, frame: Frame):
+        if not self._legal_time():
+            return
+        if frame is not None:
+            frame = self._prep_frame(frame)
+
+            frame = cv2.imencode(self.im_encode, frame)[1]
+        data = pickle.dumps(frame)
+        data = struct.pack("I", len(data)) + data
+        self._send_frame(data)
+        self._update_time()
 
     @abc.abstractmethod
-    def send_frame(self, frame: Frame):
+    def _send_frame(self, frame: bytes):
         """
-        sends the given frame to the stream receiver
-        :param frame: the frame to send
+        unsafely sends the given frame (as pickled data) to the stream receiver
+        should not be used by the programmer, only by the api
+        :param frame: the frame to send as pickled data
         """
         pass
 
