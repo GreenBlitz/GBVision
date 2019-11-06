@@ -4,7 +4,7 @@ class __EmptyTracker:
         def __init__(self):
             self.__rect = None
         
-        def init(self, frame, rect):
+        def init(self, '''frame - not using it, no need''', rect):
             self.__rect = rect
             return True
 
