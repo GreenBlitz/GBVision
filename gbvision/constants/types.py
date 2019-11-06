@@ -9,6 +9,6 @@ Rect = Tuple[Number, Number, Number, Number]  # (x, y, width, height)
 Polygon = Contour
 FixedPolygon = List[Point]
 RotatedRect = Tuple[Point, Point, float]  # ((x1, y1), (x2, y2), angle)
-Ellipse = RotatedRect
+Ellipse = Tuple[Number, Number, Number, Number] # (x, y, rad1, rad2)
 Frame = ndarray
 Color = Tuple[int, int, int]
