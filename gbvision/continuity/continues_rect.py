@@ -1,5 +1,6 @@
 
 from .tracker import Tracker
+import math
 #TODO add docs
 
 class ContinuesRect:
@@ -29,7 +30,7 @@ class ContinuesRect:
             if 1.0/self.max_area_ratio <= self.rect_area(self._rect) / self.rect_area(rect) <= self.max_area_ratio:
                 x1, y1, w1, h1 = self._rect
                 x2, y2, w2, h2 = rect
-                if (x1 - x2)**2 + (y1 - y2)**2 <= (min(w1, w2)**2 + min(h1, h2)**2) * self.max_distance_ratio:
+                if math.sqrt((x1 - x2)**2 + (y1 - y2)**2) <= math.sqrt(min(w1, w2)**2 + min(h1, h2)**2) * self.max_distance_ratio:
                     return True
         return False
 
