@@ -87,7 +87,7 @@ class StreamBroadcaster(abc.ABC):
         """
         :return: True if there's no bitrate limit or frame bitrate is below max bitrate.  
         """
-        return self.max_bitrate is None or (len(frame) / (time.time() - self.prev_time)) * 1000  <= self.max_bitrate
+        return self.max_bitrate is None or len(frame) / ((time.time() - self.prev_time) * 1000) <= self.max_bitrate
     
     def _can_send_frame(self, frame: bytes):
         if not self._legal_time():
