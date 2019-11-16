@@ -93,7 +93,7 @@ class StreamBroadcaster(abc.ABC):
         if not self._legal_time():
             return False
 
-        if self._legal_bitrate(frame):
+        if not self._legal_bitrate(frame):
             return False
         
         return True
