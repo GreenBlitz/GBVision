@@ -21,10 +21,12 @@ class StreamBroadcaster(abc.ABC):
         default is False
     :param max_fps: integer representing the maximum fps (frames per second) of the stream, when set to None
         there is no fps limitation, default is None
+    :param max_bitrate: Integer that determines the max bitrate of video stream.
+        The bitrate is messured with Kbps and default is None.
     """
 
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False,
-                 max_fps: int = None, im_encode='.jpg'):
+                 max_fps: int = None, im_encode='.jpg', max_bitrate: int = None ):
         self.shape = shape
         self.fx = fx
         self.fy = fy
@@ -32,24 +34,24 @@ class StreamBroadcaster(abc.ABC):
         self.max_fps = max_fps
         self.prev_time = 0.0
         self.im_encode = im_encode
+        self.max_bitrate = max_bitrate
 
     def send_frame(self, frame: Frame):
-        if not self._legal_time():
-            return
         if frame is not None:
             frame = self._prep_frame(frame)
-
             frame = cv2.imencode(self.im_encode, frame)[1]
         data = pickle.dumps(frame)
         data = struct.pack("I", len(data)) + data
-        self._send_frame(data)
-        self._update_time()
+        if self._can_send_frame(data):
+            self._send_frame(data)
+            self._update_time()
 
     @abc.abstractmethod
     def _send_frame(self, frame: bytes):
         """
         unsafely sends the given frame (as pickled data) to the stream receiver
         should not be used by the programmer, only by the api
+
         :param frame: the frame to send as pickled data
         """
         pass
@@ -58,6 +60,7 @@ class StreamBroadcaster(abc.ABC):
         """
         prepares an image to be sent
         resize and convert the colors of the image by the parameters of the stream broadcaster
+
         :param frame: the frame to prepare
         :return: the frame after preparation
         """
@@ -69,6 +72,7 @@ class StreamBroadcaster(abc.ABC):
     def _legal_time(self) -> bool:
         """
         checks if at the fps will not pass the max fps limit if an image will be sent at the current moment
+        
         :return: true if the image can be sent, false otherwise
         """
         return self.max_fps is None or (time.time() - self.prev_time) * self.max_fps >= 1
@@ -78,3 +82,18 @@ class StreamBroadcaster(abc.ABC):
         updates the previous time a frame was sent, used at the end of send_frame
         """
         self.prev_time = time.time()
+    
+    def _legal_bitrate(self, frame: bytes):
+        """
+        :return: True if there's no bitrate limit or frame bitrate is below max bitrate.  
+        """
+        return self.max_bitrate is None or len(frame) / ((time.time() - self.prev_time) * 1000) <= self.max_bitrate
+    
+    def _can_send_frame(self, frame: bytes):
+        if not self._legal_time():
+            return False
+
+        if self._legal_bitrate(frame):
+            return False
+        
+        return True
