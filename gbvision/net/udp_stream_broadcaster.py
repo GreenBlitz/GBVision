@@ -16,13 +16,13 @@ class UDPStreamBroadcaster(StreamBroadcaster):
     """
 
     def __init__(self, ip: str, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, im_encode: str = '.jpg',
-                 use_grayscale: bool = False, max_fps: int = None):
+                 use_grayscale: bool = False, max_fps: int = None, max_bitrate: int = None):
         """
         initializes a new udp stream broadcaster
         
         """
         StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps,
-                                   im_encode=im_encode)
+                                   im_encode=im_encode, max_bitrate=max_bitrate)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
 

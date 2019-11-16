@@ -17,13 +17,13 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     """
 
     def __init__(self, port: int, shape=(0, 0), fx=1.0, fy=1.0, im_encode='.jpg',
-                 use_grayscale=False, max_fps: int = None):
+                 use_grayscale=False, max_fps: int = None, max_bitrate: int = None):
         """
         initializes the streamer
         
         """
         StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps,
-                                   im_encode=im_encode)
+                                   im_encode=im_encode, max_bitrate=max_bitrate)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)
