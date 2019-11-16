@@ -25,8 +25,6 @@ class UDPStreamBroadcaster(StreamBroadcaster):
                                    im_encode=im_encode)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
-        self.payload_size = struct.calcsize("I")
-        self.prev_time = 0
 
     def _send_frame(self, frame):
         self.socket.sendto(frame, self.server_addr)

@@ -1,7 +1,9 @@
 import abc
 
-import numpy as np
+import pickle
 import cv2
+
+from gbvision.constants.types import Frame
 
 
 class StreamReceiver(abc.ABC):
@@ -26,13 +28,21 @@ class StreamReceiver(abc.ABC):
         self.fy = fy
 
     @abc.abstractmethod
-    def get_frame(self) -> np.ndarray:
+    def _get_frame(self) -> bytes:
         """
-        reads a frame from the stream and returns in
+        reads a frame from the stream and returns in in raw bytes format
 
         :returns: the frame read as a numpy array
         """
         pass
+
+    def get_frame(self) -> Frame:
+        frame_data = self._get_frame()
+        frame = pickle.loads(frame_data)
+        if frame is None:
+            return None
+        frame = cv2.imdecode(frame, -1)
+        return self._prep_frame(frame)
 
     def _prep_frame(self, frame):
         """

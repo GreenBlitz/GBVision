@@ -29,11 +29,12 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         self.socket.bind(self.server_addr)
         self.socket.listen(10)
         self.socket, addr = self.socket.accept()
-        self.payload_size = struct.calcsize("I")
 
     def _send_frame(self, frame):
         try:
             self.socket.send(frame)
-        except IOError:
-            raise TCPStreamClosed()
+        except IOError as e:
+            _ = TCPStreamClosed()
+            _.__cause__ = e
+            raise _
         self._update_time()

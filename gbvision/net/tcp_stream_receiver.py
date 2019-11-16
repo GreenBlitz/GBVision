@@ -29,26 +29,23 @@ class TCPStreamReceiver(StreamReceiver):
         self.payload_size = struct.calcsize("I")
         self.data = b''
 
-    def get_frame(self):
+    def __recv(self, bufsize=4096):
         try:
-            while len(self.data) < self.payload_size:
-                self.data += self.socket.recv(4096)
-        except OSError:
-            raise TCPStreamClosed()
+            return self.socket.recv(bufsize)
+        except OSError as e:
+            _ = TCPStreamClosed()
+            _.__cause__ = e
+            raise _
+
+    def _get_frame(self):
+        while len(self.data) < self.payload_size:
+            self.data += self.__recv()
 
         packed_msg_size = self.data[:self.payload_size]
-
         self.data = self.data[self.payload_size:]
-
         msg_size = struct.unpack("I", packed_msg_size)[0]
-
         while len(self.data) < msg_size:
-            self.data += self.socket.recv(4096)
-
+            self.data += self.__recv()
         frame_data = self.data[:msg_size]
         self.data = self.data[msg_size:]
-        frame = pickle.loads(frame_data)
-        if frame is None:
-            return None
-        frame = cv2.imdecode(frame, -1)
-        return self._prep_frame(frame)
+        return frame_data

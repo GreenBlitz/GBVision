@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Union
 from numpy import ndarray
 
 Point = Tuple[float, float]  # (x, y)
@@ -9,5 +9,5 @@ Polygon = Contour
 FixedPolygon = List[Point]
 RotatedRect = Tuple[Point, Point, float]  # ((x1, y1), (x2, y2), angle)
 Ellipse = RotatedRect
-Frame = ndarray
+Frame = Union[ndarray, type(None)]
 Color = Tuple[int, int, int]
