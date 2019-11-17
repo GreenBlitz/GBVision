@@ -17,38 +17,21 @@ class TCPStreamReceiver(StreamReceiver):
     :param port: the port which TCP should use
     """
 
-    def __init__(self, ip: str, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
+    def __init__(self, ip: str, port: int, *args, **kwargs):
         """
         initializes the stream receiver
         
         """
-        StreamReceiver.__init__(self, shape=shape, fx=fx, fy=fy)
+        StreamReceiver.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.socket.connect(self.server_addr)
-        self.payload_size = struct.calcsize("I")
-        self.data = b''
 
-    def get_frame(self):
+    def _receive(self):
         try:
-            while len(self.data) < self.payload_size:
-                self.data += self.socket.recv(4096)
-        except OSError:
-            raise TCPStreamClosed()
+            return self.socket.recv(4096)
+        except OSError as e:
+            _ = TCPStreamClosed()
+            _.__cause__ = e
+            raise _
 
-        packed_msg_size = self.data[:self.payload_size]
-
-        self.data = self.data[self.payload_size:]
-
-        msg_size = struct.unpack("I", packed_msg_size)[0]
-
-        while len(self.data) < msg_size:
-            self.data += self.socket.recv(4096)
-
-        frame_data = self.data[:msg_size]
-        self.data = self.data[msg_size:]
-        frame = pickle.loads(frame_data)
-        if frame is None:
-            return None
-        frame = cv2.imdecode(frame, -1)
-        return self._prep_frame(frame)

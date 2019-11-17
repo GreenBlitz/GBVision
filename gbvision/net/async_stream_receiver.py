@@ -12,8 +12,8 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
     None! when inheriting from this class and another StreamReceiver class, make sure you call the other class'
     constructor before this class' constructor, but also make sure you inherit from this class first in order
     """
-    def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
-        StreamReceiver.__init__(self, shape, fx, fy)
+    def __init__(self, *args, **kwargs):
+        StreamReceiver.__init__(self, *args, **kwargs)
         self.__frame = None
         self.__thread = Thread(target=self.__receive_thread_function)
         self.__thread.start()

@@ -1,8 +1,5 @@
-import pickle
 import socket
 import struct
-
-import cv2
 
 from gbvision.constants.net import LOCAL_SERVER_IP
 from .stream_broadcaster import StreamBroadcaster
@@ -19,32 +16,23 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         for missing parameters, see documentation on StreamBroadcaster
     """
 
-    def __init__(self, port: int, shape=(0, 0), fx=1.0, fy=1.0, im_encode='.jpg',
-                 use_grayscale=False, max_fps: int = None):
+    def __init__(self, port: int, *args, **kwargs):
         """
         initializes the streamer
         
         """
-        StreamBroadcaster.__init__(self, shape=shape, fx=fx, fy=fy, use_grayscale=use_grayscale, max_fps=max_fps)
+        StreamBroadcaster.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)
         self.socket.listen(10)
         self.socket, addr = self.socket.accept()
-        self.payload_size = struct.calcsize("I")
-        self.im_encode = im_encode
 
-    def send_frame(self, frame):
-        if not self._legal_time():
-            return
-        if frame is not None:
-            frame = self._prep_frame(frame)
-
-            frame = cv2.imencode(self.im_encode, frame)[1]
-        data = pickle.dumps(frame)
-        data = struct.pack("I", len(data)) + data
+    def _send_frame(self, frame):
         try:
-            self.socket.send(data)
-        except IOError:
-            raise TCPStreamClosed()
+            self.socket.send(frame)
+        except IOError as e:
+            _ = TCPStreamClosed()
+            _.__cause__ = e
+            raise _
         self._update_time()

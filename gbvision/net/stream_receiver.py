@@ -1,7 +1,9 @@
 import abc
-
-import numpy as np
+import pickle
 import cv2
+import struct
+
+from gbvision.constants.types import Frame
 
 
 class StreamReceiver(abc.ABC):
@@ -24,17 +26,45 @@ class StreamReceiver(abc.ABC):
         self.shape = shape
         self.fx = fx
         self.fy = fy
+        self.data = b''
+        self.payload_size = struct.calcsize("I")
 
     @abc.abstractmethod
-    def get_frame(self) -> np.ndarray:
+    def _receive(self) -> bytes:
         """
-        reads a frame from the stream and returns in
+        reads bytes from the stream and returns them
+        the amount of bytes read is the choice of the programmer
+        for UDP / RAW formats, a large amount is recommended
+        for TCP / TCP like formats, a small amount is recommended
 
-        :returns: the frame read as a numpy array
         """
         pass
 
-    def _prep_frame(self, frame):
+    def _get_frame_data(self) -> bytes:
+        """
+
+        :return:
+        """
+        while len(self.data) < self.payload_size:
+            self.data += self._receive()
+        packed_msg_size = self.data[:self.payload_size]
+        self.data = self.data[self.payload_size:]
+        msg_size = struct.unpack("I", packed_msg_size)[0]
+        while len(self.data) < msg_size:
+            self.data += self._receive()
+        frame_data = self.data[:msg_size]
+        self.data = self.data[msg_size:]
+        return frame_data
+
+    def get_frame(self) -> Frame:
+        frame_data = self._get_frame_data()
+        frame = pickle.loads(frame_data)
+        if frame is None:
+            return None
+        frame = cv2.imdecode(frame, -1)
+        return self._prep_frame(frame)
+
+    def _prep_frame(self, frame: Frame) -> Frame:
         """
         prepares the frame to be returned and used
         resize and convert to bgr channeled image
