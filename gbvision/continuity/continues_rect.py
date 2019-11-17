@@ -28,6 +28,6 @@ class ContinuesRect(ContinuesShape):
 
     @staticmethod
     def _shape_center(shape: Rect) -> Point:
-        center_x = (shape[0] + shape[3]) / 2
-        center_y = (shape[1] + shape[4]) / 2
+        center_x = (shape[0] + shape[2]) / 2
+        center_y = (shape[1] + shape[3]) / 2
         return center_x, center_y
