@@ -1,5 +1,6 @@
 import math
 
+from gbvision.models.shapes import rotated_rect_collision
 from gbvision.constants.types import Rect, Number, Ellipse
 from gbvision.continuity.continues_shape import ContinuesShape
 
@@ -10,7 +11,7 @@ class ContinuesEllipse(ContinuesShape):
         return [shape[0] - shape[2], shape[1] - shape[3], 2 * shape[2], 2 * shape[3]]
 
     def _shape_collision(self, shape: Ellipse) -> bool:
-        pass
+        return rotated_rect_collision()
     
     @staticmethod
     def _shape_square_distance(self, elp: Ellipse) -> Number:
