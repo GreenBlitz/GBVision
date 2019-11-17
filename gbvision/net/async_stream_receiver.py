@@ -28,7 +28,8 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
     @abc.abstractmethod
     def _get_frame(self) -> Frame:
         """
-        reads a frame from the stream synchronously (similar to StreamReceiver.get_frame). unsafe not to be used by programmer
+        reads a frame from the stream synchronously (similar to StreamReceiver.get_frame).
+        unsafe not to be used by programmer
         :return: the frame read
         """
         pass
