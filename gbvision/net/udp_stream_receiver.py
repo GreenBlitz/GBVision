@@ -17,20 +17,11 @@ class UDPStreamReceiver(StreamReceiver):
     :param port: the port which udp should use
     """
 
-    def __init__(self, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
-        StreamReceiver.__init__(self, shape=shape, fx=fx, fy=fy)
+    def __init__(self, port: int, *args, **kwargs):
+        StreamReceiver.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)
-        self.payload_size = struct.calcsize("I")
-        self.data = b''
 
-    def _get_frame(self):
-        self.data += self.socket.recv(2 ** 20)
-
-        packed_msg_size = self.data[:self.payload_size]
-        self.data = self.data[self.payload_size:]
-        msg_size = struct.unpack("I", packed_msg_size)[0]
-        frame_data = self.data[:msg_size]
-        self.data = self.data[msg_size:]
-        return frame_data
+    def _receive(self) -> bytes:
+        return self.socket.recv(2**20)

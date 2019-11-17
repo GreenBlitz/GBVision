@@ -17,35 +17,23 @@ class TCPStreamReceiver(StreamReceiver):
     :param port: the port which TCP should use
     """
 
-    def __init__(self, ip: str, port: int, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
+    def __init__(self, ip: str, port: int, *args, **kwargs):
         """
         initializes the stream receiver
         
         """
-        StreamReceiver.__init__(self, shape=shape, fx=fx, fy=fy)
+        StreamReceiver.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.socket.connect(self.server_addr)
         self.payload_size = struct.calcsize("I")
         self.data = b''
 
-    def __recv(self, bufsize=4096):
+    def _receive(self):
         try:
-            return self.socket.recv(bufsize)
+            return self.socket.recv(4096)
         except OSError as e:
             _ = TCPStreamClosed()
             _.__cause__ = e
             raise _
 
-    def _get_frame(self):
-        while len(self.data) < self.payload_size:
-            self.data += self.__recv()
-
-        packed_msg_size = self.data[:self.payload_size]
-        self.data = self.data[self.payload_size:]
-        msg_size = struct.unpack("I", packed_msg_size)[0]
-        while len(self.data) < msg_size:
-            self.data += self.__recv()
-        frame_data = self.data[:msg_size]
-        self.data = self.data[msg_size:]
-        return frame_data

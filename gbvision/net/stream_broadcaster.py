@@ -26,7 +26,7 @@ class StreamBroadcaster(abc.ABC):
     """
 
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False,
-                 max_fps: int = None, im_encode='.jpg', max_bitrate: int = None ):
+                 max_fps: int = None, im_encode='.jpg', max_bitrate: int = None):
         self.shape = shape
         self.fx = fx
         self.fy = fy
