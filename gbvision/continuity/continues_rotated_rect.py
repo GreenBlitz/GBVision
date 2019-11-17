@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-import numpy
+import numpy as np
 
 from gbvision.models.shapes import rotated_rect_collision
 from gbvision.constants.types import RotatedRect, Number, Rect, Point
@@ -31,10 +31,10 @@ class ContinuesRotatedRect(ContinuesShape):
         y = rotated_rect[0][1]
         w = rotated_rect[1][0]
         h = rotated_rect[1][1]
-        a = rotated_rect[2]
+        a = np.deg2rad(rotated_rect[2])
 
-        bound_w = w * numpy.cos(a) + h * numpy.sin(a)
-        bound_h = h * numpy.cos(a) + w * numpy.sin(a)
+        bound_w = w * np.cos(a) + h * np.sin(a)
+        bound_h = h * np.cos(a) + w * np.sin(a)
         bound_x = x - bound_w / 2
         bound_y = y - bound_h / 2
         return bound_x, bound_y, bound_w, bound_h
