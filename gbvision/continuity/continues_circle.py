@@ -1,12 +1,15 @@
 import math
 
 from gbvision.models.shapes import circle_collision
-from gbvision.constants.types import Rect, Number, Circle
+from gbvision.constants.types import Rect, Number, Circle, Point
 from gbvision.continuity.continues_shape import ContinuesShape
-from gbvision.utils.tracker import Tracker
 
 
 class ContinuesCircle(ContinuesShape):
+    @staticmethod
+    def _shape_center(shape) -> Point:
+        return shape[0]
+
     def __init__(self, shape: Circle, *args, **kwargs):
         ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 
@@ -16,9 +19,6 @@ class ContinuesCircle(ContinuesShape):
     @staticmethod
     def _shape_area(shape: Circle) -> Number:
         return math.pi * shape[1] ** 2
-
-    def _shape_square_distance(self, shape: Circle) -> Number:
-        return (self._shape[0][0] - shape[0][0]) ** 2 + (self._shape[0][1] - shape[0][1]) ** 2
 
     @staticmethod
     def _from_bounding_rect(bounding_rect: Rect) -> Circle:

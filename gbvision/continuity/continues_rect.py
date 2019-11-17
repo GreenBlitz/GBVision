@@ -3,7 +3,6 @@ from copy import deepcopy
 from gbvision.models.shapes import rect_collision
 from gbvision.constants.types import *
 from gbvision.continuity.continues_shape import ContinuesShape
-from gbvision.utils.tracker import Tracker
 
 
 # TODO add docs
@@ -27,12 +26,8 @@ class ContinuesRect(ContinuesShape):
     def _to_bounding_rect(rect: Rect) -> Rect:
         return deepcopy(rect)
 
-    def _shape_square_distance(self, rect: Rect) -> Number:
-        return (self._get_center(rect)[0] - self._get_center(self._shape)[0]) ** 2 + (
-                    self._get_center(rect)[1] - self._get_center(self._shape)[1]) ** 2
-
     @staticmethod
-    def _get_center(rect: Rect) -> Point:
-        center_x = (rect[0] + rect[3]) / 2
-        center_y = (rect[1] + rect[4]) / 2
+    def _shape_center(shape: Rect) -> Point:
+        center_x = (shape[0] + shape[3]) / 2
+        center_y = (shape[1] + shape[4]) / 2
         return center_x, center_y

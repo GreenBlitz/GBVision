@@ -1,9 +1,6 @@
 import abc
-from typing import Union
 
-import numpy as np
-
-from gbvision.constants.types import Rect, Number, Frame
+from gbvision.constants.types import Rect, Number, Frame, Point
 from gbvision.utils.tracker import Tracker
 
 
@@ -29,10 +26,13 @@ class ContinuesShape(abc.ABC):
 
         """
 
+    @staticmethod
     @abc.abstractmethod
-    def _shape_square_distance(self, shape) -> Number:
+    def _shape_center(shape) -> Point:
         """
 
+        :param shape: the
+        :return:
         """
 
     @staticmethod
@@ -48,6 +48,10 @@ class ContinuesShape(abc.ABC):
         """
 
         """
+
+    def _shape_square_distance(self, other_shape) -> Number:
+        return (self._shape_center(other_shape)[0] - self._shape_center(self._shape)[0]) ** 2 + \
+               (self._shape_center(other_shape)[1] - self._shape_center(self._shape)[1]) ** 2
 
     def _is_legal(self, shape):
         if self._shape_collision(shape):
