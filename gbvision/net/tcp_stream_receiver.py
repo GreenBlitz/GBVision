@@ -26,8 +26,6 @@ class TCPStreamReceiver(StreamReceiver):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (ip, port)
         self.socket.connect(self.server_addr)
-        self.payload_size = struct.calcsize("I")
-        self.data = b''
 
     def _receive(self):
         try:

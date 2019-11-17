@@ -4,6 +4,7 @@ import struct
 import cv2
 import time
 
+from gbvision.constants.math import EPSILON
 from gbvision.constants.types import Frame
 
 
@@ -82,18 +83,19 @@ class StreamBroadcaster(abc.ABC):
         updates the previous time a frame was sent, used at the end of send_frame
         """
         self.prev_time = time.time()
-    
+
     def _legal_bitrate(self, frame: bytes):
         """
         :return: True if there's no bitrate limit or frame bitrate is below max bitrate.  
         """
-        return self.max_bitrate is None or len(frame) / ((time.time() - self.prev_time) * 1000) <= self.max_bitrate
-    
+        return self.max_bitrate is None or len(frame) / (
+                    (time.time() - self.prev_time + EPSILON) * 1000) <= self.max_bitrate
+
     def _can_send_frame(self, frame: bytes):
         if not self._legal_time():
             return False
 
         if not self._legal_bitrate(frame):
             return False
-        
+
         return True

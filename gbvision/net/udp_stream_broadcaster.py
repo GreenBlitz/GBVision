@@ -21,7 +21,7 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         
         """
         StreamBroadcaster.__init__(self, *args, **kwargs)
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_addr = (ip, port)
 
     def _send_frame(self, frame):

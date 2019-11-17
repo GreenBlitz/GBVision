@@ -19,7 +19,7 @@ class UDPStreamReceiver(StreamReceiver):
 
     def __init__(self, port: int, *args, **kwargs):
         StreamReceiver.__init__(self, *args, **kwargs)
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)
 
