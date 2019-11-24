@@ -27,3 +27,7 @@ class CircleFinder(ObjectFinder):
         circles = self._full_pipeline(frame)
         return list(
             map(lambda circ: self.game_object.location_by_params(camera, SQRT_PI * circ[1], circ[0]), circles))
+
+    def get_circles(self, frame):
+        return self._full_pipeline(frame)
+
