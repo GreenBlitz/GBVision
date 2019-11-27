@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Tuple
 
 import numpy as np
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, RotatedRect
 
 from gbvision.models.contours import FilterContours, find_contours, sort_contours, contours_to_rotated_rects, \
     contours_to_polygons, fix_contours_shape
@@ -137,6 +137,6 @@ class TargetPairFinder(ObjectFinder):
         all_hatches.sort(key=lambda v: np.linalg.norm(v[0:3:2]), reverse=False)
         return all_hatches
 
-    def get_shape(self, frame: Frame) -> List[TargetPair]:
+    def get_shape(self, frame: Frame) -> List[Tuple[RotatedRect, RotatedRect]]:
         return self._full_pipeline(frame)
 

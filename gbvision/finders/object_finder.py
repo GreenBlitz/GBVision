@@ -1,4 +1,5 @@
 import abc
+from typing import List, Any
 
 from gbvision.constants.types import Frame
 from gbvision.constants.system import EMPTY_PIPELINE
@@ -34,7 +35,7 @@ class ObjectFinder(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_shape(self, frame: Frame):
+    def get_shape(self, frame: Frame) -> List[Any]:
         """
         finds all the objects and returns them in frame after full pipeline
         :param: The current frame the finder searches in
