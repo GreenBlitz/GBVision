@@ -1,7 +1,7 @@
 import math
 
 from gbvision.models.shapes import circle_collision
-from gbvision.constants.types import Rect, Number, Circle, Point
+from gbvision.constants.types import Rect, Number, Circle, Point, Frame
 from gbvision.continuity.continues_shape import ContinuesShape
 
 

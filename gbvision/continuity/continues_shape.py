@@ -16,9 +16,9 @@ class ContinuesShape(abc.ABC):
 
     @abc.abstractmethod
     def _shape_collision(self, shape) -> bool:
-        """
-        """
+        '''
 
+        '''
     @staticmethod
     @abc.abstractmethod
     def _shape_area(shape) -> Number:
