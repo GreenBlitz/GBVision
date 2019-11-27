@@ -21,7 +21,7 @@ class ContinuesRotatedRect(ContinuesShape):
         return rect[1][0] * rect[1][1]
 
     @staticmethod
-    def _from_bounding_rect(bounding_rect: RotatedRect):
+    def _from_bounding_rect(bounding_rect: Rect) -> RotatedRect:
         pass
     # needs angle
 

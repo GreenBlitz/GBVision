@@ -78,4 +78,4 @@ class ContinuesShape(abc.ABC):
         self._count += 1
 
     def is_lost(self, max_count: int):
-        return max_count is not None and self._count <= max_count
+        return max_count is not None and self._count > max_count
