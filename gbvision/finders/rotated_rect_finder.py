@@ -1,4 +1,7 @@
+from typing import List
+
 import numpy as np
+from gbvision.constants.types import Frame, RotatedRect
 
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, FilterContours, sort_contours, contours_to_rotated_rects_sorted
@@ -33,3 +36,6 @@ class RotatedRectFinder(ObjectFinder):
             lambda rect: self.game_object.location_by_params(camera,
                                                              self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
                                                              rect[0]), rects))
+
+    def get_shape(self, frame: Frame) -> List[RotatedRect]:
+        return self._full_pipeline(frame)

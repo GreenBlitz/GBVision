@@ -1,4 +1,7 @@
+from typing import List
+
 import numpy as np
+from gbvision.constants.types import Frame
 
 from gbvision.models.contours import FilterContours, find_contours, sort_contours, contours_to_rotated_rects, \
     contours_to_polygons, fix_contours_shape
@@ -133,3 +136,7 @@ class TargetPairFinder(ObjectFinder):
             all_hatches.append(np.concatenate((t + rot_matrix.dot(self.__vector_distance), np.array([-angle]))))
         all_hatches.sort(key=lambda v: np.linalg.norm(v[0:3:2]), reverse=False)
         return all_hatches
+
+    def get_shape(self, frame: Frame) -> List[TargetPair]:
+        return self._full_pipeline(frame)
+

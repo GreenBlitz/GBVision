@@ -1,11 +1,12 @@
 from typing import List
 
-from gbvision.constants.types import Circle
+from gbvision.constants.types import Circle, Frame
 
 from gbvision.constants.math import SQRT_PI
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, FilterContours, contours_to_circles_sorted
 from gbvision.models.shapes import filter_inner_circles
+from gbvision.utils.camera import Camera
 from .object_finder import ObjectFinder
 
 
@@ -27,11 +28,10 @@ class CircleFinder(ObjectFinder):
                                contours_to_circles_sorted +
                                filter_inner_circles)
 
-    def __call__(self, frame, camera):
+    def __call__(self, frame: Frame, camera: Camera):
         circles = self._full_pipeline(frame)
         return list(
             map(lambda circ: self.game_object.location_by_params(camera, SQRT_PI * circ[1], circ[0]), circles))
 
-    def get_circles(self, frame) -> List[Circle]:
+    def get_shape(self, frame: Frame) -> List[Circle]:
         return self._full_pipeline(frame)
-

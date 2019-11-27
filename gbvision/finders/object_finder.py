@@ -32,3 +32,12 @@ class ObjectFinder(abc.ABC):
         :return: all object of this type in the physical space
         """
         pass
+
+    @abc.abstractmethod
+    def get_shape(self, frame: Frame):
+        """
+        finds all the objects and returns them in frame after full pipeline
+        :param: The current frame the finder searches in
+        :return: A list of objects: see gbvisin/constants/types
+        """
+        pass
