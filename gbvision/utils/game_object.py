@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from .camera import Camera
+from gbvision.cameras.camera import Camera
 from gbvision.models.contours import contour_center
 from gbvision.constants.types import Point
 
