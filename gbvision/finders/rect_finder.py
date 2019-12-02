@@ -37,5 +37,5 @@ class RectFinder(ObjectFinder):
                                                              [(rect[0] + rect[2]) / 2, (rect[1] + rect[3]) / 2]),
             rects))
 
-    def get_shape(self, frame: Frame) -> List[Rect]:
+    def get_shapes(self, frame: Frame) -> List[Rect]:
         return self._full_pipeline(frame)

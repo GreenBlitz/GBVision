@@ -37,5 +37,5 @@ class RotatedRectFinder(ObjectFinder):
                                                              self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
                                                              rect[0]), rects))
 
-    def get_shape(self, frame: Frame) -> List[RotatedRect]:
+    def get_shapes(self, frame: Frame) -> List[RotatedRect]:
         return self._full_pipeline(frame)

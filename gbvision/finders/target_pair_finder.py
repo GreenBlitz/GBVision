@@ -137,6 +137,6 @@ class TargetPairFinder(ObjectFinder):
         all_hatches.sort(key=lambda v: np.linalg.norm(v[0:3:2]), reverse=False)
         return all_hatches
 
-    def get_shape(self, frame: Frame) -> List[Tuple[RotatedRect, RotatedRect]]:
+    def get_shapes(self, frame: Frame) -> List[Tuple[RotatedRect, RotatedRect]]:
         return self._full_pipeline(frame)
 

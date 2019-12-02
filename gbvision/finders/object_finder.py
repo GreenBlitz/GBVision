@@ -35,10 +35,9 @@ class ObjectFinder(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_shape(self, frame: Frame) -> List[Any]:
+    def get_shapes(self, frame: Frame) -> List[Any]:
         """
         finds all the objects and returns them in frame after full pipeline
         :param: The current frame the finder searches in
         :return: A list of objects: see gbvisin/constants/types
         """
-        pass

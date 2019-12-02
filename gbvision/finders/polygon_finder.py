@@ -35,5 +35,5 @@ class PolygonFinder(ObjectFinder):
             lambda cnt: self.game_object.location_by_params(camera, self.area_scalar * np.sqrt(cv2.contourArea(cnt)),
                                                             contour_center(cnt)), contours))
 
-    def get_shape(self, frame: Frame) -> List[Polygon]:
+    def get_shapes(self, frame: Frame) -> List[Polygon]:
         return self._full_pipeline(frame)
