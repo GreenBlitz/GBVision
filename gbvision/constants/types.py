@@ -1,4 +1,4 @@
-from typing import Tuple, List, Union
+from typing import Tuple, List, Union, Callable
 from numpy import ndarray
 
 NoneType = type(None)
@@ -12,3 +12,4 @@ RotatedRect = Tuple[Point, Point, float]  # ((x1, y1), (x2, y2), angle)
 Ellipse = RotatedRect
 Frame = Union[ndarray, NoneType]
 Color = Tuple[int, int, int]
+ThresholdType = Callable[[Frame], Frame]

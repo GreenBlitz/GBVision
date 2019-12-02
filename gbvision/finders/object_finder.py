@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, ThresholdType
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.utils.game_object import GameObject, Camera
 
@@ -12,7 +12,7 @@ class ObjectFinder(abc.ABC):
     GameObject real-life parameters
     """
 
-    def __init__(self, threshold_func, game_object: GameObject):
+    def __init__(self, threshold_func: ThresholdType, game_object: GameObject):
         """
         initializes the finder
         :param threshold_func: a pipeline (or any sort of function) that returns a binary threshold of the object
