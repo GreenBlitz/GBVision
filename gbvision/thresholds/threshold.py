@@ -1,9 +1,7 @@
 import abc
-from collections import Iterator
 from functools import reduce
 
 import cv2
-from traitlets import Any
 
 from gbvision.constants.types import FilterFunction, Frame
 
