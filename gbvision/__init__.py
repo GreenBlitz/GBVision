@@ -57,20 +57,22 @@ from .net.udp_stream_receiver import UDPStreamReceiver
 from .net.async_tcp_stream_receiver import AsyncTCPStreamReceiver
 from .net.async_udp_stream_receiver import AsyncUDPStreamReceiver
 
+# cameras
+from .cameras.camera import Camera
+from .cameras.stream_camera import StreamCamera
+from .cameras.camera_data import CameraData
+from .cameras.usb_camera import USBCamera
+from .cameras.camera_list import CameraList
+from .cameras.usb_stream_camera import USBStreamCamera
+from .cameras.async_camera import AsyncCamera
+from .cameras.async_usb_camera import AsyncUSBCamera
+
 # tools
 from .tools.list_tools import split_list
 from .tools.image_tools import crop, median_threshold
 from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object
 
 # utils
-from .utils.camera import Camera
-from .utils.stream_camera import StreamCamera
-from .utils.camera_data import CameraData
-from .utils.usb_camera import USBCamera
-from .utils.camera_list import CameraList
-from .utils.usb_stream_camera import USBStreamCamera
-from .utils.async_camera import AsyncCamera
-from .utils.async_usb_camera import AsyncUSBCamera
 from .utils.threshold import Threshold
 from .utils.threshold_group import ThresholdGroup
 from .utils.pipeline import PipeLine
