@@ -1,6 +1,6 @@
 import gbvision as gbv
 
-THRESHOLD_CONST = gbv.Threshold([[91, 151], [77, 137], [76, 136]], 'HSV')
+THRESHOLD_CONST = gbv.ColorThreshold([[91, 151], [77, 137], [76, 136]], 'HSV')
 # found using median threshold
 
 OBJECT_CONST = gbv.GameObject(0.20706279240848655)

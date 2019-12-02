@@ -1,8 +1,12 @@
+from typing import Union, Tuple
+
 import cv2
 import numpy as np
 
 from gbvision.constants.images import COLOR_TYPE
-from gbvision.utils.threshold import Threshold
+from gbvision.constants.types import NoneType, Frame
+from gbvision.thresholds.color_threshold import ColorThreshold
+from gbvision.thresholds.threshold import Threshold
 
 
 def crop(frame, x, y, w, h) -> np.ndarray:
@@ -19,7 +23,8 @@ def crop(frame, x, y, w, h) -> np.ndarray:
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_encoding='BGR') -> Threshold:
+def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Union[NoneType, Tuple[int, int, int, int]] = None,
+                     color_encoding='BGR') -> Threshold:
     """
     finds a threshold using the median threshold method
     the median threshold method defines the lower bounds of the threshold as the median of a given region of the image
@@ -45,4 +50,4 @@ def median_threshold(frame, stdv: int or float or np.ndarray, box=None, color_en
         med = np.array([med])
     params = list(map(lambda x: list(map(int, x)),
                       np.vectorize(lambda x: min(255, max(0, x)))(np.array([med - stdv, med + stdv])).T))
-    return Threshold(params, color_encoding)
+    return ColorThreshold(params, color_encoding)

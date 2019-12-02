@@ -1,6 +1,6 @@
 import gbvision as gbv
 
-VISION_TARGET_THRESHOLD = gbv.Threshold([[0, 25], [150, 255], [0, 25]], 'BGR')
+VISION_TARGET_THRESHOLD = gbv.ColorThreshold([[0, 25], [150, 255], [0, 25]], 'BGR')
 # the vision target threshold, found using median threshold
 
 VISION_TARGET = gbv.GameObject(0.08424226967)
