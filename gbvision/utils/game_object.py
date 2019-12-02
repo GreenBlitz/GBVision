@@ -3,7 +3,7 @@ import numpy as np
 
 from gbvision.cameras.camera import Camera
 from gbvision.models.contours import contour_center
-from gbvision.constants.types import Point
+from gbvision.constants.types import Point, Contour, Number
 
 
 class GameObject:
@@ -14,11 +14,11 @@ class GameObject:
     :param area: the square root of the surface area of the object in real life
 
     """
-    def __init__(self, area: float):
-       
+
+    def __init__(self, area: Number):
         self.area = area
 
-    def distance_by_contours(self, camera: Camera, cnt):
+    def distance_by_contours(self, camera: Camera, cnt: Contour):
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
         calculate the norm of the location
@@ -29,7 +29,7 @@ class GameObject:
         """
         return self.distance_by_params(camera, np.sqrt(cv2.contourArea(cnt)))
 
-    def distance_by_params(self, camera: Camera, area):
+    def distance_by_params(self, camera: Camera, area: Number):
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
         calculate the norm of the location
@@ -41,7 +41,7 @@ class GameObject:
         """
         return camera.get_data().focal_length * self.area / area
 
-    def location_by_contours(self, camera: Camera, cnt):
+    def location_by_contours(self, camera: Camera, cnt: Contour):
         """
         :param camera: the camera, can be either Camera or CameraList
         :param cnt: the contours of this object in the frame
@@ -49,7 +49,7 @@ class GameObject:
         """
         return self.location_by_params(camera, np.sqrt(cv2.contourArea(cnt)), contour_center(cnt))
 
-    def location_by_params(self, camera: Camera, area: float, center: Point):
+    def location_by_params(self, camera: Camera, area: Number, center: Point):
         """
         :param camera: the camera, can be either Camera or CameraList
         :param area: a float representing the square root of the area of the object \

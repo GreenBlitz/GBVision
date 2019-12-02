@@ -1,12 +1,12 @@
 import cv2
 
-from .threshold_group import ThresholdGroup
+from gbvision.thresholds.threshold import Threshold
 
 
 def hls_threshold(frame, params):
     """
     thresholds the image according to HLS values
-    
+
     :param frame: the image
     :param params: the hls values, 3x2 matrix of [hmin hmax] \
                                                  [lmin lmax] \
@@ -136,7 +136,7 @@ def gray_threshold(frame, params):
     return cv2.threshold(frame, params[0][0], params[0][1], cv2.THRESH_BINARY)[1]
 
 
-THRESHOLD_NAME_TABLE = {
+_THRESHOLD_NAME_TABLE = {
     'BGR': bgr_threshold,
     'RGB': rgb_threshold,
     'HLS': hls_threshold,
@@ -149,7 +149,7 @@ THRESHOLD_NAME_TABLE = {
 }
 
 
-class Threshold:
+class ColorThreshold(Threshold):
     """
     a class that represents a function that maps from an image to a binary image
     where 255 states that the pixel at the original image was in a range represented by the threshold object
@@ -158,34 +158,33 @@ class Threshold:
     Threshold([[200, 255], [0, 50], [0, 50]], 'RGB')
     the above threshold represents a relatively red pixel. when an image is filtered by it, every pixel that is
     relatively red will be given the value 255, and every pixel that isn't will be given the value of 0
+
+
+    :param pixel_range: the threshold parameters, as a list of integers
+    in the shape of 3x2 for a color image and 1x2 for a gray image
+    :param thresh_type: a string, the type of color encoding to transform the image before applying the range test \
+        binary filter \
+        can be selected from the given list: \
+        'BGR': default opencv color encoding (no change) \
+        'RGB': default opencv color encoding in reverse \
+        'HLS': hue, luminous, saturation \
+        'HSV': hue, saturation, value \
+        'LUV': https://en.wikipedia.org/wiki/CIELUV \
+        'LAB': https://en.wikipedia.org/wiki/CIELAB_color_space \
+        'YUV': https://en.wikipedia.org/wiki/YUV \
+        'XYZ': https://en.wikipedia.org/wiki/CIE_1931_color_space \
+        'GRAY': grayscale images (single channel), image presented doesn't have to be gray, the threshold will convert it
     """
 
     def __init__(self, pixel_range, thresh_type='HSV'):
-        """
-        initializes the threshold
-        :param pixel_range: the threshold parameters, as a list of integers
-        in the shape of 3x2 for a color image and 1x2 for a gray image
-        :param thresh_type: a string, the type of color encoding to transform the image before applying the range test
-        binary filter
-        can be selected from the given list:
-        'BGR': default opencv color encoding (no change)
-        'RGB': default opencv color encoding in reverse
-        'HLS': hue, luminous, saturation
-        'HSV': hue, saturation, value
-        'LUV': https://en.wikipedia.org/wiki/CIELUV
-        'LAB': https://en.wikipedia.org/wiki/CIELAB_color_space
-        'YUV': https://en.wikipedia.org/wiki/YUV
-        'XYZ': https://en.wikipedia.org/wiki/CIE_1931_color_space
-        'GRAY': grayscale images (single channel), image presented doesn't have to be gray, the threshold will convert
-         it
-        """
-        assert thresh_type.upper() in THRESHOLD_NAME_TABLE
+        assert thresh_type.upper() in _THRESHOLD_NAME_TABLE
         self.params = pixel_range
         self.type = thresh_type.upper()
 
     def __len__(self):
         """
         the amount of parameters is equal to the amount of channels
+
         :return: 1 if the threshold is for grayscale images, 3 if it is for color images
         """
         return len(self.params)
@@ -193,6 +192,7 @@ class Threshold:
     def __getitem__(self, item: int):
         """
         returns the item'th channel's range
+
         :param item: the index
         :return: the range of the pixel in the item'th channel
         """
@@ -201,6 +201,7 @@ class Threshold:
     def __setitem__(self, key: int, value: list or tuple):
         """
         sets the key'th channel's range to value
+
         :param key: the channel
         :param value: an array of 2 integers, the lower and upper bounds of the pixel
         """
@@ -218,16 +219,10 @@ class Threshold:
         :param frame: the image to activate the threshold on
         :return: a binary image, the frame after the threshold filter
         """
-        return THRESHOLD_NAME_TABLE[self.type](frame, self.params)
+        return _THRESHOLD_NAME_TABLE[self.type](frame, self.params)
 
     def __repr__(self):
         return f'<{self}>'
 
     def __str__(self):
         return f"Threshold({self.params},'{self.type}')"
-
-    def __or__(self, other):
-        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)
-
-    def __and__(self, other):
-        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_and, default_pixel=0xFF)

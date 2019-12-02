@@ -1,7 +1,7 @@
 from typing import Union
 
 from gbvision.constants.types import Color
-from gbvision.utils.threshold import Threshold
+from gbvision.thresholds.threshold import Threshold
 
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects, \

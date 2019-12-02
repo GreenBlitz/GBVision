@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def distance_from_object(loc) -> float:
+def distance_from_object(loc: np.ndarray) -> float:
     """
     the absolute distance from the camera to this object
 
@@ -13,7 +13,7 @@ def distance_from_object(loc) -> float:
     return np.linalg.norm(loc[:3])
 
 
-def plane_angle_by_location(loc) -> float:
+def plane_angle_by_location(loc: np.ndarray) -> float:
     """
     calculates the angle from the camera to the object's projection on the x-z plane (y=0 plane)
 
@@ -23,7 +23,7 @@ def plane_angle_by_location(loc) -> float:
     return np.arctan(loc[0] / loc[2])
 
 
-def plane_distance_from_object(loc) -> float:
+def plane_distance_from_object(loc: np.ndarray) -> float:
     """
     calculates the distance from the object's projection on the x-z plane (y=0 plane)
     the distance on the y axis is ignored in this calculation

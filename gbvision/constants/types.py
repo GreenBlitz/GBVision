@@ -2,14 +2,15 @@ from typing import Tuple, List, Union, Callable
 from numpy import ndarray
 
 NoneType = type(None)
-Point = Tuple[float, float]  # (x, y)
+Number = Union[int, float]
+Point = Tuple[Number, Number]  # (x, y)
 Contour = ndarray
-Circle = Tuple[Tuple[float, float], float]  # ((center_x, center_y), radius)
-Rect = Tuple[float, float, float, float]  # (x, y, width, height)
+Circle = Tuple[Tuple[Number, Number], Number]  # ((center_x, center_y), radius)
+Rect = Tuple[Number, Number, Number, Number]  # (x, y, width, height)
 Polygon = Contour
 FixedPolygon = List[Point]
-RotatedRect = Tuple[Point, Point, float]  # ((x1, y1), (x2, y2), angle)
+RotatedRect = Tuple[Point, Point, float]  # ((center_x, center_y), (width, height), angle in degrees)
 Ellipse = RotatedRect
 Frame = Union[ndarray, NoneType]
 Color = Tuple[int, int, int]
-ThresholdType = Callable[[Frame], Frame]
+FilterFunction = Callable[[Frame], Frame]

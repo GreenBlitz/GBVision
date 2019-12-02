@@ -1,3 +1,13 @@
+# cameras
+from .cameras.camera import Camera
+from .cameras.stream_camera import StreamCamera
+from .cameras.camera_data import CameraData
+from .cameras.usb_camera import USBCamera
+from .cameras.camera_list import CameraList
+from .cameras.usb_stream_camera import USBStreamCamera
+from .cameras.async_camera import AsyncCamera
+from .cameras.async_usb_camera import AsyncUSBCamera
+
 # constants
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
@@ -57,15 +67,9 @@ from .net.udp_stream_receiver import UDPStreamReceiver
 from .net.async_tcp_stream_receiver import AsyncTCPStreamReceiver
 from .net.async_udp_stream_receiver import AsyncUDPStreamReceiver
 
-# cameras
-from .cameras.camera import Camera
-from .cameras.stream_camera import StreamCamera
-from .cameras.camera_data import CameraData
-from .cameras.usb_camera import USBCamera
-from .cameras.camera_list import CameraList
-from .cameras.usb_stream_camera import USBStreamCamera
-from .cameras.async_camera import AsyncCamera
-from .cameras.async_usb_camera import AsyncUSBCamera
+# thresholds
+from .thresholds.color_threshold import ColorThreshold
+from .thresholds.threshold import Threshold, ThresholdGroup
 
 # tools
 from .tools.list_tools import split_list
@@ -73,8 +77,6 @@ from .tools.image_tools import crop, median_threshold
 from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object
 
 # utils
-from .utils.threshold import Threshold
-from .utils.threshold_group import ThresholdGroup
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
 

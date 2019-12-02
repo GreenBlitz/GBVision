@@ -50,6 +50,7 @@ class PipeLine:
         multiply_by_2_then_add_3 = PipeLine(lambda x: x * 2) + PipeLine(lambda x: x + 3)
 
     """
+
     def __init__(self, *functions: Callable[[Any], Any]):
         """
         initializes this pipeline

@@ -1,4 +1,7 @@
-def split_list(f, lst, amount=2):
+from typing import Any, List, Callable
+
+
+def split_list(f: Callable[[Any], int], lst: List[Any], amount=2):
     """
     splits the list into several list according to the function f
 

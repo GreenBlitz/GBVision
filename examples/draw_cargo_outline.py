@@ -1,6 +1,7 @@
 import gbvision as gbv
 
-CARGO_THRESHOLD = gbv.Threshold([[0, 73], [167, 247], [40, 120]],'HSV')
+CARGO_THRESHOLD = gbv.ColorThreshold([[0, 73], [167, 247], [40, 120]], 'HSV')
+
 
 def main():
     camera = gbv.USBCamera(1, gbv.LIFECAM_3000)
