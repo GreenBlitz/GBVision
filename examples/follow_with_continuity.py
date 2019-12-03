@@ -3,7 +3,7 @@ from gbvision.continuity.continues_circle import ContinuesCircle
 
 FUEL = gbv.GameObject(0.04523893421169302263386206471922)
 
-FUEL_THRESHOLD = gbv.Threshold([[80, 160], [18, 98], [6, 86]], 'HSV')
+FUEL_THRESHOLD = gbv.ColorThreshold([[80, 160], [18, 98], [6, 86]], 'HSV')
 
 
 def main():

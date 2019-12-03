@@ -13,4 +13,4 @@ RotatedRect = Tuple[Point, Point, float]  # ((center_x, center_y), (width, heigh
 Ellipse = RotatedRect
 Frame = Union[ndarray, NoneType]
 Color = Tuple[int, int, int]
-ThresholdType = Callable[[Frame], Frame]
+FilterFunction = Callable[[Frame], Frame]

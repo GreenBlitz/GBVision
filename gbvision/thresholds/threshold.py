@@ -1,11 +1,38 @@
-import sys
-from typing import Union
+import abc
 from functools import reduce
 
 import cv2
 
+from gbvision.constants.types import FilterFunction, Frame
 
-class ThresholdGroup:
+
+class Threshold(abc.ABC):
+    """
+    a class that represents a function that maps from an image to a binary image
+    where 255 states that the pixel at the original image was in a range represented by the threshold object
+    and 0 states the pixel was out of the range
+    for example:
+    ColorThreshold([[200, 255], [0, 50], [0, 50]], 'RGB')
+    the above threshold represents a relatively red pixel. when an image is filtered by it, every pixel that is
+    relatively red will be given the value 255, and every pixel that isn't will be given the value of 0
+    """
+
+    @abc.abstractmethod
+    def __call__(self, frame: Frame) -> Frame:
+        """
+        activates the threshold filter on the given image
+        :param frame: the image to activate the threshold on
+        :return: a binary image, the frame after the threshold filter
+        """
+
+    def __or__(self, other: FilterFunction) -> FilterFunction:
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)
+
+    def __and__(self, other: FilterFunction) -> FilterFunction:
+        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_and, default_pixel=0xFF)
+
+
+class ThresholdGroup(Threshold):
     """
     a class that constructs a threshold filter out of several threshold filters and a binary mask function
     for example, use of the function on two thresholds with the binary function "bitwise_or" will result
@@ -20,10 +47,10 @@ class ThresholdGroup:
         initialized to 255
     """
 
-    def __init__(self, *thresholds, **kwargs):
+    def __init__(self, *thresholds: FilterFunction, **kwargs):
         """
         initializes the threshold group
-        
+
         """
         self.binary_mask = cv2.bitwise_or
         self.default_pixel = 0
@@ -37,7 +64,7 @@ class ThresholdGroup:
             print('[WARN] keyword value %s is never used' % i, file=sys.stderr)
         self.thresholds = list(thresholds)
 
-    def __call__(self, frame):
+    def __call__(self, frame: Frame) -> Frame:
         """
         apply the threshold filter to the frame
         :param frame: the frame to apply the filter to
@@ -45,21 +72,6 @@ class ThresholdGroup:
         """
         return reduce(lambda th_frame, threshold: self.binary_mask(th_frame, threshold(frame)), self.thresholds,
                       self.default_pixel)
-
-    def __add__(self, other):
-        """
-        adds another threshold to the group and returns the new threshold group
-        :param other: a threshold function ,can be a threshold, threshold group, or any type of function
-        :return: a new threshold group with the other threshold joined
-        """
-        return ThresholdGroup(self.thresholds + [other], binary_mask=self.binary_mask, default_pixel=self.default_pixel)
-
-    def __iadd__(self, other):
-        """
-        adds a new threshold filter to this threshold group
-        :param other: a threshold function ,can be a threshold, threshold group, or any type of function
-        """
-        self.thresholds += [other]
 
     def __iter__(self):
         """
@@ -73,14 +85,8 @@ class ThresholdGroup:
         """
         return len(self.thresholds)
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: int) -> FilterFunction:
         return self.thresholds[item]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: int, value: FilterFunction):
         self.thresholds[key] = value
-
-    def __or__(self, other):
-        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_or, default_pixel=0)
-
-    def __and__(self, other):
-        return ThresholdGroup(self, other, binary_mask=cv2.bitwise_and, default_pixel=0xFF)

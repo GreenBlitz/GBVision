@@ -2,7 +2,7 @@ import gbvision as gbv
 
 CARGO = gbv.GameObject(0.2926321307845007)
 
-CARGO_THRESHOLD = gbv.Threshold(
+CARGO_THRESHOLD = gbv.ColorThreshold(
     [[5, 15], [225, 255], [115, 175]],
     'HSV'
 )
