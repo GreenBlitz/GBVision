@@ -1,6 +1,6 @@
 import unittest
 
-from .tests import *
+from test.tests import *
 
 if __name__ == '__main__':
     unittest.main()
