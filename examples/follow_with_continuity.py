@@ -1,4 +1,4 @@
-import gbvision.gui.drawing_functions
+from gbvision.gui import drawing_functions
 import gbvision as gbv
 from gbvision.continuity.continues_circle import ContinuesCircle
 from gbvision.gui.feed_window import FeedWindow

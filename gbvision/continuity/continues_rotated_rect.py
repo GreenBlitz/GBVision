@@ -27,8 +27,8 @@ class ContinuesRotatedRect(ContinuesShape):
 
     @staticmethod
     def _from_bounding_rect(bounding_rect: Rect) -> RotatedRect:
-        pass
-    # needs angle
+        #assuming the tilting angle is 0
+        return ((bounding_rect[0][0] - bounding_rect[1][0] / 2, bounding_rect[0][1] - bounding_rect[1][1] / 2), (bounding_rect[0][0] + bounding_rect[1][0] / 2, bounding_rect[0][1] + bounding_rect[1][1] / 2), 0)
 
     @staticmethod
     def _to_bounding_rect(rotated_rect: RotatedRect) -> Rect:
