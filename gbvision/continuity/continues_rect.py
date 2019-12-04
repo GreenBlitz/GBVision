@@ -8,6 +8,11 @@ from gbvision.continuity.continues_shape import ContinuesShape
 # TODO add docs
 
 class ContinuesRect(ContinuesShape):
+    '''
+    An implementation of ContinuesShape to rectangles.
+    used to try and check whether two rectangles are indeed the same one.
+    '''
+
     def __init__(self, shape: Rect, *args, **kwargs):
         ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 

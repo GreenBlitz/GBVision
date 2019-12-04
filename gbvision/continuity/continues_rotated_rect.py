@@ -10,6 +10,11 @@ from gbvision.continuity.continues_shape import ContinuesShape
 # TODO add docs
 
 class ContinuesRotatedRect(ContinuesShape):
+    '''
+    An implementation of ContinuesShape to rotated rectangles.
+    used to try and check whether two rotated rectangles are indeed the same one.
+    '''
+
     def __init__(self, shape: RotatedRect, *args, **kwargs):
         ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 
