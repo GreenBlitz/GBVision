@@ -17,6 +17,7 @@ def main():
     nearest_fuel = None
     fuel_follower = None
     window = FeedWindow('bigganigga')
+    painted_frame = None
     if len(all_fuels) > 0:
         nearest_fuel = all_fuels[0]
         fuel_follower = ContinuesCircle(shape=nearest_fuel, frame=frame)
@@ -35,9 +36,10 @@ def main():
                 if fuel_follower.update(frame=frame, shape=check):
                     nearest_fuel = check
                     break
+            painted_frame = drawing_functions.draw_circles(frame=frame, circs=[nearest_fuel], color=(255, 255, 255))
+
         if len(all_fuels) == 0:
             found_fuel = False
-        painted_frame = drawing_functions.draw_circles(frame= frame, circs= [nearest_fuel], color=(255,255,255))
         window.show_frame(painted_frame)
 
 
