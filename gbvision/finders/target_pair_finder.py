@@ -138,5 +138,6 @@ class TargetPairFinder(ObjectFinder):
         return all_hatches
 
     def get_shapes(self, frame: Frame) -> List[Tuple[RotatedRect, RotatedRect]]:
+        #TODO: method is incorrect, fix it
         return self._full_pipeline(frame)
 

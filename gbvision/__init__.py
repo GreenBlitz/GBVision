@@ -30,6 +30,12 @@ from .finders.polygon_finder import PolygonFinder
 from .finders.rotated_rect_finder import RotatedRectFinder
 from .finders.target_pair_finder import TargetPairFinder
 
+#continuity
+from .continuity.continues_circle import ContinuesCircle
+from .continuity.continues_rect import ContinuesRect
+from .continuity.continues_rotated_rect import ContinuesRotatedRect
+from .continuity.continues_shape import ContinuesShape
+
 # gui
 from .gui.window import Window
 from .gui.stream_window import StreamWindow
