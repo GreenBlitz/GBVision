@@ -6,7 +6,7 @@ from gbvision.constants.math import SQRT_PI
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, FilterContours, contours_to_circles_sorted
 from gbvision.models.shapes import filter_inner_circles
-from gbvision.utils.camera import Camera
+from gbvision.cameras.camera import Camera
 from .object_finder import ObjectFinder
 
 

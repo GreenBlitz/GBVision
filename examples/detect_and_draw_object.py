@@ -1,21 +1,16 @@
 import gbvision as gbv
 
-THRESHOLD_CONST = gbv.ColorThreshold([[91, 151], [77, 137], [76, 136]], 'HSV')
+THRESHOLD_CONST = gbv.ColorThreshold([[0, 69], [181, 255], [85, 165]], 'HSV')
 # found using median threshold
 
-OBJECT_CONST = gbv.GameObject(0.20706279240848655)
+OBJECT_CONST = gbv.GameObject(0.04523893421169302263386206471922)
 
 
 def main():
     camera = gbv.USBCamera(0, gbv.LIFECAM_3000)
     threshold_function = THRESHOLD_CONST + gbv.MedianBlur(5)
-    finder = gbv.RotatedRectFinder(threshold_function, OBJECT_CONST, contour_min_area=100)
-    window = gbv.CameraWindow('feed', camera, drawing_pipeline=gbv.DrawRotatedRects(
-        threshold_func=threshold_function,
-        color=(255, 0, 0),
-        contours_process=gbv.FilterContours(1000),
-        rotated_rects_process=gbv.sort_rotated_rects + gbv.filter_inner_rotated_rects
-    ))
+    finder = gbv.CircleFinder(threshold_function, OBJECT_CONST, contour_min_area=100)
+    window = gbv.Window('feed')
     window.open()
     while window.is_opened():
         frame = window.show_and_get_frame()
