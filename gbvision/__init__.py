@@ -14,6 +14,12 @@ from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
 from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point
 
+# continuity
+from .continuity.continues_circle import ContinuesCircle
+from .continuity.continues_rect import ContinuesRect
+from .continuity.continues_rotated_rect import ContinuesRotatedRect
+from .continuity.continues_shape import ContinuesShape
+
 # exceptions
 from .exceptions.vision_warning import VisionWarning
 from .exceptions.vision_exception import VisionException
@@ -29,12 +35,6 @@ from .finders.rect_finder import RectFinder
 from .finders.polygon_finder import PolygonFinder
 from .finders.rotated_rect_finder import RotatedRectFinder
 from .finders.target_pair_finder import TargetPairFinder
-
-#continuity
-from .continuity.continues_circle import ContinuesCircle
-from .continuity.continues_rect import ContinuesRect
-from .continuity.continues_rotated_rect import ContinuesRotatedRect
-from .continuity.continues_shape import ContinuesShape
 
 # gui
 from .gui.window import Window
