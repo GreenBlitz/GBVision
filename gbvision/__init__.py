@@ -85,6 +85,7 @@ from .tools.finding_tools import distance_from_object, plane_angle_by_location, 
 # utils
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
+from .utils.tracker import Tracker
 
 
 # configure opencv
