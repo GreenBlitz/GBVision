@@ -6,10 +6,10 @@ from gbvision.continuity.continues_shape import ContinuesShape
 
 
 class ContinuesCircle(ContinuesShape):
-    '''
+    """
     An implementation of ContinuesShape to circles.
     used to try and check whether two circles are indeed the same one.
-    '''
+    """
     @staticmethod
     def _shape_center(shape) -> Point:
         return shape[0]
