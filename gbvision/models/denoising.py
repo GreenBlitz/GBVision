@@ -2,6 +2,9 @@ from typing import Union, Tuple
 import cv2
 import numpy as np
 
+from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.contours import FilterContours, find_contours
+from gbvision.thresholds.threshold import Threshold
 from gbvision.utils.pipeline import PipeLine
 
 
@@ -47,3 +50,43 @@ class MedianBlur(PipeLine):
     """
     def __init__(self, ksize: int):  
         PipeLine.__init__(self, lambda frame: cv2.medianBlur(frame, ksize))
+
+class GrabCut(PipeLine):
+    """
+        creates a pipeline that finds objects of intrest in frame using the GrabCut
+
+        :param ksize: the size of the kernel used by the filter, must be an odd number
+        :return: a pipeline that filters the image using the median blur method
+        """
+
+
+    def __init__(self, threshold: Threshold, contour_min_area=0.0):
+        self.threshold_val = EMPTY_PIPELINE + threshold + find_contours + FilterContours(contour_min_area)
+        PipeLine.__init__(self, lambda frame: self.filter_frame(frame))
+
+
+    def filter_frame(self, frame):
+        thresh = self.threshold_val(frame)
+        img = frame.copy()
+        mask = np.zeros(img.shape[:2], np.uint8)
+
+        bgdModel = np.zeros((1, 65), np.float64)
+        fgdModel = np.zeros((1, 65), np.float64)
+        wid = img.shape[0]
+        hei = img.shape[1]
+
+        rect = (20, 20, 60, 60)
+        # cv2.rectangle(img, (int(0.45 * wid), int(0.45 * hei)), (int(0.65 * wid), int(0.65 * hei)), (255, 0, 0), 5)
+        cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 8, cv2.GC_INIT_WITH_RECT)
+
+        mask2 = np.where((mask == 2) | (mask == 0), 0, 1).astype('uint8')
+
+        img = img * mask2[:, :, np.newaxis]
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = cv2.resize(gray, (0, 0), fx=4, fy=4)
+        ctrs = gbv.find_contours(gray)
+
+        frame = cv2.resize(frame, (0, 0), fx=4, fy=4)
+        cv2.drawContours(frame, ctrs, 0, (0, 255, 0), 3)
+        cv2.imshow("stream", frame)
+
