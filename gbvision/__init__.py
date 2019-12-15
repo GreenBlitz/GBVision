@@ -14,6 +14,12 @@ from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
 from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point
 
+# continuity
+from .continuity.continues_circle import ContinuesCircle
+from .continuity.continues_rect import ContinuesRect
+from .continuity.continues_rotated_rect import ContinuesRotatedRect
+from .continuity.continues_shape import ContinuesShape
+
 # exceptions
 from .exceptions.vision_warning import VisionWarning
 from .exceptions.vision_exception import VisionException
@@ -79,6 +85,7 @@ from .tools.finding_tools import distance_from_object, plane_angle_by_location, 
 # utils
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
+from .utils.tracker import Tracker
 
 
 # configure opencv
