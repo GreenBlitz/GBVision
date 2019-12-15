@@ -21,13 +21,8 @@ class ContinuesCircle(ContinuesShape):
         return circle_collision(self._shape, shape)
 
     @staticmethod
-<<<<<<< HEAD
     def _shape_area(shape: Circle) -> Number:
         return np.pi * shape[1] * shape[1]
-=======
-    def _shape_area(shape) -> Number:
-        return math.pi * shape[1] ** 2
->>>>>>> 318cc168e3e0296af312737295477c67e722c063
 
     @staticmethod
     def _from_bounding_rect(bounding_rect) -> Circle:
