@@ -1,4 +1,4 @@
-import math
+import numpy as np
 
 from gbvision.models.shapes import circle_collision
 from gbvision.constants.types import Rect, Number, Circle, Point, Frame
@@ -18,7 +18,7 @@ class ContinuesCircle(ContinuesShape):
 
     @staticmethod
     def _shape_area(shape: Circle) -> Number:
-        return math.pi * shape[1] ** 2
+        return np.pi * shape[1] * shape[1]
 
     @staticmethod
     def _from_bounding_rect(bounding_rect: Rect) -> Circle:
