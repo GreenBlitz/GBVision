@@ -5,8 +5,6 @@ from gbvision.constants.types import *
 from gbvision.continuity.continues_shape import ContinuesShape
 
 
-# TODO add docs
-
 class ContinuesRect(ContinuesShape):
     """
     An implementation of ContinuesShape to rectangles.
