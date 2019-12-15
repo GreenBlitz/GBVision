@@ -16,8 +16,8 @@ _CONTINUES_SHAPE_TYPES = {
 
 
 class ContinuesShapeWrapper:
-    def __init__(self, shapes: List[Any], frame: Frame, finding_pipeline: PipeLine, stype='RECT', tracker_type='EMPTY', shape_lifespam: int = None,
-                 *args, **kwargs):
+    def __init__(self, shapes: List[Any], frame: Frame, finding_pipeline: PipeLine, stype='RECT', tracker_type='EMPTY',
+                 shape_lifespam: int = None, *args, **kwargs):
         self.stype = stype.upper()
         assert self.stype in _CONTINUES_SHAPE_TYPES
         self.tracker_type = tracker_type
