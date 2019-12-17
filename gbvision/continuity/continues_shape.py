@@ -20,7 +20,7 @@ class ContinuesShape(abc.ABC):
     """
 
     def __init__(self, shape, frame: Frame, tracker: Tracker = None, max_area_ratio=2.0,
-                 max_distance_ratio=0.1):  # initialization method of the abstract class
+                 max_distance_ratio=2.0):  # initialization method of the abstract class
 
         assert max_area_ratio > 1.0  # sets maximum area ratio as 1
         self._shape = shape  # shape describing the object

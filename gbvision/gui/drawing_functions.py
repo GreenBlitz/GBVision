@@ -3,7 +3,7 @@ from typing import List
 import cv2
 import numpy as np
 
-from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse
+from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse, Coordinates, Number
 
 
 def draw_contours(frame: Frame, cnts: List[Contour], color: Color, *args, **kwargs) -> Frame:
@@ -89,4 +89,11 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
     frame = frame.copy()
     for e in ellipses:
         cv2.ellipse(frame, e, color, *args, **kwargs)
+    return frame
+
+
+def draw_text(frame: Frame, text: str, coords: Coordinates, font_scale: Number, color: Color,
+              font=cv2.FONT_HERSHEY_SIMPLEX, *args, **kwargs):
+    frame = frame.copy()
+    cv2.putText(frame, text, coords, font, font_scale, color, *args, **kwargs)
     return frame

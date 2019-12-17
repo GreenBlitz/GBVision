@@ -14,3 +14,4 @@ Ellipse = RotatedRect
 Frame = Union[ndarray, NoneType]
 Color = Tuple[int, int, int]
 FilterFunction = Callable[[Frame], Frame]
+Coordinates = Tuple[int, int]
