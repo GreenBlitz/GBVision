@@ -1,3 +1,7 @@
+from typing import List
+
+from gbvision.constants.types import Circle, Frame, Number, Point
+
 from gbvision.constants.math import SQRT_PI
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, FilterContours, contours_to_circles_sorted
@@ -7,15 +11,15 @@ from .object_finder import ObjectFinder
 
 class CircleFinder(ObjectFinder):
     """
-    finds a circular shaped object, like a ball or a disk
+    finds specific circular shaped object, and performs distance transformation
     """
 
-    def __init__(self, threshold_func, game_object, contour_min_area=0):
+    def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=0):
         """
         initializes the finder
         :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
         """
-        ObjectFinder.__init__(self, threshold_func, game_object)
+        ObjectFinder.__init__(self, threshold_func, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
@@ -23,7 +27,13 @@ class CircleFinder(ObjectFinder):
                                contours_to_circles_sorted +
                                filter_inner_circles)
 
-    def __call__(self, frame, camera):
-        circles = self._full_pipeline(frame)
-        return list(
-            map(lambda circ: self.game_object.location_by_params(camera, SQRT_PI * circ[1], circ[0]), circles))
+    def find_shapes(self, frame: Frame) -> List[Circle]:
+        return self._full_pipeline(frame)
+
+    @staticmethod
+    def _shape_root_area(shape: Circle) -> Number:
+        return SQRT_PI * shape[1]
+
+    @staticmethod
+    def _shape_center(shape: Circle) -> Point:
+        return shape[0]

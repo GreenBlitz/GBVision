@@ -14,6 +14,7 @@ setup(
               'gbvision/gui',
               'gbvision/models',
               'gbvision/tools',
+              'gbvision/continuity',
               'gbvision/cameras',
               'gbvision/thresholds'],
     author='Ido Heinemann',

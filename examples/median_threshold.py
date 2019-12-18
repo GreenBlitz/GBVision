@@ -8,7 +8,7 @@ stdv = np.array([40, 40, 40])
 
 def main():
     camera = gbv.USBCamera(0)
-    camera.set_exposure(-8)
+    camera.set_exposure(-5)
     cv2.namedWindow('window', cv2.WINDOW_FREERATIO)
     ok, frame = camera.read()
     while ok:

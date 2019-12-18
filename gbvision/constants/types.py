@@ -1,7 +1,6 @@
 from typing import Tuple, List, Union, Callable
 from numpy import ndarray
 
-NoneType = type(None)
 Number = Union[int, float]
 Point = Tuple[Number, Number]  # (x, y)
 Contour = ndarray
@@ -11,6 +10,8 @@ Polygon = Contour
 FixedPolygon = List[Point]
 RotatedRect = Tuple[Point, Point, float]  # ((center_x, center_y), (width, height), angle in degrees)
 Ellipse = RotatedRect
-Frame = Union[ndarray, NoneType]
+Frame = Union[ndarray, None]
 Color = Tuple[int, int, int]
 FilterFunction = Callable[[Frame], Frame]
+Coordinates = Tuple[int, int]
+Location = Tuple[Number, Number, Number]

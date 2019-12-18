@@ -1,4 +1,7 @@
+from typing import List
+
 import numpy as np
+from gbvision.constants.types import Frame, RotatedRect, Number, Point
 
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, FilterContours, sort_contours, contours_to_rotated_rects_sorted
@@ -17,7 +20,7 @@ class RotatedRectFinder(ObjectFinder):
         :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
         :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
         """
-        ObjectFinder.__init__(self, threshold_func, game_object)
+        ObjectFinder.__init__(self, threshold_func, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
@@ -25,11 +28,14 @@ class RotatedRectFinder(ObjectFinder):
                                sort_contours +
                                contours_to_rotated_rects_sorted +
                                filter_inner_rotated_rects)
-        self.area_scalar = area_scalar
 
-    def __call__(self, frame, camera):
-        rects = self._full_pipeline(frame)
-        return list(map(
-            lambda rect: self.game_object.location_by_params(camera,
-                                                             self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
-                                                             rect[0]), rects))
+    def find_shapes(self, frame: Frame) -> List[RotatedRect]:
+        return self._full_pipeline(frame)
+
+    @staticmethod
+    def _shape_root_area(shape: RotatedRect) -> Number:
+        return np.sqrt(shape[1][0] * shape[1][1])
+
+    @staticmethod
+    def _shape_center(shape: RotatedRect) -> Point:
+        return shape[0]

@@ -14,6 +14,13 @@ from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
 from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point
 
+# continuity
+from .continuity.continues_circle import ContinuesCircle
+from .continuity.continues_rect import ContinuesRect
+from .continuity.continues_rotated_rect import ContinuesRotatedRect
+from .continuity.continues_shape import ContinuesShape
+from .continuity.continues_shape_wrapper import ContinuesShapeWrapper
+
 # exceptions
 from .exceptions.vision_warning import VisionWarning
 from .exceptions.vision_exception import VisionException
@@ -39,7 +46,7 @@ from .gui.recording_camera_window import RecordingCameraWindow
 from .gui.recording_stream_window import RecordingStreamWindow
 from .gui.drawing_tools import DrawCircles, DrawContours, DrawEllipses, DrawRects, DrawRotatedRects
 from .gui.recording_feed_window import RecordingFeedWindow
-from .gui.drawing_functions import draw_ellipses, draw_rotated_rects, draw_rects, draw_circles, draw_contours
+from .gui.drawing_functions import draw_ellipses, draw_rotated_rects, draw_rects, draw_circles, draw_contours, draw_text
 from .gui.recording_wrapper_opencv_window import RecordingWrapperOpenCVWindow
 from .gui.recording_opencv_window import RecordingOpenCVWindow
 from .gui.recording_window import RecordingWindow
@@ -79,6 +86,7 @@ from .tools.finding_tools import distance_from_object, plane_angle_by_location, 
 # utils
 from .utils.pipeline import PipeLine
 from .utils.game_object import GameObject
+from .utils.tracker import Tracker
 
 
 # configure opencv
