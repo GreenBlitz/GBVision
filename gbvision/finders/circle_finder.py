@@ -11,7 +11,7 @@ from .object_finder import ObjectFinder
 
 class CircleFinder(ObjectFinder):
     """
-    finds specific circular shaped object, and performs
+    finds specific circular shaped object, and performs distance transformation
     """
 
     def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=0):
