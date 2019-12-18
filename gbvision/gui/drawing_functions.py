@@ -93,7 +93,20 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
 
 
 def draw_text(frame: Frame, text: str, coords: Coordinates, font_scale: Number, color: Color,
-              font=cv2.FONT_HERSHEY_SIMPLEX, *args, **kwargs):
+              font=cv2.FONT_HERSHEY_SIMPLEX, *args, **kwargs) -> Frame:
+    """
+    draws the text on a copy of the frame and returns the copy
+
+    :param frame: the frame to draw on
+    :param text: the text to draw
+    :param coords: the coordinates of the bottom-left corner of the text
+    :param font_scale: the size of the drawn text (multiplied by the default size of the font)
+    :param color: the color to draw the text in
+    :param font: the font, an opencv font constant, default is cv2.FONT_HERSHEY_SIMPLEX
+    :param args: additional arguments to cv2.putText
+    :param kwargs: additional keyword arguments to cv2.putText (such as thickness)
+    :return: a copy of the frame with the text drawn on it
+    """
     frame = frame.copy()
     cv2.putText(frame, text, coords, font, font_scale, color, *args, **kwargs)
     return frame
