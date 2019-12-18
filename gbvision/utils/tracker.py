@@ -28,7 +28,7 @@ TRACKER_ALGORITHMS = {
 
 class Tracker:
     """
-    tracker that tracks rectangle in frame
+    a tracker object that tracks a rectangle in a video using an opencv tracking algorithm
 
     :param tracker_type: Tracker algorithm taken from this list: BOOSTING, MIL, KCF, TLD, MEDIANFLOW
         GOTURN, MOSSE, CSRT, EMPTY. (Default is EMPTY)
