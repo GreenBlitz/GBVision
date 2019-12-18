@@ -9,6 +9,7 @@ from gbvision.tools.list_tools import split_list
 from .object_finder import ObjectFinder
 from gbvision.constants.system import EMPTY_PIPELINE
 
+
 # Deprecated
 class TargetPairFinder(ObjectFinder):
     """
