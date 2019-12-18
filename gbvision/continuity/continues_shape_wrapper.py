@@ -5,7 +5,6 @@ from gbvision.continuity.continues_circle import ContinuesCircle
 from gbvision.continuity.continues_rect import ContinuesRect
 from gbvision.continuity.continues_rotated_rect import ContinuesRotatedRect
 from gbvision.continuity.continues_shape import ContinuesShape
-from gbvision.utils.pipeline import PipeLine
 from gbvision.utils.tracker import Tracker
 
 _CONTINUES_SHAPE_TYPES = {
