@@ -11,12 +11,14 @@ class OpenCVWindow(Window, ABC):
         Window.__init__(self, window_name=window_name, drawing_pipeline=drawing_pipeline)
         self.exit_button = exit_button
         self.flags = flags
+        self.last_key_pressed = None
 
     def _show_frame(self, frame):
         if frame is None:
             return False
         cv2.imshow(self.window_name, frame)
         k = chr(cv2.waitKey(1) & 0xFF)
+        self.last_key_pressed = k
         if k in self.exit_button:
             return False
         return True

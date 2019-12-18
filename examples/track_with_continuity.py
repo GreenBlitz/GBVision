@@ -17,11 +17,11 @@ def main():
     ok = True
     while ok:
         ok, frame = camera.read()
-        fuels = find_fuel.get_shapes(frame)
+        fuels = find_fuel.find_shapes(frame)
         cv2.imshow('window', gbv.draw_circles(frame, list(fuels), (0, 255, 0), thickness=6))
         k = chr(cv2.waitKey(1) & 0xFF)
         if k == 'r':
-            wrapper = gbv.ContinuesShapeWrapper(fuels, frame, find_fuel.get_shapes, stype=SHAPE_TYPE,
+            wrapper = gbv.ContinuesShapeWrapper(fuels, frame, find_fuel.find_shapes, shape_type=SHAPE_TYPE,
                                                 tracker_type=TRACKER_TYPE, shape_lifespam=20, track_new=True)
             break
     cv2.destroyAllWindows()

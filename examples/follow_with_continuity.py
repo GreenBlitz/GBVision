@@ -16,7 +16,7 @@ def main():
     tracker = gbv.Tracker('MEDIANFLOW')
     while ok:
         ok, frame = camera.read()
-        all_fuels = find_fuel.get_shapes(frame)
+        all_fuels = find_fuel.find_shapes(frame)
         if (not found_fuel) and len(all_fuels) > 0:
             nearest_fuel = all_fuels[0]
             fuel_follower = gbv.ContinuesCircle(shape=nearest_fuel, frame=frame, tracker=tracker)

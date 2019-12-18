@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 from gbvision.constants.images import COLOR_TYPE
-from gbvision.constants.types import NoneType, Frame
+from gbvision.constants.types import Frame
 from gbvision.thresholds.color_threshold import ColorThreshold
 from gbvision.thresholds.threshold import Threshold
 
@@ -23,7 +23,7 @@ def crop(frame, x, y, w, h) -> np.ndarray:
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Union[NoneType, Tuple[int, int, int, int]] = None,
+def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Union[None, Tuple[int, int, int, int]] = None,
                      color_encoding='BGR') -> Threshold:
     """
     finds a threshold using the median threshold method
