@@ -9,7 +9,7 @@ def main():
     camera = gbv.USBCamera(0)
     find_fuel = gbv.CircleFinder(FUEL_THRESHOLD, FUEL, contour_min_area=1000)
     fuel_follower = None
-    window = gbv.FeedWindow('Follow with continuity')
+    window = gbv.FeedWindow('follow')
     window.open()
     ok = True
     found_fuel = False
