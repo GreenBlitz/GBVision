@@ -80,8 +80,9 @@ class ContinuesShape(abc.ABC):
         :param other_shape: the other shape you want to check the distance to
         :return: the distance between the shape squared in order to save computing of square root (pythagorean theorem)
         """
-        return (self._shape_center(other_shape)[0] - self._shape_center(self._shape)[0]) ** 2 + \
-               (self._shape_center(other_shape)[1] - self._shape_center(self._shape)[1]) ** 2
+        self_center, other_center = self._shape_center(self._shape), self._shape_center(other_shape)
+        return (other_center[0] - self_center[0]) ** 2 + \
+               (other_center[1] - self_center[1]) ** 2
 
     def _is_legal(self, shape) -> bool:
         """
