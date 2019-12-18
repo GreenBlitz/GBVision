@@ -31,9 +31,9 @@ class CircleFinder(ObjectFinder):
         return self._full_pipeline(frame)
 
     @staticmethod
-    def shape_root_area(shape: Circle) -> Number:
+    def _shape_root_area(shape: Circle) -> Number:
         return SQRT_PI * shape[1]
 
     @staticmethod
-    def shape_center(shape: Circle) -> Point:
+    def _shape_center(shape: Circle) -> Point:
         return shape[0]

@@ -16,11 +16,11 @@ class TargetPairFinder(ObjectFinder):
     """
 
     @staticmethod
-    def shape_root_area(shape):
+    def _shape_root_area(shape):
         raise NotImplementedError()
 
     @staticmethod
-    def shape_center(shape):
+    def _shape_center(shape):
         raise NotImplementedError()
 
     def __init__(self, threshold_func, game_object, vt_distance=0.2866, enclosing_rect_ratio=0.549,

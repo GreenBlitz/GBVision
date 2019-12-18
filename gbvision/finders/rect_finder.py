@@ -33,9 +33,9 @@ class RectFinder(ObjectFinder):
         return self._full_pipeline(frame)
 
     @staticmethod
-    def shape_root_area(shape: Rect) -> Number:
+    def _shape_root_area(shape: Rect) -> Number:
         return np.sqrt(shape[2] * shape[3])
 
     @staticmethod
-    def shape_center(shape: Rect) -> Point:
+    def _shape_center(shape: Rect) -> Point:
         return (shape[0] + shape[2]) / 2, (shape[1] + shape[3]) / 2

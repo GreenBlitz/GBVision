@@ -46,7 +46,7 @@ class ObjectFinder(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def shape_root_area(shape: Any) -> Number:
+    def _shape_root_area(shape: Any) -> Number:
         """
         calculates the square root of the area of a shape, to be used by the api
 
@@ -56,7 +56,7 @@ class ObjectFinder(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def shape_center(shape: Any) -> Point:
+    def _shape_center(shape: Any) -> Point:
         """
         finds the center of the shape, to be used by the api
 
@@ -73,5 +73,5 @@ class ObjectFinder(abc.ABC):
         :return: a list of the locations of all the shapes
         """
         return list(
-            map(lambda shape: self.game_object.location_by_params(camera, self.shape_root_area(shape) * self.area_scalar,
-                                                                  self.shape_center(shape)), shapes))
+            map(lambda shape: self.game_object.location_by_params(camera, self._shape_root_area(shape) * self.area_scalar,
+                                                                  self._shape_center(shape)), shapes))

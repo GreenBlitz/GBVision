@@ -40,9 +40,9 @@ class RotatedRectFinder(ObjectFinder):
         return self._full_pipeline(frame)
 
     @staticmethod
-    def shape_root_area(shape: RotatedRect) -> Number:
+    def _shape_root_area(shape: RotatedRect) -> Number:
         return np.sqrt(shape[1][0] * shape[1][1])
 
     @staticmethod
-    def shape_center(shape: RotatedRect) -> Point:
+    def _shape_center(shape: RotatedRect) -> Point:
         return shape[0]

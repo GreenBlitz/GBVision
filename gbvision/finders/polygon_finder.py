@@ -32,9 +32,9 @@ class PolygonFinder(ObjectFinder):
         return self._full_pipeline(frame)
 
     @staticmethod
-    def shape_root_area(shape: Contour) -> Number:
+    def _shape_root_area(shape: Contour) -> Number:
         return np.sqrt(cv2.contourArea(shape))
 
     @staticmethod
-    def shape_center(shape: Contour) -> Point:
+    def _shape_center(shape: Contour) -> Point:
         return contour_center(shape)
