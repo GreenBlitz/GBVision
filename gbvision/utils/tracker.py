@@ -35,6 +35,16 @@ class Tracker:
         BOOSTING is the most recommended type
     """
 
+    TRACKER_TYPE_BOOSTING = 'BOOSTING'
+    TRACKER_TYPE_MIL = 'MIL'
+    TRACKER_TYPE_KCF = 'KCF'
+    TRACKER_TYPE_TLD = 'TLD'
+    TRACKER_TYPE_MEDIANFLOW = 'MEDIANFLOW'
+    TRACKER_TYPE_GOTURN = 'GOTURN'
+    TRACKER_TYPE_MOSSE = 'MOSSE'
+    TRACKER_TYPE_CSRT = 'CSRT'
+    TRACKER_TYPE_EMPTY = 'EMPTY'
+
     def __init__(self, tracker_type="EMPTY"):
         tracker_type = tracker_type.upper()
         assert tracker_type in TRACKER_ALGORITHMS

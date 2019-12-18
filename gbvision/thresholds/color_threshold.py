@@ -176,6 +176,16 @@ class ColorThreshold(Threshold):
         'GRAY': grayscale images (single channel), image presented doesn't have to be gray, the threshold will convert it
     """
 
+    THRESH_TYPE_BGR = 'BGR'
+    THRESH_TYPE_RGB = 'RGB'
+    THRESH_TYPE_HLS = 'HLS'
+    THRESH_TYPE_HSV = 'HSV'
+    THRESH_TYPE_LUV = 'LUV'
+    THRESH_TYPE_LAB = 'LAB'
+    THRESH_TYPE_YUV = 'YUV'
+    THRESH_TYPE_XYZ = 'XYZ'
+    THRESH_TYPE_GRAY = 'GRAY'
+
     def __init__(self, pixel_range, thresh_type='HSV'):
         assert thresh_type.upper() in _THRESHOLD_NAME_TABLE
         self.params = pixel_range
