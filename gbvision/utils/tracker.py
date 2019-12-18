@@ -32,7 +32,6 @@ class Tracker:
 
     :param tracker_type: Tracker algorithm taken from this list: BOOSTING, MIL, KCF, TLD, MEDIANFLOW
         GOTURN, MOSSE, CSRT, EMPTY. (Default is EMPTY)
-        BOOSTING is the most recommended type
     """
 
     TRACKER_TYPE_BOOSTING = 'BOOSTING'
