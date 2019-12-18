@@ -12,7 +12,8 @@ from .cameras.async_usb_camera import AsyncUSBCamera
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
-from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point
+from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point, \
+    Location, FilterFunction, Coordinates, Number
 
 # continuity
 from .continuity.continues_circle import ContinuesCircle
