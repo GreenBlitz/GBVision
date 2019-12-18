@@ -1,6 +1,6 @@
 from typing import List
 
-from gbvision.constants.types import Frame, Rect, Number, Point
+from gbvision.constants.types import Frame, Rect, Number, Point, FilterFunction
 
 from .object_finder import ObjectFinder
 from gbvision.models.contours import find_contours, FilterContours, sort_contours, contours_to_rects_sorted
@@ -12,15 +12,16 @@ import numpy as np
 class RectFinder(ObjectFinder):
     """
     finds a rectangular shaped object
+
+    :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
+    :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
+    :param threshold_func: a pipeline (or any sort of function) that returns a binary threshold of the object
+     the finder is searching, the object needs to be white and the rest if the image black (doesn't
+     have to be perfect)
     """
 
-    def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=0):
-        """
-
-        :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
-        :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
-        """
-        ObjectFinder.__init__(self, threshold_func, game_object, area_scalar=area_scalar)
+    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0):
+        ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +

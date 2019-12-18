@@ -1,6 +1,6 @@
 from typing import List
 
-from gbvision.constants.types import Circle, Frame, Number, Point
+from gbvision.constants.types import Circle, Frame, Number, Point, FilterFunction
 
 from gbvision.constants.math import SQRT_PI
 from gbvision.constants.system import EMPTY_PIPELINE
@@ -12,14 +12,15 @@ from .object_finder import ObjectFinder
 class CircleFinder(ObjectFinder):
     """
     finds specific circular shaped object, and performs distance transformation
+
+    :param threshold_func: a pipeline (or any sort of function) that returns a binary threshold of the object
+     the finder is searching, the object needs to be white and the rest if the image black (doesn't
+     have to be perfect)
+    :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
     """
 
-    def __init__(self, threshold_func, game_object, area_scalar=1.0, contour_min_area=0):
-        """
-        initializes the finder
-        :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
-        """
-        ObjectFinder.__init__(self, threshold_func, game_object, area_scalar=area_scalar)
+    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0):
+        ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +

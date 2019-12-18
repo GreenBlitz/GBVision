@@ -12,16 +12,11 @@ class ObjectFinder(abc.ABC):
     an object finder is a type that outputs an object's 3d real location based on an of it image it's
     GameObject real-life parameters
 
-
-     :param threshold_func: a pipeline (or any sort of function) that returns a binary threshold of the object
-     the finder is searching, the object needs to be white and the rest if the image black (doesn't
-     have to be perfect)
-     :param game_object: the game object descriptor for the real-life parameters of the finder's target
-     :param area_scalar: a scalar to multiply the root of the area of the shape in the image by, default is 1
+    :param game_object: the game object descriptor for the real-life parameters of the finder's target
+    :param area_scalar: a scalar to multiply the root of the area of the shape in the image by, default is 1
     """
 
-    def __init__(self, threshold_func: FilterFunction, game_object: GameObject, area_scalar=1.0):
-        self.threshold = EMPTY_PIPELINE + threshold_func
+    def __init__(self, game_object: GameObject, area_scalar=1.0):
         self.game_object = game_object
         self.area_scalar = area_scalar
 
