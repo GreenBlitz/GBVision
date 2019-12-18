@@ -29,13 +29,6 @@ class RotatedRectFinder(ObjectFinder):
                                contours_to_rotated_rects_sorted +
                                filter_inner_rotated_rects)
 
-    def __call__(self, frame, camera):
-        rects = self.find_shapes(frame)
-        return list(map(
-            lambda rect: self.game_object.location_by_params(camera,
-                                                             self.area_scalar * np.sqrt(rect[1][0] * rect[1][1]),
-                                                             rect[0]), rects))
-
     def find_shapes(self, frame: Frame) -> List[RotatedRect]:
         return self._full_pipeline(frame)
 
