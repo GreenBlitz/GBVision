@@ -16,10 +16,6 @@ _CONTINUES_SHAPE_TYPES = {
 
 
 class ContinuesShapeWrapper:
-    SHAPE_TYPE_CIRCLE = 'CIRCLE'
-    SHAPE_TYPE_RECT = 'RECT'
-    SHAPE_TYPE_ROTATED_RECT = 'ROTATED_RECT'
-
     """
     an object that tracks several shapes in a frame using continuity
 
@@ -33,6 +29,10 @@ class ContinuesShapeWrapper:
     :param args: additional arguments for continues shape constructor 
     :param kwargs: additional keyword arguments for continues shape constructor
     """
+
+    SHAPE_TYPE_CIRCLE = 'CIRCLE'
+    SHAPE_TYPE_RECT = 'RECT'
+    SHAPE_TYPE_ROTATED_RECT = 'ROTATED_RECT'
 
     def __init__(self, shapes: List[Any], frame: Frame, finding_pipeline: Callable[[Frame], List[Any]],
                  shape_type: Union[str, type] = 'RECT', tracker_type='EMPTY', shape_lifespam: int = None,
