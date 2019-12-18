@@ -1,6 +1,7 @@
 from typing import List
 
 import cv2
+import numpy as np
 
 from gbvision.constants.math import EPSILON
 from gbvision.constants.system import CONTOURS_INDEX
@@ -114,7 +115,7 @@ def fix_contours_shape(cnts: List[Contour]) -> List[Polygon]:
     :return: a list of all the contours with the fixed shape
     """
     cnts = map(lambda polydp: map(lambda x: x[0], polydp), cnts)
-    return list(map(lambda polydp: list(map(tuple, polydp)), cnts))
+    return list(map(lambda polydp: np.array(list(map(tuple, polydp))), cnts))
 
 
 sort_polygons = sort_contours

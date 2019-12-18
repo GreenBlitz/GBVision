@@ -1,4 +1,3 @@
-
 from .wrapper_opencv_window import WrapperOpenCVWindow
 
 

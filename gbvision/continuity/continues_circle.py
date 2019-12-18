@@ -1,7 +1,7 @@
 import numpy as np
 
 from gbvision.models.shapes import circle_collision
-from gbvision.constants.types import Rect, Number, Circle, Point, Frame
+from gbvision.constants.types import Rect, Number, Circle, Point
 from gbvision.continuity.continues_shape import ContinuesShape
 
 
@@ -10,6 +10,7 @@ class ContinuesCircle(ContinuesShape):
     An implementation of ContinuesShape to circles.
     used to try and check whether two circles are indeed the same one.
     """
+
     @staticmethod
     def _shape_center(shape) -> Point:
         return shape[0]

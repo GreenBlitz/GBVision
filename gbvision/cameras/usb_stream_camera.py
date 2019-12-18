@@ -10,6 +10,7 @@ class USBStreamCamera(SimpleStreamCamera, USBCamera):
     """
     a simple USB stream camera
     """
+
     def _read(self) -> Tuple[bool, Frame]:
         return USBCamera.read(self)
 

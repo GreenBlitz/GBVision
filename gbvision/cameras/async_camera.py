@@ -2,8 +2,6 @@ import abc
 from threading import Thread
 from typing import Tuple
 
-import numpy as np
-
 from gbvision.constants.types import Frame
 from .camera import Camera
 

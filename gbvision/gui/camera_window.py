@@ -8,6 +8,7 @@ class CameraWindow(WrapperOpenCVWindow):
     
     :type self.wrap_object: gbvision.Camera
     """
+
     def _get_frame(self):
         _, frame = self.wrap_object.read()
         return frame

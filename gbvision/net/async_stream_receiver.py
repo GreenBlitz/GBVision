@@ -12,6 +12,7 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
     None! when inheriting from this class and another StreamReceiver class, make sure you call the other class'
     constructor before this class' constructor, but also make sure you inherit from this class first in order
     """
+
     def __init__(self, *args, **kwargs):
         StreamReceiver.__init__(self, *args, **kwargs)
         self.__frame = None

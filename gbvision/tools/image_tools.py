@@ -23,8 +23,8 @@ def crop(frame, x, y, w, h) -> np.ndarray:
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Union[None, Tuple[int, int, int, int]] = None,
-                     color_encoding='BGR') -> Threshold:
+def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray],
+                     box: Union[None, Tuple[int, int, int, int]] = None, color_encoding='BGR') -> Threshold:
     """
     finds a threshold using the median threshold method
     the median threshold method defines the lower bounds of the threshold as the median of a given region of the image

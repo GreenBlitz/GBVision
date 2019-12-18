@@ -65,7 +65,8 @@ class CameraData:
     :param constant: determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
-    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0, constant=False):
+    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
+                 constant=False):
         """
 
         

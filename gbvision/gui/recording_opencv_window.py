@@ -16,6 +16,7 @@ class RecordingOpenCVWindow(OpenCVWindow, RecordingWindow):
     :param fps: the fps of the video file
     :param recording_pipeline: optional, a drawing pipeline to run on the frames being recorded
     """
+
     def __init__(self, window_name: str, file_name: str, fps=20.0, exit_button='qQ',
                  drawing_pipeline=EMPTY_PIPELINE, recording_pipeline=EMPTY_PIPELINE, width=0, height=0,
                  flags=cv2.WINDOW_FREERATIO):

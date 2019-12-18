@@ -68,5 +68,6 @@ class ObjectFinder(abc.ABC):
         :return: a list of the locations of all the shapes
         """
         return list(
-            map(lambda shape: self.game_object.location_by_params(camera, self._shape_root_area(shape) * self.area_scalar,
+            map(lambda shape: self.game_object.location_by_params(camera,
+                                                                  self._shape_root_area(shape) * self.area_scalar,
                                                                   self._shape_center(shape)), shapes))
