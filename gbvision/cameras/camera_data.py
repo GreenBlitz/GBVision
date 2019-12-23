@@ -11,12 +11,11 @@ class CameraData:
         can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it's
         distance from the camera and divided by the square root of it's surface
 
-        FOCAL_LENGTH = sqrt(P) * D / sqrt(W*H)
+        FOCAL_LENGTH = sqrt(P) * D / sqrt(S)
 
         where P is the amount of pixels in the frame representing the object,
         D is the real life distance between the object and the camera
-        W is the real life width of the object
-        H is the real life height of the object
+        S is the real life surface area (in 2d projection) of the object
         note that this is a constant, whatever object you choose to use, this formula will yield the same result
     :param fov:
         half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
