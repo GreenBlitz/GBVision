@@ -78,3 +78,7 @@ class Window(abc.ABC):
         """
         self._close()
         self._is_opened = False
+
+
+    def __del__(self):
+        self.close()

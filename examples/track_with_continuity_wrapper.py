@@ -8,23 +8,25 @@ FUEL_THRESHOLD = gbv.ColorThreshold([[0, 76], [215, 255], [40, 120]], 'HSV')
 TRACKER_TYPE = 'EMPTY'
 SHAPE_TYPE = 'CIRCLE'
 
+CONTOUR_MIN_AREA = 1000
+
 
 def main():
     camera = gbv.USBCamera(0)
     camera.set_exposure(-5)
-    find_fuel = gbv.CircleFinder(FUEL_THRESHOLD, FUEL, contour_min_area=1000)
-    wrapper = None
-    ok = True
-    while ok:
-        ok, frame = camera.read()
+    find_fuel = gbv.CircleFinder(FUEL_THRESHOLD, FUEL, contour_min_area=CONTOUR_MIN_AREA)
+    window = gbv.CameraWindow('feed', camera, drawing_pipeline=gbv.DrawCircles(FUEL_THRESHOLD, (0, 255, 0),
+                                                                               contours_process=gbv.FilterContours(
+                                                                                   CONTOUR_MIN_AREA), thickness=6))
+    while True:
+        frame = window.show_and_get_frame()
         fuels = find_fuel.find_shapes(frame)
-        cv2.imshow('window', gbv.draw_circles(frame, list(fuels), (0, 255, 0), thickness=6))
-        k = chr(cv2.waitKey(1) & 0xFF)
+        k = window.last_key_pressed
         if k == 'r':
             wrapper = gbv.ContinuesShapeWrapper(fuels, frame, find_fuel.find_shapes, shape_type=SHAPE_TYPE,
                                                 tracker_type=TRACKER_TYPE, shape_lifespam=20, track_new=True)
             break
-    cv2.destroyAllWindows()
+    window.close()
     window = gbv.FeedWindow('track')
     window.open()
     ok = True
