@@ -15,6 +15,7 @@ class Erode(PipeLine):
         None! a large number of iterations will slow down the program
     :return: a pipeline that erodes the given frame
     """
+
     def __init__(self, ksize: Union[int, Tuple[int, int]], iterations=1):
         if type(ksize) is int:
             ksize = (ksize, ksize)
@@ -31,6 +32,7 @@ class Dilate(PipeLine):
             None! a large number of iterations will slow down the program
         :return: a pipeline that dilates the given frame
         """
+
     def __init__(self, ksize: Union[int, Tuple[int, int]], iterations=1):
         if type(ksize) is int:
             ksize = (ksize, ksize)
@@ -45,5 +47,6 @@ class MedianBlur(PipeLine):
     :param ksize: the size of the kernel used by the filter, must be an odd number
     :return: a pipeline that filters the image using the median blur method
     """
-    def __init__(self, ksize: int):  
+
+    def __init__(self, ksize: int):
         PipeLine.__init__(self, lambda frame: cv2.medianBlur(frame, ksize))

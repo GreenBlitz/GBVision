@@ -19,10 +19,6 @@ class StreamReceiver(abc.ABC):
     """
 
     def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
-        """
-        initializes a stream receiver
-        
-        """
         self.shape = shape
         self.fx = fx
         self.fy = fy

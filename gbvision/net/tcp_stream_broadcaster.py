@@ -17,10 +17,6 @@ class TCPStreamBroadcaster(StreamBroadcaster):
     """
 
     def __init__(self, port: int, *args, **kwargs):
-        """
-        initializes the streamer
-        
-        """
         StreamBroadcaster.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_addr = (LOCAL_SERVER_IP, port)

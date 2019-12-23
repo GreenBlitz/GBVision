@@ -1,7 +1,9 @@
 import numpy as np
 
+from gbvision.constants.types import Location
 
-def distance_from_object(loc: np.ndarray) -> float:
+
+def distance_from_object(loc: Location) -> float:
     """
     the absolute distance from the camera to this object
 
@@ -13,7 +15,7 @@ def distance_from_object(loc: np.ndarray) -> float:
     return np.linalg.norm(loc[:3])
 
 
-def plane_angle_by_location(loc: np.ndarray) -> float:
+def plane_angle_by_location(loc: Location) -> float:
     """
     calculates the angle from the camera to the object's projection on the x-z plane (y=0 plane)
 
@@ -23,7 +25,7 @@ def plane_angle_by_location(loc: np.ndarray) -> float:
     return np.arctan(loc[0] / loc[2])
 
 
-def plane_distance_from_object(loc: np.ndarray) -> float:
+def plane_distance_from_object(loc: Location) -> float:
     """
     calculates the distance from the object's projection on the x-z plane (y=0 plane)
     the distance on the y axis is ignored in this calculation

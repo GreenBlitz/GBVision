@@ -6,4 +6,3 @@ class RecordingCameraWindow(RecordingWrapperOpenCVWindow, CameraWindow):
     """
     a basic window that displays the stream from a stream receiver
     """
-

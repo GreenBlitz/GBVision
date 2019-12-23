@@ -24,4 +24,4 @@ class UDPStreamReceiver(StreamReceiver):
         self.socket.bind(self.server_addr)
 
     def _receive(self) -> bytes:
-        return self.socket.recv(2**20)
+        return self.socket.recv(2 ** 20)

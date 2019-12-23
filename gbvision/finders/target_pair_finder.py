@@ -1,4 +1,7 @@
+from typing import List, Tuple
+
 import numpy as np
+from gbvision.constants.types import Frame, RotatedRect, FilterFunction
 
 from gbvision.models.contours import FilterContours, find_contours, sort_contours, contours_to_rotated_rects, \
     contours_to_polygons, fix_contours_shape
@@ -7,21 +10,27 @@ from .object_finder import ObjectFinder
 from gbvision.constants.system import EMPTY_PIPELINE
 
 
+# Deprecated
 class TargetPairFinder(ObjectFinder):
     """
     finds a pair of vision targets
+
+    :param vt_distance: the distance between the centers of both vision targets
+    :param enclosing_rect_ratio: the ratio between the width and height of the parallel enclosing rect of the vision target
+    :param contour_min_area: the minimal area of a contour, used in FilterContours
     """
 
-    def __init__(self, threshold_func, game_object, vt_distance=0.2866, enclosing_rect_ratio=0.549,
-                 contour_min_area=0):
-        """
-        initializes the finder
-        :param vt_distance: the distance between the centers of both vision targets
-        :param enclosing_rect_ratio: the ratio between the width and height of the parallel enclosing rect of the vision
-        target
-        :param contour_min_area: the minimal area of a contour, used in FilterContours
-        """
-        ObjectFinder.__init__(self, threshold_func, game_object)
+    @staticmethod
+    def _shape_root_area(shape):
+        raise NotImplementedError()
+
+    @staticmethod
+    def _shape_center(shape):
+        raise NotImplementedError()
+
+    def __init__(self, threshold_func: FilterFunction, game_object, vt_distance=0.2866, enclosing_rect_ratio=0.549,
+                 contour_min_area=0.0):
+        ObjectFinder.__init__(self, game_object)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
@@ -133,3 +142,6 @@ class TargetPairFinder(ObjectFinder):
             all_hatches.append(np.concatenate((t + rot_matrix.dot(self.__vector_distance), np.array([-angle]))))
         all_hatches.sort(key=lambda v: np.linalg.norm(v[0:3:2]), reverse=False)
         return all_hatches
+
+    def find_shapes(self, frame: Frame) -> List[Tuple[RotatedRect, RotatedRect]]:
+        raise NotImplementedError()

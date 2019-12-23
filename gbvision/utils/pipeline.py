@@ -49,14 +49,10 @@ class PipeLine:
     Example::
         multiply_by_2_then_add_3 = PipeLine(lambda x: x * 2) + PipeLine(lambda x: x + 3)
 
+    :param functions: a tuple of functions to run one after the other as a pipeline
     """
 
     def __init__(self, *functions: Callable[[Any], Any]):
-        """
-        initializes this pipeline
-
-        :param functions: a tuple of functions to run one after the other as a pipeline
-        """
         self.functions = list(functions)
 
     def __call__(self, image):

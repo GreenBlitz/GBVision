@@ -1,15 +1,15 @@
-from typing import Union, Tuple
+from typing import Union
 
 import cv2
 import numpy as np
 
 from gbvision.constants.images import COLOR_TYPE
-from gbvision.constants.types import NoneType, Frame
+from gbvision.constants.types import Frame, Number, ROI
 from gbvision.thresholds.color_threshold import ColorThreshold
 from gbvision.thresholds.threshold import Threshold
 
 
-def crop(frame, x, y, w, h) -> np.ndarray:
+def crop(frame: Frame, x: int, y: int, w: int, h: int) -> np.ndarray:
     """
     crops the image from (x, y) to (x+w, y+h)
 
@@ -23,8 +23,8 @@ def crop(frame, x, y, w, h) -> np.ndarray:
     return frame[y:y + h, x:x + w]
 
 
-def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Union[NoneType, Tuple[int, int, int, int]] = None,
-                     color_encoding='BGR') -> Threshold:
+def median_threshold(frame: Frame, stdv: Union[Number, np.ndarray],
+                     box: Union[None, ROI] = None, color_encoding=ColorThreshold.THRESH_TYPE_BGR) -> Threshold:
     """
     finds a threshold using the median threshold method
     the median threshold method defines the lower bounds of the threshold as the median of a given region of the image
@@ -43,7 +43,7 @@ def median_threshold(frame: Frame, stdv: Union[int, float, np.ndarray], box: Uni
     if box is not None:
         frame = crop(frame, *box)
     color_encoding = color_encoding.upper()
-    if color_encoding != 'BGR':
+    if color_encoding != ColorThreshold.THRESH_TYPE_BGR:
         frame = cv2.cvtColor(frame, COLOR_TYPE[color_encoding])
     med = np.median(frame, axis=(0, 1)).astype(int)
     if type(med) is not np.ndarray:

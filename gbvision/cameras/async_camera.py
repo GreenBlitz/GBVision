@@ -2,7 +2,7 @@ import abc
 from threading import Thread
 from typing import Tuple
 
-import numpy as np
+import time
 
 from gbvision.constants.types import Frame
 from .camera import Camera
@@ -22,6 +22,13 @@ class AsyncCamera(Camera, abc.ABC):
 
     def read(self, image=None):
         return self.__ok, self.__frame
+
+    def has_started_reading(self):
+        return self.__frame is not None
+
+    def wait_start_reading(self, wait_time=0.01):
+        while not self.has_started_reading():
+            time.sleep(wait_time)
 
     @abc.abstractmethod
     def _read(self) -> Tuple[bool, Frame]:

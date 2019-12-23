@@ -2,7 +2,7 @@ from typing import Union, List
 from .stream_camera import Camera, StreamCamera
 
 
-class CameraList(StreamCamera):
+class CameraList(Camera):
     """
     behaves as both a camera and a list of cameras
     camera list holds in it a list of cameras referenced as the field cameras

@@ -10,6 +10,7 @@ class USBCamera(cv2.VideoCapture, Camera):
     :param port: the usb port to which the camera is connected
     :param data: the camera data object that describes this camera
     """
+
     def __init__(self, port: int, data: CameraData = UNKNOWN_CAMERA):
         """
         initializes the camera

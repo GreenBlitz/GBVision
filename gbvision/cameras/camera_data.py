@@ -11,12 +11,11 @@ class CameraData:
         can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it's
         distance from the camera and divided by the square root of it's surface
 
-        FOCAL_LENGTH = sqrt(P) * D / sqrt(W*H)
+        FOCAL_LENGTH = sqrt(P) * D / sqrt(S)
 
         where P is the amount of pixels in the frame representing the object,
         D is the real life distance between the object and the camera
-        W is the real life width of the object
-        H is the real life height of the object
+        S is the real life surface area (in 2d projection) of the object
         note that this is a constant, whatever object you choose to use, this formula will yield the same result
     :param fov:
         half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
@@ -65,7 +64,8 @@ class CameraData:
     :param constant: determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
-    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0, constant=False):
+    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
+                 constant=False):
         """
 
         

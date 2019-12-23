@@ -16,10 +16,6 @@ class UDPStreamBroadcaster(StreamBroadcaster):
     """
 
     def __init__(self, ip: str, port: int, *args, **kwargs):
-        """
-        initializes a new udp stream broadcaster
-        
-        """
         StreamBroadcaster.__init__(self, *args, **kwargs)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_addr = (ip, port)

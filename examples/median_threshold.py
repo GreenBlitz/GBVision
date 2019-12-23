@@ -8,16 +8,14 @@ stdv = np.array([40, 40, 40])
 
 def main():
     camera = gbv.USBCamera(0)
-    camera.set_exposure(-8)
-    cv2.namedWindow('window', cv2.WINDOW_FREERATIO)
-    ok, frame = camera.read()
-    while ok:
-        ok, frame = camera.read()
-        cv2.imshow('window', frame)
-
-        k = chr(cv2.waitKey(1) & 0xFF)
+    camera.set_exposure(-5)
+    window = gbv.CameraWindow('feed', camera)
+    window.open()
+    while True:
+        frame = window.show_and_get_frame()
+        k = window.last_key_pressed
         if k == 'r':
-            bbox = cv2.selectROI('window', frame)
+            bbox = cv2.selectROI('feed', frame)
             thr = gbv.median_threshold(frame, stdv, bbox, 'HSV')
             break
     cv2.destroyAllWindows()
