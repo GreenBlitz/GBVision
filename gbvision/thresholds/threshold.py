@@ -1,5 +1,4 @@
 import abc
-import sys
 from typing import List, Callable
 
 import cv2
@@ -45,10 +44,8 @@ class ThresholdGroup(Threshold):
         default value is cv2.bitwise_or
     """
 
-    def __init__(self, binary_mask: Callable[[Frame, Frame], Frame], *thresholds, **kwargs):
+    def __init__(self, binary_mask: Callable[[Frame, Frame], Frame], *thresholds):
         self.binary_mask = binary_mask
-        for i in kwargs:
-            print(f'[WARN] keyword value {i} is never used', file=sys.stderr)
         self.thresholds: List[Threshold] = list(thresholds)
 
     def __call__(self, frame: Frame) -> Frame:
