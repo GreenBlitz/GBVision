@@ -1,5 +1,4 @@
 import gbvision as gbv
-import cv2
 
 FUEL = gbv.GameObject(0.04523893421169302263386206471922)
 
@@ -38,7 +37,7 @@ def main():
             if fuel is None:
                 continue
             frame = gbv.draw_circles(frame, [fuel], (0, 255, 0), thickness=6)
-            frame = gbv.draw_text(frame, str(f'ID: {i}'), (int(fuel[0][0]) - 10, int(fuel[0][1]) - 10), 1, (0, 255, 0),
+            frame = gbv.draw_text(frame, f'ID: {i}', (int(fuel[0][0]) - 10, int(fuel[0][1]) - 10), 1, (0, 255, 0),
                                   thickness=3)
         if not window.show_frame(frame):
             break

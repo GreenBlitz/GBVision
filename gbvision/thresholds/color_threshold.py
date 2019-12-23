@@ -3,134 +3,30 @@ import cv2
 from gbvision.thresholds.threshold import Threshold
 
 
-def hls_threshold(frame, params):
-    """
-    thresholds the image according to HLS values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [hmin hmax] \
-                                                 [lmin lmax] \
-                                                 [smin smax]
-    :return: binary threshold image
-    """
-
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HLS)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
-
-
-def hsv_threshold(frame, params):
-    """
-    thresholds the image according to HSV values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [hmin hmax] \
-                                                 [smin smax] \
-                                                 [vmin vmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
-
-
-def rgb_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [rmin rmax] \
-                                                 [gmin gmax] \
-                                                 [bmin bmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
-
-
 def bgr_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [bmin bmax] \
-                                                 [gmin gmax] \
-                                                 [rmin rmax]
-    :return: binary threshold image
-    """
     red, green, blue = params
     return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
 
 
-def luv_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
+class __ColorThresholdFunction:
+    def __init__(self, color_type):
+        self.color_type = color_type
 
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [lmin lmax] \
-                                                 [umin umax] \
-                                                 [vmin vmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2LUV)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
+    def __call__(self, frame, params):
+        frame = cv2.cvtColor(frame, self.color_type)
+        return bgr_threshold(frame, params)
 
 
-def lab_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [lmin lmax] \
-                                                 [amin amax] \
-                                                 [bmin bmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
-
-
-def yuv_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [ymin ymax] \
-                                                 [umin umax] \
-                                                 [vmin vmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
-
-
-def xyz_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 3x2 matrix of [xmin xmax] \
-                                                 [ymin ymax] \
-                                                 [zmin zmax]
-    :return: binary threshold image
-    """
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2XYZ)
-    red, green, blue = params
-    return cv2.inRange(frame, (red[0], green[0], blue[0]), (red[1], green[1], blue[1]))
+hls_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2HLS)
+hsv_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2HSV)
+rgb_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2RGB)
+luv_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2LUV)
+lab_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2LAB)
+yuv_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2YUV)
+xyz_threshold = __ColorThresholdFunction(cv2.COLOR_BGR2XYZ)
 
 
 def gray_threshold(frame, params):
-    """
-    thresholds the image according to RGB values
-
-    :param frame: the image
-    :param params: the hls values, 1x2 matrix of [min max]
-    :return: binary threshold image
-    """
     if len(frame.shape) > 2:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     return cv2.threshold(frame, params[0][0], params[0][1], cv2.THRESH_BINARY)[1]
