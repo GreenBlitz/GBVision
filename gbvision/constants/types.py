@@ -1,4 +1,4 @@
-from typing import Tuple, List, Union, Callable
+from typing import Tuple, List, Union, Callable, TypeVar
 from numpy import ndarray
 
 Number = Union[int, float]
@@ -16,3 +16,4 @@ FilterFunction = Callable[[Frame], Frame]
 Coordinates = Tuple[int, int]
 Location = Tuple[Number, Number, Number]
 ROI = Tuple[int, int, int, int]
+Shape = TypeVar('Shape')

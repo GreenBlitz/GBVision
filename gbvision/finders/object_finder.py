@@ -1,8 +1,7 @@
 import abc
-from typing import List, Any
+from typing import List
 
-from gbvision.constants.types import Frame, FilterFunction, Location, Number, Point
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.constants.types import Frame, Location, Number, Point, Shape
 from gbvision.utils.game_object import GameObject, Camera
 
 
@@ -31,7 +30,7 @@ class ObjectFinder(abc.ABC):
         return self.locations_from_shapes(self.find_shapes(frame), camera)
 
     @abc.abstractmethod
-    def find_shapes(self, frame: Frame) -> List[Any]:
+    def find_shapes(self, frame: Frame) -> List[Shape]:
         """
         finds all the objects and returns them in frame after full pipeline
 
@@ -41,7 +40,7 @@ class ObjectFinder(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _shape_root_area(shape: Any) -> Number:
+    def _shape_root_area(shape: Shape) -> Number:
         """
         calculates the square root of the area of a shape, to be used by the api
 
@@ -51,7 +50,7 @@ class ObjectFinder(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _shape_center(shape: Any) -> Point:
+    def _shape_center(shape: Shape) -> Point:
         """
         finds the center of the shape, to be used by the api
 
@@ -59,7 +58,7 @@ class ObjectFinder(abc.ABC):
         :return: the center of the shape
         """
 
-    def locations_from_shapes(self, shapes: List[Any], camera: Camera) -> List[Location]:
+    def locations_from_shapes(self, shapes: List[Shape], camera: Camera) -> List[Location]:
         """
         finds the locations of the shapes based on the shape descriptor and camera constants
 

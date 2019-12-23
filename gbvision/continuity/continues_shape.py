@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.constants.types import Rect, Number, Frame, Point
+from gbvision.constants.types import Rect, Number, Frame, Point, Shape
 from gbvision.utils.tracker import Tracker
 
 
@@ -31,7 +31,7 @@ class ContinuesShape(abc.ABC):
         self.max_distance_ratio = max_distance_ratio  # same goes here except it refers to distance between shapes
 
     @abc.abstractmethod
-    def _shape_collision(self, shape) -> bool:
+    def _shape_collision(self, shape: Shape) -> bool:
         """
         a function which checks whether a shape is colliding with the current object's shape or not.
         :param: shape: the shape which is tested
@@ -40,7 +40,7 @@ class ContinuesShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _shape_area(shape) -> Number:
+    def _shape_area(shape: Shape) -> Number:
         """
         a method which calculates a shape's on-screen area
         :param shape: the shape's area you wish to accept
@@ -49,7 +49,7 @@ class ContinuesShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _shape_center(shape) -> Point:
+    def _shape_center(shape: Shape) -> Point:
         """
         determines a shape's center
         :param shape: the shape's center you wish to find
@@ -58,7 +58,7 @@ class ContinuesShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _from_bounding_rect(bounding_rect: Rect):
+    def _from_bounding_rect(bounding_rect: Rect) -> Shape:
         """
         a function which finds a shape according to its bounding rectangle
         :param: the rectangle bounding the shape
@@ -67,14 +67,14 @@ class ContinuesShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _to_bounding_rect(shape) -> Rect:
+    def _to_bounding_rect(shape: Shape) -> Rect:
         """
         finds a rectangle bounding a shape
         :param shape: the shape's bounding rectangle you wish to find
         :return: a rectangle which bounds the shape given
         """
 
-    def _shape_square_distance(self, other_shape) -> Number:
+    def _shape_square_distance(self, other_shape: Shape) -> Number:
         """
         a method which finds the distance between the centers of the object shape and another one
         :param other_shape: the other shape you want to check the distance to
@@ -84,7 +84,7 @@ class ContinuesShape(abc.ABC):
         return (other_center[0] - self_center[0]) ** 2 + \
                (other_center[1] - self_center[1]) ** 2
 
-    def _is_legal(self, shape) -> bool:
+    def _is_legal(self, shape: Shape) -> bool:
         """
         checks a variety of different relations between to shapes to determine whether it describes the same object or not
         :param shape: the other shape comparing to the current one
@@ -98,7 +98,7 @@ class ContinuesShape(abc.ABC):
                     return True
         return False
 
-    def get(self):
+    def get(self) -> Shape:
         """
         retrieve the shape that this continues shape tracks
 
@@ -106,7 +106,7 @@ class ContinuesShape(abc.ABC):
         """
         return self._shape
 
-    def update(self, shape, frame: Frame) -> bool:
+    def update(self, shape: Shape, frame: Frame) -> bool:
         """
         an annual check updating the location and data of the object
         :param shape: the shape suspect as the same object

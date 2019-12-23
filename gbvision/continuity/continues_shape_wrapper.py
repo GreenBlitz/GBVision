@@ -1,6 +1,6 @@
-from typing import Any, List, Dict, Callable, Union
+from typing import List, Dict, Callable, Union
 
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, Shape
 from gbvision.continuity.continues_circle import ContinuesCircle
 from gbvision.continuity.continues_rect import ContinuesRect
 from gbvision.continuity.continues_rotated_rect import ContinuesRotatedRect
@@ -24,7 +24,7 @@ class ContinuesShapeWrapper:
     :param finding_pipeline: a function that finds the shapes in a given frame and returns a list of them (order irrelevant)
     :param shape_type: the type of the shape, can be either 'CIRCLE', 'RECT', or 'ROTATED_RECT', default is 'RECT', can also be a class that inherits from ContinuesShape
     :param tracker_type: the type of the trackers to use, default is 'EMPTY'
-    :param shape_lifespam: the maximum amount of frames for a shape to not be found until it is considered lost
+    :param shape_lifespan: the maximum amount of frames for a shape to not be found until it is considered lost
     :param track_new: indicates whether to track new shapes that were un-tracked so far or ignore them, default is False (ignore)
     :param args: additional arguments for continues shape constructor 
     :param kwargs: additional keyword arguments for continues shape constructor
@@ -34,9 +34,9 @@ class ContinuesShapeWrapper:
     SHAPE_TYPE_RECT = 'RECT'
     SHAPE_TYPE_ROTATED_RECT = 'ROTATED_RECT'
 
-    def __init__(self, shapes: List[Any], frame: Frame, finding_pipeline: Callable[[Frame], List[Any]],
-                 shape_type: Union[str, type] = 'RECT', tracker_type='EMPTY', shape_lifespam: int = None,
-                 track_new=False, *args, **kwargs):
+    def __init__(self, shapes: List[Shape], frame: Frame, finding_pipeline: Callable[[Frame], List[T]],
+                 shape_type: Union[str, type] = 'RECT', tracker_type=Tracker.TRACKER_TYPE_EMPTY,
+                 shape_lifespan: int = None, track_new=False, *args, **kwargs):
 
         if shape_type in _CONTINUES_SHAPE_TYPES:
             shape_type = shape_type.upper()
@@ -44,7 +44,7 @@ class ContinuesShapeWrapper:
         else:
             self.shape_type = shape_type
         self.tracker_type = tracker_type
-        self.shape_lifespam = shape_lifespam
+        self.shape_lifespan = shape_lifespan
         self.finding_pipeline = finding_pipeline
         self.shapes: Dict[int, ContinuesShape] = {}
         self.track_new = track_new
@@ -57,7 +57,7 @@ class ContinuesShapeWrapper:
     def __create_continues_shape(self, shape, frame) -> ContinuesShape:
         return self.shape_type(shape, frame, Tracker(self.tracker_type), *self.__args, **self.__kwargs)
 
-    def find_shapes(self, frame: Frame) -> Dict[int, Any]:
+    def find_shapes(self, frame: Frame) -> Dict[int, Shape]:
         """
         finds all shapes in the frame, them performs a continues shape operations on them and return the result as a dict where the keys are unique ids and the values are the shapes
         if a shape was lost it removes it from the tracked shapes list
@@ -71,7 +71,7 @@ class ContinuesShapeWrapper:
         to_delete = []
         for i in self.shapes:
             cont_shape = self.shapes[i]
-            if cont_shape.is_lost(self.shape_lifespam):
+            if cont_shape.is_lost(self.shape_lifespan):
                 to_delete.append(i)
                 continue
             found = False
@@ -92,7 +92,7 @@ class ContinuesShapeWrapper:
                 self.__idx += 1
         return result
 
-    def get_shapes(self) -> Dict[int, Any]:
+    def get_shapes(self) -> Dict[int, Shape]:
         """
         returns the current location of the shapes based on continuity
         NOTE! this will be applied to the last frame given to the find_shapes method, only use this method if you need to get the shapes twice in an iteration
@@ -104,7 +104,7 @@ class ContinuesShapeWrapper:
             result[i] = self.shapes[i].get()
         return result
 
-    def get_shapes_as_list(self) -> List[Any]:
+    def get_shapes_as_list(self) -> List[Shape]:
         """
         gets all the shapes as a list instead of a dictionary
         :return: a list of all the tracked shapes (sorted by unique id's)

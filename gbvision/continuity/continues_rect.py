@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from gbvision.models.shapes import rect_collision
-from gbvision.constants.types import *
+from gbvision.constants.types import Rect, Number, Point
 from gbvision.continuity.continues_shape import ContinuesShape
 
 

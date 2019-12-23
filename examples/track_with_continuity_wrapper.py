@@ -23,7 +23,7 @@ def main():
         k = window.last_key_pressed
         if k == 'r':
             wrapper = gbv.ContinuesShapeWrapper(fuels, frame, find_fuel.find_shapes, shape_type=SHAPE_TYPE,
-                                                tracker_type=TRACKER_TYPE, shape_lifespam=20, track_new=True)
+                                                tracker_type=TRACKER_TYPE, shape_lifespan=20, track_new=True)
             break
     window.close()
     window = gbv.FeedWindow('track')

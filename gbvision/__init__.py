@@ -13,7 +13,7 @@ from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
 from .constants.math import EPSILON, SQRT_PI
 from .constants.system import EMPTY_PIPELINE
 from .constants.types import RotatedRect, Frame, Color, Circle, Contour, Rect, FixedPolygon, Ellipse, Polygon, Point, \
-    Location, FilterFunction, Coordinates, Number
+    Location, FilterFunction, Coordinates, Number, ROI, Shape
 
 # continuity
 from .continuity.continues_circle import ContinuesCircle
