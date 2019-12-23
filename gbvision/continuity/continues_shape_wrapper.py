@@ -34,7 +34,7 @@ class ContinuesShapeWrapper:
     SHAPE_TYPE_RECT = 'RECT'
     SHAPE_TYPE_ROTATED_RECT = 'ROTATED_RECT'
 
-    def __init__(self, shapes: List[Shape], frame: Frame, finding_pipeline: Callable[[Frame], List[T]],
+    def __init__(self, shapes: List[Shape], frame: Frame, finding_pipeline: Callable[[Frame], List[Shape]],
                  shape_type: Union[str, type] = 'RECT', tracker_type=Tracker.TRACKER_TYPE_EMPTY,
                  shape_lifespan: int = None, track_new=False, *args, **kwargs):
 
