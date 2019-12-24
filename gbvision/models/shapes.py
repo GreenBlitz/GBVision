@@ -29,6 +29,7 @@ class __InnerShapeFilter(PipeLine):
 def circle_collision(circ1: Circle, circ2: Circle) -> bool:
     """
     detects if two circles are colliding
+
     :param circ1: the first circle
     :param circ2: the second circle
     :return: True if circles are colliding, False otherwise
@@ -40,6 +41,13 @@ def circle_collision(circ1: Circle, circ2: Circle) -> bool:
 filter_inner_circles = __InnerShapeFilter(circle_collision)
 
 def rect_collision(r1: Rect, r2: Rect) -> bool:
+    """
+    detects if two rects are colliding
+
+    :param r1: the first rect
+    :param r2: the second rect
+    :return: True if the rects are colliding, False otherwise
+    """
     return not (r1[0] > r2[0] + r2[2] or
                 r1[0] + r1[2] < r1[0] or
                 r1[1] > r2[1] + r2[3] or
@@ -56,8 +64,9 @@ def convex_shape_collision(shape1: Polygon, shape2: Polygon) -> bool:
 
     :param shape1: the first shape, as a contour
     :param shape2: the second shape, as a contour
-    :return:
+    :return: True if the shapes are colliding, False otherwise
     """
+    shape1, shape2 = np.array(shape1), np.array(shape2)
     shape1 = shape1.reshape(shape1.size // 2, 2)
     shape2 = shape2.reshape(shape1.size // 2, 2)
 
@@ -93,6 +102,13 @@ def convex_shape_collision(shape1: Polygon, shape2: Polygon) -> bool:
 filter_inner_convex_shapes = __InnerShapeFilter(convex_shape_collision)
 
 def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
+    """
+    detects if two rotated rects are colliding
+
+    :param rr1: the first rotated rect
+    :param rr2: the second rotated rect
+    :return: True if the shapes are colliding, False otherwise
+    """
     return convex_shape_collision(cv2.boxPoints(rr1), cv2.boxPoints(rr2))
 
 filter_inner_rotated_rects = __InnerShapeFilter(rotated_rect_collision)
