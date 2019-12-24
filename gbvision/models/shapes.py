@@ -103,7 +103,7 @@ def filter_inner_convex_shapes(shapes: List[Polygon]) -> List[Polygon]:
 
 
 def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
-    return convex_shape_collision(np.array([cv2.boxPoints(rr1)]), np.array([cv2.boxPoints(rr2)]))
+    return convex_shape_collision(cv2.boxPoints(rr1), cv2.boxPoints(rr2))
 
 
 @PipeLine
