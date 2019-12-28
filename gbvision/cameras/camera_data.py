@@ -1,6 +1,9 @@
 import numpy as np
 from copy import deepcopy
 
+from gbvision.constants.types import Number
+from gbvision.exceptions.vision_exception import VisionException
+
 
 class CameraData:
     """
@@ -61,17 +64,24 @@ class CameraData:
         the z offset in which the camera is placed
         the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point
         this variable should be positive and if it is inner this should be negative
-    :param constant: determines whether the camera data object's values are immutable (True) or mutable (False)
+    :param is_immutable: determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
-    def __init__(self, focal_length, fov, yaw_angle=0, pitch_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
-                 constant=False):
-        """
-
-        
-        """
+    def __init__(self, focal_length, fov, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
+                 is_immutable=False, name=None):
         self.focal_length = focal_length
         self.fov = fov
+        self.rotation_angles = np.array([pitch_angle, yaw_angle, roll_angle])
+        self.__calculate_rotation_matrix()
+        self.offset = np.array([x_offset, y_offset, z_offset])
+        self.name = name
+        self.__is_immutable = is_immutable
+
+    def __calculate_rotation_matrix(self):
+        if self.__is_immutable:
+            raise VisionException('Cannot modify rotation matrix value for immutable instance')
+
+        pitch_angle, yaw_angle, roll_angle = self.rotation_angles
         sin, cos = np.sin(yaw_angle), np.cos(yaw_angle)
         rotation_matrix = np.array([[cos, 0, sin],
                                     [0, 1, 0],
@@ -85,49 +95,203 @@ class CameraData:
                                                         [sin, cos, 0],
                                                         [0, 0, 1]]))
         self.rotation_matrix = rotation_matrix
-        self.offset = np.array([x_offset, y_offset, z_offset])
-        self.__is_immutable = constant
 
-    def rotate_yaw(self, angle):
-        data: CameraData = self.copy() if self.__is_immutable else self
-        sin, cos = np.sin(angle), np.cos(angle)
-        data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, 0, sin],
-                                                                  [0, 1, 0],
-                                                                  [-sin, 0, cos]]))
-        return data
+    def __get_data(self) -> 'CameraData':
+        return self.copy() if self.__is_immutable else self
 
-    def rotate_pitch(self, angle):
-        data: CameraData = self.copy() if self.__is_immutable else self
+    def rotate_pitch(self, angle: float) -> 'CameraData':
+        """
+        rotates the camera's angle around the pitch axis (the x axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the pitch angle rotated \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[0] += angle
         sin, cos = np.sin(angle), np.cos(angle)
         data.rotation_matrix = data.rotation_matrix.dot(np.array([[1, 0, 0],
                                                                   [0, cos, -sin],
                                                                   [0, sin, cos]]))
         return data
 
-    def rotate_roll(self, angle):
-        data: CameraData = self.copy() if self.__is_immutable else self
+    def rotate_yaw(self, angle: float) -> 'CameraData':
+        """
+        rotates the camera's angle around the yaw axis (the y axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the yaw angle rotated \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[1] += angle
+        sin, cos = np.sin(angle), np.cos(angle)
+        data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, 0, sin],
+                                                                  [0, 1, 0],
+                                                                  [-sin, 0, cos]]))
+        return data
+
+    def rotate_roll(self, angle: float) -> 'CameraData':
+        """
+        rotates the camera's angle around the roll axis (the z axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the roll angle rotated \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[2] += angle
         sin, cos = np.sin(angle), np.cos(angle)
         data.rotation_matrix = data.rotation_matrix.dot(np.array([[cos, -sin, 0],
                                                                   [sin, cos, 0],
                                                                   [0, 0, 1]]))
         return data
 
-    def move_x(self, x):
-        data: CameraData = self.copy() if self.__is_immutable else self
+    def set_pitch_angle(self, angle: float) -> 'CameraData':
+        """
+        sets the camera's angle around the pitch axis (the x axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the pitch angle changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[0] = angle
+        data.__calculate_rotation_matrix()
+        return data
+
+    def set_yaw_angle(self, angle: float) -> 'CameraData':
+        """
+        sets the camera's angle around the yaw axis (the y axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the yaw angle changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[1] = angle
+        data.__calculate_rotation_matrix()
+        return data
+
+    def set_roll_angle(self, angle: float) -> 'CameraData':
+        """
+        sets the camera's angle around the roll axis (the z axis)
+
+        :param angle: the rotation angle
+        :return: a camera data instance with the same params as this but with the roll angle changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.rotation_angles[2] = angle
+        data.__calculate_rotation_matrix()
+        return data
+
+    def move_x(self, x: Number) -> 'CameraData':
+        """
+        moves this camera data's x axis offset
+
+        :param x: the x offset to move by
+        :return: a camera data instance with the same params as this but with the x axis moved \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
         data.offset[0] += x
         return data
 
-    def move_y(self, y):
-        data: CameraData = self.copy() if self.__is_immutable else self
+    def move_y(self, y: Number) -> 'CameraData':
+        """
+        moves this camera data's y axis offset
+
+        :param y: the y offset to move by
+        :return: a camera data instance with the same params as this but with the y axis moved \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
         data.offset[1] += y
         return data
 
-    def move_z(self, z):
-        data: CameraData = self.copy() if self.__is_immutable else self
+    def move_z(self, z: Number) -> 'CameraData':
+        """
+        moves this camera data's z axis offset
+
+        :param z: the z offset to move by
+        :return: a camera data instance with the same params as this but with the z axis moved \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
         data.offset[2] += z
         return data
 
-    def copy(self):
+    def set_x_offset(self, x: Number) -> 'CameraData':
+        """
+        sets this camera data's x axis offset
+
+        :param x: the new x offset
+        :return: a camera data instance with the same params as this but with the x axis changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.offset[0] = x
+        return data
+
+    def set_y_offset(self, y: Number) -> 'CameraData':
+        """
+        sets this camera data's y axis offset
+
+        :param y: the new y offset
+        :return: a camera data instance with the same params as this but with the y axis changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.offset[1] = y
+        return data
+
+    def set_z_offset(self, z: Number) -> 'CameraData':
+        """
+        sets this camera data's z axis offset
+
+        :param z: the new z offset
+        :return: a camera data instance with the same params as this but with the z axis changed \
+            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it
+        """
+        data = self.__get_data()
+        data.offset[2] = z
+        return data
+
+    def copy(self) -> 'CameraData':
+        """
+        creates a mutable copy of this and returns it
+        :return:
+        """
         copy = deepcopy(self)
         copy.__is_immutable = False
         return copy
+
+    def is_immutable(self) -> bool:
+        """
+        checks if this camera data instance is immutable
+
+        :return: True if this is immutable, False otherwise
+        """
+        return self.__is_immutable
+
+    def as_immutable(self) -> 'CameraData':
+        """
+        creates and returns an immutable copy of this camera data
+        if this instance is already immutable it will return this instance
+
+        :return: an instance of CameraData, with the same values as this instance but immutable
+        """
+        if self.__is_immutable:
+            return self
+        copy = self.copy()
+        copy.__is_immutable = True
+        return copy
+
+    def __str__(self):
+        if self.name is not None:
+            return f'{self.name}'
+        return object.__str__(self)
+
+    def __repr__(self):
+        return str(self)
