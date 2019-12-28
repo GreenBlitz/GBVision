@@ -72,14 +72,12 @@ class CameraData:
         self.focal_length = focal_length
         self.fov = fov
         self.rotation_angles = np.array([pitch_angle, yaw_angle, roll_angle])
-        self.__calculate_rotation_matrix()
+        self.rotation_matrix = self.__calculate_rotation_matrix()
         self.offset = np.array([x_offset, y_offset, z_offset])
         self.name = name
         self.__is_immutable = is_immutable
 
     def __calculate_rotation_matrix(self):
-        if self.__is_immutable:
-            raise VisionException('Cannot modify rotation matrix value for immutable instance')
 
         pitch_angle, yaw_angle, roll_angle = self.rotation_angles
         sin, cos = np.sin(yaw_angle), np.cos(yaw_angle)
@@ -94,7 +92,7 @@ class CameraData:
         rotation_matrix = rotation_matrix.dot(np.array([[cos, -sin, 0],
                                                         [sin, cos, 0],
                                                         [0, 0, 1]]))
-        self.rotation_matrix = rotation_matrix
+        return rotation_matrix
 
     def __get_data(self) -> 'CameraData':
         return self.copy() if self.__is_immutable else self
@@ -157,7 +155,7 @@ class CameraData:
         """
         data = self.__get_data()
         data.rotation_angles[0] = angle
-        data.__calculate_rotation_matrix()
+        data.rotation_matrix = data.__calculate_rotation_matrix()
         return data
 
     def set_yaw_angle(self, angle: float) -> 'CameraData':
@@ -170,7 +168,7 @@ class CameraData:
         """
         data = self.__get_data()
         data.rotation_angles[1] = angle
-        data.__calculate_rotation_matrix()
+        data.rotation_matrix = data.__calculate_rotation_matrix()
         return data
 
     def set_roll_angle(self, angle: float) -> 'CameraData':
@@ -183,7 +181,7 @@ class CameraData:
         """
         data = self.__get_data()
         data.rotation_angles[2] = angle
-        data.__calculate_rotation_matrix()
+        data.rotation_matrix = data.__calculate_rotation_matrix()
         return data
 
     def move_x(self, x: Number) -> 'CameraData':
