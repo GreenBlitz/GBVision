@@ -1,5 +1,5 @@
 import abc
-from typing import List
+from typing import List, Iterable
 
 from gbvision.constants.types import Frame, Location, Number, Point, Shape
 from gbvision.utils.game_object import GameObject, Camera
@@ -58,7 +58,7 @@ class ObjectFinder(abc.ABC):
         :return: the center of the shape
         """
 
-    def locations_from_shapes(self, shapes: List[Shape], camera: Camera) -> List[Location]:
+    def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """
         finds the locations of the shapes based on the shape descriptor and camera constants
 
