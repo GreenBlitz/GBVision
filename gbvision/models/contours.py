@@ -1,13 +1,15 @@
 from typing import List
 
 import cv2
-import numpy as np
 
 from gbvision.constants.math import EPSILON
 from gbvision.constants.system import CONTOURS_INDEX
 from gbvision.constants.types import Contour, Polygon
 from gbvision.utils.pipeline import PipeLine
 
+
+def __mapper(func) -> PipeLine:
+    return PipeLine(lambda x: list(map(func, x)))
 
 @PipeLine
 def find_contours(frame):
@@ -27,9 +29,7 @@ class FilterContours(PipeLine):
 convex_hull = PipeLine(cv2.convexHull)
 
 
-@PipeLine
-def convex_hull_multiple(cnts):
-    return list(map(convex_hull, cnts))
+convex_hull_multiple = __mapper(convex_hull)
 
 
 @PipeLine
@@ -38,16 +38,12 @@ def contour_center(cnt):
     return int(m['m10'] / (m['m00'] + EPSILON)), int(m['m01'] / (m['m00'] + EPSILON))
 
 
-@PipeLine
-def contours_centers(cnts):
-    return list(map(contour_center, cnts))
+contours_centers = __mapper(contour_center)
 
 
 # SHAPES
 
-@PipeLine
-def contours_to_rects(cnts):
-    return list(map(cv2.boundingRect, cnts))
+contours_to_rects = __mapper(cv2.boundingRect)
 
 
 @PipeLine
@@ -58,9 +54,7 @@ def sort_rects(rects):
 contours_to_rects_sorted = contours_to_rects + sort_rects
 
 
-@PipeLine
-def contours_to_circles(cnts):
-    return list(map(cv2.minEnclosingCircle, cnts))
+contours_to_circles = __mapper(cv2.minEnclosingCircle)
 
 
 @PipeLine
@@ -71,10 +65,7 @@ def sort_circles(circs):
 contours_to_circles_sorted = contours_to_circles + sort_circles
 
 
-@PipeLine
-def contours_to_rotated_rects(cnts):
-    return list(map(cv2.minAreaRect, cnts))
-
+contours_to_rotated_rects = __mapper(cv2.minAreaRect)
 
 @PipeLine
 def sort_rotated_rects(rects):
