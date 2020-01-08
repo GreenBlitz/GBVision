@@ -26,7 +26,7 @@ class DrawContours(_DrawObject):
     def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE, *args,
                  **kwargs):
         contour_finding = threshold_func + find_contours + contours_process
-        _DrawObject.__init__(contour_finding, color, draw_contours, *args, **kwargs)
+        _DrawObject.__init__(self, contour_finding, color, draw_contours, *args, **kwargs)
 
 
 class DrawCircles(_DrawObject):
