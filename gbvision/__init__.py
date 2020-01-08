@@ -36,6 +36,7 @@ from .finders.circle_finder import CircleFinder
 from .finders.rect_finder import RectFinder
 from .finders.polygon_finder import PolygonFinder
 from .finders.rotated_rect_finder import RotatedRectFinder
+from .finders.contour_finder import ContourFinder
 from .finders.convex_polygon_finder import ConvexPolygonFinder
 
 # gui
