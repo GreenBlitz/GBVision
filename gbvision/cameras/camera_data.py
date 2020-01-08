@@ -2,7 +2,6 @@ import numpy as np
 from copy import deepcopy
 
 from gbvision.constants.types import Number
-from gbvision.exceptions.vision_exception import VisionException
 
 
 class CameraData:
