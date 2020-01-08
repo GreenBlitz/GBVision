@@ -5,6 +5,7 @@ from gbvision.utils.pipeline import PipeLine
 import numpy as np
 import cv2
 
+
 class __InnerShapeFilter(PipeLine):
     """
     filters out all the shapes that are colliding with shapes with a lower (smaller) index
@@ -12,6 +13,7 @@ class __InnerShapeFilter(PipeLine):
     usually used on a sorted list, to remove any shape that is inside another shape
 
     """
+
     def __init__(self, collision_func: Callable[[Shape, Shape], bool]):
         def _filter(shapes: List[Shape]) -> List[Shape]:
             filtered_shapes = []
@@ -24,7 +26,9 @@ class __InnerShapeFilter(PipeLine):
                 if not shape_invalid:
                     filtered_shapes.append(shape)
             return filtered_shapes
+
         PipeLine.__init__(self, _filter)
+
 
 def circle_collision(circ1: Circle, circ2: Circle) -> bool:
     """
@@ -38,7 +42,9 @@ def circle_collision(circ1: Circle, circ2: Circle) -> bool:
     center2, r2 = circ2
     return (center1[0] - center2[0]) ** 2 + (center1[1] - center2[1]) ** 2 < (r1 + r2) ** 2
 
+
 filter_inner_circles = __InnerShapeFilter(circle_collision)
+
 
 def rect_collision(r1: Rect, r2: Rect) -> bool:
     """
@@ -101,6 +107,7 @@ def convex_shape_collision(shape1: Polygon, shape2: Polygon) -> bool:
 
 filter_inner_convex_shapes = __InnerShapeFilter(convex_shape_collision)
 
+
 def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
     """
     detects if two rotated rects are colliding
@@ -110,5 +117,6 @@ def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
     :return: True if the shapes are colliding, False otherwise
     """
     return convex_shape_collision(cv2.boxPoints(rr1), cv2.boxPoints(rr2))
+
 
 filter_inner_rotated_rects = __InnerShapeFilter(rotated_rect_collision)
