@@ -13,7 +13,9 @@ def __mapper(func) -> PipeLine:
 
 @PipeLine
 def find_contours(frame):
-    return cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[CONTOURS_INDEX]
+    # DO NOT CHANGE THE CHAIN_APPROX_NONE
+    # You do not know the damages it may cause
+    return cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[CONTOURS_INDEX]
 
 
 @PipeLine
