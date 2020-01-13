@@ -83,7 +83,8 @@ from .thresholds.threshold import Threshold, ThresholdGroup
 # tools
 from .tools.list_tools import split_list
 from .tools.image_tools import crop, median_threshold
-from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object
+from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object, \
+    viewing_angle_of_object
 
 # utils
 from .utils.pipeline import PipeLine

@@ -34,3 +34,14 @@ def plane_distance_from_object(loc: Location) -> float:
     :return: the distance without regarding the y axis
     """
     return np.sqrt(loc[0] ** 2 + loc[2] ** 2)
+
+
+def viewing_angle_of_object(part1: Location, part2: Location, x_distance: float) -> float:
+    """
+
+    :param part1:
+    :param part2:
+    :param x_distance:
+    :return:
+    """
+    return np.pi / 2 - np.arccos(max(-1, min(1, (part1[2] - part2[2]) / x_distance)))
