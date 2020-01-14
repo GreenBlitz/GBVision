@@ -19,14 +19,12 @@ class Camera(abc.ABC):
         :param image: if not None, the frame will be read to this ndarray
         :return: a boolean indicating if the action was successful, and the frame if read was successful, otherwise None
         """
-        pass
 
     @abc.abstractmethod
     def release(self):
         """
         closes the handle to this camera, if it is not necessary please override this method to a black method
         """
-        pass
 
     @abc.abstractmethod
     def is_opened(self) -> bool:
@@ -35,7 +33,6 @@ class Camera(abc.ABC):
 
         :return: True if the camera can be read from, otherwise False
         """
-        pass
 
     @abc.abstractmethod
     def set_exposure(self, exposure: Union[int, float, bool]) -> bool:
@@ -45,8 +42,8 @@ class Camera(abc.ABC):
         :param exposure: the new exposure
         :return: True on success, False on failure
         """
-        pass
 
+    @abc.abstractmethod
     def set_auto_exposure(self, auto: Union[int, float, bool]) -> bool:
         """
         sets the camera's auto exposure
@@ -54,7 +51,6 @@ class Camera(abc.ABC):
         :param auto: the new auto exposure
         :return: True on success, False on failure
         """
-        pass
 
     @abc.abstractmethod
     def get_data(self) -> CameraData:
