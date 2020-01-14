@@ -17,10 +17,21 @@ class AsyncReadable(Readable, abc.ABC):
     def read(self):
         return self.__ok, self.__frame
 
-    def has_started_reading(self):
+    def has_started_reading(self) -> bool:
+        """
+        checks if the async thread has started reading
+
+        :return: True if the async thread started, False otherwise
+        """
         return self.__ok
 
     def wait_start_reading(self, wait_time=0.01):
+        """
+        waits until the async thread starts reading
+
+        :param wait_time: amounts of seconds to wait in every check interval, default is 0.01
+        :return:
+        """
         while not self.has_started_reading():
             time.sleep(wait_time)
 
