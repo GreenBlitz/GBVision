@@ -43,7 +43,7 @@ class USBCamera(cv2.VideoCapture, Camera):
         return self.set(cv2.CAP_PROP_EXPOSURE, exposure)
 
     def set_auto_exposure(self, auto) -> bool:
-        if os.name == 'posix':
+        if self.__is_on_linux():
             if type(auto) is bool:
                 _auto = 3 if auto else 1
             else:
