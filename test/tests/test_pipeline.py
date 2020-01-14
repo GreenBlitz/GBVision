@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 
-
 class TestPipeLine(TestCase):
     def test_pipeline_calling(self):
         import gbvision as gbv
