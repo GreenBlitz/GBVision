@@ -8,6 +8,9 @@ from gbvision.utils.readable import Readable
 
 
 class AsyncReadable(Readable, abc.ABC):
+    """
+    an async readable class that constantly reads on another thread
+    """
 
     def __init__(self):
         self.__ok, self.__frame = False, None
