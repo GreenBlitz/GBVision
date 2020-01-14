@@ -2,7 +2,7 @@ from typing import Union, List, Generator, Any, Tuple
 
 from .camera_data import CameraData
 from .stream_camera import Camera, StreamCamera
-from ..constants.types import Frame
+from gbvision.constants.types import Frame
 
 
 class CameraList(Camera):
