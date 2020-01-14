@@ -8,5 +8,5 @@ class AsyncUDPStreamReceiver(AsyncStreamReceiver, UDPStreamReceiver):
         UDPStreamReceiver.__init__(self, port, *args, **kwargs)
         AsyncStreamReceiver.__init__(self, *args, **kwargs)
 
-    def _get_frame(self):
-        return UDPStreamReceiver.get_frame(self)
+    def _read(self):
+        return UDPStreamReceiver.read(self)
