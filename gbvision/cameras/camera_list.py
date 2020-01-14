@@ -1,5 +1,8 @@
-from typing import Union, List
+from typing import Union, List, Generator, Any, Tuple
+
+from .camera_data import CameraData
 from .stream_camera import Camera, StreamCamera
+from ..constants.types import Frame
 
 
 class CameraList(Camera):
@@ -62,12 +65,12 @@ class CameraList(Camera):
     def __len__(self):
         return len(self.cameras)
 
-    def read(self, image=None, foreach=False):
+    def read(self, foreach=False) -> Union[Tuple[bool, Frame], Generator[Tuple[bool, Frame], Any, None]]:
         if foreach:
-            return (cam.read(image=image) for cam in self.cameras)
-        return self.selected_camera.read(image=image)
+            return (cam.read() for cam in self.cameras)
+        return self.selected_camera.read()
 
-    def is_opened(self, foreach=False):
+    def is_opened(self, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
         if foreach:
             return (cam.is_opened() for cam in self.cameras)
         return self.selected_camera.is_opened()
@@ -93,21 +96,19 @@ class CameraList(Camera):
         """
         self.selected_camera = self.cameras[0] if len(self.cameras) > 0 else None
 
-    def set_exposure(self, exposure, foreach=False):
+    def set_exposure(self, exposure, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
         if foreach:
-            for cam in self.cameras:
-                cam.set_exposure(exposure)
+            return (cam.set_exposure(exposure) for cam in self.cameras)
         else:
             return self.selected_camera.set_exposure(exposure)
 
-    def set_auto_exposure(self, auto, foreach=False) -> bool:
+    def set_auto_exposure(self, auto, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
         if foreach:
-            for cam in self.cameras:
-                cam.set_auto_exposure(auto)
+            return (cam.set_auto_exposure(auto) for cam in self.cameras)
         else:
             return self.selected_camera.set_auto_exposure(auto)
 
-    def get_data(self, foreach=False):
+    def get_data(self, foreach=False) -> Union[CameraData, Generator[CameraData, Any, None]]:
         if foreach:
             return (cam.get_data() for cam in self.cameras)
         return self.selected_camera.get_data()
@@ -141,17 +142,17 @@ class CameraList(Camera):
         else:
             self.selected_camera.toggle_stream(should_stream)
 
-    def is_streaming(self, foreach=False):
+    def is_streaming(self, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
         if foreach:
             return (cam.is_streaming() if isinstance(cam, StreamCamera) else False for cam in self.cameras)
         return self.selected_camera.is_streaming()
 
-    def get_width(self, foreach=False):
+    def get_width(self, foreach=False) -> Union[int, Generator[int, Any, None]]:
         if foreach:
             return (cam.get_width() for cam in self.cameras)
         return self.selected_camera.get_width()
 
-    def get_height(self, foreach=False):
+    def get_height(self, foreach=False) -> Union[int, Generator[int, Any, None]]:
         if foreach:
             return (cam.get_height() for cam in self.cameras)
         return self.selected_camera.get_height()
