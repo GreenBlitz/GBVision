@@ -4,6 +4,7 @@ from typing import Tuple, Union
 import numpy as np
 
 from .camera_data import CameraData
+from gbvision.constants.types import Frame
 
 
 class Camera(abc.ABC):
@@ -12,21 +13,18 @@ class Camera(abc.ABC):
     """
 
     @abc.abstractmethod
-    def read(self, image=None) -> Tuple[bool, np.ndarray]:
+    def read(self) -> Tuple[bool, Frame]:
         """
         reads from the camera and returns a tuple of a boolean and the frame
 
-        :param image: if not None, the frame will be read to this ndarray
         :return: a boolean indicating if the action was successful, and the frame if read was successful, otherwise None
         """
-        pass
 
     @abc.abstractmethod
     def release(self):
         """
-        closes the handle to this camera, if it is not necessary please override this method to a black method
+        closes the handle to this camera, if it is not necessary please override this method to a blank method
         """
-        pass
 
     @abc.abstractmethod
     def is_opened(self) -> bool:
@@ -35,7 +33,6 @@ class Camera(abc.ABC):
 
         :return: True if the camera can be read from, otherwise False
         """
-        pass
 
     @abc.abstractmethod
     def set_exposure(self, exposure: Union[int, float, bool]) -> bool:
@@ -45,8 +42,8 @@ class Camera(abc.ABC):
         :param exposure: the new exposure
         :return: True on success, False on failure
         """
-        pass
 
+    @abc.abstractmethod
     def set_auto_exposure(self, auto: Union[int, float, bool]) -> bool:
         """
         sets the camera's auto exposure
@@ -54,7 +51,6 @@ class Camera(abc.ABC):
         :param auto: the new auto exposure
         :return: True on success, False on failure
         """
-        pass
 
     @abc.abstractmethod
     def get_data(self) -> CameraData:
@@ -62,21 +58,18 @@ class Camera(abc.ABC):
         :return: this camera's constant descriptor (must be the real descriptor, can't be a copy) \
             when the values of this descriptor are changed, the values of the real camera descriptor must also change
         """
-        pass
 
     @abc.abstractmethod
     def get_width(self) -> int:
         """
         :return: the width of a frame read from this camera
         """
-        pass
 
     @abc.abstractmethod
     def get_height(self) -> int:
         """
         :return: the height of a frame read from this camera
         """
-        pass
 
     @abc.abstractmethod
     def _set_width(self, width: int):
@@ -87,7 +80,6 @@ class Camera(abc.ABC):
 
         :param width: new width
         """
-        pass
 
     @abc.abstractmethod
     def _set_height(self, height: int):
@@ -98,7 +90,6 @@ class Camera(abc.ABC):
 
         :param height: new height
         """
-        pass
 
     def rescale(self, factor: float):
         """

@@ -83,7 +83,8 @@ from .thresholds.threshold import Threshold, ThresholdGroup
 # tools
 from .tools.list_tools import split_list
 from .tools.image_tools import crop, median_threshold
-from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object
+from .tools.finding_tools import distance_from_object, plane_angle_by_location, plane_distance_from_object, \
+    viewing_angle_of_object
 
 # utils
 from .utils.pipeline import PipeLine
@@ -98,7 +99,7 @@ def cv_config():
     called automatically when importing gbvision, and does not need to be called by the user
     """
     import cv2
-    if cv2.__version__[0] == '2':
+    if cv2.getVersionString()[0] == '2':
         for i in filter(lambda attr: attr.startswith("CV_CAP_PROP"), dir(cv2.cv)):
             object.__setattr__(cv2, i[3:], cv2.cv.__getattribute__(i))
             cv2.__dict__[i[3:]] = cv2.cv.__dict__[i]
