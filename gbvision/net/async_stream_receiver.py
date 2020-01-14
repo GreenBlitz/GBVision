@@ -4,9 +4,10 @@ from threading import Thread
 from gbvision.constants.types import Frame
 from gbvision.exceptions.stream_closed import StreamClosed
 from gbvision.net.stream_receiver import StreamReceiver
+from gbvision.utils.async_readable import AsyncReadable
 
 
-class AsyncStreamReceiver(StreamReceiver, abc.ABC):
+class AsyncStreamReceiver(StreamReceiver, AsyncReadable, abc.ABC):
     """
     an abstract async tcp stream receiver that receives frames on another thread
     None! when inheriting from this class and another StreamReceiver class, make sure you call the other class'
@@ -15,25 +16,7 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
 
     def __init__(self, *args, **kwargs):
         StreamReceiver.__init__(self, *args, **kwargs)
-        self.__frame = None
-        self.__thread = Thread(target=self.__receive_thread_function)
-        self.__thread.start()
+        AsyncReadable.__init__(self)
 
-    def __receive_thread_function(self):
-        while True:
-            try:
-                self.__frame = self._get_frame()
-            except StreamClosed:
-                break
-
-    @abc.abstractmethod
-    def _get_frame(self) -> Frame:
-        """
-        reads a frame from the stream synchronously (similar to StreamReceiver.get_frame).
-        unsafe not to be used by programmer
-        :return: the frame read
-        """
-        pass
-
-    def read(self):
-        return self.__frame
+    def read(self):  # this is just for multi-inheritance to work properly, this method needs to be higher in the tree
+        return AsyncReadable.read(self)
