@@ -4,6 +4,7 @@ from typing import Tuple, Union
 import numpy as np
 
 from .camera_data import CameraData
+from gbvision.constants.types import Frame
 
 
 class Camera(abc.ABC):
@@ -12,18 +13,17 @@ class Camera(abc.ABC):
     """
 
     @abc.abstractmethod
-    def read(self, image=None) -> Tuple[bool, np.ndarray]:
+    def read(self) -> Tuple[bool, Frame]:
         """
         reads from the camera and returns a tuple of a boolean and the frame
 
-        :param image: if not None, the frame will be read to this ndarray
         :return: a boolean indicating if the action was successful, and the frame if read was successful, otherwise None
         """
 
     @abc.abstractmethod
     def release(self):
         """
-        closes the handle to this camera, if it is not necessary please override this method to a black method
+        closes the handle to this camera, if it is not necessary please override this method to a blank method
         """
 
     @abc.abstractmethod
