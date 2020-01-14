@@ -1,4 +1,4 @@
-from gbvision.gui.readable_window import ReadableWindow
+from .readable_window import ReadableWindow
 
 
 class CameraWindow(ReadableWindow):
