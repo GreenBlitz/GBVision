@@ -2,6 +2,7 @@ from .camera import CameraData, Camera
 from gbvision.constants.cameras import UNKNOWN_CAMERA
 import cv2
 import os
+import sys
 import subprocess
 
 
@@ -35,7 +36,14 @@ class USBCamera(cv2.VideoCapture, Camera):
                 _exposure = int(exposure)
             else:
                 _exposure = exposure
-            code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_absolute={_exposure}'])
+            try:
+                code = subprocess.call(
+                    ['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_absolute={_exposure}'])
+            except FileNotFoundError:
+                print(
+                    """[WARN] setting the exposure on a posix machine may not work if you do not have v4l2 installed\nplease install it using 'sudo apt install v4l-tools'""",
+                    file=sys.stderr)
+                code = -1
             if code == 0:
                 return True
         if type(exposure) is bool:
@@ -48,7 +56,13 @@ class USBCamera(cv2.VideoCapture, Camera):
                 _auto = 3 if auto else 1
             else:
                 _auto = auto
-            code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_auto={_auto}'])
+            try:
+                code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_auto={_auto}'])
+            except FileNotFoundError:
+                print(
+                    """[WARN] setting the auto exposure on a posix machine may not work if you do not have v4l2 installed\nplease install it using 'sudo apt install v4l-tools'""",
+                    file=sys.stderr)
+                code = -1
             if code == 0:
                 return True
         if type(auto) is bool:
