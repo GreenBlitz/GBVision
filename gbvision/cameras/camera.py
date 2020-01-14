@@ -4,7 +4,6 @@ from typing import Tuple, Union
 import numpy as np
 
 from .camera_data import CameraData
-from gbvision.constants.types import Frame
 from gbvision.utils.readable import Readable
 
 
@@ -12,14 +11,6 @@ class Camera(Readable, abc.ABC):
     """
     an abstract class representing a camera
     """
-
-    @abc.abstractmethod
-    def read(self) -> Tuple[bool, Frame]:
-        """
-        reads from the camera and returns a tuple of a boolean and the frame
-
-        :return: a boolean indicating if the action was successful, and the frame if read was successful, otherwise None
-        """
 
     @abc.abstractmethod
     def release(self):
