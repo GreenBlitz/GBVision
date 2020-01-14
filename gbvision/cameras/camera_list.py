@@ -107,13 +107,6 @@ class CameraList(Camera):
         else:
             return self.selected_camera.set_auto_exposure(auto)
 
-    def toggle_auto_exposure(self, auto, foreach=False):
-        if foreach:
-            for cam in self.cameras:
-                cam.set_auto_exposure(auto)
-        else:
-            return self.selected_camera.set_auto_exposure(auto)
-
     def get_data(self, foreach=False):
         if foreach:
             return (cam.get_data() for cam in self.cameras)
