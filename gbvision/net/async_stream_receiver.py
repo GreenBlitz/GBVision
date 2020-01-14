@@ -18,5 +18,5 @@ class AsyncStreamReceiver(StreamReceiver, AsyncReadable, abc.ABC):
         StreamReceiver.__init__(self, *args, **kwargs)
         AsyncReadable.__init__(self)
 
-    def read(self):  # this is just for multi-inheritance to work properly, this method needs to be higher in the tree
+    def read(self):  # this is just for multi-inheritance to work properly
         return AsyncReadable.read(self)
