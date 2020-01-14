@@ -1,7 +1,5 @@
 import abc
 import pickle
-from typing import Tuple
-
 import cv2
 import struct
 
@@ -55,7 +53,7 @@ class StreamReceiver(Readable, abc.ABC):
         self.data = self.data[msg_size:]
         return frame_data
 
-    def read(self) -> Tuple[bool, Frame]:
+    def read(self):
         frame_data = self._get_frame_data()
         frame = pickle.loads(frame_data)
         if frame is None:
