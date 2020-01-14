@@ -11,7 +11,7 @@ class AsyncReadable(Readable, abc.ABC):
 
     def __init__(self):
         self.__ok, self.__frame = False, None
-        self.__thread = Thread(target=self._async_read_wrapper)
+        self.__thread = Thread(target=self.__async_read_wrapper)
         self.__thread.start()
 
     def read(self):
@@ -33,6 +33,6 @@ class AsyncReadable(Readable, abc.ABC):
         :return: tuple of bool (indicates if read was successful) and the frame (if successful, else None)
         """
 
-    def _async_read_wrapper(self):
+    def __async_read_wrapper(self):
         while True:
             self.__ok, self.__frame = self._read()
