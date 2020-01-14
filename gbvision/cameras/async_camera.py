@@ -32,7 +32,7 @@ class AsyncCamera(Camera, abc.ABC):
         self.__thread = Thread(target=self.__async_read_wrapper)
         self.__thread.start()
 
-    def read(self, image=None):
+    def read(self):
         return self.__ok, self.__frame
 
     def has_started_reading(self):
