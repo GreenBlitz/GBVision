@@ -37,7 +37,6 @@ class AsyncCamera(Camera, abc.ABC):
         
         :return: tuple of bool (indicates if read was successful) and the frame (if successful, else None)
         """
-        pass
 
     def __async_read_wrapper(self):
         while self.is_opened():

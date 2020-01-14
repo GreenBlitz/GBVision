@@ -58,21 +58,18 @@ class Camera(abc.ABC):
         :return: this camera's constant descriptor (must be the real descriptor, can't be a copy) \
             when the values of this descriptor are changed, the values of the real camera descriptor must also change
         """
-        pass
 
     @abc.abstractmethod
     def get_width(self) -> int:
         """
         :return: the width of a frame read from this camera
         """
-        pass
 
     @abc.abstractmethod
     def get_height(self) -> int:
         """
         :return: the height of a frame read from this camera
         """
-        pass
 
     @abc.abstractmethod
     def _set_width(self, width: int):
@@ -83,7 +80,6 @@ class Camera(abc.ABC):
 
         :param width: new width
         """
-        pass
 
     @abc.abstractmethod
     def _set_height(self, height: int):
@@ -94,7 +90,6 @@ class Camera(abc.ABC):
 
         :param height: new height
         """
-        pass
 
     def rescale(self, factor: float):
         """

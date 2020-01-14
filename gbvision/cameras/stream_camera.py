@@ -18,9 +18,8 @@ class StreamCamera(Camera, abc.ABC):
         """
         checks if the camera is currently streaming
 
-        :return: True if camera is streaming, otherwise Fasle
+        :return: True if camera is streaming, otherwise False
         """
-        pass
 
     @abc.abstractmethod
     def toggle_stream(self, should_stream: bool):
@@ -29,16 +28,20 @@ class StreamCamera(Camera, abc.ABC):
 
         :param should_stream: True to activate stream, False to deactivate
         """
-        pass
 
-    def read(self, image=None):
+    def read(self):
         ok, frame = self._read()
         self._stream(frame)
         return ok, frame
 
     @abc.abstractmethod
     def _read(self) -> Tuple[bool, Frame]:
-        pass
+        """
+        unsafely reads from the camera, not to use by the programmer, only by the api
+        usually this function is a set to return the value of super(self, CameraClass).read()
+
+        :return: the return value of Camera.read: (ok, frame)
+        """
 
     @abc.abstractmethod
     def _stream(self, frame: Frame):
@@ -53,7 +56,9 @@ class SimpleStreamCamera(StreamCamera, abc.ABC):
     """
     a simple abstract camera that uses a gbvision.StreamBroadcaster to send streams
     this class is abstract and cannot exist on it's own, you must inherit from it and implement the _read method
+
     for example:
+
     Example::
         class USBStreamCamera(SimpleStreamCamera, USBCamera):
             def _read(self) -> Tuple[bool, Frame]:
@@ -64,8 +69,8 @@ class SimpleStreamCamera(StreamCamera, abc.ABC):
                 USBCamera.__init__(port, data)
     """
 
-    def __init__(self, broadcaster: StreamBroadcaster):
-        self.__is_streaming = False
+    def __init__(self, broadcaster: StreamBroadcaster, should_stream=False):
+        self.__is_streaming = should_stream
         self.stream_broadcaster = broadcaster
 
     def is_streaming(self):

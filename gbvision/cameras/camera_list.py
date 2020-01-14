@@ -100,6 +100,13 @@ class CameraList(Camera):
         else:
             return self.selected_camera.set_exposure(exposure)
 
+    def set_auto_exposure(self, exposure, foreach=False) -> bool:
+        if foreach:
+            for cam in self.cameras:
+                cam.set_exposure(exposure)
+        else:
+            return self.selected_camera.set_exposure(exposure)
+
     def toggle_auto_exposure(self, auto, foreach=False):
         if foreach:
             for cam in self.cameras:
@@ -143,7 +150,7 @@ class CameraList(Camera):
 
     def is_streaming(self, foreach=False):
         if foreach:
-            return (cam.is_streaming() for cam in self.cameras if isinstance(cam, StreamCamera))
+            return (cam.is_streaming() if isinstance(cam, StreamCamera) else False for cam in self.cameras)
         return self.selected_camera.is_streaming()
 
     def get_width(self, foreach=False):
