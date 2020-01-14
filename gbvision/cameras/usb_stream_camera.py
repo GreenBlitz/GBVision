@@ -14,6 +14,6 @@ class USBStreamCamera(SimpleStreamCamera, USBCamera):
     def _read(self) -> Tuple[bool, Frame]:
         return USBCamera.read(self)
 
-    def __init__(self, broadcaster, port, data=UNKNOWN_CAMERA):
-        SimpleStreamCamera.__init__(self, broadcaster)
+    def __init__(self, broadcaster, port, should_stream=False, data=UNKNOWN_CAMERA):
+        SimpleStreamCamera.__init__(self, broadcaster, should_stream=should_stream)
         USBCamera.__init__(self, port, data)
