@@ -28,7 +28,5 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         try:
             self.socket.send(frame)
         except IOError as e:
-            _ = TCPStreamClosed()
-            _.__cause__ = e
-            raise _
+            raise TCPStreamClosed() from e
         self._update_time()

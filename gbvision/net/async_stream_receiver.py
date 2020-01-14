@@ -35,5 +35,5 @@ class AsyncStreamReceiver(StreamReceiver, abc.ABC):
         """
         pass
 
-    def get_frame(self):
+    def read(self):
         return self.__frame

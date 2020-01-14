@@ -9,4 +9,4 @@ class AsyncTCPStreamReceiver(AsyncStreamReceiver, TCPStreamReceiver):
         AsyncStreamReceiver.__init__(self, *args, **kwargs)
 
     def _get_frame(self):
-        return TCPStreamReceiver.get_frame(self)
+        return TCPStreamReceiver.read(self)

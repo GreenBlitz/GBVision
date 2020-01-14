@@ -1,12 +1,9 @@
-from .wrapper_opencv_window import WrapperOpenCVWindow
+from .readable_window import ReadableWindow
 
 
-class StreamWindow(WrapperOpenCVWindow):
+class StreamWindow(ReadableWindow):
     """
     a basic window that displays the stream from a stream receiver
     
     :type self.wrap_object: gbvision.StreamReceiver
     """
-
-    def _get_frame(self):
-        return self.wrap_object.get_frame()

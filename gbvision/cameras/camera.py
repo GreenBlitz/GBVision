@@ -5,9 +5,10 @@ import numpy as np
 
 from .camera_data import CameraData
 from gbvision.constants.types import Frame
+from gbvision.utils.readable import Readable
 
 
-class Camera(abc.ABC):
+class Camera(Readable, abc.ABC):
     """
     an abstract class representing a camera
     """

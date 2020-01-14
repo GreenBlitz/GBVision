@@ -1,12 +1,15 @@
 import abc
 import pickle
+from typing import Tuple
+
 import cv2
 import struct
 
 from gbvision.constants.types import Frame
+from gbvision.utils.readable import Readable
 
 
-class StreamReceiver(abc.ABC):
+class StreamReceiver(Readable, abc.ABC):
     """
     this is an abstract receiver that receives stream from a broadcast receiver
     this class should not be instanced but inherited from
@@ -52,13 +55,13 @@ class StreamReceiver(abc.ABC):
         self.data = self.data[msg_size:]
         return frame_data
 
-    def get_frame(self) -> Frame:
+    def read(self) -> Tuple[bool, Frame]:
         frame_data = self._get_frame_data()
         frame = pickle.loads(frame_data)
         if frame is None:
-            return None
+            return False, None
         frame = cv2.imdecode(frame, -1)
-        return self._prep_frame(frame)
+        return True, self._prep_frame(frame)
 
     def _prep_frame(self, frame: Frame) -> Frame:
         """
