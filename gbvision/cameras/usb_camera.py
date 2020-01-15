@@ -41,7 +41,7 @@ class USBCamera(cv2.VideoCapture, Camera):
                     ['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_absolute={_exposure}'])
             except FileNotFoundError:
                 print(
-                    """[WARN] setting the exposure on a posix machine may not work if you do not have v4l2 installed\nplease install it using 'sudo apt install v4l-tools'""",
+                    """[WARN] setting the exposure on a posix machine may not work if you do not have v4l2 installed, please install it using 'sudo apt install v4l-tools'""",
                     file=sys.stderr)
                 code = -1
             if code == 0:
@@ -60,7 +60,7 @@ class USBCamera(cv2.VideoCapture, Camera):
                 code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_auto={_auto}'])
             except FileNotFoundError:
                 print(
-                    """[WARN] setting the auto exposure on a posix machine may not work if you do not have v4l2 installed\nplease install it using 'sudo apt install v4l-tools'""",
+                    """[WARN] setting the auto exposure on a posix machine may not work if you do not have v4l2 installed, please install it using 'sudo apt install v4l-tools'""",
                     file=sys.stderr)
                 code = -1
             if code == 0:
