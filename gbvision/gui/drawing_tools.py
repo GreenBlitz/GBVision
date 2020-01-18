@@ -1,7 +1,4 @@
-from typing import Union
-
 from gbvision.constants.types import Color, FilterFunction
-from gbvision.thresholds.threshold import Threshold
 
 from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects, \
@@ -23,9 +20,9 @@ class DrawContours(_DrawObject):
     a pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: Union[Threshold, PipeLine], color: Color, contours_process=EMPTY_PIPELINE, *args,
+    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE, *args,
                  **kwargs):
-        contour_finding = threshold_func + find_contours + contours_process
+        contour_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process
         _DrawObject.__init__(self, contour_finding, color, draw_contours, *args, **kwargs)
 
 
