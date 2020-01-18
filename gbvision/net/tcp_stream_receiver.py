@@ -1,8 +1,4 @@
-import pickle
 import socket
-import struct
-
-import cv2
 
 from .stream_receiver import StreamReceiver
 from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed

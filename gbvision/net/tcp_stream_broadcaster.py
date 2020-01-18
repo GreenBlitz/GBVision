@@ -1,5 +1,4 @@
 import socket
-import struct
 
 from gbvision.constants.net import LOCAL_SERVER_IP
 from .stream_broadcaster import StreamBroadcaster

@@ -1,6 +1,4 @@
 import socket
-import struct
-
 from .stream_broadcaster import StreamBroadcaster
 
 
