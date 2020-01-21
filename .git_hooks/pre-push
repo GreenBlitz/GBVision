@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# credit to https://github.com/fredrikbk/python-test-on-commit (under the MIT license)
+# this file has been modified from the original
+
+echo 'Running tests'
+
+git stash > /dev/null
+python3 -m test.test_main
+if [ $? -ne 0 ]; then
+	echo 'Aborting commit (Attempting to commit a repository where the test suite fails)'
+	echo 'Bypass with git commit --no-verify'
+	git stash pop > /dev/null
+	exit 1
+fi 
+git stash pop > /dev/null
+
+exit 0
