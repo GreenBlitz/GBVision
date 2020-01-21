@@ -8,7 +8,7 @@ def import_all_algorithms():
         for file in files:
             if file.endswith('.py') and file not in ignore_files:
                 module = '.' + file[:-3]  # remove .py
-                mdl = importlib.import_module(module, package='all_tests')
+                mdl = importlib.import_module(module, package='tests')
                 if "__all__" in mdl.__dict__:
                     names = mdl.__dict__["__all__"]
                 else:
