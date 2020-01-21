@@ -5,8 +5,11 @@
 
 echo 'Running tests'
 echo 'If you are running on a UNIX machine, ignore the " py: command not found" error'
+CHANGED=$(git diff-index --name-only HEAD --)
 
-git stash > /dev/null
+if [ -n "$CHANGED" ]; then
+  git stash > /dev/null
+fi
 
 py -m test.test_main
 # shellcheck disable=SC2181
@@ -17,12 +20,16 @@ if [ $? -ne 0 ]; then
     echo 'Aborting push (Attempting to push a repository where the test suite fails)'
     echo 'If you are running on Windows and it says "python3: Permission denied", try installing python3 from the Mircosort Store'
     echo 'Bypass with git push --no-verify'
-    git stash pop > /dev/null
+    if [ -n "$CHANGED" ]; then
+      git stash pop > /dev/null
+    fi
     exit 1
   fi
 fi
 
 
-git stash pop > /dev/null
+if [ -n "$CHANGED" ]; then
+  git stash pop > /dev/null
+fi
 
 exit 0
