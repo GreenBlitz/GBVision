@@ -4,10 +4,11 @@
 # this file has been modified from the original version
 
 echo 'Running tests'
+echo 'If you are running on a UNIX machine, ignore the " py: command not found" error'
 
 git stash > /dev/null
 
-py -m test.test_main 2> /dev/null
+py -m test.test_main
 # shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   python3 -m test.test_main
