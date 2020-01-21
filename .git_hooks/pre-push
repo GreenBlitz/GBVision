@@ -1,18 +1,27 @@
 #!/bin/sh
 
 # credit to https://github.com/fredrikbk/python-test-on-commit (under the MIT license)
-# this file has been modified from the original
+# this file has been modified from the original version
 
 echo 'Running tests'
 
 git stash > /dev/null
-python3 -m test.test_main
+
+py -m test.test_main
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
-	echo 'Aborting push (Attempting to push a repository where the test suite fails)'
-	echo 'Bypass with git push --no-verify'
-	git stash pop > /dev/null
-	exit 1
-fi 
+  python3 -m test.test_main
+  # shellcheck disable=SC2181
+  if [ $? -ne 0 ]; then
+    echo 'Aborting push (Attempting to push a repository where the test suite fails)'
+    echo 'If you are running on Windows and it says "python3: Permission denied", try installing python3 from the Mircosort Store'
+    echo 'Bypass with git push --no-verify'
+    git stash pop > /dev/null
+    exit 1
+  fi
+fi
+
+
 git stash pop > /dev/null
 
 exit 0
