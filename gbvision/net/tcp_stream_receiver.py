@@ -23,7 +23,5 @@ class TCPStreamReceiver(StreamReceiver):
         try:
             return self.socket.recv(4096)
         except OSError as e:
-            _ = TCPStreamClosed()
-            _.__cause__ = e
-            raise _
+            raise TCPStreamClosed() from e
 
