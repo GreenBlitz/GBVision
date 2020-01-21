@@ -1,6 +1,6 @@
 from typing import List, Callable
 
-from gbvision.constants.types import RotatedRect, Polygon, Rect, Circle, Shape
+from gbvision.constants.types import RotatedRect, Polygon, Rect, Circle, Shape, Ellipse
 from gbvision.utils.pipeline import PipeLine
 import numpy as np
 import cv2
@@ -120,3 +120,13 @@ def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
 
 
 filter_inner_rotated_rects = __InnerShapeFilter(rotated_rect_collision)
+<<<<<<< Updated upstream
+=======
+
+
+def ellipse_collision(e1: Ellipse, e2: Ellipse) -> bool:
+
+
+
+filter_inner_ellipses = __InnerShapeFilter(ellipse_collision)
+>>>>>>> Stashed changes

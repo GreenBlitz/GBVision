@@ -8,8 +8,8 @@ echo 'Running tests'
 git stash > /dev/null
 python3 -m test.test_main
 if [ $? -ne 0 ]; then
-	echo 'Aborting commit (Attempting to commit a repository where the test suite fails)'
-	echo 'Bypass with git commit --no-verify'
+	echo 'Aborting push (Attempting to push a repository where the test suite fails)'
+	echo 'Bypass with git push --no-verify'
 	git stash pop > /dev/null
 	exit 1
 fi 
