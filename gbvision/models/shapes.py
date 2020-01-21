@@ -120,13 +120,3 @@ def rotated_rect_collision(rr1: RotatedRect, rr2: RotatedRect) -> bool:
 
 
 filter_inner_rotated_rects = __InnerShapeFilter(rotated_rect_collision)
-<<<<<<< Updated upstream
-=======
-
-
-def ellipse_collision(e1: Ellipse, e2: Ellipse) -> bool:
-
-
-
-filter_inner_ellipses = __InnerShapeFilter(ellipse_collision)
->>>>>>> Stashed changes
