@@ -8,7 +8,7 @@ echo 'If you are running on a UNIX machine, ignore the " py: command not found" 
 CHANGED=$(git diff-index --name-only HEAD --)
 
 if [ -n "$CHANGED" ]; then
-  git stash > /dev/null
+  git stash >/dev/null
 fi
 
 py -m test.test_main
@@ -21,15 +21,14 @@ if [ $? -ne 0 ]; then
     echo 'If you are running on Windows and it says "python3: Permission denied", try installing python3 from the Mircosort Store'
     echo 'Bypass with git push --no-verify'
     if [ -n "$CHANGED" ]; then
-      git stash pop > /dev/null
+      git stash pop >/dev/null
     fi
     exit 1
   fi
 fi
 
-
 if [ -n "$CHANGED" ]; then
-  git stash pop > /dev/null
+  git stash pop >/dev/null
 fi
 
 exit 0
