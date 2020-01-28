@@ -1,9 +1,9 @@
-from . import camera
+from .camera import Camera
 import freenect
 import numpy as np
 
 
-class KinectCamera(camera):
+class KinectCamera(Camera):
     def __init__(self, port):
         self.port = port
 
