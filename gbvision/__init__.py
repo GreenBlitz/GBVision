@@ -7,6 +7,7 @@ from .cameras.camera_list import CameraList
 from .cameras.usb_stream_camera import USBStreamCamera
 from .cameras.async_camera import AsyncCamera
 from .cameras.async_usb_camera import AsyncUSBCamera
+from .cameras.empty_camera import EmptyCamera
 
 # constants
 from .constants.cameras import LIFECAM_3000, LIFECAM_STUDIO, UNKNOWN_CAMERA
