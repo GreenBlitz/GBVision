@@ -1,6 +1,6 @@
 from typing import List, Callable
 
-from gbvision.constants.types import RotatedRect, Polygon, Rect, Circle, Shape, Ellipse
+from gbvision.constants.types import RotatedRect, Polygon, Rect, Circle, Shape
 from gbvision.utils.pipeline import PipeLine
 import numpy as np
 import cv2
