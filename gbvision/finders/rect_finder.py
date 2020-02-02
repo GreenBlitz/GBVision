@@ -18,17 +18,21 @@ class RectFinder(ObjectFinder):
     :param threshold_func: a pipeline (or any sort of function) that returns a binary threshold of the object
      the finder is searching, the object needs to be white and the rest if the image black (doesn't
      have to be perfect)
+    :param contours_process: a pipeline to run on the list of contours (optional)
+    :param rects_process: a pipeline to run on the list of rects (optional)
     """
 
-    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0):
+    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
+                 contours_process=EMPTY_PIPELINE, rects_process=EMPTY_PIPELINE):
         ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
                                FilterContours(min_area=contour_min_area) +
-                               sort_contours +
+                               contours_process +
                                contours_to_rects_sorted +
-                               filter_inner_rects)
+                               filter_inner_rects +
+                               rects_process)
 
     def find_shapes(self, frame: Frame) -> List[Rect]:
         return self._full_pipeline(frame)

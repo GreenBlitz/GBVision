@@ -1,7 +1,8 @@
 from .camera import CameraData, Camera
 from gbvision.constants.cameras import UNKNOWN_CAMERA
 import cv2
-import os
+import platform
+import sys
 import subprocess
 
 
@@ -26,16 +27,27 @@ class USBCamera(cv2.VideoCapture, Camera):
         return self.isOpened()
 
     @staticmethod
-    def __is_on_linux():
-        return os.name == 'posix'
+    def __is_on_linux() -> bool:
+        return platform.system() == 'Linux'
+
+    def __v4l2_ctl_command(self, cmd, value) -> int:
+        try:
+            return subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'{cmd}={value}'])
+        except FileNotFoundError:
+            print(
+                "[WARN] setting some parameters such as exposure may not on a Linux machine work if you do not have "
+                "v4l2 installed, if the command you tried to run does not work please install v4l2 using 'sudo apt "
+                "install v4l-utils'",
+                file=sys.stderr)
+            return -1
 
     def set_exposure(self, exposure) -> bool:
         if self.__is_on_linux():
             if type(exposure) is bool:
-                _exposure = int(exposure)
+                _exposure = int(exposure) + 10
             else:
                 _exposure = exposure
-            code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_absolute={_exposure}'])
+            code = self.__v4l2_ctl_command('exposure_absolute', _exposure)
             if code == 0:
                 return True
         if type(exposure) is bool:
@@ -48,7 +60,7 @@ class USBCamera(cv2.VideoCapture, Camera):
                 _auto = 3 if auto else 1
             else:
                 _auto = auto
-            code = subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'exposure_auto={_auto}'])
+            code = self.__v4l2_ctl_command('exposure_auto', _auto)
             if code == 0:
                 return True
         if type(auto) is bool:

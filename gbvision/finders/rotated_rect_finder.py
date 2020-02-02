@@ -18,17 +18,21 @@ class RotatedRectFinder(ObjectFinder):
      have to be perfect)
     :param area_scalar: optional, a scalar to multiply the area by, for fine tuning of the function's output
     :param contour_min_area: the minimal area of a contour, used for FilterContours, default is 0 (no area limit)
+    :param contours_process: a pipeline to run on the list of contours (optional)
+    :param rotated_rects_process: a pipeline to run on the list of rotated rects (optional)
     """
 
-    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0):
+    def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
+                 contours_process=EMPTY_PIPELINE, rotated_rects_process=EMPTY_PIPELINE):
         ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
         self._full_pipeline = (EMPTY_PIPELINE +
                                threshold_func +
                                find_contours +
                                FilterContours(min_area=contour_min_area) +
-                               sort_contours +
+                               contours_process +
                                contours_to_rotated_rects_sorted +
-                               filter_inner_rotated_rects)
+                               filter_inner_rotated_rects +
+                               rotated_rects_process)
 
     def find_shapes(self, frame: Frame) -> List[RotatedRect]:
         return self._full_pipeline(frame)
