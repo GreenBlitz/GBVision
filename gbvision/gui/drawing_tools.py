@@ -1,6 +1,6 @@
 from gbvision.constants.types import Color, FilterFunction
 
-from gbvision.models.system import EMPTY_PIPELINE
+from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects, \
     contours_to_ellipses
 from gbvision.utils.pipeline import PipeLine

@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.models.system import EMPTY_PIPELINE
+from gbvision.constants.system import EMPTY_PIPELINE
 from gbvision.constants.types import Frame
 
 
