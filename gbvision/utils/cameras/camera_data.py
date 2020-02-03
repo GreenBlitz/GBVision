@@ -13,7 +13,7 @@ class CameraData:
         can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it's
         distance from the camera and divided by the square root of it's surface
 
-        FOCAL_LENGTH = sqrt(P) * D / sqrt(S)
+        FOCAL_LENGTH = :math:' sqrt(P) * D / sqrt(S)'
 
         where P is the amount of pixels in the frame representing the object,
         D is the real life distance between the object and the camera
@@ -26,7 +26,7 @@ class CameraData:
         product of the object's distance from the camera in real life and the ratio between the width of the frame
         in pixels and the width of the object in the frame, also in pixels
 
-        tan(FOV) = (Wm) / (D * (Wp/Wf))
+        :math:'tan(FOV) = (Wm) / (D * (Wp/Wf))'
 
         where Wm is the real life width of the object
         D is the real life distance between the object and the camera
@@ -34,7 +34,7 @@ class CameraData:
         Wf is the width of the frame (pixels unit)
         to calculate the FOV just apply the inverse tangent
 
-        FOV = arctan(tan(FOV))
+        FOV = :math:'arctan(tan(FOV))'
 
     :param yaw_angle:
         the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
