@@ -56,6 +56,7 @@ from .gui.recording_window import RecordingWindow
 from .gui.wrapper_opencv_window import WrapperOpenCVWindow
 from .gui.wrapper_window import WrapperWindow
 from .gui.opencv_window import OpenCVWindow
+from .gui.readable_window import ReadableWindow
 
 # models
 from .models.basic_ops import corners, edges, sharpen, blur, blue, red, green, gray
