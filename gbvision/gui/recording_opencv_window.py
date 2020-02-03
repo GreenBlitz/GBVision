@@ -1,6 +1,6 @@
 from .recording_window import RecordingWindow
 from .opencv_window import OpenCVWindow
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.system import EMPTY_PIPELINE
 from os.path import splitext
 import cv2
 from gbvision.constants.video import VIDEO_FILE_TYPE

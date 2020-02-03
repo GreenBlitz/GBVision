@@ -2,7 +2,7 @@ from abc import ABC
 
 from .window import Window
 import cv2
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.system import EMPTY_PIPELINE
 
 
 class OpenCVWindow(Window, ABC):

@@ -1,8 +1,9 @@
-from .recording_wrapper_opencv_window import RecordingWrapperOpenCVWindow
+from .recording_readable_window import RecordingReadableWindow
 from .camera_window import CameraWindow
 
 
-class RecordingCameraWindow(RecordingWrapperOpenCVWindow, CameraWindow):
+class RecordingCameraWindow(RecordingReadableWindow, CameraWindow):
     """
-    a basic window that displays the stream from a stream receiver
+    a basic window that displays the video from a camera
+    and records the video to a file
     """
