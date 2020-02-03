@@ -34,7 +34,6 @@ setup(
         'Intended Audience :: Developers',  # Define that your audience are developers
 
         'Programming Language :: Python :: 3',  # Specify which python versions that you want to support
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
