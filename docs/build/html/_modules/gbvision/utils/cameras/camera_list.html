@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.cameras.camera_list &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.cameras.camera_list</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.cameras.camera_list</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">.camera_data</span> <span class="kn">import</span> <span class="n">CameraData</span>
+<span class="kn">from</span> <span class="nn">.stream_camera</span> <span class="kn">import</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">StreamCamera</span>
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Frame</span>
+
+
+<div class="viewcode-block" id="CameraList"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList">[docs]</a><span class="k">class</span> <span class="nc">CameraList</span><span class="p">(</span><span class="n">Camera</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    behaves as both a camera and a list of cameras</span>
+<span class="sd">    camera list holds in it a list of cameras referenced as the field cameras</span>
+<span class="sd">    and also a single camera to be the current camera used for every operation on the camera list</span>
+<span class="sd">    as a single camera</span>
+
+<span class="sd">    :param cameras: list of the cameras which will be part of the camera list</span>
+<span class="sd">        you can also add and remove cameras later using the</span>
+<span class="sd">    :param select_cam: optional, an initial camera to be selected, if not set default camera is the first</span>
+<span class="sd">        one in the list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cameras</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Camera</span><span class="p">],</span> <span class="n">select_cam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Camera</span><span class="p">]</span> <span class="o">=</span> <span class="n">cameras</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">select_cam</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cameras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">select_cam</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Camera</span><span class="p">,</span> <span class="n">StreamCamera</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">select_cam</span><span class="p">]</span> <span class="k">if</span> <span class="n">select_cam</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Camera</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the camera at the index</span>
+<span class="sd">        :param item: the index</span>
+<span class="sd">        :return: the camera</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Camera</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the camera at the index to the new camera</span>
+<span class="sd">        :param item: the index</span>
+<span class="sd">        :param value: the new camera</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="CameraList.select_camera"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.select_camera">[docs]</a>    <span class="k">def</span> <span class="nf">select_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the selected camera to be the camera at the index</span>
+<span class="sd">        :param index: the new selected camera&#39;s index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        deletes the camera at the index</span>
+<span class="sd">        :param item:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: an iterator that iterates through all the cameras</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CameraList.read"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Frame</span><span class="p">],</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Frame</span><span class="p">],</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraList.is_opened"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.is_opened">[docs]</a>    <span class="k">def</span> <span class="nf">is_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">is_opened</span><span class="p">()</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">is_opened</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraList.add_camera"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.add_camera">[docs]</a>    <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds a new camera to the end of the list</span>
+<span class="sd">        :param cam: the new camera</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.release"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.release">[docs]</a>    <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="CameraList.default"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the selected camera to the default camera (first camera in the list)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="CameraList.set_exposure"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.set_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">set_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exposure</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">set_exposure</span><span class="p">(</span><span class="n">exposure</span><span class="p">)</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">set_exposure</span><span class="p">(</span><span class="n">exposure</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.set_auto_exposure"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">set_auto_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auto</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">set_auto_exposure</span><span class="p">(</span><span class="n">auto</span><span class="p">)</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">set_auto_exposure</span><span class="p">(</span><span class="n">auto</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.get_data"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">CameraData</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="n">CameraData</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraList.resize"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.resize">[docs]</a>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.rescale"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.rescale">[docs]</a>    <span class="k">def</span> <span class="nf">rescale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.set_frame_size"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.set_frame_size">[docs]</a>    <span class="k">def</span> <span class="nf">set_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">set_frame_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">set_frame_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.toggle_stream"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.toggle_stream">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">should_stream</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="n">StreamCamera</span><span class="p">):</span>
+                    <span class="n">cam</span><span class="o">.</span><span class="n">toggle_stream</span><span class="p">(</span><span class="n">should_stream</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">toggle_stream</span><span class="p">(</span><span class="n">should_stream</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CameraList.is_streaming"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.is_streaming">[docs]</a>    <span class="k">def</span> <span class="nf">is_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">is_streaming</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="n">StreamCamera</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">is_streaming</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraList.get_width"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CameraList.get_height"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_list.CameraList.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">_set_width</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">_set_width</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">foreach</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cam</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">:</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">_set_height</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_camera</span><span class="o">.</span><span class="n">_set_height</span><span class="p">(</span><span class="n">height</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

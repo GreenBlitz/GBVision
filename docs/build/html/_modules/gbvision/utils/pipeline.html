@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.pipeline &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.pipeline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.pipeline</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+
+
+<div class="viewcode-block" id="PipeLine"><a class="viewcode-back" href="../../../gbvision.utils.html#gbvision.utils.pipeline.PipeLine">[docs]</a><span class="k">class</span> <span class="nc">PipeLine</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    a class representing a pipeline of function</span>
+<span class="sd">    each function receives one input, which is the output of the previous function in the pipeline</span>
+<span class="sd">    pipelines are great for representing a long computer vision function (which is why such functions</span>
+<span class="sd">    are called pipelines).</span>
+<span class="sd">    the PipeLine class can also be used as a function decorator</span>
+<span class="sd">    for example, creating a pipeline that adds 1 to it&#39;s output can be done in two ways:</span>
+<span class="sd">    Example::</span>
+<span class="sd">        inc = PipeLine(lambda x: x + 1)</span>
+<span class="sd">        three = inc(2)</span>
+<span class="sd">        </span>
+<span class="sd">    or</span>
+<span class="sd">    Example::</span>
+<span class="sd">        @PipeLine</span>
+<span class="sd">        def inc(x):</span>
+<span class="sd">            return x + 1</span>
+<span class="sd">        three = inc(2)</span>
+
+
+<span class="sd">    You can create a PipeLine from multiple functions:</span>
+<span class="sd">    Example::</span>
+<span class="sd">        open_and_read_file = PipeLine(open, lambda x: x.read())</span>
+<span class="sd">        text = open_and_read_file(&quot;file.txt&quot;)</span>
+<span class="sd">            </span>
+<span class="sd">    You can also inherit from the PipeLine class to make a PipeLine factory:</span>
+<span class="sd">    Example::</span>
+<span class="sd">        class Adder(PipeLine):</span>
+<span class="sd">            def __init__(self, num):</span>
+<span class="sd">                self.num = num</span>
+<span class="sd">                PipeLine.__init__(self, self.adding_func)</span>
+<span class="sd">            def adding_func(self, item):</span>
+<span class="sd">                return item + self.num</span>
+
+<span class="sd">    You can also do it like this:</span>
+<span class="sd">    Example::</span>
+<span class="sd">        class Adder(PipeLine):</span>
+<span class="sd">            def __init__(self, num):</span>
+<span class="sd">                def adding_func(item):</span>
+<span class="sd">                    return item + num</span>
+
+<span class="sd">                PipeLine.__init__(self, adding_func)</span>
+
+<span class="sd">    You can use combine a few PipeLines together to create function composition:</span>
+<span class="sd">    Example::</span>
+<span class="sd">        multiply_by_2_then_add_3 = PipeLine(lambda x: x * 2) + PipeLine(lambda x: x + 3)</span>
+
+<span class="sd">    :param functions: a tuple of functions to run one after the other as a pipeline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">functions</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">functions</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        activate this pipeline and return the result</span>
+
+<span class="sd">        :param image: the input to the first function in the pipeline (also the input to the entire pipeline) \</span>
+<span class="sd">        doesn&#39;t have to be an image, can be anything</span>
+<span class="sd">        :return: the output of the last function in the pipeline, can be data type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        creates a new pipeline which uses the output of this pipeline as input to the other pipeline</span>
+
+<span class="sd">        :param other: the second pipeline</span>
+<span class="sd">        :return: a new pipeline, and calling this pipeline with the parameter image is similar to \</span>
+<span class="sd">        performing other(self(image))</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">PipeLine</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">PipeLine</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">functions</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">PipeLine</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">functions</span> <span class="o">+</span> <span class="p">[</span><span class="n">other</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds this PipeLine to another function that isn&#39;t a PipeLine</span>
+
+<span class="sd">        :param other: the function</span>
+<span class="sd">        :return: a new PipeLine which performs self(other(image)) on the parameter image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PipeLine</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the function at index item</span>
+
+<span class="sd">        :param item: the index</span>
+<span class="sd">        :return: the item</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the function at index key to the new function value</span>
+
+<span class="sd">        :param key: the index</span>
+<span class="sd">        :param value: the new function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: an iterator that iterates through all functions in this pipeline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

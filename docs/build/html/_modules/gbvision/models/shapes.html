@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.models.shapes &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.models.shapes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.models.shapes</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">RotatedRect</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.pipeline</span> <span class="kn">import</span> <span class="n">PipeLine</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+
+<span class="k">class</span> <span class="nc">__InnerShapeFilter</span><span class="p">(</span><span class="n">PipeLine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    filters out all the shapes that are colliding with shapes with a lower (smaller) index</span>
+<span class="sd">    maps from List[Shape] to List[Shape], where the output list is the input list without the colliding shapes</span>
+<span class="sd">    usually used on a sorted list, to remove any shape that is inside another shape</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collision_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Shape</span><span class="p">,</span> <span class="n">Shape</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]):</span>
+        <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="n">shapes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">]:</span>
+            <span class="n">filtered_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">shape</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes</span><span class="p">):</span>
+                <span class="n">shape_invalid</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                    <span class="n">shape_invalid</span> <span class="o">=</span> <span class="n">collision_func</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">shapes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">shape_invalid</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">shape_invalid</span><span class="p">:</span>
+                    <span class="n">filtered_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">filtered_shapes</span>
+
+        <span class="n">PipeLine</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_filter</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="circle_collision"><a class="viewcode-back" href="../../../gbvision.models.html#gbvision.models.shapes.circle_collision">[docs]</a><span class="k">def</span> <span class="nf">circle_collision</span><span class="p">(</span><span class="n">circ1</span><span class="p">:</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">circ2</span><span class="p">:</span> <span class="n">Circle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    detects if two circles are colliding</span>
+
+<span class="sd">    :param circ1: the first circle</span>
+<span class="sd">    :param circ2: the second circle</span>
+<span class="sd">    :return: True if circles are colliding, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">center1</span><span class="p">,</span> <span class="n">r1</span> <span class="o">=</span> <span class="n">circ1</span>
+    <span class="n">center2</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">circ2</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">center1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">center2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">center1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">center2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span></div>
+
+
+<span class="n">filter_inner_circles</span> <span class="o">=</span> <span class="n">__InnerShapeFilter</span><span class="p">(</span><span class="n">circle_collision</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rect_collision"><a class="viewcode-back" href="../../../gbvision.models.html#gbvision.models.shapes.rect_collision">[docs]</a><span class="k">def</span> <span class="nf">rect_collision</span><span class="p">(</span><span class="n">r1</span><span class="p">:</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    detects if two rects are colliding</span>
+
+<span class="sd">    :param r1: the first rect</span>
+<span class="sd">    :param r2: the second rect</span>
+<span class="sd">    :return: True if the rects are colliding, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">r1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">r2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span>
+                <span class="n">r1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">r1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>
+                <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">r2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">or</span>
+                <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">r1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+
+<span class="n">filter_inner_rects</span> <span class="o">=</span> <span class="n">__InnerShapeFilter</span><span class="p">(</span><span class="n">rect_collision</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="convex_shape_collision"><a class="viewcode-back" href="../../../gbvision.models.html#gbvision.models.shapes.convex_shape_collision">[docs]</a><span class="k">def</span> <span class="nf">convex_shape_collision</span><span class="p">(</span><span class="n">shape1</span><span class="p">:</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">shape2</span><span class="p">:</span> <span class="n">Polygon</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    detects collision between two convex shapes</span>
+<span class="sd">    Note: if you are uncertain if a shape is convex, use convex_hull on it, it will make it convex</span>
+
+<span class="sd">    :param shape1: the first shape, as a contour</span>
+<span class="sd">    :param shape2: the second shape, as a contour</span>
+<span class="sd">    :return: True if the shapes are colliding, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shape1</span><span class="p">,</span> <span class="n">shape2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape2</span><span class="p">)</span>
+    <span class="n">shape1</span> <span class="o">=</span> <span class="n">shape1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape1</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">shape2</span> <span class="o">=</span> <span class="n">shape2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape1</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">projection_axises</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">negation_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape1</span><span class="p">)):</span>
+        <span class="n">projection_axises</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape1</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape1</span><span class="p">)]</span> <span class="o">-</span> <span class="n">shape1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape2</span><span class="p">)):</span>
+        <span class="n">projection_axises</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape2</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape2</span><span class="p">)]</span> <span class="o">-</span> <span class="n">shape2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">projection_axises</span><span class="p">)):</span>
+        <span class="n">projection_axises</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">projection_axises</span><span class="p">[</span><span class="n">i</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">negation_array</span>
+
+    <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="n">projection_axises</span><span class="p">:</span>
+        <span class="n">proj1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vertix</span> <span class="ow">in</span> <span class="n">shape1</span><span class="p">:</span>
+            <span class="n">proj1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">proj1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">proj1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">proj1</span><span class="p">)</span>
+
+        <span class="n">proj2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vertix</span> <span class="ow">in</span> <span class="n">shape2</span><span class="p">:</span>
+            <span class="n">proj2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">proj2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">proj2</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">proj2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">proj1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">proj2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="n">proj2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">proj1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<span class="n">filter_inner_convex_shapes</span> <span class="o">=</span> <span class="n">__InnerShapeFilter</span><span class="p">(</span><span class="n">convex_shape_collision</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotated_rect_collision"><a class="viewcode-back" href="../../../gbvision.models.html#gbvision.models.shapes.rotated_rect_collision">[docs]</a><span class="k">def</span> <span class="nf">rotated_rect_collision</span><span class="p">(</span><span class="n">rr1</span><span class="p">:</span> <span class="n">RotatedRect</span><span class="p">,</span> <span class="n">rr2</span><span class="p">:</span> <span class="n">RotatedRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    detects if two rotated rects are colliding</span>
+
+<span class="sd">    :param rr1: the first rotated rect</span>
+<span class="sd">    :param rr2: the second rotated rect</span>
+<span class="sd">    :return: True if the shapes are colliding, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">convex_shape_collision</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">rr1</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">rr2</span><span class="p">))</span></div>
+
+
+<span class="n">filter_inner_rotated_rects</span> <span class="o">=</span> <span class="n">__InnerShapeFilter</span><span class="p">(</span><span class="n">rotated_rect_collision</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

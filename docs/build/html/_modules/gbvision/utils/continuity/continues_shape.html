@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.continuity.continues_shape &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.continuity.continues_shape</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.continuity.continues_shape</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.tracker</span> <span class="kn">import</span> <span class="n">Tracker</span>
+
+
+<div class="viewcode-block" id="ContinuesShape"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape.ContinuesShape">[docs]</a><span class="k">class</span> <span class="nc">ContinuesShape</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An abstract class who&#39;s target is to determine in which case two shapes are describing</span>
+<span class="sd">    the same object, and by that represent a shape in a continues matter.</span>
+
+<span class="sd">    in case that no shape matching the object is found then the tracker is deployed by using force_update.</span>
+
+<span class="sd">    :param shape: the shape to track with continuity</span>
+<span class="sd">    :param frame: the frame from which the shape was taken</span>
+<span class="sd">    :param tracker: optional, a tracker used to track the object if it wasn&#39;t found with continuity (default is an empty tracker)</span>
+<span class="sd">    :param max_area_ratio: the maximum ration between areas of the current shape and another shape \</span>
+<span class="sd">     so that they can be thought of as the same, default is 2.0</span>
+<span class="sd">    :param max_distance_ratio: the maximum ratio between the sum of areas of this shape and another and their distance, default is 0.1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_area_ratio</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                 <span class="n">max_distance_ratio</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>  <span class="c1"># initialization method of the abstract class</span>
+
+        <span class="k">assert</span> <span class="n">max_area_ratio</span> <span class="o">&gt;</span> <span class="mf">1.0</span>  <span class="c1"># sets maximum area ratio as 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span>  <span class="c1"># shape describing the object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># the count of how many frames the object cannot be found</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span> <span class="o">=</span> <span class="n">Tracker</span><span class="p">()</span> <span class="k">if</span> <span class="n">tracker</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tracker</span>  <span class="c1"># Tracker setup in case object is not found</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_bounding_rect</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_area_ratio</span> <span class="o">=</span> <span class="n">max_area_ratio</span>  <span class="c1"># setting the maximum bound to which the area difference between the two shapes can be withstanded until it declared as not the same object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_distance_ratio</span> <span class="o">=</span> <span class="n">max_distance_ratio</span>  <span class="c1"># same goes here except it refers to distance between shapes</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        a function which checks whether a shape is colliding with the current object&#39;s shape or not.</span>
+<span class="sd">        :param: shape: the shape which is tested</span>
+<span class="sd">        :return: True or False, collides or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_area</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        a method which calculates a shape&#39;s on-screen area</span>
+<span class="sd">        :param shape: the shape&#39;s area you wish to accept</span>
+<span class="sd">        :return: a number which expresses the shape&#39;s area on-screen in M^2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        determines a shape&#39;s center</span>
+<span class="sd">        :param shape: the shape&#39;s center you wish to find</span>
+<span class="sd">        :return: the location on-screen of the center point</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_from_bounding_rect</span><span class="p">(</span><span class="n">bounding_rect</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shape</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        a function which finds a shape according to its bounding rectangle</span>
+<span class="sd">        :param: the rectangle bounding the shape</span>
+<span class="sd">        :return: a shape that is bound by the bounding rect</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_to_bounding_rect</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Rect</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds a rectangle bounding a shape</span>
+<span class="sd">        :param shape: the shape&#39;s bounding rectangle you wish to find</span>
+<span class="sd">        :return: a rectangle which bounds the shape given</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_shape_square_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        a method which finds the distance between the centers of the object shape and another one</span>
+<span class="sd">        :param other_shape: the other shape you want to check the distance to</span>
+<span class="sd">        :return: the distance between the shape squared in order to save computing of square root (pythagorean theorem)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_center</span><span class="p">,</span> <span class="n">other_center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_center</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_center</span><span class="p">(</span><span class="n">other_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">other_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">self_center</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> \
+               <span class="p">(</span><span class="n">other_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">self_center</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">_is_legal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        checks a variety of different relations between to shapes to determine whether it describes the same object or not</span>
+<span class="sd">        :param shape: the other shape comparing to the current one</span>
+<span class="sd">        :return: true or false, same or different</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_collision</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+            <span class="k">if</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_area_ratio</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_area</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_area</span><span class="p">(</span>
+                    <span class="n">shape</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_area_ratio</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_square_distance</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_area</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_area</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_distance_ratio</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ContinuesShape.get"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape.ContinuesShape.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shape</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        retrieve the shape that this continues shape tracks</span>
+
+<span class="sd">        :return: this continues shape&#39;s inner shape</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span></div>
+
+<div class="viewcode-block" id="ContinuesShape.update"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape.ContinuesShape.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        an annual check updating the location and data of the object</span>
+<span class="sd">        :param shape: the shape suspect as the same object</span>
+<span class="sd">        :param frame: the frame on which the suspect shape is</span>
+<span class="sd">        :return: true or false, same shape, not the same shape</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_bounding_rect</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ContinuesShape.update_forced"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape.ContinuesShape.update_forced">[docs]</a>    <span class="k">def</span> <span class="nf">update_forced</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        an update which happens when you lost the shape with continuity</span>
+<span class="sd">        :param frame: the frame on which opencv2 tracking is happening</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="ContinuesShape.is_lost"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape.ContinuesShape.is_lost">[docs]</a>    <span class="k">def</span> <span class="nf">is_lost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        check if it has been too long (more that max_count frames) since you last saw the object</span>
+
+<span class="sd">        :param max_count:the maximum amount of frames tolerable before the shape is declared lost, None is infinity</span>
+<span class="sd">        :return: lost or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">max_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">&gt;</span> <span class="n">max_count</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

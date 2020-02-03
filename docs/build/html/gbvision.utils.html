@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils package &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">gbvision.utils package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.async_readable">gbvision.utils.async_readable module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.game_object">gbvision.utils.game_object module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.pipeline">gbvision.utils.pipeline module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.readable">gbvision.utils.readable module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.tracker">gbvision.utils.tracker module</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>gbvision.utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gbvision.utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbvision-utils-package">
+<h1>gbvision.utils package<a class="headerlink" href="#gbvision-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.cameras.html">gbvision.utils.cameras package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.async_camera">gbvision.utils.cameras.async_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.async_usb_camera">gbvision.utils.cameras.async_usb_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.camera">gbvision.utils.cameras.camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.camera_data">gbvision.utils.cameras.camera_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.camera_list">gbvision.utils.cameras.camera_list module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.empty_camera">gbvision.utils.cameras.empty_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.stream_camera">gbvision.utils.cameras.stream_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.usb_camera">gbvision.utils.cameras.usb_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras.usb_stream_camera">gbvision.utils.cameras.usb_stream_camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.cameras.html#module-gbvision.utils.cameras">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.continuity.html">gbvision.utils.continuity package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity.continues_circle">gbvision.utils.continuity.continues_circle module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity.continues_rect">gbvision.utils.continuity.continues_rect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity.continues_rotated_rect">gbvision.utils.continuity.continues_rotated_rect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity.continues_shape">gbvision.utils.continuity.continues_shape module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity.continues_shape_wrapper">gbvision.utils.continuity.continues_shape_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.continuity.html#module-gbvision.utils.continuity">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.finders.html">gbvision.utils.finders package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.circle_finder">gbvision.utils.finders.circle_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.contour_finder">gbvision.utils.finders.contour_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.convex_polygon_finder">gbvision.utils.finders.convex_polygon_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.object_finder">gbvision.utils.finders.object_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.polygon_finder">gbvision.utils.finders.polygon_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.rect_finder">gbvision.utils.finders.rect_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders.rotated_rect_finder">gbvision.utils.finders.rotated_rect_finder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.finders.html#module-gbvision.utils.finders">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.net.html">gbvision.utils.net package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.async_stream_receiver">gbvision.utils.net.async_stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.async_tcp_stream_receiver">gbvision.utils.net.async_tcp_stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.async_udp_stream_receiver">gbvision.utils.net.async_udp_stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.stream_broadcaster">gbvision.utils.net.stream_broadcaster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.stream_receiver">gbvision.utils.net.stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.tcp_stream_broadcaster">gbvision.utils.net.tcp_stream_broadcaster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.tcp_stream_receiver">gbvision.utils.net.tcp_stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.udp_stream_broadcaster">gbvision.utils.net.udp_stream_broadcaster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net.udp_stream_receiver">gbvision.utils.net.udp_stream_receiver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.net.html#module-gbvision.utils.net">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.shapes.html">gbvision.utils.shapes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.shapes.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.shapes.html#gbvision-utils-shapes-base-shape-module">gbvision.utils.shapes.base_shape module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.shapes.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gbvision.utils.thresholds.html">gbvision.utils.thresholds package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.thresholds.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.thresholds.html#module-gbvision.utils.thresholds.color_threshold">gbvision.utils.thresholds.color_threshold module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.thresholds.html#module-gbvision.utils.thresholds.threshold">gbvision.utils.thresholds.threshold module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbvision.utils.thresholds.html#module-gbvision.utils.thresholds">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.utils.async_readable">
+<span id="gbvision-utils-async-readable-module"></span><h2>gbvision.utils.async_readable module<a class="headerlink" href="#module-gbvision.utils.async_readable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.async_readable.AsyncReadable">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.async_readable.</code><code class="sig-name descname">AsyncReadable</code><a class="reference internal" href="_modules/gbvision/utils/async_readable.html#AsyncReadable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.async_readable.AsyncReadable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.readable.Readable" title="gbvision.utils.readable.Readable"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.readable.Readable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>an async readable class that constantly reads on another thread</p>
+<dl class="method">
+<dt id="gbvision.utils.async_readable.AsyncReadable.has_started_reading">
+<code class="sig-name descname">has_started_reading</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/async_readable.html#AsyncReadable.has_started_reading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.async_readable.AsyncReadable.has_started_reading" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the async thread has started reading</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the async thread started, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.async_readable.AsyncReadable.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/async_readable.html#AsyncReadable.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.async_readable.AsyncReadable.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads from the readable and returns the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False, None if the operation was unsuccessful, else True, frame_result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.async_readable.AsyncReadable.wait_start_reading">
+<code class="sig-name descname">wait_start_reading</code><span class="sig-paren">(</span><em class="sig-param">wait_time=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/async_readable.html#AsyncReadable.wait_start_reading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.async_readable.AsyncReadable.wait_start_reading" title="Permalink to this definition">¶</a></dt>
+<dd><p>waits until the async thread starts reading</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wait_time</strong> – amounts of seconds to wait in every check interval, default is 0.01</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.game_object">
+<span id="gbvision-utils-game-object-module"></span><h2>gbvision.utils.game_object module<a class="headerlink" href="#module-gbvision.utils.game_object" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.game_object.GameObject">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.game_object.</code><code class="sig-name descname">GameObject</code><span class="sig-paren">(</span><em class="sig-param">area: Union[int, float]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/game_object.html#GameObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.game_object.GameObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>constructor of the image object
+which is an object on field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>area</strong> – the square root of the surface area of the object in real life</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.game_object.GameObject.distance_by_contours">
+<code class="sig-name descname">distance_by_contours</code><span class="sig-paren">(</span><em class="sig-param">camera: gbvision.utils.cameras.camera.Camera</em>, <em class="sig-param">cnt: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/utils/game_object.html#GameObject.distance_by_contours"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.game_object.GameObject.distance_by_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note: this measures the distance between the camera and the object, to use another measuring point
+calculate the norm of the location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera</strong> – the camera, can be either Camera or CameraList</p></li>
+<li><p><strong>cnt</strong> – the contours of this object in the frame</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the norm of the vector between the camera and the object (in meters)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.game_object.GameObject.distance_by_params">
+<code class="sig-name descname">distance_by_params</code><span class="sig-paren">(</span><em class="sig-param">camera: gbvision.utils.cameras.camera.Camera, area: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/utils/game_object.html#GameObject.distance_by_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.game_object.GameObject.distance_by_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note: this measures the distance between the camera and the object, to use another measuring point
+calculate the norm of the location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera</strong> – the camera, can be either Camera or CameraList</p></li>
+<li><p><strong>area</strong> – a float representing the square root of the area of the object
+(in pixels)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the norm of the vector between the camera and the object (in meters)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.game_object.GameObject.location_by_contours">
+<code class="sig-name descname">location_by_contours</code><span class="sig-paren">(</span><em class="sig-param">camera: gbvision.utils.cameras.camera.Camera</em>, <em class="sig-param">cnt: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]<a class="reference internal" href="_modules/gbvision/utils/game_object.html#GameObject.location_by_contours"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.game_object.GameObject.location_by_contours" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera</strong> – the camera, can be either Camera or CameraList</p></li>
+<li><p><strong>cnt</strong> – the contours of this object in the frame</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 3d vector of the relative [x y z] location between the object and the camera (in meters)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.game_object.GameObject.location_by_params">
+<code class="sig-name descname">location_by_params</code><span class="sig-paren">(</span><em class="sig-param">camera: gbvision.utils.cameras.camera.Camera, area: Union[int, float], center: Tuple[Union[int, float], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]<a class="reference internal" href="_modules/gbvision/utils/game_object.html#GameObject.location_by_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.game_object.GameObject.location_by_params" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera</strong> – the camera, can be either Camera or CameraList</p></li>
+<li><p><strong>area</strong> – a float representing the square root of the area of the object             (in pixels)</p></li>
+<li><p><strong>center</strong> – the center (x,y) of this object in the frame</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 3d vector of the relative [x y z] location between the object and the camera/measuring point (in meters)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.pipeline">
+<span id="gbvision-utils-pipeline-module"></span><h2>gbvision.utils.pipeline module<a class="headerlink" href="#module-gbvision.utils.pipeline" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.pipeline.PipeLine">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.pipeline.</code><code class="sig-name descname">PipeLine</code><span class="sig-paren">(</span><em class="sig-param">*functions: Callable[[Any], Any]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/pipeline.html#PipeLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.pipeline.PipeLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>a class representing a pipeline of function
+each function receives one input, which is the output of the previous function in the pipeline
+pipelines are great for representing a long computer vision function (which is why such functions
+are called pipelines).
+the PipeLine class can also be used as a function decorator
+for example, creating a pipeline that adds 1 to it’s output can be done in two ways:
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inc</span> <span class="o">=</span> <span class="n">PipeLine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">three</span> <span class="o">=</span> <span class="n">inc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@PipeLine</span>
+<span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">three</span> <span class="o">=</span> <span class="n">inc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can create a PipeLine from multiple functions:
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">open_and_read_file</span> <span class="o">=</span> <span class="n">PipeLine</span><span class="p">(</span><span class="nb">open</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">open_and_read_file</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also inherit from the PipeLine class to make a PipeLine factory:
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Adder</span><span class="p">(</span><span class="n">PipeLine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="n">PipeLine</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adding_func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">adding_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">item</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span>
+</pre></div>
+</div>
+<p>You can also do it like this:
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Adder</span><span class="p">(</span><span class="n">PipeLine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">adding_func</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">item</span> <span class="o">+</span> <span class="n">num</span>
+
+        <span class="n">PipeLine</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adding_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can use combine a few PipeLines together to create function composition:
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">multiply_by_2_then_add_3</span> <span class="o">=</span> <span class="n">PipeLine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">PipeLine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>functions</strong> – a tuple of functions to run one after the other as a pipeline</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.readable">
+<span id="gbvision-utils-readable-module"></span><h2>gbvision.utils.readable module<a class="headerlink" href="#module-gbvision.utils.readable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.readable.Readable">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.readable.</code><code class="sig-name descname">Readable</code><a class="reference internal" href="_modules/gbvision/utils/readable.html#Readable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.readable.Readable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>an interface representing an object you can read frames from, such as cameras and streams</p>
+<dl class="method">
+<dt id="gbvision.utils.readable.Readable.read">
+<em class="property">abstract </em><code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[bool, Optional[numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/readable.html#Readable.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.readable.Readable.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads from the readable and returns the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False, None if the operation was unsuccessful, else True, frame_result</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.tracker">
+<span id="gbvision-utils-tracker-module"></span><h2>gbvision.utils.tracker module<a class="headerlink" href="#module-gbvision.utils.tracker" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.tracker.Tracker">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.tracker.</code><code class="sig-name descname">Tracker</code><span class="sig-paren">(</span><em class="sig-param">tracker_type='EMPTY'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/tracker.html#Tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.tracker.Tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>a tracker object that tracks a rectangle in a video using an opencv tracking algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracker_type</strong> – Tracker algorithm taken from this list: BOOSTING, MIL, KCF, TLD, MEDIANFLOW,
+GOTURN, MOSSE, CSRT, EMPTY. (Default is EMPTY)</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_BOOSTING">
+<code class="sig-name descname">TRACKER_TYPE_BOOSTING</code><em class="property"> = 'BOOSTING'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_BOOSTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_CSRT">
+<code class="sig-name descname">TRACKER_TYPE_CSRT</code><em class="property"> = 'CSRT'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_CSRT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_EMPTY">
+<code class="sig-name descname">TRACKER_TYPE_EMPTY</code><em class="property"> = 'EMPTY'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_EMPTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_GOTURN">
+<code class="sig-name descname">TRACKER_TYPE_GOTURN</code><em class="property"> = 'GOTURN'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_GOTURN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_KCF">
+<code class="sig-name descname">TRACKER_TYPE_KCF</code><em class="property"> = 'KCF'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_KCF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_MEDIANFLOW">
+<code class="sig-name descname">TRACKER_TYPE_MEDIANFLOW</code><em class="property"> = 'MEDIANFLOW'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_MEDIANFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_MIL">
+<code class="sig-name descname">TRACKER_TYPE_MIL</code><em class="property"> = 'MIL'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_MIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_MOSSE">
+<code class="sig-name descname">TRACKER_TYPE_MOSSE</code><em class="property"> = 'MOSSE'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_MOSSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.tracker.Tracker.TRACKER_TYPE_TLD">
+<code class="sig-name descname">TRACKER_TYPE_TLD</code><em class="property"> = 'TLD'</em><a class="headerlink" href="#gbvision.utils.tracker.Tracker.TRACKER_TYPE_TLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.tracker.Tracker.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">rect</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/tracker.html#Tracker.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.tracker.Tracker.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initlize the tracker</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – The frame</p></li>
+<li><p><strong>rect</strong> – Given rectangle</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if initialization went succesfully, false otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.tracker.Tracker.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/tracker.html#Tracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.tracker.Tracker.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the rect location in new frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>frame</strong> – the frame</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The location of the rect in new frame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.tools package &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">gbvision.tools package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gbvision.tools.finding_tools">gbvision.tools.finding_tools module</a></li>
+<li><a class="reference internal" href="#module-gbvision.tools.image_tools">gbvision.tools.image_tools module</a></li>
+<li><a class="reference internal" href="#module-gbvision.tools.list_tools">gbvision.tools.list_tools module</a></li>
+<li><a class="reference internal" href="#module-gbvision.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>gbvision.tools package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gbvision.tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbvision-tools-package">
+<h1>gbvision.tools package<a class="headerlink" href="#gbvision-tools-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.tools.finding_tools">
+<span id="gbvision-tools-finding-tools-module"></span><h2>gbvision.tools.finding_tools module<a class="headerlink" href="#module-gbvision.tools.finding_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gbvision.tools.finding_tools.distance_from_object">
+<code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">distance_from_object</code><span class="sig-paren">(</span><em class="sig-param">loc: Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/tools/finding_tools.html#distance_from_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.finding_tools.distance_from_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>the absolute distance from the camera to this object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the object’s location (2d or 3d)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the absolute distance (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbvision.tools.finding_tools.plane_angle_by_location">
+<code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">plane_angle_by_location</code><span class="sig-paren">(</span><em class="sig-param">loc: Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/tools/finding_tools.html#plane_angle_by_location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.finding_tools.plane_angle_by_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the angle from the camera to the object’s projection on the x-z plane (y=0 plane)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the 3d location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the angle (in radians)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbvision.tools.finding_tools.plane_distance_from_object">
+<code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">plane_distance_from_object</code><span class="sig-paren">(</span><em class="sig-param">loc: Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/tools/finding_tools.html#plane_distance_from_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.finding_tools.plane_distance_from_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the distance from the object’s projection on the x-z plane (y=0 plane)
+the distance on the y axis is ignored in this calculation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> – the 3d location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the distance without regarding the y axis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbvision.tools.finding_tools.viewing_angle_of_object">
+<code class="sig-prename descclassname">gbvision.tools.finding_tools.</code><code class="sig-name descname">viewing_angle_of_object</code><span class="sig-paren">(</span><em class="sig-param">part1: Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray], part2: Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray], x_distance: float</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/gbvision/tools/finding_tools.html#viewing_angle_of_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.finding_tools.viewing_angle_of_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds the viewing angle of an object based on a split of the object to two parts (part1 and part2), and the x     distance between those two parts in real life (in meters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part1</strong> – the first part of the object (the left one)</p></li>
+<li><p><strong>part2</strong> – the second part of the object (the right one)</p></li>
+<li><p><strong>x_distance</strong> – the distance between the two objects in meters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the viewing angle of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.tools.image_tools">
+<span id="gbvision-tools-image-tools-module"></span><h2>gbvision.tools.image_tools module<a class="headerlink" href="#module-gbvision.tools.image_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gbvision.tools.image_tools.crop">
+<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray], x: int, y: int, w: int, h: int</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/gbvision/tools/image_tools.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.image_tools.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>crops the image from (x, y) to (x+w, y+h)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame to crop</p></li>
+<li><p><strong>x</strong> – the x coordinate to crop from</p></li>
+<li><p><strong>y</strong> – the y coordinate to crop from</p></li>
+<li><p><strong>w</strong> – the width of the cropped image</p></li>
+<li><p><strong>h</strong> – the height of the cropped image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the cropped image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbvision.tools.image_tools.median_threshold">
+<code class="sig-prename descclassname">gbvision.tools.image_tools.</code><code class="sig-name descname">median_threshold</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray], stdv: Union[int, float, numpy.ndarray], box: Union[None, Tuple[int, int, int, int]] = None, color_encoding='BGR'</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.thresholds.threshold.Threshold<a class="reference internal" href="_modules/gbvision/tools/image_tools.html#median_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.image_tools.median_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds a threshold using the median threshold method
+the median threshold method defines the lower bounds of the threshold as the median of a given region of the image
+minus some deviation variable, and the upper bounds as the same median plus the deviation variable
+in a mathematical term, the threshold is defined to be [median(X) - V, median(X) + V] where X is the frame region
+and V is the deviation variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – the frame</p></li>
+<li><p><strong>stdv</strong> – the deviation variable, can be a scalar (same deviation for every channel) or a numpy array with the
+same size as the number of channels in the threshold, the deviation will be defined for each channel separately</p></li>
+<li><p><strong>box</strong> – optional, a sub region of the frame from which the median is calculated, when set to None the median is
+calculated from the entire frame</p></li>
+<li><p><strong>color_encoding</strong> – the type of color encoding the threshold should use, default is BGR</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a Threshold object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.tools.list_tools">
+<span id="gbvision-tools-list-tools-module"></span><h2>gbvision.tools.list_tools module<a class="headerlink" href="#module-gbvision.tools.list_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gbvision.tools.list_tools.split_list">
+<code class="sig-prename descclassname">gbvision.tools.list_tools.</code><code class="sig-name descname">split_list</code><span class="sig-paren">(</span><em class="sig-param">f: Callable[[T], int], lst: Iterable[T], amount=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/tools/list_tools.html#split_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.tools.list_tools.split_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>splits the list into several list according to the function f</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> – the list to split</p></li>
+<li><p><strong>f</strong> – a function which maps from an argument to the index of the list it should go to
+for example if we wanted a function to split a list into a list of positive and negative number f could look like
+lambda x: int(x &gt;= 0)</p></li>
+<li><p><strong>amount</strong> – the amount of lists to split the data to (2 by default)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a tuple of all the lists created,</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.tools" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

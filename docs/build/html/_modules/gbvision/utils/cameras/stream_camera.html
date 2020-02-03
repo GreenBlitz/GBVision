@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.cameras.stream_camera &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.cameras.stream_camera</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.cameras.stream_camera</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Frame</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.net.stream_broadcaster</span> <span class="kn">import</span> <span class="n">StreamBroadcaster</span>
+<span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+
+
+<div class="viewcode-block" id="StreamCamera"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.StreamCamera">[docs]</a><span class="k">class</span> <span class="nc">StreamCamera</span><span class="p">(</span><span class="n">Camera</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    an abstract class that represents a streaming camera</span>
+<span class="sd">    the streaming camera is very similar to a regular camera, but has an option</span>
+<span class="sd">    which allows it to stream the frames when it reads them</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StreamCamera.is_streaming"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.StreamCamera.is_streaming">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">is_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        checks if the camera is currently streaming</span>
+
+<span class="sd">        :return: True if camera is streaming, otherwise False</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="StreamCamera.toggle_stream"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.StreamCamera.toggle_stream">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">toggle_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">should_stream</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        turn on or off the stream feature</span>
+
+<span class="sd">        :param should_stream: True to activate stream, False to deactivate</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="StreamCamera.read"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.StreamCamera.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ok</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ok</span><span class="p">,</span> <span class="n">frame</span></div>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_read</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Frame</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        unsafely reads from the camera, not to use by the programmer, only by the api</span>
+<span class="sd">        usually this function is a set to return the value of super(self, CameraClass).read()</span>
+
+<span class="sd">        :return: the return value of Camera.read: (ok, frame)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        unsafely streams a frame, not to use by the programmer, only by the api</span>
+
+<span class="sd">        :param frame: the frame to stream</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SimpleStreamCamera"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.SimpleStreamCamera">[docs]</a><span class="k">class</span> <span class="nc">SimpleStreamCamera</span><span class="p">(</span><span class="n">StreamCamera</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    a simple abstract camera that uses a gbvision.StreamBroadcaster to send streams</span>
+<span class="sd">    this class is abstract and cannot exist on it&#39;s own, you must inherit from it and implement the _read method</span>
+
+<span class="sd">    for example:</span>
+
+<span class="sd">    Example::</span>
+<span class="sd">        class USBStreamCamera(SimpleStreamCamera, USBCamera):</span>
+<span class="sd">            def _read(self) -&gt; Tuple[bool, Frame]:</span>
+<span class="sd">                return USBCamera.read(self)</span>
+
+<span class="sd">            def __init__(self, broadcaster, port, data=UNKNOWN_CAMERA):</span>
+<span class="sd">                SimpleStreamCamera.__init__(self, broadcaster)</span>
+<span class="sd">                USBCamera.__init__(port, data)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">broadcaster</span><span class="p">:</span> <span class="n">StreamBroadcaster</span><span class="p">,</span> <span class="n">should_stream</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_streaming</span> <span class="o">=</span> <span class="n">should_stream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_broadcaster</span> <span class="o">=</span> <span class="n">broadcaster</span>
+
+<div class="viewcode-block" id="SimpleStreamCamera.is_streaming"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.SimpleStreamCamera.is_streaming">[docs]</a>    <span class="k">def</span> <span class="nf">is_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_streaming</span></div>
+
+<div class="viewcode-block" id="SimpleStreamCamera.toggle_stream"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.stream_camera.SimpleStreamCamera.toggle_stream">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">should_stream</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_streaming</span> <span class="o">=</span> <span class="n">should_stream</span></div>
+
+    <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_broadcaster</span><span class="o">.</span><span class="n">send_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

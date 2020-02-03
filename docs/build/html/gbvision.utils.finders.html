@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.finders package &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">gbvision.utils.finders package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.circle_finder">gbvision.utils.finders.circle_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.contour_finder">gbvision.utils.finders.contour_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.convex_polygon_finder">gbvision.utils.finders.convex_polygon_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.object_finder">gbvision.utils.finders.object_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.polygon_finder">gbvision.utils.finders.polygon_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.rect_finder">gbvision.utils.finders.rect_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders.rotated_rect_finder">gbvision.utils.finders.rotated_rect_finder module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.finders">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>gbvision.utils.finders package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gbvision.utils.finders.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbvision-utils-finders-package">
+<h1>gbvision.utils.finders package<a class="headerlink" href="#gbvision-utils-finders-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.utils.finders.circle_finder">
+<span id="gbvision-utils-finders-circle-finder-module"></span><h2>gbvision.utils.finders.circle_finder module<a class="headerlink" href="#module-gbvision.utils.finders.circle_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.circle_finder.CircleFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.circle_finder.</code><code class="sig-name descname">CircleFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, circles_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/circle_finder.html#CircleFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.circle_finder.CircleFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds specific circular shaped object, and performs distance transformation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+<li><p><strong>circles_process</strong> – a pipeline to run on the list of circles (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.circle_finder.CircleFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]]]<a class="reference internal" href="_modules/gbvision/utils/finders/circle_finder.html#CircleFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.circle_finder.CircleFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.contour_finder">
+<span id="gbvision-utils-finders-contour-finder-module"></span><h2>gbvision.utils.finders.contour_finder module<a class="headerlink" href="#module-gbvision.utils.finders.contour_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.contour_finder.ContourFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.contour_finder.</code><code class="sig-name descname">ContourFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0.0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/contour_finder.html#ContourFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.contour_finder.ContourFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds any generic polygon, not recommended when another finder can be used</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area_scalar</strong> – optional, a scalar to multiply the area by, for fine tuning of the function’s output</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.contour_finder.ContourFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/finders/contour_finder.html#ContourFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.contour_finder.ContourFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.convex_polygon_finder">
+<span id="gbvision-utils-finders-convex-polygon-finder-module"></span><h2>gbvision.utils.finders.convex_polygon_finder module<a class="headerlink" href="#module-gbvision.utils.finders.convex_polygon_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.convex_polygon_finder.ConvexPolygonFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.convex_polygon_finder.</code><code class="sig-name descname">ConvexPolygonFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0.0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, convex_polygons_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/convex_polygon_finder.html#ConvexPolygonFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.convex_polygon_finder.ConvexPolygonFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds any generic polygon, not recommended when another finder can be used</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area_scalar</strong> – optional, a scalar to multiply the area by, for fine tuning of the function’s output</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+<li><p><strong>convex_polygons_process</strong> – a pipeline to run on the list of convex polygons (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.convex_polygon_finder.ConvexPolygonFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/finders/convex_polygon_finder.html#ConvexPolygonFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.convex_polygon_finder.ConvexPolygonFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.object_finder">
+<span id="gbvision-utils-finders-object-finder-module"></span><h2>gbvision.utils.finders.object_finder module<a class="headerlink" href="#module-gbvision.utils.finders.object_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.object_finder.ObjectFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.object_finder.</code><code class="sig-name descname">ObjectFinder</code><span class="sig-paren">(</span><em class="sig-param">game_object: gbvision.utils.game_object.GameObject</em>, <em class="sig-param">area_scalar=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/object_finder.html#ObjectFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>this is an abstract class that represents an object finder
+an object finder is a type that outputs an object’s 3d real location based on an of it image it’s
+GameObject real-life parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>game_object</strong> – the game object descriptor for the real-life parameters of the finder’s target</p></li>
+<li><p><strong>area_scalar</strong> – a scalar to multiply the root of the area of the shape in the image by, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.object_finder.ObjectFinder.find_shapes">
+<em class="property">abstract </em><code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Shape]<a class="reference internal" href="_modules/gbvision/utils/finders/object_finder.html#ObjectFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.object_finder.ObjectFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.finders.object_finder.ObjectFinder.locations_from_shapes">
+<code class="sig-name descname">locations_from_shapes</code><span class="sig-paren">(</span><em class="sig-param">shapes: Iterable[Shape], camera: gbvision.utils.cameras.camera.Camera</em><span class="sig-paren">)</span> &#x2192; List[Union[Tuple[Union[int, float], Union[int, float], Union[int, float]], numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/finders/object_finder.html#ObjectFinder.locations_from_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.object_finder.ObjectFinder.locations_from_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds the locations of the shapes based on the shape descriptor and camera constants</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shapes</strong> – a list of the shapes</p></li>
+<li><p><strong>camera</strong> – the camera used to capture the frame that the shapes were found in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of the locations of all the shapes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.polygon_finder">
+<span id="gbvision-utils-finders-polygon-finder-module"></span><h2>gbvision.utils.finders.polygon_finder module<a class="headerlink" href="#module-gbvision.utils.finders.polygon_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.polygon_finder.PolygonFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.polygon_finder.</code><code class="sig-name descname">PolygonFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0.0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, polygons_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/polygon_finder.html#PolygonFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.polygon_finder.PolygonFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds any generic polygon, not recommended when another finder can be used</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area_scalar</strong> – optional, a scalar to multiply the area by, for fine tuning of the function’s output</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+<li><p><strong>polygons_process</strong> – a pipeline to run on the list of polygons (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.polygon_finder.PolygonFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/finders/polygon_finder.html#PolygonFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.polygon_finder.PolygonFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.rect_finder">
+<span id="gbvision-utils-finders-rect-finder-module"></span><h2>gbvision.utils.finders.rect_finder module<a class="headerlink" href="#module-gbvision.utils.finders.rect_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.rect_finder.RectFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.rect_finder.</code><code class="sig-name descname">RectFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0.0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/rect_finder.html#RectFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.rect_finder.RectFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds a rectangular shaped object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area_scalar</strong> – optional, a scalar to multiply the area by, for fine tuning of the function’s output</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+<li><p><strong>rects_process</strong> – a pipeline to run on the list of rects (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.rect_finder.RectFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]]]<a class="reference internal" href="_modules/gbvision/utils/finders/rect_finder.html#RectFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.rect_finder.RectFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders.rotated_rect_finder">
+<span id="gbvision-utils-finders-rotated-rect-finder-module"></span><h2>gbvision.utils.finders.rotated_rect_finder module<a class="headerlink" href="#module-gbvision.utils.finders.rotated_rect_finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.finders.rotated_rect_finder.RotatedRectFinder">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.finders.rotated_rect_finder.</code><code class="sig-name descname">RotatedRectFinder</code><span class="sig-paren">(</span><em class="sig-param">threshold_func: Callable[[Optional[numpy.ndarray]], Optional[numpy.ndarray]], game_object, area_scalar=1.0, contour_min_area=0.0, contours_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;, rotated_rects_process=&lt;gbvision.utils.pipeline.PipeLine object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/finders/rotated_rect_finder.html#RotatedRectFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.rotated_rect_finder.RotatedRectFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.finders.object_finder.ObjectFinder" title="gbvision.utils.finders.object_finder.ObjectFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.finders.object_finder.ObjectFinder</span></code></a></p>
+<p>finds a rectangular object, but rotated. recommended to use when you know the shape isn’t parallel to the camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>threshold_func</strong> – a pipeline (or any sort of function) that returns a binary threshold of the object
+the finder is searching, the object needs to be white and the rest if the image black (doesn’t
+have to be perfect)</p></li>
+<li><p><strong>area_scalar</strong> – optional, a scalar to multiply the area by, for fine tuning of the function’s output</p></li>
+<li><p><strong>contour_min_area</strong> – the minimal area of a contour, used for FilterContours, default is 0 (no area limit)</p></li>
+<li><p><strong>contours_process</strong> – a pipeline to run on the list of contours (optional)</p></li>
+<li><p><strong>rotated_rects_process</strong> – a pipeline to run on the list of rotated rects (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.finders.rotated_rect_finder.RotatedRectFinder.find_shapes">
+<code class="sig-name descname">find_shapes</code><span class="sig-paren">(</span><em class="sig-param">frame: Optional[numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; List[Tuple[Tuple[Union[int, float], Union[int, float]], Tuple[Union[int, float], Union[int, float]], float]]<a class="reference internal" href="_modules/gbvision/utils/finders/rotated_rect_finder.html#RotatedRectFinder.find_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.finders.rotated_rect_finder.RotatedRectFinder.find_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>finds all the objects and returns them in frame after full pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>The current frame the finder searches in</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of objects: see gbvision/constants/types</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.finders">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.utils.finders" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
