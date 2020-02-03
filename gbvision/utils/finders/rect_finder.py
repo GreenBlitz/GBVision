@@ -1,12 +1,13 @@
 from typing import List
 
-from gbvision.constants.types import Frame, Rect, Number, Point, FilterFunction
+from gbvision.constants.types import Frame, Rect, FilterFunction
 
 from .object_finder import ObjectFinder
-from gbvision.models.contours import find_contours, FilterContours, sort_contours, contours_to_rects_sorted
+from gbvision.models.contours import find_contours, contours_to_rects_sorted, FilterContours
 from gbvision.models.system import EMPTY_PIPELINE
 from gbvision.models.shapes import filter_inner_rects
-import numpy as np
+
+from gbvision.utils.shapes.base_rect import BaseRect
 
 
 class RectFinder(ObjectFinder):
@@ -22,6 +23,10 @@ class RectFinder(ObjectFinder):
     :param rects_process: a pipeline to run on the list of rects (optional)
     """
 
+    @classmethod
+    def _base_shape(cls):
+        return BaseRect
+
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
                  contours_process=EMPTY_PIPELINE, rects_process=EMPTY_PIPELINE):
         ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
@@ -36,11 +41,3 @@ class RectFinder(ObjectFinder):
 
     def find_shapes(self, frame: Frame) -> List[Rect]:
         return self._full_pipeline(frame)
-
-    @staticmethod
-    def _shape_root_area(shape: Rect) -> Number:
-        return np.sqrt(shape[2] * shape[3])
-
-    @staticmethod
-    def _shape_center(shape: Rect) -> Point:
-        return (shape[0] + shape[2]) / 2, (shape[1] + shape[3]) / 2

@@ -1,7 +1,7 @@
 import abc
 from typing import Type, List
 
-from gbvision.constants.types import Shape, Number, Rect
+from gbvision.constants.types import Shape, Number, Rect, Point
 
 
 class BaseShape(abc.ABC):
@@ -26,6 +26,16 @@ class BaseShape(abc.ABC):
         :return: the area of the shape
         """
 
+    @staticmethod
+    @abc.abstractmethod
+    def shape_center(shape: Shape) -> Point:
+        """
+        calculates the center-of-mass of the shape
+
+        :param shape: the shape
+        :return: the center of the shape
+        """
+
     @classmethod
     def shape_root_area(cls, shape: Shape) -> Number:
         """
@@ -37,27 +47,6 @@ class BaseShape(abc.ABC):
         :return: the square root of the area of the shape
         """
         return cls.shape_area(shape)
-
-    @staticmethod
-    @abc.abstractmethod
-    def to_enclosing_rect(shape: Shape) -> Rect:
-        """
-        calculates the enclosing rect of the shape
-        meaning the rect with the lowest possible area that contains the shape
-
-        :param shape: the shape
-        :return: the bounding rect of the shape
-        """
-
-    @staticmethod
-    @abc.abstractmethod
-    def from_enclosing_rect(rect: Rect) -> Shape:
-        """
-        calculates the original shape from it's bounding rect
-
-        :param rect: the shape's bounding rect
-        :return: a shape of this type, whose bounding rect is the given rect
-        """
 
     @classmethod
     def sort_shapes(cls, shapes: List[Shape]) -> List[Shape]:

@@ -1,8 +1,9 @@
 from copy import deepcopy
 
 from gbvision.models.shapes import rect_collision
-from gbvision.constants.types import Rect, Number, Point
+from gbvision.constants.types import Rect
 from .continues_shape import ContinuesShape
+from gbvision.utils.shapes.base_rect import BaseRect
 
 
 class ContinuesRect(ContinuesShape):
@@ -11,15 +12,15 @@ class ContinuesRect(ContinuesShape):
     used to try and check whether two rectangles are indeed the same one.
     """
 
+    @staticmethod
+    def _base_shape():
+        return BaseRect
+
     def __init__(self, shape: Rect, *args, **kwargs):
         ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 
     def _shape_collision(self, shape) -> bool:
         return rect_collision(self._shape, shape)
-
-    @staticmethod
-    def _shape_area(rect: Rect) -> Number:
-        return rect[2] * rect[3]
 
     @staticmethod
     def _from_bounding_rect(bounding_rect: Rect):
@@ -28,9 +29,3 @@ class ContinuesRect(ContinuesShape):
     @staticmethod
     def _to_bounding_rect(rect: Rect) -> Rect:
         return deepcopy(rect)
-
-    @staticmethod
-    def _shape_center(shape: Rect) -> Point:
-        center_x = shape[0] + shape[2] / 2
-        center_y = shape[1] + shape[3] / 2
-        return center_x, center_y

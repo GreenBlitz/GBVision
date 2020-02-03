@@ -1,8 +1,9 @@
 import numpy as np
 
 from gbvision.models.shapes import rotated_rect_collision
-from gbvision.constants.types import RotatedRect, Number, Rect, Point
+from gbvision.constants.types import RotatedRect, Rect
 from .continues_shape import ContinuesShape
+from gbvision.utils.shapes.base_rotated_rect import BaseRotatedRect
 
 
 class ContinuesRotatedRect(ContinuesShape):
@@ -11,15 +12,15 @@ class ContinuesRotatedRect(ContinuesShape):
     used to try and check whether two rotated rectangles are indeed the same one.
     """
 
+    @staticmethod
+    def _base_shape():
+        return BaseRotatedRect
+
     def __init__(self, shape: RotatedRect, *args, **kwargs):
         ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 
     def _shape_collision(self, shape) -> bool:
         return rotated_rect_collision(self._shape, shape)
-
-    @staticmethod
-    def _shape_area(rect: RotatedRect) -> Number:
-        return rect[1][0] * rect[1][1]
 
     @staticmethod
     def _from_bounding_rect(bounding_rect: Rect) -> RotatedRect:
@@ -40,7 +41,3 @@ class ContinuesRotatedRect(ContinuesShape):
         bound_x = x - bound_w / 2
         bound_y = y - bound_h / 2
         return bound_x, bound_y, bound_w, bound_h
-
-    @staticmethod
-    def _shape_center(shape: RotatedRect) -> Point:
-        return shape[0]

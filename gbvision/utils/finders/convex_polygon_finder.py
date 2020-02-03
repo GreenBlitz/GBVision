@@ -1,13 +1,11 @@
 from typing import List
 
-import cv2
-import numpy as np
-
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.constants.types import Frame, Polygon, Contour, Number, Point, FilterFunction
-from gbvision.models.contours import FilterContours, find_contours, sort_polygons, contour_center, contours_to_polygons, \
+from gbvision.constants.types import Frame, Polygon, FilterFunction
+from gbvision.models.contours import FilterContours, find_contours, sort_polygons, contours_to_polygons, \
     convex_hull_multiple
 from .object_finder import ObjectFinder
+from gbvision.utils.shapes.base_convex_polygon import BaseConvexPolygon
 
 
 class ConvexPolygonFinder(ObjectFinder):
@@ -22,6 +20,10 @@ class ConvexPolygonFinder(ObjectFinder):
     :param contours_process: a pipeline to run on the list of contours (optional)
     :param convex_polygons_process: a pipeline to run on the list of convex polygons (optional)
     """
+
+    @classmethod
+    def _base_shape(cls):
+        return BaseConvexPolygon
 
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
                  contours_process=EMPTY_PIPELINE, convex_polygons_process=EMPTY_PIPELINE):
@@ -38,11 +40,3 @@ class ConvexPolygonFinder(ObjectFinder):
 
     def find_shapes(self, frame: Frame) -> List[Polygon]:
         return self._full_pipeline(frame)
-
-    @staticmethod
-    def _shape_root_area(shape: Contour) -> Number:
-        return np.sqrt(cv2.contourArea(shape))
-
-    @staticmethod
-    def _shape_center(shape: Contour) -> Point:
-        return contour_center(shape)

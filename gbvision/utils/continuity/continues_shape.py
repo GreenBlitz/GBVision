@@ -1,6 +1,7 @@
 import abc
 
 from gbvision.constants.types import Rect, Number, Frame, Point, Shape
+from gbvision.utils.shapes.base_shape import BaseShapeType
 from gbvision.utils.tracker import Tracker
 
 
@@ -21,40 +22,34 @@ class ContinuesShape(abc.ABC):
 
     def __init__(self, shape, frame: Frame, tracker: Tracker = None, max_area_ratio=2.0,
                  max_distance_ratio=2.0):  # initialization method of the abstract class
-
         assert max_area_ratio > 1.0  # sets maximum area ratio as 1
         self._shape = shape  # shape describing the object
         self._count = 0  # the count of how many frames the object cannot be found
         self._tracker = Tracker() if tracker is None else tracker  # Tracker setup in case object is not found
         self._tracker.init(frame, self._to_bounding_rect(shape))
-        self.max_area_ratio = max_area_ratio  # setting the maximum bound to which the area difference between the two shapes can be withstanded until it declared as not the same object
+        self.max_area_ratio = max_area_ratio  # setting the maximum bound to which the area difference between the
+        # two shapes can be withstanded until it declared as not the same object
         self.max_distance_ratio = max_distance_ratio  # same goes here except it refers to distance between shapes
 
+    @staticmethod
     @abc.abstractmethod
+    def _base_shape() -> BaseShapeType:
+        """
+        returns the base shape matching this continues shape
+
+        :return: the base shape (a class that inherits from BaseShape)
+        """
+
     def _shape_collision(self, shape: Shape) -> bool:
-        """
-        a function which checks whether a shape is colliding with the current object's shape or not.
-        :param: shape: the shape which is tested
-        :return: True or False, collides or not.
-        """
+        return self._base_shape().shape_collision(self._shape, shape)
 
-    @staticmethod
-    @abc.abstractmethod
-    def _shape_area(shape: Shape) -> Number:
-        """
-        a method which calculates a shape's on-screen area
-        :param shape: the shape's area you wish to accept
-        :return: a number which expresses the shape's area on-screen in M^2
-        """
+    @classmethod
+    def _shape_area(cls, shape: Shape) -> Number:
+        return cls._base_shape().shape_area(shape)
 
-    @staticmethod
-    @abc.abstractmethod
-    def _shape_center(shape: Shape) -> Point:
-        """
-        determines a shape's center
-        :param shape: the shape's center you wish to find
-        :return: the location on-screen of the center point
-        """
+    @classmethod
+    def _shape_center(cls, shape: Shape) -> Point:
+        return cls._base_shape().shape_center(shape)
 
     @staticmethod
     @abc.abstractmethod

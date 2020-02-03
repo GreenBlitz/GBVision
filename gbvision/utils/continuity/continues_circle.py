@@ -1,8 +1,9 @@
 import numpy as np
 
 from gbvision.models.shapes import circle_collision
-from gbvision.constants.types import Rect, Number, Circle, Point
+from gbvision.constants.types import Rect, Circle
 from .continues_shape import ContinuesShape
+from gbvision.utils.shapes.base_circle import BaseCircle
 
 
 class ContinuesCircle(ContinuesShape):
@@ -12,18 +13,14 @@ class ContinuesCircle(ContinuesShape):
     """
 
     @staticmethod
-    def _shape_center(shape) -> Point:
-        return shape[0]
+    def _base_shape():
+        return BaseCircle
 
     def __init__(self, shape: Circle, *args, **kwargs):
         ContinuesShape.__init__(self, shape, *args, **kwargs)
 
     def _shape_collision(self, shape) -> bool:
         return circle_collision(self._shape, shape)
-
-    @staticmethod
-    def _shape_area(shape: Circle) -> Number:
-        return np.pi * shape[1] * shape[1]
 
     @staticmethod
     def _from_bounding_rect(bounding_rect) -> Circle:

@@ -1,12 +1,12 @@
 from typing import List
 
-import numpy as np
-from gbvision.constants.types import Frame, RotatedRect, Number, Point, FilterFunction
+from gbvision.constants.types import Frame, RotatedRect, FilterFunction
 
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.models.contours import find_contours, FilterContours, sort_contours, contours_to_rotated_rects_sorted
+from gbvision.models.contours import find_contours, FilterContours, contours_to_rotated_rects_sorted
 from gbvision.models.shapes import filter_inner_rotated_rects
 from .object_finder import ObjectFinder
+from gbvision.utils.shapes.base_rotated_rect import BaseRotatedRect
 
 
 class RotatedRectFinder(ObjectFinder):
@@ -22,6 +22,10 @@ class RotatedRectFinder(ObjectFinder):
     :param rotated_rects_process: a pipeline to run on the list of rotated rects (optional)
     """
 
+    @classmethod
+    def _base_shape(cls):
+        return BaseRotatedRect
+
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
                  contours_process=EMPTY_PIPELINE, rotated_rects_process=EMPTY_PIPELINE):
         ObjectFinder.__init__(self, game_object, area_scalar=area_scalar)
@@ -36,11 +40,3 @@ class RotatedRectFinder(ObjectFinder):
 
     def find_shapes(self, frame: Frame) -> List[RotatedRect]:
         return self._full_pipeline(frame)
-
-    @staticmethod
-    def _shape_root_area(shape: RotatedRect) -> Number:
-        return np.sqrt(shape[1][0] * shape[1][1])
-
-    @staticmethod
-    def _shape_center(shape: RotatedRect) -> Point:
-        return shape[0]

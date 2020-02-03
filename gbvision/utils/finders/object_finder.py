@@ -5,6 +5,7 @@ from gbvision.utils.cameras.camera import Camera
 
 from gbvision.constants.types import Frame, Location, Number, Point, Shape
 from gbvision.utils.game_object import GameObject
+from gbvision.utils.shapes.base_shape import BaseShapeType
 
 
 class ObjectFinder(abc.ABC):
@@ -31,6 +32,15 @@ class ObjectFinder(abc.ABC):
         """
         return self.locations_from_shapes(self.find_shapes(frame), camera)
 
+    @classmethod
+    @abc.abstractmethod
+    def _base_shape(cls) -> BaseShapeType:
+        """
+        returns the base shape matching this finder
+
+        :return: the base shape (a class that inherits from BaseShape)
+        """
+
     @abc.abstractmethod
     def find_shapes(self, frame: Frame) -> List[Shape]:
         """
@@ -40,25 +50,13 @@ class ObjectFinder(abc.ABC):
         :return: A list of objects: see gbvision/constants/types
         """
 
-    @staticmethod
-    @abc.abstractmethod
-    def _shape_root_area(shape: Shape) -> Number:
-        """
-        calculates the square root of the area of a shape, to be used by the api
+    @classmethod
+    def _shape_root_area(cls, shape: Shape) -> Number:
+        return cls._base_shape().shape_root_area(shape)
 
-        :param shape: the shape
-        :return: the area
-        """
-
-    @staticmethod
-    @abc.abstractmethod
-    def _shape_center(shape: Shape) -> Point:
-        """
-        finds the center of the shape, to be used by the api
-
-        :param shape: the shape
-        :return: the center of the shape
-        """
+    @classmethod
+    def _shape_center(cls, shape: Shape) -> Point:
+        return cls._base_shape().shape_center(shape)
 
     def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """
