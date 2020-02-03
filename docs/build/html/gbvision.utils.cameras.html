@@ -1,0 +1,1100 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.cameras package &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">gbvision.utils.cameras package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.async_camera">gbvision.utils.cameras.async_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.async_usb_camera">gbvision.utils.cameras.async_usb_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.camera">gbvision.utils.cameras.camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.camera_data">gbvision.utils.cameras.camera_data module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.camera_list">gbvision.utils.cameras.camera_list module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.empty_camera">gbvision.utils.cameras.empty_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.stream_camera">gbvision.utils.cameras.stream_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.usb_camera">gbvision.utils.cameras.usb_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras.usb_stream_camera">gbvision.utils.cameras.usb_stream_camera module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.cameras">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>gbvision.utils.cameras package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gbvision.utils.cameras.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbvision-utils-cameras-package">
+<h1>gbvision.utils.cameras package<a class="headerlink" href="#gbvision-utils-cameras-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.utils.cameras.async_camera">
+<span id="gbvision-utils-cameras-async-camera-module"></span><h2>gbvision.utils.cameras.async_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.async_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.async_camera.AsyncCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.async_camera.</code><code class="sig-name descname">AsyncCamera</code><a class="reference internal" href="_modules/gbvision/utils/cameras/async_camera.html#AsyncCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.async_camera.AsyncCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.camera.Camera" title="gbvision.utils.cameras.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.camera.Camera</span></code></a>, <a class="reference internal" href="gbvision.utils.html#gbvision.utils.async_readable.AsyncReadable" title="gbvision.utils.async_readable.AsyncReadable"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.async_readable.AsyncReadable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>an abstract class that represents an async camera
+the async camera is similar to a regular camera, but executes the read actions on another thread
+thus not blocking the processing thread</p>
+<p>you will usually want to inherit from this class and from another camera class in order to use the async functionality
+for example:</p>
+<dl class="simple">
+<dt>Example::</dt><dd><dl class="simple">
+<dt>class AsyncUSBCamera(AsyncCamera, USBCamera):</dt><dd><dl class="simple">
+<dt>def _read(self) -&gt; Tuple[bool, Frame]:</dt><dd><p>return USBCamera.read(self)</p>
+</dd>
+<dt>def __init__(self, port, data=UNKNOWN_CAMERA):</dt><dd><p>USBCamera.__init__(self, port, data)
+AsyncCamera.__init__(self)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.async_usb_camera">
+<span id="gbvision-utils-cameras-async-usb-camera-module"></span><h2>gbvision.utils.cameras.async_usb_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.async_usb_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.async_usb_camera.AsyncUSBCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.async_usb_camera.</code><code class="sig-name descname">AsyncUSBCamera</code><span class="sig-paren">(</span><em class="sig-param">port</em>, <em class="sig-param">data=UNKNOWN_CAMERA</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/async_usb_camera.html#AsyncUSBCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.async_usb_camera.AsyncUSBCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.async_camera.AsyncCamera" title="gbvision.utils.cameras.async_camera.AsyncCamera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.async_camera.AsyncCamera</span></code></a>, <a class="reference internal" href="#gbvision.utils.cameras.usb_camera.USBCamera" title="gbvision.utils.cameras.usb_camera.USBCamera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.usb_camera.USBCamera</span></code></a></p>
+<p>A simple async usb camera</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.camera">
+<span id="gbvision-utils-cameras-camera-module"></span><h2>gbvision.utils.cameras.camera module<a class="headerlink" href="#module-gbvision.utils.cameras.camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.camera.Camera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.camera.</code><code class="sig-name descname">Camera</code><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gbvision.utils.html#gbvision.utils.readable.Readable" title="gbvision.utils.readable.Readable"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.readable.Readable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>an abstract class representing a camera</p>
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.get_data">
+<em class="property">abstract </em><code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>this camera’s constant descriptor (must be the real descriptor, can’t be a copy)             when the values of this descriptor are changed, the values of the real camera descriptor must also change</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.get_height">
+<em class="property">abstract </em><code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the height of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.get_width">
+<em class="property">abstract </em><code class="sig-name descname">get_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the width of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.is_opened">
+<em class="property">abstract </em><code class="sig-name descname">is_opened</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.is_opened"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.is_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera can be read from</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the camera can be read from, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.release">
+<em class="property">abstract </em><code class="sig-name descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>closes the handle to this camera, if it is not necessary please override this method to a blank method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.rescale">
+<code class="sig-name descname">rescale</code><span class="sig-paren">(</span><em class="sig-param">factor: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>rescale the size of the frames read from this camera by a factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>factor</strong> – the rescaling factor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.resize">
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">fx: float</em>, <em class="sig-param">fy: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>rescale the size of the frames read from this camera by different width and height factors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> – the width factor</p></li>
+<li><p><strong>fy</strong> – the height factor</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.set_auto_exposure">
+<em class="property">abstract </em><code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto: Union[int, float, bool]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s auto exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>auto</strong> – the new auto exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.set_exposure">
+<em class="property">abstract </em><code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure: Union[int, float, bool]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.set_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exposure</strong> – the new exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.set_frame_size">
+<code class="sig-name descname">set_frame_size</code><span class="sig-paren">(</span><em class="sig-param">width: int</em>, <em class="sig-param">height: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.set_frame_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.set_frame_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset the width and height of frames read from this camera to given values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – the new width</p></li>
+<li><p><strong>height</strong> – the new height</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.camera_data">
+<span id="gbvision-utils-cameras-camera-data-module"></span><h2>gbvision.utils.cameras.camera_data module<a class="headerlink" href="#module-gbvision.utils.cameras.camera_data" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.camera_data.CameraData">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.camera_data.</code><code class="sig-name descname">CameraData</code><span class="sig-paren">(</span><em class="sig-param">focal_length</em>, <em class="sig-param">fov</em>, <em class="sig-param">pitch_angle=0</em>, <em class="sig-param">yaw_angle=0</em>, <em class="sig-param">roll_angle=0</em>, <em class="sig-param">x_offset=0</em>, <em class="sig-param">y_offset=0</em>, <em class="sig-param">z_offset=0</em>, <em class="sig-param">is_immutable=False</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>describes constant about a camera in it’s default state used to approximate distance
+between the camera and an object seen in a frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>focal_length</strong> – <p>the focal length of the camera at it’s default state, in units of pixels
+can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it’s
+distance from the camera and divided by the square root of it’s surface</p>
+<p>FOCAL_LENGTH = :math:’ sqrt(P) * D / sqrt(S)’</p>
+<p>where P is the amount of pixels in the frame representing the object,
+D is the real life distance between the object and the camera
+S is the real life surface area (in 2d projection) of the object
+note that this is a constant, whatever object you choose to use, this formula will yield the same result</p>
+</p></li>
+<li><p><strong>fov</strong> – <p>half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
+of the camera, so that the entire object is captured and it’s center is at the frame’s center.
+the tangent of the angle can be described as the width of the object in real life, divided by the
+product of the object’s distance from the camera in real life and the ratio between the width of the frame
+in pixels and the width of the object in the frame, also in pixels</p>
+<p>:math:’tan(FOV) = (Wm) / (D * (Wp/Wf))’</p>
+<p>where Wm is the real life width of the object
+D is the real life distance between the object and the camera
+Wp is the width of the object in the frame (pixels unit)
+Wf is the width of the frame (pixels unit)
+to calculate the FOV just apply the inverse tangent</p>
+<p>FOV = :math:’arctan(tan(FOV))’</p>
+</p></li>
+<li><p><strong>yaw_angle</strong> – the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
+it’s output only affects the x and z axises.
+set this variable when the camera is rotated around the y axis and you want the output of finder functions
+to represent the original space, rather then the rotated one.</p></li>
+<li><p><strong>pitch_angle</strong> – the clockwise pitch angle (in radians) in which the camera is rotated, the pitch angle is the angle around the x axis,
+it’s output only affects the y and z axises.
+set this variable when the camera is rotated around the x axis and you want the output of finder functions
+to represent the original space, rather then the rotated one.</p></li>
+<li><p><strong>roll_angle</strong> – the clockwise roll angle (in radians) in which the camera is rotated, the roll angle is the angle around the z axis,
+it’s output only affects the x and y axises.
+set this variable when the camera is rotated around the z axis and you want the output of finder functions
+to represent the original space, rather then the rotated one.</p></li>
+<li><p><strong>x_offset</strong> – the x offset in which the camera is placed
+the distance from the measuring point (usually the center of the robot) to the camera on the x axis (left/right),
+if the camera is to the right this should be positive and if it is left this should be negative</p></li>
+<li><p><strong>y_offset</strong> – the y offset in which the camera is placed
+the distance from the measuring point to the camera on the y axis (up/down), if the camera is above the measuring point
+this variable should be positive and if it is below this should be negative</p></li>
+<li><p><strong>z_offset</strong> – the z offset in which the camera is placed
+the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point
+this variable should be positive and if it is inner this should be negative</p></li>
+<li><p><strong>is_immutable</strong> – determines whether the camera data object’s values are immutable (True) or mutable (False)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.as_immutable">
+<code class="sig-name descname">as_immutable</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.as_immutable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.as_immutable" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates and returns an immutable copy of this camera data
+if this instance is already immutable it will return this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an instance of CameraData, with the same values as this instance but immutable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a mutable copy of this and returns it
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.is_immutable">
+<code class="sig-name descname">is_immutable</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.is_immutable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.is_immutable" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if this camera data instance is immutable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if this is immutable, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.move_x">
+<code class="sig-name descname">move_x</code><span class="sig-paren">(</span><em class="sig-param">x: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.move_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.move_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>moves this camera data’s x axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – the x offset to move by</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the x axis moved             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.move_y">
+<code class="sig-name descname">move_y</code><span class="sig-paren">(</span><em class="sig-param">y: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.move_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.move_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>moves this camera data’s y axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y</strong> – the y offset to move by</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the y axis moved             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.move_z">
+<code class="sig-name descname">move_z</code><span class="sig-paren">(</span><em class="sig-param">z: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.move_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.move_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>moves this camera data’s z axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>z</strong> – the z offset to move by</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the z axis moved             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.rotate_pitch">
+<code class="sig-name descname">rotate_pitch</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.rotate_pitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.rotate_pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>rotates the camera’s angle around the pitch axis (the x axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the pitch angle rotated             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.rotate_roll">
+<code class="sig-name descname">rotate_roll</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.rotate_roll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.rotate_roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>rotates the camera’s angle around the roll axis (the z axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the roll angle rotated             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.rotate_yaw">
+<code class="sig-name descname">rotate_yaw</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.rotate_yaw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.rotate_yaw" title="Permalink to this definition">¶</a></dt>
+<dd><p>rotates the camera’s angle around the yaw axis (the y axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the yaw angle rotated             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_pitch_angle">
+<code class="sig-name descname">set_pitch_angle</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_pitch_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_pitch_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s angle around the pitch axis (the x axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the pitch angle changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_roll_angle">
+<code class="sig-name descname">set_roll_angle</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_roll_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_roll_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s angle around the roll axis (the z axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the roll angle changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_x_offset">
+<code class="sig-name descname">set_x_offset</code><span class="sig-paren">(</span><em class="sig-param">x: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_x_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_x_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets this camera data’s x axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – the new x offset</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the x axis changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_y_offset">
+<code class="sig-name descname">set_y_offset</code><span class="sig-paren">(</span><em class="sig-param">y: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_y_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_y_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets this camera data’s y axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y</strong> – the new y offset</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the y axis changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_yaw_angle">
+<code class="sig-name descname">set_yaw_angle</code><span class="sig-paren">(</span><em class="sig-param">angle: float</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_yaw_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_yaw_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s angle around the yaw axis (the y axis)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – the rotation angle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the yaw angle changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_data.CameraData.set_z_offset">
+<code class="sig-name descname">set_z_offset</code><span class="sig-paren">(</span><em class="sig-param">z: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_data.html#CameraData.set_z_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_data.CameraData.set_z_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets this camera data’s z axis offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>z</strong> – the new z offset</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a camera data instance with the same params as this but with the z axis changed             if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.camera_list">
+<span id="gbvision-utils-cameras-camera-list-module"></span><h2>gbvision.utils.cameras.camera_list module<a class="headerlink" href="#module-gbvision.utils.cameras.camera_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.camera_list.CameraList">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.camera_list.</code><code class="sig-name descname">CameraList</code><span class="sig-paren">(</span><em class="sig-param">cameras: List[gbvision.utils.cameras.camera.Camera], select_cam: int = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.camera.Camera" title="gbvision.utils.cameras.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.camera.Camera</span></code></a></p>
+<p>behaves as both a camera and a list of cameras
+camera list holds in it a list of cameras referenced as the field cameras
+and also a single camera to be the current camera used for every operation on the camera list
+as a single camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cameras</strong> – list of the cameras which will be part of the camera list
+you can also add and remove cameras later using the</p></li>
+<li><p><strong>select_cam</strong> – optional, an initial camera to be selected, if not set default camera is the first
+one in the list</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.add_camera">
+<code class="sig-name descname">add_camera</code><span class="sig-paren">(</span><em class="sig-param">cam: gbvision.utils.cameras.camera.Camera</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.add_camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.add_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds a new camera to the end of the list
+:param cam: the new camera</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.default">
+<code class="sig-name descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.default" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the selected camera to the default camera (first camera in the list)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[gbvision.utils.cameras.camera_data.CameraData, Generator[gbvision.utils.cameras.camera_data.CameraData, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>this camera’s constant descriptor (must be the real descriptor, can’t be a copy)             when the values of this descriptor are changed, the values of the real camera descriptor must also change</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[int, Generator[int, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the height of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.get_width">
+<code class="sig-name descname">get_width</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[int, Generator[int, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the width of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.is_opened">
+<code class="sig-name descname">is_opened</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.is_opened"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.is_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera can be read from</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the camera can be read from, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.is_streaming">
+<code class="sig-name descname">is_streaming</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.is_streaming"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.is_streaming" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[Tuple[bool, Optional[numpy.ndarray]], Generator[Tuple[bool, Optional[numpy.ndarray]], Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads from the readable and returns the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False, None if the operation was unsuccessful, else True, frame_result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.release">
+<code class="sig-name descname">release</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>closes the handle to this camera, if it is not necessary please override this method to a blank method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.rescale">
+<code class="sig-name descname">rescale</code><span class="sig-paren">(</span><em class="sig-param">factor</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>rescale the size of the frames read from this camera by a factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>factor</strong> – the rescaling factor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.resize">
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">x_factor</em>, <em class="sig-param">y_factor</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>rescale the size of the frames read from this camera by different width and height factors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fx</strong> – the width factor</p></li>
+<li><p><strong>fy</strong> – the height factor</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.select_camera">
+<code class="sig-name descname">select_camera</code><span class="sig-paren">(</span><em class="sig-param">index: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.select_camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.select_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the selected camera to be the camera at the index
+:param index: the new selected camera’s index</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure">
+<code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s auto exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>auto</strong> – the new auto exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.set_exposure">
+<code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exposure</strong> – the new exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.set_frame_size">
+<code class="sig-name descname">set_frame_size</code><span class="sig-paren">(</span><em class="sig-param">width</em>, <em class="sig-param">height</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_frame_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_frame_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset the width and height of frames read from this camera to given values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – the new width</p></li>
+<li><p><strong>height</strong> – the new height</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.toggle_stream">
+<code class="sig-name descname">toggle_stream</code><span class="sig-paren">(</span><em class="sig-param">should_stream</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.toggle_stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.toggle_stream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.empty_camera">
+<span id="gbvision-utils-cameras-empty-camera-module"></span><h2>gbvision.utils.cameras.empty_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.empty_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.empty_camera.</code><code class="sig-name descname">EmptyCamera</code><span class="sig-paren">(</span><em class="sig-param">data: gbvision.utils.cameras.camera_data.CameraData</em>, <em class="sig-param">width: int</em>, <em class="sig-param">height: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.camera.Camera" title="gbvision.utils.cameras.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.camera.Camera</span></code></a></p>
+<p>a camera class used for testing, it cannot be read from but can be used for location finding with finders and game     objects, also used for measuring of distances when using streams instead of cameras to read frames</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – the camera’s CameraData object, should match the fake camera’s data</p></li>
+<li><p><strong>width</strong> – the width of a frame read from the fake camera</p></li>
+<li><p><strong>height</strong> – the height of a frame read from the fake camera</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; gbvision.utils.cameras.camera_data.CameraData<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>this camera’s constant descriptor (must be the real descriptor, can’t be a copy)             when the values of this descriptor are changed, the values of the real camera descriptor must also change</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the height of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.get_width">
+<code class="sig-name descname">get_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the width of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.is_opened">
+<code class="sig-name descname">is_opened</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.is_opened"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.is_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera can be read from</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the camera can be read from, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[bool, Optional[numpy.ndarray]]<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads from the readable and returns the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False, None if the operation was unsuccessful, else True, frame_result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.release">
+<code class="sig-name descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>closes the handle to this camera, if it is not necessary please override this method to a blank method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.set_auto_exposure">
+<code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto: Union[int, float, bool]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s auto exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>auto</strong> – the new auto exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.set_exposure">
+<code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure: Union[int, float, bool]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.set_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exposure</strong> – the new exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.stream_camera">
+<span id="gbvision-utils-cameras-stream-camera-module"></span><h2>gbvision.utils.cameras.stream_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.stream_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.stream_camera.SimpleStreamCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.stream_camera.</code><code class="sig-name descname">SimpleStreamCamera</code><span class="sig-paren">(</span><em class="sig-param">broadcaster: gbvision.utils.net.stream_broadcaster.StreamBroadcaster</em>, <em class="sig-param">should_stream=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#SimpleStreamCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.SimpleStreamCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.stream_camera.StreamCamera" title="gbvision.utils.cameras.stream_camera.StreamCamera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.stream_camera.StreamCamera</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>a simple abstract camera that uses a gbvision.StreamBroadcaster to send streams
+this class is abstract and cannot exist on it’s own, you must inherit from it and implement the _read method</p>
+<p>for example:</p>
+<dl class="simple">
+<dt>Example::</dt><dd><dl class="simple">
+<dt>class USBStreamCamera(SimpleStreamCamera, USBCamera):</dt><dd><dl class="simple">
+<dt>def _read(self) -&gt; Tuple[bool, Frame]:</dt><dd><p>return USBCamera.read(self)</p>
+</dd>
+<dt>def __init__(self, broadcaster, port, data=UNKNOWN_CAMERA):</dt><dd><p>SimpleStreamCamera.__init__(self, broadcaster)
+USBCamera.__init__(port, data)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.cameras.stream_camera.SimpleStreamCamera.is_streaming">
+<code class="sig-name descname">is_streaming</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#SimpleStreamCamera.is_streaming"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.SimpleStreamCamera.is_streaming" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera is currently streaming</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if camera is streaming, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.stream_camera.SimpleStreamCamera.toggle_stream">
+<code class="sig-name descname">toggle_stream</code><span class="sig-paren">(</span><em class="sig-param">should_stream: bool</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#SimpleStreamCamera.toggle_stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.SimpleStreamCamera.toggle_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>turn on or off the stream feature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>should_stream</strong> – True to activate stream, False to deactivate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gbvision.utils.cameras.stream_camera.StreamCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.stream_camera.</code><code class="sig-name descname">StreamCamera</code><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#StreamCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.StreamCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.camera.Camera" title="gbvision.utils.cameras.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.camera.Camera</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>an abstract class that represents a streaming camera
+the streaming camera is very similar to a regular camera, but has an option
+which allows it to stream the frames when it reads them</p>
+<dl class="method">
+<dt id="gbvision.utils.cameras.stream_camera.StreamCamera.is_streaming">
+<em class="property">abstract </em><code class="sig-name descname">is_streaming</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#StreamCamera.is_streaming"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.StreamCamera.is_streaming" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera is currently streaming</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if camera is streaming, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.stream_camera.StreamCamera.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#StreamCamera.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.StreamCamera.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads from the readable and returns the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False, None if the operation was unsuccessful, else True, frame_result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.stream_camera.StreamCamera.toggle_stream">
+<em class="property">abstract </em><code class="sig-name descname">toggle_stream</code><span class="sig-paren">(</span><em class="sig-param">should_stream: bool</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/stream_camera.html#StreamCamera.toggle_stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.stream_camera.StreamCamera.toggle_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>turn on or off the stream feature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>should_stream</strong> – True to activate stream, False to deactivate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.usb_camera">
+<span id="gbvision-utils-cameras-usb-camera-module"></span><h2>gbvision.utils.cameras.usb_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.usb_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.usb_camera.</code><code class="sig-name descname">USBCamera</code><span class="sig-paren">(</span><em class="sig-param">port: int</em>, <em class="sig-param">data: gbvision.utils.cameras.camera_data.CameraData = UNKNOWN_CAMERA</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cv2.VideoCapture</span></code>, <a class="reference internal" href="#gbvision.utils.cameras.camera.Camera" title="gbvision.utils.cameras.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.camera.Camera</span></code></a></p>
+<p>a basic usb connected camera which inherits from cv2 VideoCapture</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – the usb port to which the camera is connected</p></li>
+<li><p><strong>data</strong> – the camera data object that describes this camera</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>this camera’s constant descriptor (must be the real descriptor, can’t be a copy)             when the values of this descriptor are changed, the values of the real camera descriptor must also change</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the height of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.get_width">
+<code class="sig-name descname">get_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the width of a frame read from this camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.is_opened">
+<code class="sig-name descname">is_opened</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.is_opened"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.is_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the camera can be read from</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the camera can be read from, otherwise False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.set_auto_exposure">
+<code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s auto exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>auto</strong> – the new auto exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.set_exposure">
+<code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.set_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the camera’s exposure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exposure</strong> – the new exposure</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras.usb_stream_camera">
+<span id="gbvision-utils-cameras-usb-stream-camera-module"></span><h2>gbvision.utils.cameras.usb_stream_camera module<a class="headerlink" href="#module-gbvision.utils.cameras.usb_stream_camera" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.cameras.usb_stream_camera.USBStreamCamera">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.cameras.usb_stream_camera.</code><code class="sig-name descname">USBStreamCamera</code><span class="sig-paren">(</span><em class="sig-param">broadcaster</em>, <em class="sig-param">port</em>, <em class="sig-param">should_stream=False</em>, <em class="sig-param">data=UNKNOWN_CAMERA</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_stream_camera.html#USBStreamCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_stream_camera.USBStreamCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.cameras.stream_camera.SimpleStreamCamera" title="gbvision.utils.cameras.stream_camera.SimpleStreamCamera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.stream_camera.SimpleStreamCamera</span></code></a>, <a class="reference internal" href="#gbvision.utils.cameras.usb_camera.USBCamera" title="gbvision.utils.cameras.usb_camera.USBCamera"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.cameras.usb_camera.USBCamera</span></code></a></p>
+<p>a simple USB stream camera</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.cameras">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.utils.cameras" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.thresholds.color_threshold &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.thresholds.color_threshold</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.thresholds.color_threshold</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.utils.thresholds.threshold</span> <span class="kn">import</span> <span class="n">Threshold</span>
+
+
+<div class="viewcode-block" id="bgr_threshold"><a class="viewcode-back" href="../../../../gbvision.utils.thresholds.html#gbvision.utils.thresholds.color_threshold.bgr_threshold">[docs]</a><span class="k">def</span> <span class="nf">bgr_threshold</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">green</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">blue</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">green</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">blue</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div>
+
+
+<span class="k">class</span> <span class="nc">__ColorThresholdFunction</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_type</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color_type</span> <span class="o">=</span> <span class="n">color_type</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bgr_threshold</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+
+<span class="n">hls_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HLS</span><span class="p">)</span>
+<span class="n">hsv_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+<span class="n">rgb_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+<span class="n">luv_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2LUV</span><span class="p">)</span>
+<span class="n">lab_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2LAB</span><span class="p">)</span>
+<span class="n">yuv_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YUV</span><span class="p">)</span>
+<span class="n">xyz_threshold</span> <span class="o">=</span> <span class="n">__ColorThresholdFunction</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2XYZ</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="gray_threshold"><a class="viewcode-back" href="../../../../gbvision.utils.thresholds.html#gbvision.utils.thresholds.color_threshold.gray_threshold">[docs]</a><span class="k">def</span> <span class="nf">gray_threshold</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<span class="n">_THRESHOLD_NAME_TABLE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;BGR&#39;</span><span class="p">:</span> <span class="n">bgr_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;RGB&#39;</span><span class="p">:</span> <span class="n">rgb_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;HLS&#39;</span><span class="p">:</span> <span class="n">hls_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;HSV&#39;</span><span class="p">:</span> <span class="n">hsv_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;LUV&#39;</span><span class="p">:</span> <span class="n">luv_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;LAB&#39;</span><span class="p">:</span> <span class="n">lab_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;YUV&#39;</span><span class="p">:</span> <span class="n">yuv_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;XYZ&#39;</span><span class="p">:</span> <span class="n">xyz_threshold</span><span class="p">,</span>
+    <span class="s1">&#39;GRAY&#39;</span><span class="p">:</span> <span class="n">gray_threshold</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="ColorThreshold"><a class="viewcode-back" href="../../../../gbvision.utils.thresholds.html#gbvision.utils.thresholds.color_threshold.ColorThreshold">[docs]</a><span class="k">class</span> <span class="nc">ColorThreshold</span><span class="p">(</span><span class="n">Threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    a class that represents a function that maps from an image to a binary image</span>
+<span class="sd">    where 255 states that the pixel at the original image was in a range represented by the threshold object</span>
+<span class="sd">    and 0 states the pixel was out of the range</span>
+<span class="sd">    for example:</span>
+<span class="sd">    Threshold([[200, 255], [0, 50], [0, 50]], &#39;RGB&#39;)</span>
+<span class="sd">    the above threshold represents a relatively red pixel. when an image is filtered by it, every pixel that is</span>
+<span class="sd">    relatively red will be given the value 255, and every pixel that isn&#39;t will be given the value of 0</span>
+
+
+<span class="sd">    :param pixel_range: the threshold parameters, as a list of integers</span>
+<span class="sd">    in the shape of 3x2 for a color image and 1x2 for a gray image</span>
+<span class="sd">    :param thresh_type: a string, the type of color encoding to transform the image before applying the range test \</span>
+<span class="sd">        binary filter \</span>
+<span class="sd">        can be selected from the given list: \</span>
+<span class="sd">        &#39;BGR&#39;: default opencv color encoding (no change) \</span>
+<span class="sd">        &#39;RGB&#39;: default opencv color encoding in reverse \</span>
+<span class="sd">        &#39;HLS&#39;: hue, luminous, saturation \</span>
+<span class="sd">        &#39;HSV&#39;: hue, saturation, value \</span>
+<span class="sd">        &#39;LUV&#39;: https://en.wikipedia.org/wiki/CIELUV \</span>
+<span class="sd">        &#39;LAB&#39;: https://en.wikipedia.org/wiki/CIELAB_color_space \</span>
+<span class="sd">        &#39;YUV&#39;: https://en.wikipedia.org/wiki/YUV \</span>
+<span class="sd">        &#39;XYZ&#39;: https://en.wikipedia.org/wiki/CIE_1931_color_space \</span>
+<span class="sd">        &#39;GRAY&#39;: grayscale images (single channel), image presented doesn&#39;t have to be gray, the threshold will convert it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">THRESH_TYPE_BGR</span> <span class="o">=</span> <span class="s1">&#39;BGR&#39;</span>
+    <span class="n">THRESH_TYPE_RGB</span> <span class="o">=</span> <span class="s1">&#39;RGB&#39;</span>
+    <span class="n">THRESH_TYPE_HLS</span> <span class="o">=</span> <span class="s1">&#39;HLS&#39;</span>
+    <span class="n">THRESH_TYPE_HSV</span> <span class="o">=</span> <span class="s1">&#39;HSV&#39;</span>
+    <span class="n">THRESH_TYPE_LUV</span> <span class="o">=</span> <span class="s1">&#39;LUV&#39;</span>
+    <span class="n">THRESH_TYPE_LAB</span> <span class="o">=</span> <span class="s1">&#39;LAB&#39;</span>
+    <span class="n">THRESH_TYPE_YUV</span> <span class="o">=</span> <span class="s1">&#39;YUV&#39;</span>
+    <span class="n">THRESH_TYPE_XYZ</span> <span class="o">=</span> <span class="s1">&#39;XYZ&#39;</span>
+    <span class="n">THRESH_TYPE_GRAY</span> <span class="o">=</span> <span class="s1">&#39;GRAY&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pixel_range</span><span class="p">,</span> <span class="n">thresh_type</span><span class="o">=</span><span class="s1">&#39;HSV&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">thresh_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">_THRESHOLD_NAME_TABLE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">pixel_range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">thresh_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        the amount of parameters is equal to the amount of channels</span>
+
+<span class="sd">        :return: 1 if the threshold is for grayscale images, 3 if it is for color images</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the item&#39;th channel&#39;s range</span>
+
+<span class="sd">        :param item: the index</span>
+<span class="sd">        :return: the range of the pixel in the item&#39;th channel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the key&#39;th channel&#39;s range to value</span>
+
+<span class="sd">        :param key: the channel</span>
+<span class="sd">        :param value: an array of 2 integers, the lower and upper bounds of the pixel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: an iterator that iterates through the channel ranges</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        activates the threshold filter on the given image</span>
+<span class="sd">        :param frame: the image to activate the threshold on</span>
+<span class="sd">        :return: a binary image, the frame after the threshold filter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_THRESHOLD_NAME_TABLE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">](</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{self}</span><span class="s1">&gt;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ColorThreshold(</span><span class="si">{self.params}</span><span class="s2">, &#39;</span><span class="si">{self.type}</span><span class="s2">&#39;)&quot;</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

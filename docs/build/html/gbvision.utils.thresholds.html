@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.thresholds package &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">gbvision.utils.thresholds package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.thresholds.color_threshold">gbvision.utils.thresholds.color_threshold module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.thresholds.threshold">gbvision.utils.thresholds.threshold module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.thresholds">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>gbvision.utils.thresholds package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gbvision.utils.thresholds.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gbvision-utils-thresholds-package">
+<h1>gbvision.utils.thresholds package<a class="headerlink" href="#gbvision-utils-thresholds-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gbvision.utils.thresholds.color_threshold">
+<span id="gbvision-utils-thresholds-color-threshold-module"></span><h2>gbvision.utils.thresholds.color_threshold module<a class="headerlink" href="#module-gbvision.utils.thresholds.color_threshold" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.thresholds.color_threshold.</code><code class="sig-name descname">ColorThreshold</code><span class="sig-paren">(</span><em class="sig-param">pixel_range</em>, <em class="sig-param">thresh_type='HSV'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/thresholds/color_threshold.html#ColorThreshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.thresholds.threshold.Threshold" title="gbvision.utils.thresholds.threshold.Threshold"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.thresholds.threshold.Threshold</span></code></a></p>
+<p>a class that represents a function that maps from an image to a binary image
+where 255 states that the pixel at the original image was in a range represented by the threshold object
+and 0 states the pixel was out of the range
+for example:
+Threshold([[200, 255], [0, 50], [0, 50]], ‘RGB’)
+the above threshold represents a relatively red pixel. when an image is filtered by it, every pixel that is
+relatively red will be given the value 255, and every pixel that isn’t will be given the value of 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pixel_range</strong> – the threshold parameters, as a list of integers</p>
+</dd>
+</dl>
+<p>in the shape of 3x2 for a color image and 1x2 for a gray image
+:param thresh_type: a string, the type of color encoding to transform the image before applying the range test         binary filter         can be selected from the given list:         ‘BGR’: default opencv color encoding (no change)         ‘RGB’: default opencv color encoding in reverse         ‘HLS’: hue, luminous, saturation         ‘HSV’: hue, saturation, value         ‘LUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELUV">https://en.wikipedia.org/wiki/CIELUV</a>         ‘LAB’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">https://en.wikipedia.org/wiki/CIELAB_color_space</a>         ‘YUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/YUV">https://en.wikipedia.org/wiki/YUV</a>         ‘XYZ’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>         ‘GRAY’: grayscale images (single channel), image presented doesn’t have to be gray, the threshold will convert it</p>
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_BGR">
+<code class="sig-name descname">THRESH_TYPE_BGR</code><em class="property"> = 'BGR'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_BGR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_GRAY">
+<code class="sig-name descname">THRESH_TYPE_GRAY</code><em class="property"> = 'GRAY'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_GRAY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_HLS">
+<code class="sig-name descname">THRESH_TYPE_HLS</code><em class="property"> = 'HLS'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_HLS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_HSV">
+<code class="sig-name descname">THRESH_TYPE_HSV</code><em class="property"> = 'HSV'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_HSV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_LAB">
+<code class="sig-name descname">THRESH_TYPE_LAB</code><em class="property"> = 'LAB'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_LAB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_LUV">
+<code class="sig-name descname">THRESH_TYPE_LUV</code><em class="property"> = 'LUV'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_LUV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_RGB">
+<code class="sig-name descname">THRESH_TYPE_RGB</code><em class="property"> = 'RGB'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_RGB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_XYZ">
+<code class="sig-name descname">THRESH_TYPE_XYZ</code><em class="property"> = 'XYZ'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_XYZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_YUV">
+<code class="sig-name descname">THRESH_TYPE_YUV</code><em class="property"> = 'YUV'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_YUV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gbvision.utils.thresholds.color_threshold.bgr_threshold">
+<code class="sig-prename descclassname">gbvision.utils.thresholds.color_threshold.</code><code class="sig-name descname">bgr_threshold</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/thresholds/color_threshold.html#bgr_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.bgr_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gbvision.utils.thresholds.color_threshold.gray_threshold">
+<code class="sig-prename descclassname">gbvision.utils.thresholds.color_threshold.</code><code class="sig-name descname">gray_threshold</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/thresholds/color_threshold.html#gray_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.gray_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.thresholds.threshold">
+<span id="gbvision-utils-thresholds-threshold-module"></span><h2>gbvision.utils.thresholds.threshold module<a class="headerlink" href="#module-gbvision.utils.thresholds.threshold" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.thresholds.threshold.Threshold">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.thresholds.threshold.</code><code class="sig-name descname">Threshold</code><a class="reference internal" href="_modules/gbvision/utils/thresholds/threshold.html#Threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.thresholds.threshold.Threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>a class that represents a function that maps from an image to a binary image
+where 255 states that the pixel at the original image was in a range represented by the threshold object
+and 0 states the pixel was out of the range
+for example:
+ColorThreshold([[200, 255], [0, 50], [0, 50]], ‘RGB’)
+the above threshold represents a relatively red pixel. when an image is filtered by it, every pixel that is
+relatively red will be given the value 255, and every pixel that isn’t will be given the value of 0</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gbvision.utils.thresholds.threshold.ThresholdGroup">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.thresholds.threshold.</code><code class="sig-name descname">ThresholdGroup</code><span class="sig-paren">(</span><em class="sig-param">binary_mask: Callable[[Optional[numpy.ndarray], Optional[numpy.ndarray]], Optional[numpy.ndarray]], *thresholds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/thresholds/threshold.html#ThresholdGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.thresholds.threshold.ThresholdGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.thresholds.threshold.Threshold" title="gbvision.utils.thresholds.threshold.Threshold"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.thresholds.threshold.Threshold</span></code></a></p>
+<p>a class that constructs a threshold filter out of several threshold filters and a binary mask function
+for example, use of the function on two thresholds with the binary function “bitwise_or” will result
+in a filter that outputs 255 for a pixel if it is in either one of the threshold’s range
+using the “bitwise_and” function will output 255 for a pixel only if it is in both the threshold’s range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thresholds</strong> – all the thresholds to join in the threshold group</p></li>
+<li><p><strong>binary_mask</strong> – a binary function that maps from a pair of binary images to a single binary image
+default value is cv2.bitwise_or</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.thresholds">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.utils.thresholds" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

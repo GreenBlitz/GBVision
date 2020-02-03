@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.finders.object_finder &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.finders.object_finder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.finders.object_finder</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.utils.cameras.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.game_object</span> <span class="kn">import</span> <span class="n">GameObject</span>
+
+
+<div class="viewcode-block" id="ObjectFinder"><a class="viewcode-back" href="../../../../gbvision.utils.finders.html#gbvision.utils.finders.object_finder.ObjectFinder">[docs]</a><span class="k">class</span> <span class="nc">ObjectFinder</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this is an abstract class that represents an object finder</span>
+<span class="sd">    an object finder is a type that outputs an object&#39;s 3d real location based on an of it image it&#39;s</span>
+<span class="sd">    GameObject real-life parameters</span>
+
+<span class="sd">    :param game_object: the game object descriptor for the real-life parameters of the finder&#39;s target</span>
+<span class="sd">    :param area_scalar: a scalar to multiply the root of the area of the shape in the image by, default is 1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game_object</span><span class="p">:</span> <span class="n">GameObject</span><span class="p">,</span> <span class="n">area_scalar</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_object</span> <span class="o">=</span> <span class="n">game_object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area_scalar</span> <span class="o">=</span> <span class="n">area_scalar</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds all instances of the object in the frame</span>
+
+<span class="sd">        :param frame: the frame in which to find</span>
+<span class="sd">        :param camera: the camera used to read the frame</span>
+<span class="sd">        :return: all object of this type in the physical space</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">locations_from_shapes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_shapes</span><span class="p">(</span><span class="n">frame</span><span class="p">),</span> <span class="n">camera</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ObjectFinder.find_shapes"><a class="viewcode-back" href="../../../../gbvision.utils.finders.html#gbvision.utils.finders.object_finder.ObjectFinder.find_shapes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">find_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds all the objects and returns them in frame after full pipeline</span>
+
+<span class="sd">        :param: The current frame the finder searches in</span>
+<span class="sd">        :return: A list of objects: see gbvision/constants/types</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_root_area</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        calculates the square root of the area of a shape, to be used by the api</span>
+
+<span class="sd">        :param shape: the shape</span>
+<span class="sd">        :return: the area</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds the center of the shape, to be used by the api</span>
+
+<span class="sd">        :param shape: the shape</span>
+<span class="sd">        :return: the center of the shape</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ObjectFinder.locations_from_shapes"><a class="viewcode-back" href="../../../../gbvision.utils.finders.html#gbvision.utils.finders.object_finder.ObjectFinder.locations_from_shapes">[docs]</a>    <span class="k">def</span> <span class="nf">locations_from_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shapes</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Shape</span><span class="p">],</span> <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds the locations of the shapes based on the shape descriptor and camera constants</span>
+
+<span class="sd">        :param shapes: a list of the shapes</span>
+<span class="sd">        :param camera: the camera used to capture the frame that the shapes were found in</span>
+<span class="sd">        :return: a list of the locations of all the shapes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">shape</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_object</span><span class="o">.</span><span class="n">location_by_params</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span>
+                                                                  <span class="bp">self</span><span class="o">.</span><span class="n">_shape_root_area</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_scalar</span><span class="p">,</span>
+                                                                  <span class="bp">self</span><span class="o">.</span><span class="n">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">)),</span> <span class="n">shapes</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

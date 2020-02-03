@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.cameras.camera_data &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.cameras.camera_data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.cameras.camera_data</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Number</span>
+
+
+<div class="viewcode-block" id="CameraData"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData">[docs]</a><span class="k">class</span> <span class="nc">CameraData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    describes constant about a camera in it&#39;s default state used to approximate distance</span>
+<span class="sd">    between the camera and an object seen in a frame</span>
+
+<span class="sd">    :param focal_length: the focal length of the camera at it&#39;s default state, in units of pixels</span>
+<span class="sd">        can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it&#39;s</span>
+<span class="sd">        distance from the camera and divided by the square root of it&#39;s surface</span>
+
+<span class="sd">        FOCAL_LENGTH = :math:&#39; sqrt(P) * D / sqrt(S)&#39;</span>
+
+<span class="sd">        where P is the amount of pixels in the frame representing the object,</span>
+<span class="sd">        D is the real life distance between the object and the camera</span>
+<span class="sd">        S is the real life surface area (in 2d projection) of the object</span>
+<span class="sd">        note that this is a constant, whatever object you choose to use, this formula will yield the same result</span>
+<span class="sd">    :param fov:</span>
+<span class="sd">        half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front</span>
+<span class="sd">        of the camera, so that the entire object is captured and it&#39;s center is at the frame&#39;s center.</span>
+<span class="sd">        the tangent of the angle can be described as the width of the object in real life, divided by the</span>
+<span class="sd">        product of the object&#39;s distance from the camera in real life and the ratio between the width of the frame</span>
+<span class="sd">        in pixels and the width of the object in the frame, also in pixels</span>
+
+<span class="sd">        :math:&#39;tan(FOV) = (Wm) / (D * (Wp/Wf))&#39;</span>
+
+<span class="sd">        where Wm is the real life width of the object</span>
+<span class="sd">        D is the real life distance between the object and the camera</span>
+<span class="sd">        Wp is the width of the object in the frame (pixels unit)</span>
+<span class="sd">        Wf is the width of the frame (pixels unit)</span>
+<span class="sd">        to calculate the FOV just apply the inverse tangent</span>
+
+<span class="sd">        FOV = :math:&#39;arctan(tan(FOV))&#39;</span>
+
+<span class="sd">    :param yaw_angle:</span>
+<span class="sd">        the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,</span>
+<span class="sd">        it&#39;s output only affects the x and z axises.</span>
+<span class="sd">        set this variable when the camera is rotated around the y axis and you want the output of finder functions</span>
+<span class="sd">        to represent the original space, rather then the rotated one.</span>
+<span class="sd">    :param pitch_angle:</span>
+<span class="sd">        the clockwise pitch angle (in radians) in which the camera is rotated, the pitch angle is the angle around the x axis,</span>
+<span class="sd">        it&#39;s output only affects the y and z axises.</span>
+<span class="sd">        set this variable when the camera is rotated around the x axis and you want the output of finder functions</span>
+<span class="sd">        to represent the original space, rather then the rotated one.</span>
+<span class="sd">    :param roll_angle:</span>
+<span class="sd">        the clockwise roll angle (in radians) in which the camera is rotated, the roll angle is the angle around the z axis,</span>
+<span class="sd">        it&#39;s output only affects the x and y axises.</span>
+<span class="sd">        set this variable when the camera is rotated around the z axis and you want the output of finder functions</span>
+<span class="sd">        to represent the original space, rather then the rotated one.</span>
+<span class="sd">    :param x_offset:</span>
+<span class="sd">        the x offset in which the camera is placed</span>
+<span class="sd">        the distance from the measuring point (usually the center of the robot) to the camera on the x axis (left/right),</span>
+<span class="sd">        if the camera is to the right this should be positive and if it is left this should be negative</span>
+<span class="sd">    :param y_offset:</span>
+<span class="sd">        the y offset in which the camera is placed</span>
+<span class="sd">        the distance from the measuring point to the camera on the y axis (up/down), if the camera is above the measuring point</span>
+<span class="sd">        this variable should be positive and if it is below this should be negative</span>
+<span class="sd">    :param z_offset:</span>
+<span class="sd">        the z offset in which the camera is placed</span>
+<span class="sd">        the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point</span>
+<span class="sd">        this variable should be positive and if it is inner this should be negative</span>
+<span class="sd">    :param is_immutable: determines whether the camera data object&#39;s values are immutable (True) or mutable (False)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focal_length</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">pitch_angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yaw_angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">roll_angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">is_immutable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focal_length</span> <span class="o">=</span> <span class="n">focal_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fov</span> <span class="o">=</span> <span class="n">fov</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation_angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pitch_angle</span><span class="p">,</span> <span class="n">yaw_angle</span><span class="p">,</span> <span class="n">roll_angle</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calculate_rotation_matrix</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_immutable</span> <span class="o">=</span> <span class="n">is_immutable</span>
+
+    <span class="k">def</span> <span class="nf">__calculate_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">pitch_angle</span><span class="p">,</span> <span class="n">yaw_angle</span><span class="p">,</span> <span class="n">roll_angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation_angles</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw_angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">yaw_angle</span><span class="p">)</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">cos</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sin</span><span class="p">],</span>
+                                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                    <span class="p">[</span><span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cos</span><span class="p">]])</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">pitch_angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">pitch_angle</span><span class="p">)</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">rotation_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">],</span>
+                                                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">]]))</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">roll_angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">roll_angle</span><span class="p">)</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">rotation_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                        <span class="p">[</span><span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">rotation_matrix</span>
+
+    <span class="k">def</span> <span class="nf">__get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_immutable</span> <span class="k">else</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="CameraData.rotate_pitch"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.rotate_pitch">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_pitch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        rotates the camera&#39;s angle around the pitch axis (the x axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the pitch angle rotated \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">angle</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.rotate_yaw"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.rotate_yaw">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_yaw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        rotates the camera&#39;s angle around the yaw axis (the y axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the yaw angle rotated \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">angle</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">cos</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sin</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cos</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.rotate_roll"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.rotate_roll">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_roll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        rotates the camera&#39;s angle around the roll axis (the z axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the roll angle rotated \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">angle</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_pitch_angle"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_pitch_angle">[docs]</a>    <span class="k">def</span> <span class="nf">set_pitch_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the camera&#39;s angle around the pitch axis (the x axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the pitch angle changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">__calculate_rotation_matrix</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_yaw_angle"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_yaw_angle">[docs]</a>    <span class="k">def</span> <span class="nf">set_yaw_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the camera&#39;s angle around the yaw axis (the y axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the yaw angle changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">__calculate_rotation_matrix</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_roll_angle"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_roll_angle">[docs]</a>    <span class="k">def</span> <span class="nf">set_roll_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the camera&#39;s angle around the roll axis (the z axis)</span>
+
+<span class="sd">        :param angle: the rotation angle</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the roll angle changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_angles</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">__calculate_rotation_matrix</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.move_x"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.move_x">[docs]</a>    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        moves this camera data&#39;s x axis offset</span>
+
+<span class="sd">        :param x: the x offset to move by</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the x axis moved \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.move_y"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.move_y">[docs]</a>    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        moves this camera data&#39;s y axis offset</span>
+
+<span class="sd">        :param y: the y offset to move by</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the y axis moved \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.move_z"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.move_z">[docs]</a>    <span class="k">def</span> <span class="nf">move_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        moves this camera data&#39;s z axis offset</span>
+
+<span class="sd">        :param z: the z offset to move by</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the z axis moved \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">z</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_x_offset"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_x_offset">[docs]</a>    <span class="k">def</span> <span class="nf">set_x_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets this camera data&#39;s x axis offset</span>
+
+<span class="sd">        :param x: the new x offset</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the x axis changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_y_offset"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_y_offset">[docs]</a>    <span class="k">def</span> <span class="nf">set_y_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets this camera data&#39;s y axis offset</span>
+
+<span class="sd">        :param y: the new y offset</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the y axis changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.set_z_offset"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.set_z_offset">[docs]</a>    <span class="k">def</span> <span class="nf">set_z_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets this camera data&#39;s z axis offset</span>
+
+<span class="sd">        :param z: the new z offset</span>
+<span class="sd">        :return: a camera data instance with the same params as this but with the z axis changed \</span>
+<span class="sd">            if this is immutable it will return a copy of this, otherwise it will modify this instance and return it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">offset</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="CameraData.copy"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        creates a mutable copy of this and returns it</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">copy</span><span class="o">.</span><span class="n">__is_immutable</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">copy</span></div>
+
+<div class="viewcode-block" id="CameraData.is_immutable"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.is_immutable">[docs]</a>    <span class="k">def</span> <span class="nf">is_immutable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        checks if this camera data instance is immutable</span>
+
+<span class="sd">        :return: True if this is immutable, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_immutable</span></div>
+
+<div class="viewcode-block" id="CameraData.as_immutable"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.camera_data.CameraData.as_immutable">[docs]</a>    <span class="k">def</span> <span class="nf">as_immutable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;CameraData&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        creates and returns an immutable copy of this camera data</span>
+<span class="sd">        if this instance is already immutable it will return this instance</span>
+
+<span class="sd">        :return: an instance of CameraData, with the same values as this instance but immutable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_immutable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">copy</span><span class="o">.</span><span class="n">__is_immutable</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">copy</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{self.name}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

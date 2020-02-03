@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gbvision.utils.continuity.continues_shape_wrapper &mdash; GBVision  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GBVision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GBVision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gbvision.utils.continuity.continues_shape_wrapper</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gbvision.utils.continuity.continues_shape_wrapper</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.continuity</span> <span class="kn">import</span> <span class="n">ContinuesCircle</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.continuity.continues_rect</span> <span class="kn">import</span> <span class="n">ContinuesRect</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.continuity</span> <span class="kn">import</span> <span class="n">ContinuesRotatedRect</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.continuity</span> <span class="kn">import</span> <span class="n">ContinuesShape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.tracker</span> <span class="kn">import</span> <span class="n">Tracker</span>
+
+<span class="n">_CONTINUES_SHAPE_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;CIRCLE&#39;</span><span class="p">:</span> <span class="n">ContinuesCircle</span><span class="p">,</span>
+    <span class="s1">&#39;RECT&#39;</span><span class="p">:</span> <span class="n">ContinuesRect</span><span class="p">,</span>
+    <span class="s1">&#39;ROTATED_RECT&#39;</span><span class="p">:</span> <span class="n">ContinuesRotatedRect</span>
+
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="ContinuesShapeWrapper"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape_wrapper.ContinuesShapeWrapper">[docs]</a><span class="k">class</span> <span class="nc">ContinuesShapeWrapper</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    an object that tracks several shapes in a frame using continuity</span>
+
+<span class="sd">    :param shapes: a list of shapes to track using continuity (must be of the same shape)</span>
+<span class="sd">    :param frame: the frame from which the shapes were found</span>
+<span class="sd">    :param finding_pipeline: a function that finds the shapes in a given frame and returns a list of them (order irrelevant)</span>
+<span class="sd">    :param shape_type: the type of the shape, can be either &#39;CIRCLE&#39;, &#39;RECT&#39;, or &#39;ROTATED_RECT&#39;, default is &#39;RECT&#39;, can also be a class that inherits from ContinuesShape</span>
+<span class="sd">    :param tracker_type: the type of the trackers to use, default is &#39;EMPTY&#39;</span>
+<span class="sd">    :param shape_lifespan: the maximum amount of frames for a shape to not be found until it is considered lost</span>
+<span class="sd">    :param track_new: indicates whether to track new shapes that were un-tracked so far or ignore them, default is False (ignore)</span>
+<span class="sd">    :param args: additional arguments for continues shape constructor </span>
+<span class="sd">    :param kwargs: additional keyword arguments for continues shape constructor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SHAPE_TYPE_CIRCLE</span> <span class="o">=</span> <span class="s1">&#39;CIRCLE&#39;</span>
+    <span class="n">SHAPE_TYPE_RECT</span> <span class="o">=</span> <span class="s1">&#39;RECT&#39;</span>
+    <span class="n">SHAPE_TYPE_ROTATED_RECT</span> <span class="o">=</span> <span class="s1">&#39;ROTATED_RECT&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shapes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">],</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">finding_pipeline</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Frame</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">]],</span>
+                 <span class="n">shape_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;RECT&#39;</span><span class="p">,</span> <span class="n">tracker_type</span><span class="o">=</span><span class="n">Tracker</span><span class="o">.</span><span class="n">TRACKER_TYPE_EMPTY</span><span class="p">,</span>
+                 <span class="n">shape_lifespan</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">track_new</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">shape_type</span> <span class="ow">in</span> <span class="n">_CONTINUES_SHAPE_TYPES</span><span class="p">:</span>
+            <span class="n">shape_type</span> <span class="o">=</span> <span class="n">shape_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span> <span class="o">=</span> <span class="n">_CONTINUES_SHAPE_TYPES</span><span class="p">[</span><span class="n">shape_type</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span> <span class="o">=</span> <span class="n">shape_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracker_type</span> <span class="o">=</span> <span class="n">tracker_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape_lifespan</span> <span class="o">=</span> <span class="n">shape_lifespan</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finding_pipeline</span> <span class="o">=</span> <span class="n">finding_pipeline</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">ContinuesShape</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_new</span> <span class="o">=</span> <span class="n">track_new</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">shape</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__create_continues_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__create_continues_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContinuesShape</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">Tracker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_type</span><span class="p">),</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">__kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ContinuesShapeWrapper.find_shapes"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape_wrapper.ContinuesShapeWrapper.find_shapes">[docs]</a>    <span class="k">def</span> <span class="nf">find_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Shape</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds all shapes in the frame, them performs a continues shape operations on them and return the result as a dict where the keys are unique ids and the values are the shapes</span>
+<span class="sd">        if a shape was lost it removes it from the tracked shapes list</span>
+<span class="sd">        if a new shape was found and the track_new field is set to True it adds it to the tracked shapes list</span>
+
+<span class="sd">        :param frame: the frame to search in</span>
+<span class="sd">        :return: a dict mapping from unique ids to shapes, based on continuity</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">finding_pipeline</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">to_delete</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span>
+            <span class="n">cont_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">cont_shape</span><span class="o">.</span><span class="n">is_lost</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_lifespan</span><span class="p">):</span>
+                <span class="n">to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">shape</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">cont_shape</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">del</span> <span class="n">shapes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">cont_shape</span><span class="o">.</span><span class="n">update_forced</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cont_shape</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_delete</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_new</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__create_continues_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+                <span class="n">result</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__idx</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__idx</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="ContinuesShapeWrapper.get_shapes"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape_wrapper.ContinuesShapeWrapper.get_shapes">[docs]</a>    <span class="k">def</span> <span class="nf">get_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Shape</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the current location of the shapes based on continuity</span>
+<span class="sd">        NOTE! this will be applied to the last frame given to the find_shapes method, only use this method if you need to get the shapes twice in an iteration</span>
+
+<span class="sd">        :return: a dict mapping from unique ids to shapes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="ContinuesShapeWrapper.get_shapes_as_list"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_shape_wrapper.ContinuesShapeWrapper.get_shapes_as_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_shapes_as_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Shape</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets all the shapes as a list instead of a dictionary</span>
+<span class="sd">        :return: a list of all the tracked shapes (sorted by unique id&#39;s)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_shapes</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GreenBlitz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
