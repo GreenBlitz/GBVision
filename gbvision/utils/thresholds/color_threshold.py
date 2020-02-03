@@ -57,7 +57,7 @@ class ColorThreshold(Threshold):
 
 
     :param pixel_range: the threshold parameters, as a list of integers
-    in the shape of 3x2 for a color image and 1x2 for a gray image
+        in the shape of 3x2 for a color image and 1x2 for a gray image
     :param thresh_type: a string, the type of color encoding to transform the image before applying the range test \
         binary filter \
         can be selected from the given list: \
