@@ -2,7 +2,7 @@ from abc import ABC
 
 from .recording_opencv_window import RecordingOpenCVWindow
 from .wrapper_opencv_window import WrapperOpenCVWindow
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.system import EMPTY_PIPELINE
 
 
 class RecordingWrapperOpenCVWindow(RecordingOpenCVWindow, WrapperOpenCVWindow, ABC):

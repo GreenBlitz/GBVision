@@ -3,7 +3,7 @@ from typing import Any
 
 from gbvision.constants.types import Frame
 from .window import Window
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.system import EMPTY_PIPELINE
 from threading import Thread
 
 
