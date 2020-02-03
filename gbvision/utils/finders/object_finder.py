@@ -32,9 +32,9 @@ class ObjectFinder(abc.ABC):
         """
         return self.locations_from_shapes(self.find_shapes(frame), camera)
 
-    @classmethod
+    @staticmethod
     @abc.abstractmethod
-    def _base_shape(cls) -> BaseShapeType:
+    def _base_shape() -> BaseShapeType:
         """
         returns the base shape matching this finder
 

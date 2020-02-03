@@ -21,8 +21,8 @@ class ConvexPolygonFinder(ObjectFinder):
     :param convex_polygons_process: a pipeline to run on the list of convex polygons (optional)
     """
 
-    @classmethod
-    def _base_shape(cls):
+    @staticmethod
+    def _base_shape():
         return BaseConvexPolygon
 
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,

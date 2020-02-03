@@ -20,8 +20,8 @@ class ContourFinder(ObjectFinder):
     :param contours_process: a pipeline to run on the list of contours (optional)
     """
 
-    @classmethod
-    def _base_shape(cls) -> BaseShapeType:
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
         return BaseContour
 
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,

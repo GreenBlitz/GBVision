@@ -22,8 +22,8 @@ class RotatedRectFinder(ObjectFinder):
     :param rotated_rects_process: a pipeline to run on the list of rotated rects (optional)
     """
 
-    @classmethod
-    def _base_shape(cls):
+    @staticmethod
+    def _base_shape():
         return BaseRotatedRect
 
     def __init__(self, threshold_func: FilterFunction, game_object, area_scalar=1.0, contour_min_area=0.0,
