@@ -9,4 +9,4 @@ from .finders import *
 from .net import *
 from .thresholds import *
 from .shapes import *
-from .recordings import *
+from .recorders import *
