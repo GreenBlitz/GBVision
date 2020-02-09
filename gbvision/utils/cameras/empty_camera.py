@@ -49,3 +49,6 @@ class EmptyCamera(Camera):
 
     def read(self) -> Tuple[bool, Frame]:
         return False, None
+
+    def get_fps(self):
+        return 0

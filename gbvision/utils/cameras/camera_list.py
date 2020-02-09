@@ -2,7 +2,7 @@ from typing import Union, List, Generator, Any, Tuple
 
 from .camera_data import CameraData
 from .stream_camera import Camera, StreamCamera
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, Number
 
 
 class CameraList(Camera):
@@ -170,3 +170,9 @@ class CameraList(Camera):
                 cam._set_height(height)
         else:
             self.selected_camera._set_height(height)
+
+    def get_fps(self, foreach=False) -> Union[Number, Generator[Number, Any, None]]:
+        if foreach:
+            return (cam.get_fps() for cam in self.cameras)
+        else:
+            return self.selected_camera.get_fps()

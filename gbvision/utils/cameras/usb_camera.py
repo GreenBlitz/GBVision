@@ -81,3 +81,6 @@ class USBCamera(cv2.VideoCapture, Camera):
 
     def _set_height(self, height):
         return self.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+
+    def get_fps(self):
+        return self.get(cv2.CAP_PROP_FPS)
