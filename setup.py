@@ -26,7 +26,6 @@ setup(
     download_url='https://github.com/GreenBlitz/GBVision/archive/v0.7.2-beta.tar.gz',
     install_requires=[
         'numpy',
-        'opencv-python',
         'opencv-contrib-python',
     ],
     classifiers=[
