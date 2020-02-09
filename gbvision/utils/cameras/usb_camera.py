@@ -84,3 +84,6 @@ class USBCamera(cv2.VideoCapture, Camera):
 
     def get_fps(self):
         return self.get(cv2.CAP_PROP_FPS)
+
+    def set_fps(self, fps):
+        return self.set(cv2.CAP_PROP_FPS, fps)

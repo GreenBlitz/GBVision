@@ -92,6 +92,14 @@ class Camera(Readable, abc.ABC):
         :return: the fps of the camera
         """
 
+    @abc.abstractmethod
+    def set_fps(self, fps: Number) -> bool:
+        """
+        sets the fps for this camera
+
+        :return: True on success, False otherwise
+        """
+
     def rescale(self, factor: float):
         """
         rescale the size of the frames read from this camera by a factor

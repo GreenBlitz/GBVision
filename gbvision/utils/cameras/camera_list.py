@@ -96,15 +96,15 @@ class CameraList(Camera):
         """
         self.selected_camera = self.cameras[0] if len(self.cameras) > 0 else None
 
-    def set_exposure(self, exposure, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
+    def set_exposure(self, exposure, foreach=False) -> Union[bool, List[bool]]:
         if foreach:
-            return (cam.set_exposure(exposure) for cam in self.cameras)
+            return [cam.set_exposure(exposure) for cam in self.cameras]
         else:
             return self.selected_camera.set_exposure(exposure)
 
-    def set_auto_exposure(self, auto, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
+    def set_auto_exposure(self, auto, foreach=False) -> Union[bool, List[bool]]:
         if foreach:
-            return (cam.set_auto_exposure(auto) for cam in self.cameras)
+            return [cam.set_auto_exposure(auto) for cam in self.cameras]
         else:
             return self.selected_camera.set_auto_exposure(auto)
 
@@ -176,3 +176,8 @@ class CameraList(Camera):
             return (cam.get_fps() for cam in self.cameras)
         else:
             return self.selected_camera.get_fps()
+
+    def set_fps(self, fps, foreach=False) -> Union[bool, List[bool]]:
+        if foreach:
+            return [cam.set_fps(fps) for cam in self.cameras]
+        return self.selected_camera.set_fps(fps)

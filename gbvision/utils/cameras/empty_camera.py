@@ -52,3 +52,6 @@ class EmptyCamera(Camera):
 
     def get_fps(self):
         return 0
+
+    def set_fps(self, fps):
+        return False
