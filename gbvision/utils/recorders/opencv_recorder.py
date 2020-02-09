@@ -27,7 +27,8 @@ class OpenCVRecorder(Recorder):
         if self.video_writer is None:
             width = self.width if self.width is not None else frame.shape[1]
             height = self.height if self.height is not None else frame.shape[0]
-            self.video_writer = cv2.VideoWriter(self.file_name, self.fourcc, self.fps, (width, height))
+            self.video_writer = cv2.VideoWriter()
+            self.video_writer.open(self.file_name, self.fourcc, self.fps, (width, height))
         self.video_writer.write(frame)
 
     def close(self):
