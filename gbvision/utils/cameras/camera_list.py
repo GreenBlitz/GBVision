@@ -160,14 +160,20 @@ class CameraList(Camera):
     def _set_width(self, width: int, foreach=False):
         if foreach:
             for cam in self.cameras:
-                cam._set_width(width)
+                if cam is self.selected_camera:
+                    cam._set_width(width)
+                else:
+                    cam.set_frame_size(width, cam.get_height())
         else:
             self.selected_camera._set_width(width)
 
     def _set_height(self, height: int, foreach=False):
         if foreach:
             for cam in self.cameras:
-                cam._set_height(height)
+                if cam is self.selected_camera:
+                    cam._set_height(height)
+                else:
+                    cam.set_frame_size(cam.get_width(), height)
         else:
             self.selected_camera._set_height(height)
 
