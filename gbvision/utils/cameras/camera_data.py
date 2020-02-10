@@ -26,7 +26,7 @@ class CameraData:
         product of the object's distance from the camera in real life and the ratio between the width of the frame
         in pixels and the width of the object in the frame, also in pixels
 
-        :math:'tan(FOV) = (Wm) / (D * (Wp/Wf))'
+        math:: tan(FOV) = (Wm) / (D * (Wp/Wf))
 
         where Wm is the real life width of the object
         D is the real life distance between the object and the camera
@@ -34,7 +34,7 @@ class CameraData:
         Wf is the width of the frame (pixels unit)
         to calculate the FOV just apply the inverse tangent
 
-        FOV = :math:'arctan(tan(FOV))'
+        FOV = math:: arctan(tan(FOV))'
 
     :param yaw_angle:
         the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
