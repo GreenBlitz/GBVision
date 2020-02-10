@@ -223,7 +223,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
+<div class="viewcode-block" id="USBCamera.get_fps"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.usb_camera.USBCamera.get_fps">[docs]</a>    <span class="k">def</span> <span class="nf">get_fps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="USBCamera.set_fps"><a class="viewcode-back" href="../../../../gbvision.utils.cameras.html#gbvision.utils.cameras.usb_camera.USBCamera.set_fps">[docs]</a>    <span class="k">def</span> <span class="nf">set_fps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fps</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">,</span> <span class="n">fps</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

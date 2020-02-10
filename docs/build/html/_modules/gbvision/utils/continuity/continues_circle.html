@@ -144,8 +144,9 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">gbvision.models.shapes</span> <span class="kn">import</span> <span class="n">circle_collision</span>
-<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Circle</span>
 <span class="kn">from</span> <span class="nn">.continues_shape</span> <span class="kn">import</span> <span class="n">ContinuesShape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.shapes.base_circle</span> <span class="kn">import</span> <span class="n">BaseCircle</span>
 
 
 <div class="viewcode-block" id="ContinuesCircle"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_circle.ContinuesCircle">[docs]</a><span class="k">class</span> <span class="nc">ContinuesCircle</span><span class="p">(</span><span class="n">ContinuesShape</span><span class="p">):</span>
@@ -155,18 +156,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_base_shape</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">BaseCircle</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Circle</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">ContinuesShape</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_shape_collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">circle_collision</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_area</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Circle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_from_bounding_rect</span><span class="p">(</span><span class="n">bounding_rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circle</span><span class="p">:</span>

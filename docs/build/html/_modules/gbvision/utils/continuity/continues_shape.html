@@ -144,6 +144,7 @@
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
 
 <span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Shape</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.shapes.base_shape</span> <span class="kn">import</span> <span class="n">BaseShapeType</span>
 <span class="kn">from</span> <span class="nn">gbvision.utils.tracker</span> <span class="kn">import</span> <span class="n">Tracker</span>
 
 
@@ -164,40 +165,34 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_area_ratio</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
                  <span class="n">max_distance_ratio</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>  <span class="c1"># initialization method of the abstract class</span>
-
         <span class="k">assert</span> <span class="n">max_area_ratio</span> <span class="o">&gt;</span> <span class="mf">1.0</span>  <span class="c1"># sets maximum area ratio as 1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span>  <span class="c1"># shape describing the object</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># the count of how many frames the object cannot be found</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span> <span class="o">=</span> <span class="n">Tracker</span><span class="p">()</span> <span class="k">if</span> <span class="n">tracker</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tracker</span>  <span class="c1"># Tracker setup in case object is not found</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tracker</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_bounding_rect</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_area_ratio</span> <span class="o">=</span> <span class="n">max_area_ratio</span>  <span class="c1"># setting the maximum bound to which the area difference between the two shapes can be withstanded until it declared as not the same object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_area_ratio</span> <span class="o">=</span> <span class="n">max_area_ratio</span>  <span class="c1"># setting the maximum bound to which the area difference between the</span>
+        <span class="c1"># two shapes can be withstanded until it declared as not the same object</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_distance_ratio</span> <span class="o">=</span> <span class="n">max_distance_ratio</span>  <span class="c1"># same goes here except it refers to distance between shapes</span>
 
+    <span class="nd">@staticmethod</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_base_shape</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">BaseShapeType</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the base shape matching this continues shape</span>
+
+<span class="sd">        :return: the base shape (a class that inherits from BaseShape)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">_shape_collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        a function which checks whether a shape is colliding with the current object&#39;s shape or not.</span>
-<span class="sd">        :param: shape: the shape which is tested</span>
-<span class="sd">        :return: True or False, collides or not.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_shape</span><span class="p">()</span><span class="o">.</span><span class="n">shape_collision</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_area</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        a method which calculates a shape&#39;s on-screen area</span>
-<span class="sd">        :param shape: the shape&#39;s area you wish to accept</span>
-<span class="sd">        :return: a number which expresses the shape&#39;s area on-screen in M^2</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_base_shape</span><span class="p">()</span><span class="o">.</span><span class="n">shape_area</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        determines a shape&#39;s center</span>
-<span class="sd">        :param shape: the shape&#39;s center you wish to find</span>
-<span class="sd">        :return: the location on-screen of the center point</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_base_shape</span><span class="p">()</span><span class="o">.</span><span class="n">shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>

@@ -82,8 +82,14 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">gbvision.utils.shapes package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#gbvision-utils-shapes-base-shape-module">gbvision.utils.shapes.base_shape module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_circle">gbvision.utils.shapes.base_circle module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_contour">gbvision.utils.shapes.base_contour module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_convex_polygon">gbvision.utils.shapes.base_convex_polygon module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_polygon">gbvision.utils.shapes.base_polygon module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_rect">gbvision.utils.shapes.base_rect module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_rotated_rect">gbvision.utils.shapes.base_rotated_rect module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes.base_shape">gbvision.utils.shapes.base_shape module</a></li>
+<li><a class="reference internal" href="#module-gbvision.utils.shapes">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -155,11 +161,418 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="gbvision-utils-shapes-base-shape-module">
-<h2>gbvision.utils.shapes.base_shape module<a class="headerlink" href="#gbvision-utils-shapes-base-shape-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-gbvision.utils.shapes.base_circle">
+<span id="gbvision-utils-shapes-base-circle-module"></span><h2>gbvision.utils.shapes.base_circle module<a class="headerlink" href="#module-gbvision.utils.shapes.base_circle" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_circle.BaseCircle">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_circle.</code><code class="sig-name descname">BaseCircle</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_circle.html#BaseCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_circle.BaseCircle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_shape.BaseShape" title="gbvision.utils.shapes.base_shape.BaseShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_shape.BaseShape</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_circle.BaseCircle.shape_area">
+<em class="property">classmethod </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_circle.html#BaseCircle.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_circle.BaseCircle.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_circle.BaseCircle.shape_center">
+<em class="property">static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_circle.html#BaseCircle.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_circle.BaseCircle.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_circle.BaseCircle.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]], shape2: Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_circle.html#BaseCircle.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_circle.BaseCircle.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_circle.BaseCircle.shape_root_area">
+<em class="property">classmethod </em><code class="sig-name descname">shape_root_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Tuple[Union[int, float], Union[int, float]], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_circle.html#BaseCircle.shape_root_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_circle.BaseCircle.shape_root_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the square root of the area of the shape
+default is the square root of cls.shape_area, but it can be overridden in case there is a simpler way         (for example for circles)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the square root of the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-gbvision.utils.shapes.base_contour">
+<span id="gbvision-utils-shapes-base-contour-module"></span><h2>gbvision.utils.shapes.base_contour module<a class="headerlink" href="#module-gbvision.utils.shapes.base_contour" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_contour.BaseContour">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_contour.</code><code class="sig-name descname">BaseContour</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_contour.html#BaseContour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_contour.BaseContour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_shape.BaseShape" title="gbvision.utils.shapes.base_shape.BaseShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_shape.BaseShape</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_contour.BaseContour.shape_area">
+<em class="property">static </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_contour.html#BaseContour.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_contour.BaseContour.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_contour.BaseContour.shape_center">
+<em class="property">static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_contour.html#BaseContour.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_contour.BaseContour.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_contour.BaseContour.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: numpy.ndarray</em>, <em class="sig-param">shape2: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_contour.html#BaseContour.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_contour.BaseContour.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes.base_convex_polygon">
+<span id="gbvision-utils-shapes-base-convex-polygon-module"></span><h2>gbvision.utils.shapes.base_convex_polygon module<a class="headerlink" href="#module-gbvision.utils.shapes.base_convex_polygon" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_convex_polygon.BaseConvexPolygon">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_convex_polygon.</code><code class="sig-name descname">BaseConvexPolygon</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_convex_polygon.html#BaseConvexPolygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_convex_polygon.BaseConvexPolygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_polygon.BasePolygon" title="gbvision.utils.shapes.base_polygon.BasePolygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_polygon.BasePolygon</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_convex_polygon.BaseConvexPolygon.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray], shape2: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_convex_polygon.html#BaseConvexPolygon.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_convex_polygon.BaseConvexPolygon.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes.base_polygon">
+<span id="gbvision-utils-shapes-base-polygon-module"></span><h2>gbvision.utils.shapes.base_polygon module<a class="headerlink" href="#module-gbvision.utils.shapes.base_polygon" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_polygon.BasePolygon">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_polygon.</code><code class="sig-name descname">BasePolygon</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_polygon.html#BasePolygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_polygon.BasePolygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_shape.BaseShape" title="gbvision.utils.shapes.base_shape.BaseShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_shape.BaseShape</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_polygon.BasePolygon.shape_area">
+<em class="property">static </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_polygon.html#BasePolygon.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_polygon.BasePolygon.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_polygon.BasePolygon.shape_center">
+<em class="property">static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_polygon.html#BasePolygon.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_polygon.BasePolygon.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_polygon.BasePolygon.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray], shape2: Union[List[Tuple[Union[int, float], Union[int, float]]], numpy.ndarray]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_polygon.html#BasePolygon.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_polygon.BasePolygon.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes.base_rect">
+<span id="gbvision-utils-shapes-base-rect-module"></span><h2>gbvision.utils.shapes.base_rect module<a class="headerlink" href="#module-gbvision.utils.shapes.base_rect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_rect.BaseRect">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_rect.</code><code class="sig-name descname">BaseRect</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_rect.html#BaseRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rect.BaseRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_shape.BaseShape" title="gbvision.utils.shapes.base_shape.BaseShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_shape.BaseShape</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rect.BaseRect.shape_area">
+<em class="property">classmethod </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rect.html#BaseRect.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rect.BaseRect.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rect.BaseRect.shape_center">
+<em class="property">static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rect.html#BaseRect.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rect.BaseRect.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rect.BaseRect.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]], shape2: Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rect.html#BaseRect.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rect.BaseRect.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes.base_rotated_rect">
+<span id="gbvision-utils-shapes-base-rotated-rect-module"></span><h2>gbvision.utils.shapes.base_rotated_rect module<a class="headerlink" href="#module-gbvision.utils.shapes.base_rotated_rect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_rotated_rect.</code><code class="sig-name descname">BaseRotatedRect</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_rotated_rect.html#BaseRotatedRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gbvision.utils.shapes.base_shape.BaseShape" title="gbvision.utils.shapes.base_shape.BaseShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">gbvision.utils.shapes.base_shape.BaseShape</span></code></a></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_area">
+<em class="property">classmethod </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Tuple[Union[int, float], Union[int, float]], Tuple[Union[int, float], Union[int, float]], float]</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rotated_rect.html#BaseRotatedRect.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_center">
+<em class="property">static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: Tuple[Tuple[Union[int, float], Union[int, float]], Tuple[Union[int, float], Union[int, float]], float]</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rotated_rect.html#BaseRotatedRect.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_collision">
+<em class="property">static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Tuple[Tuple[Union[int, float], Union[int, float]], Tuple[Union[int, float], Union[int, float]], float], shape2: Tuple[Tuple[Union[int, float], Union[int, float]], Tuple[Union[int, float], Union[int, float]], float]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_rotated_rect.html#BaseRotatedRect.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_rotated_rect.BaseRotatedRect.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes.base_shape">
+<span id="gbvision-utils-shapes-base-shape-module"></span><h2>gbvision.utils.shapes.base_shape module<a class="headerlink" href="#module-gbvision.utils.shapes.base_shape" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape">
+<em class="property">class </em><code class="sig-prename descclassname">gbvision.utils.shapes.base_shape.</code><code class="sig-name descname">BaseShape</code><a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.filter_inner_shapes">
+<em class="property">classmethod </em><code class="sig-name descname">filter_inner_shapes</code><span class="sig-paren">(</span><em class="sig-param">shapes: List[Shape]</em><span class="sig-paren">)</span> &#x2192; List[Shape]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.filter_inner_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.filter_inner_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>filters out all shapes that are colliding with a shape with a smaller index in the given list
+returns a list of all shapes that aren’t colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shapes</strong> – the list of shapes</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the filtered list of shapes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.shape_area">
+<em class="property">abstract static </em><code class="sig-name descname">shape_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Shape</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.shape_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.shape_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the area of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.shape_center">
+<em class="property">abstract static </em><code class="sig-name descname">shape_center</code><span class="sig-paren">(</span><em class="sig-param">shape: Shape</em><span class="sig-paren">)</span> &#x2192; Tuple[Union[int, float], Union[int, float]]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.shape_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.shape_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the center-of-mass of the shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the center of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.shape_collision">
+<em class="property">abstract static </em><code class="sig-name descname">shape_collision</code><span class="sig-paren">(</span><em class="sig-param">shape1: Shape</em>, <em class="sig-param">shape2: Shape</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.shape_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.shape_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if the two shapes are colliding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape1</strong> – the first shape</p></li>
+<li><p><strong>shape2</strong> – the second shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the shapes are colliding, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.shape_root_area">
+<em class="property">classmethod </em><code class="sig-name descname">shape_root_area</code><span class="sig-paren">(</span><em class="sig-param">shape: Shape</em><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.shape_root_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.shape_root_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the square root of the area of the shape
+default is the square root of cls.shape_area, but it can be overridden in case there is a simpler way         (for example for circles)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – the shape</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the square root of the area of the shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.shapes.base_shape.BaseShape.sort_shapes">
+<em class="property">classmethod </em><code class="sig-name descname">sort_shapes</code><span class="sig-paren">(</span><em class="sig-param">shapes: List[Shape]</em><span class="sig-paren">)</span> &#x2192; List[Shape]<a class="reference internal" href="_modules/gbvision/utils/shapes/base_shape.html#BaseShape.sort_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.shapes.base_shape.BaseShape.sort_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>sorts the list of shapes by area, should be overridden to use area root in case it’s better
+doesn’t modify the given list, returns a new list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shapes</strong> – the list of shapes to sort</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a sorted copy of the list of shapes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gbvision.utils.shapes">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gbvision.utils.shapes" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
