@@ -18,7 +18,7 @@ setup(
               'gbvision/utils/cameras',
               'gbvision/utils/thresholds',
               'gbvision/utils/shapes',
-              'gbvision/utils/recordings'],
+              'gbvision/utils/recorders'],
     author='Ido Heinemann',
     author_email='idohaineman@gmail.com',
     keywords=['computer vision', 'frc', 'first', 'image processing'],

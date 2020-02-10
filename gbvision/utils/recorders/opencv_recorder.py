@@ -33,3 +33,8 @@ class OpenCVRecorder(Recorder):
 
     def close(self):
         self.video_writer.release()
+
+    def is_opened(self) -> bool:
+        if self.video_writer is None:
+            return True
+        return self.video_writer.isOpened()

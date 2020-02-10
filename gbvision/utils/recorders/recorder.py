@@ -21,3 +21,11 @@ class Recorder(abc.ABC):
         ends the writing to the file
 
         """
+
+    @abc.abstractmethod
+    def is_opened(self) -> bool:
+        """
+        checks if this video file is opened
+
+        :return: True if this is opened, False otherwise
+        """
