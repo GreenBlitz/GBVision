@@ -143,13 +143,13 @@
   <h1>Source code for gbvision.utils.finders.circle_finder</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
-<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">FilterFunction</span>
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">FilterFunction</span>
 
-<span class="kn">from</span> <span class="nn">gbvision.constants.math</span> <span class="kn">import</span> <span class="n">SQRT_PI</span>
 <span class="kn">from</span> <span class="nn">gbvision.models.system</span> <span class="kn">import</span> <span class="n">EMPTY_PIPELINE</span>
 <span class="kn">from</span> <span class="nn">gbvision.models.contours</span> <span class="kn">import</span> <span class="n">find_contours</span><span class="p">,</span> <span class="n">FilterContours</span><span class="p">,</span> <span class="n">contours_to_circles_sorted</span>
 <span class="kn">from</span> <span class="nn">gbvision.models.shapes</span> <span class="kn">import</span> <span class="n">filter_inner_circles</span>
 <span class="kn">from</span> <span class="nn">.object_finder</span> <span class="kn">import</span> <span class="n">ObjectFinder</span>
+<span class="kn">from</span> <span class="nn">gbvision.utils.shapes.base_circle</span> <span class="kn">import</span> <span class="n">BaseCircle</span>
 
 
 <div class="viewcode-block" id="CircleFinder"><a class="viewcode-back" href="../../../../gbvision.utils.finders.html#gbvision.utils.finders.circle_finder.CircleFinder">[docs]</a><span class="k">class</span> <span class="nc">CircleFinder</span><span class="p">(</span><span class="n">ObjectFinder</span><span class="p">):</span>
@@ -164,6 +164,10 @@
 <span class="sd">    :param circles_process: a pipeline to run on the list of circles (optional)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_base_shape</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">BaseCircle</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold_func</span><span class="p">:</span> <span class="n">FilterFunction</span><span class="p">,</span> <span class="n">game_object</span><span class="p">,</span> <span class="n">area_scalar</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">contour_min_area</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">contours_process</span><span class="o">=</span><span class="n">EMPTY_PIPELINE</span><span class="p">,</span> <span class="n">circles_process</span><span class="o">=</span><span class="n">EMPTY_PIPELINE</span><span class="p">):</span>
         <span class="n">ObjectFinder</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game_object</span><span class="p">,</span> <span class="n">area_scalar</span><span class="o">=</span><span class="n">area_scalar</span><span class="p">)</span>
@@ -177,15 +181,8 @@
                                <span class="n">circles_process</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CircleFinder.find_shapes"><a class="viewcode-back" href="../../../../gbvision.utils.finders.html#gbvision.utils.finders.circle_finder.CircleFinder.find_shapes">[docs]</a>    <span class="k">def</span> <span class="nf">find_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Circle</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_full_pipeline</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_full_pipeline</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div></div>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_root_area</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Circle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">SQRT_PI</span> <span class="o">*</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Circle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

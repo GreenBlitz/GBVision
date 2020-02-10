@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gbvision.utils.continuity.continues_rect &mdash; GBVision  documentation</title>
+  <title>gbvision.utils.shapes.base_rect &mdash; GBVision  documentation</title>
   
 
   
@@ -125,7 +125,7 @@
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
-      <li>gbvision.utils.continuity.continues_rect</li>
+      <li>gbvision.utils.shapes.base_rect</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -140,38 +140,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for gbvision.utils.continuity.continues_rect</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-
+  <h1>Source code for gbvision.utils.shapes.base_rect</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.base_shape</span> <span class="kn">import</span> <span class="n">BaseShape</span>
+<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Number</span><span class="p">,</span> <span class="n">Point</span>
 <span class="kn">from</span> <span class="nn">gbvision.models.shapes</span> <span class="kn">import</span> <span class="n">rect_collision</span>
-<span class="kn">from</span> <span class="nn">gbvision.constants.types</span> <span class="kn">import</span> <span class="n">Rect</span>
-<span class="kn">from</span> <span class="nn">.continues_shape</span> <span class="kn">import</span> <span class="n">ContinuesShape</span>
-<span class="kn">from</span> <span class="nn">gbvision.utils.shapes.base_rect</span> <span class="kn">import</span> <span class="n">BaseRect</span>
 
 
-<div class="viewcode-block" id="ContinuesRect"><a class="viewcode-back" href="../../../../gbvision.utils.continuity.html#gbvision.utils.continuity.continues_rect.ContinuesRect">[docs]</a><span class="k">class</span> <span class="nc">ContinuesRect</span><span class="p">(</span><span class="n">ContinuesShape</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An implementation of ContinuesShape to rectangles.</span>
-<span class="sd">    used to try and check whether two rectangles are indeed the same one.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseRect"><a class="viewcode-back" href="../../../../gbvision.utils.shapes.html#gbvision.utils.shapes.base_rect.BaseRect">[docs]</a><span class="k">class</span> <span class="nc">BaseRect</span><span class="p">(</span><span class="n">BaseShape</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseRect.shape_center"><a class="viewcode-back" href="../../../../gbvision.utils.shapes.html#gbvision.utils.shapes.base_rect.BaseRect.shape_center">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">shape_center</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_base_shape</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">BaseRect</span>
+<div class="viewcode-block" id="BaseRect.shape_collision"><a class="viewcode-back" href="../../../../gbvision.utils.shapes.html#gbvision.utils.shapes.base_rect.BaseRect.shape_collision">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">shape_collision</span><span class="p">(</span><span class="n">shape1</span><span class="p">:</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">shape2</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">rect_collision</span><span class="p">(</span><span class="n">shape1</span><span class="p">,</span> <span class="n">shape2</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Rect</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">ContinuesShape</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_shape_collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">rect_collision</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_from_bounding_rect</span><span class="p">(</span><span class="n">bounding_rect</span><span class="p">:</span> <span class="n">Rect</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">bounding_rect</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_to_bounding_rect</span><span class="p">(</span><span class="n">rect</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Rect</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span></div>
+<div class="viewcode-block" id="BaseRect.shape_area"><a class="viewcode-back" href="../../../../gbvision.utils.shapes.html#gbvision.utils.shapes.base_rect.BaseRect.shape_area">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">shape_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Rect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></div></div>
 </pre></div>
 
            </div>

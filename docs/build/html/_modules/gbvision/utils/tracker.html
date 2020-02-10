@@ -156,17 +156,24 @@
         <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rect</span>
 
 
-<span class="n">TRACKER_ALGORITHMS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;BOOSTING&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerBoosting_create</span><span class="p">,</span>
-    <span class="s2">&quot;MIL&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMIL_create</span><span class="p">,</span>
-    <span class="s2">&quot;KCF&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerKCF_create</span><span class="p">,</span>
-    <span class="s2">&quot;TLD&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerTLD_create</span><span class="p">,</span>
-    <span class="s2">&quot;MEDIANFLOW&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMedianFlow_create</span><span class="p">,</span>
-    <span class="s2">&quot;GOTURN&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerGOTURN_create</span><span class="p">,</span>
-    <span class="s2">&quot;MOSSE&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMOSSE_create</span><span class="p">,</span>
-    <span class="s2">&quot;CSRT&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerCSRT_create</span><span class="p">,</span>
-    <span class="s2">&quot;EMPTY&quot;</span><span class="p">:</span> <span class="n">__EmptyTracker</span>
-<span class="p">}</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">TRACKER_ALGORITHMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;BOOSTING&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerBoosting_create</span><span class="p">,</span>
+        <span class="s2">&quot;MIL&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMIL_create</span><span class="p">,</span>
+        <span class="s2">&quot;KCF&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerKCF_create</span><span class="p">,</span>
+        <span class="s2">&quot;TLD&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerTLD_create</span><span class="p">,</span>
+        <span class="s2">&quot;MEDIANFLOW&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMedianFlow_create</span><span class="p">,</span>
+        <span class="s2">&quot;GOTURN&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerGOTURN_create</span><span class="p">,</span>
+        <span class="s2">&quot;MOSSE&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerMOSSE_create</span><span class="p">,</span>
+        <span class="s2">&quot;CSRT&quot;</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TrackerCSRT_create</span><span class="p">,</span>
+        <span class="s2">&quot;EMPTY&quot;</span><span class="p">:</span> <span class="n">__EmptyTracker</span>
+    <span class="p">}</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] no trackers in your version of opencv, you may only use the empty tracker&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">TRACKER_ALGORITHMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;EMPTY&quot;</span><span class="p">:</span> <span class="n">__EmptyTracker</span>
+    <span class="p">}</span>
 
 
 <div class="viewcode-block" id="Tracker"><a class="viewcode-back" href="../../../gbvision.utils.html#gbvision.utils.tracker.Tracker">[docs]</a><span class="k">class</span> <span class="nc">Tracker</span><span class="p">:</span>
