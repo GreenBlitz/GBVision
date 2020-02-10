@@ -66,10 +66,11 @@ class CameraData:
     :param is_immutable: determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
-    def __init__(self, focal_length, fov, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
+    def __init__(self, focal_length, fov_width, fov_height, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
                  is_immutable=False, name=None):
         self.focal_length = focal_length
-        self.fov = fov
+        self.fov_width = fov_width
+        self.fov_height = fov_height
         self.rotation_angles = np.array([pitch_angle, yaw_angle, roll_angle])
         self.rotation_matrix = self.__calculate_rotation_matrix()
         self.offset = np.array([x_offset, y_offset, z_offset])
