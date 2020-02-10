@@ -8,6 +8,14 @@ from .recorder import Recorder
 
 
 class OpenCVRecorder(Recorder):
+    """
+    a basic implementation of the recorder class using OpenCV
+
+    :param file_name: the path to the output file
+    :param fps: the fps of the video
+    :param width: optional, the width of the video (will be set automatically if not given)
+    :param height: optional, the height of the video (will be set automatically if not given)
+    """
     def __init__(self, file_name, fps, width=None, height=None):
         Recorder.__init__(self, file_name)
 

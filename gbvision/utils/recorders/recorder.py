@@ -4,6 +4,12 @@ from gbvision.constants.types import Frame
 
 
 class Recorder(abc.ABC):
+    """
+    An abstract recorder class
+    records a given feed of frames into a file
+
+    :param file_name: the file name
+    """
     def __init__(self, file_name):
         self.file_name = file_name
 

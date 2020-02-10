@@ -19,7 +19,7 @@ class CameraData:
         D is the real life distance between the object and the camera
         S is the real life surface area (in 2d projection) of the object
         note that this is a constant, whatever object you choose to use, this formula will yield the same result
-    :param fov:
+    :param fov_width:
         half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
         of the camera, so that the entire object is captured and it's center is at the frame's center.
         the tangent of the angle can be described as the width of the object in real life, divided by the
@@ -34,7 +34,10 @@ class CameraData:
         Wf is the width of the frame (pixels unit)
         to calculate the FOV just apply the inverse tangent
 
-        FOV = math:: arctan(tan(FOV))'
+        FOV = math:: arctan(tan(FOV))
+
+    :param fov_height:
+        same as fov_width but on the height/y axis
 
     :param yaw_angle:
         the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
