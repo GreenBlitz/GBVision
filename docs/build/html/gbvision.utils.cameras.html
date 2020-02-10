@@ -218,6 +218,17 @@ AsyncCamera.__init__(self)</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.get_fps">
+<em class="property">abstract </em><code class="sig-name descname">get_fps</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Union[int, float]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.get_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.get_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the fps of this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fps of the camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="gbvision.utils.cameras.camera.Camera.get_height">
 <em class="property">abstract </em><code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.get_height" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -308,6 +319,17 @@ AsyncCamera.__init__(self)</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="gbvision.utils.cameras.camera.Camera.set_fps">
+<em class="property">abstract </em><code class="sig-name descname">set_fps</code><span class="sig-paren">(</span><em class="sig-param">fps: Union[int, float]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.set_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.set_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the fps for this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True on success, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="gbvision.utils.cameras.camera.Camera.set_frame_size">
 <code class="sig-name descname">set_frame_size</code><span class="sig-paren">(</span><em class="sig-param">width: int</em>, <em class="sig-param">height: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/camera.html#Camera.set_frame_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera.Camera.set_frame_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>reset the width and height of frames read from this camera to given values</p>
@@ -349,13 +371,13 @@ of the camera, so that the entire object is captured and it’s center is at the
 the tangent of the angle can be described as the width of the object in real life, divided by the
 product of the object’s distance from the camera in real life and the ratio between the width of the frame
 in pixels and the width of the object in the frame, also in pixels</p>
-<p>:math:’tan(FOV) = (Wm) / (D * (Wp/Wf))’</p>
+<p>math:: tan(FOV) = (Wm) / (D * (Wp/Wf))</p>
 <p>where Wm is the real life width of the object
 D is the real life distance between the object and the camera
 Wp is the width of the object in the frame (pixels unit)
 Wf is the width of the frame (pixels unit)
 to calculate the FOV just apply the inverse tangent</p>
-<p>FOV = :math:’arctan(tan(FOV))’</p>
+<p>FOV = math:: arctan(tan(FOV))’</p>
 </p></li>
 <li><p><strong>yaw_angle</strong> – the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
 it’s output only affects the x and z axises.
@@ -627,6 +649,17 @@ one in the list</p></li>
 </dd></dl>
 
 <dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.get_fps">
+<code class="sig-name descname">get_fps</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[int, float, Generator[Union[int, float], Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.get_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.get_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the fps of this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fps of the camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="gbvision.utils.cameras.camera_list.CameraList.get_height">
 <code class="sig-name descname">get_height</code><span class="sig-paren">(</span><em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[int, Generator[int, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.get_height" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -713,7 +746,7 @@ one in the list</p></li>
 
 <dl class="method">
 <dt id="gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure">
-<code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_auto_exposure</code><span class="sig-paren">(</span><em class="sig-param">auto</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, List[bool]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_auto_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_auto_exposure" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the camera’s auto exposure</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -727,7 +760,7 @@ one in the list</p></li>
 
 <dl class="method">
 <dt id="gbvision.utils.cameras.camera_list.CameraList.set_exposure">
-<code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, Generator[bool, Any, None]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_exposure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_exposure</code><span class="sig-paren">(</span><em class="sig-param">exposure</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, List[bool]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_exposure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_exposure" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the camera’s exposure</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -735,6 +768,17 @@ one in the list</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.camera_list.CameraList.set_fps">
+<code class="sig-name descname">set_fps</code><span class="sig-paren">(</span><em class="sig-param">fps</em>, <em class="sig-param">foreach=False</em><span class="sig-paren">)</span> &#x2192; Union[bool, List[bool]]<a class="reference internal" href="_modules/gbvision/utils/cameras/camera_list.html#CameraList.set_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.camera_list.CameraList.set_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the fps for this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True on success, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -783,6 +827,17 @@ one in the list</p></li>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>this camera’s constant descriptor (must be the real descriptor, can’t be a copy)             when the values of this descriptor are changed, the values of the real camera descriptor must also change</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.get_fps">
+<code class="sig-name descname">get_fps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.get_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.get_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the fps of this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fps of the camera</p>
 </dd>
 </dl>
 </dd></dl>
@@ -859,6 +914,17 @@ one in the list</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.empty_camera.EmptyCamera.set_fps">
+<code class="sig-name descname">set_fps</code><span class="sig-paren">(</span><em class="sig-param">fps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/empty_camera.html#EmptyCamera.set_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.empty_camera.EmptyCamera.set_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the fps for this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True on success, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -981,6 +1047,17 @@ which allows it to stream the frames when it reads them</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.get_fps">
+<code class="sig-name descname">get_fps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.get_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.get_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the fps of this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fps of the camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="gbvision.utils.cameras.usb_camera.USBCamera.get_height">
 <code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.get_height" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1035,6 +1112,17 @@ which allows it to stream the frames when it reads them</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True on success, False on failure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbvision.utils.cameras.usb_camera.USBCamera.set_fps">
+<code class="sig-name descname">set_fps</code><span class="sig-paren">(</span><em class="sig-param">fps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gbvision/utils/cameras/usb_camera.html#USBCamera.set_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gbvision.utils.cameras.usb_camera.USBCamera.set_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the fps for this camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True on success, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>

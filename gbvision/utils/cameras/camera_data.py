@@ -19,14 +19,14 @@ class CameraData:
         D is the real life distance between the object and the camera
         S is the real life surface area (in 2d projection) of the object
         note that this is a constant, whatever object you choose to use, this formula will yield the same result
-    :param fov:
+    :param fov_width:
         half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
         of the camera, so that the entire object is captured and it's center is at the frame's center.
         the tangent of the angle can be described as the width of the object in real life, divided by the
         product of the object's distance from the camera in real life and the ratio between the width of the frame
         in pixels and the width of the object in the frame, also in pixels
 
-        :math:'tan(FOV) = (Wm) / (D * (Wp/Wf))'
+        math:: tan(FOV) = (Wm) / (D * (Wp/Wf))
 
         where Wm is the real life width of the object
         D is the real life distance between the object and the camera
@@ -34,7 +34,10 @@ class CameraData:
         Wf is the width of the frame (pixels unit)
         to calculate the FOV just apply the inverse tangent
 
-        FOV = :math:'arctan(tan(FOV))'
+        FOV = math:: arctan(tan(FOV))
+
+    :param fov_height:
+        same as fov_width but on the height/y axis
 
     :param yaw_angle:
         the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
@@ -66,10 +69,11 @@ class CameraData:
     :param is_immutable: determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
-    def __init__(self, focal_length, fov, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
+    def __init__(self, focal_length, fov_width, fov_height, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,
                  is_immutable=False, name=None):
         self.focal_length = focal_length
-        self.fov = fov
+        self.fov_width = fov_width
+        self.fov_height = fov_height
         self.rotation_angles = np.array([pitch_angle, yaw_angle, roll_angle])
         self.rotation_matrix = self.__calculate_rotation_matrix()
         self.offset = np.array([x_offset, y_offset, z_offset])

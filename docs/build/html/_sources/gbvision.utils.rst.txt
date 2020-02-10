@@ -10,6 +10,7 @@ Subpackages
    gbvision.utils.continuity
    gbvision.utils.finders
    gbvision.utils.net
+   gbvision.utils.recorders
    gbvision.utils.shapes
    gbvision.utils.thresholds
 

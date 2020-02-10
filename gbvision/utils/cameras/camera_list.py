@@ -2,7 +2,7 @@ from typing import Union, List, Generator, Any, Tuple
 
 from .camera_data import CameraData
 from .stream_camera import Camera, StreamCamera
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, Number
 
 
 class CameraList(Camera):
@@ -96,15 +96,15 @@ class CameraList(Camera):
         """
         self.selected_camera = self.cameras[0] if len(self.cameras) > 0 else None
 
-    def set_exposure(self, exposure, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
+    def set_exposure(self, exposure, foreach=False) -> Union[bool, List[bool]]:
         if foreach:
-            return (cam.set_exposure(exposure) for cam in self.cameras)
+            return [cam.set_exposure(exposure) for cam in self.cameras]
         else:
             return self.selected_camera.set_exposure(exposure)
 
-    def set_auto_exposure(self, auto, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
+    def set_auto_exposure(self, auto, foreach=False) -> Union[bool, List[bool]]:
         if foreach:
-            return (cam.set_auto_exposure(auto) for cam in self.cameras)
+            return [cam.set_auto_exposure(auto) for cam in self.cameras]
         else:
             return self.selected_camera.set_auto_exposure(auto)
 
@@ -160,13 +160,30 @@ class CameraList(Camera):
     def _set_width(self, width: int, foreach=False):
         if foreach:
             for cam in self.cameras:
-                cam._set_width(width)
+                if cam is self.selected_camera:
+                    cam._set_width(width)
+                else:
+                    cam.set_frame_size(width, cam.get_height())
         else:
             self.selected_camera._set_width(width)
 
     def _set_height(self, height: int, foreach=False):
         if foreach:
             for cam in self.cameras:
-                cam._set_height(height)
+                if cam is self.selected_camera:
+                    cam._set_height(height)
+                else:
+                    cam.set_frame_size(cam.get_width(), height)
         else:
             self.selected_camera._set_height(height)
+
+    def get_fps(self, foreach=False) -> Union[Number, Generator[Number, Any, None]]:
+        if foreach:
+            return (cam.get_fps() for cam in self.cameras)
+        else:
+            return self.selected_camera.get_fps()
+
+    def set_fps(self, fps, foreach=False) -> Union[bool, List[bool]]:
+        if foreach:
+            return [cam.set_fps(fps) for cam in self.cameras]
+        return self.selected_camera.set_fps(fps)

@@ -1,5 +1,5 @@
 from .basic_ops import gray, sharpen, blue, blur, corners, red, edges, green
-from .cameras import LIFECAM_STUDIO, LIFECAM_3000, UNKNOWN_CAMERA
+from .cameras import LIFECAM_3000, UNKNOWN_CAMERA
 from .contours import contours_to_rotated_rects, contours_to_rotated_rects_sorted, fix_contours_shape, \
     sort_rotated_rects, contour_center, contours_centers, contours_to_circles, contours_to_circles_sorted, \
     contours_to_ellipses, contours_to_ellipses_sorted, contours_to_polygons, contours_to_rects, \

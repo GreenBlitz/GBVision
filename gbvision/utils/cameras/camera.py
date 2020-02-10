@@ -2,6 +2,7 @@ import abc
 from typing import Union
 
 import numpy as np
+from gbvision.constants.types import Number
 
 from .camera_data import CameraData
 from gbvision.utils.readable import Readable
@@ -81,6 +82,22 @@ class Camera(Readable, abc.ABC):
         never to be used by the programmer, only by the api
 
         :param height: new height
+        """
+
+    @abc.abstractmethod
+    def get_fps(self) -> Number:
+        """
+        gets the fps of this camera
+
+        :return: the fps of the camera
+        """
+
+    @abc.abstractmethod
+    def set_fps(self, fps: Number) -> bool:
+        """
+        sets the fps for this camera
+
+        :return: True on success, False otherwise
         """
 
     def rescale(self, factor: float):

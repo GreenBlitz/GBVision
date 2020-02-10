@@ -13,17 +13,24 @@ class __EmptyTracker:
         return True, self.__rect
 
 
-TRACKER_ALGORITHMS = {
-    "BOOSTING": cv2.TrackerBoosting_create,
-    "MIL": cv2.TrackerMIL_create,
-    "KCF": cv2.TrackerKCF_create,
-    "TLD": cv2.TrackerTLD_create,
-    "MEDIANFLOW": cv2.TrackerMedianFlow_create,
-    "GOTURN": cv2.TrackerGOTURN_create,
-    "MOSSE": cv2.TrackerMOSSE_create,
-    "CSRT": cv2.TrackerCSRT_create,
-    "EMPTY": __EmptyTracker
-}
+try:
+    TRACKER_ALGORITHMS = {
+        "BOOSTING": cv2.TrackerBoosting_create,
+        "MIL": cv2.TrackerMIL_create,
+        "KCF": cv2.TrackerKCF_create,
+        "TLD": cv2.TrackerTLD_create,
+        "MEDIANFLOW": cv2.TrackerMedianFlow_create,
+        "GOTURN": cv2.TrackerGOTURN_create,
+        "MOSSE": cv2.TrackerMOSSE_create,
+        "CSRT": cv2.TrackerCSRT_create,
+        "EMPTY": __EmptyTracker
+    }
+except AttributeError:
+    import sys
+    print("[WARN] no trackers in your version of opencv, you may only use the empty tracker", file=sys.stderr)
+    TRACKER_ALGORITHMS = {
+        "EMPTY": __EmptyTracker
+    }
 
 
 class Tracker:

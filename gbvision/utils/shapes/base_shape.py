@@ -1,6 +1,8 @@
 import abc
 from typing import Type, List
 
+import numpy as np
+
 from gbvision.constants.types import Shape, Number, Rect, Point
 
 
@@ -46,7 +48,7 @@ class BaseShape(abc.ABC):
         :param shape: the shape
         :return: the square root of the area of the shape
         """
-        return cls.shape_area(shape)
+        return np.sqrt(cls.shape_area(shape))
 
     @classmethod
     def sort_shapes(cls, shapes: List[Shape]) -> List[Shape]:

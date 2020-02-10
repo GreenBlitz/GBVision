@@ -171,11 +171,13 @@ the above threshold represents a relatively red pixel. when an image is filtered
 relatively red will be given the value 255, and every pixel that isn’t will be given the value of 0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pixel_range</strong> – the threshold parameters, as a list of integers</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_range</strong> – the threshold parameters, as a list of integers
+in the shape of 3x2 for a color image and 1x2 for a gray image</p></li>
+<li><p><strong>thresh_type</strong> – a string, the type of color encoding to transform the image before applying the range test         binary filter         can be selected from the given list:         ‘BGR’: default opencv color encoding (no change)         ‘RGB’: default opencv color encoding in reverse         ‘HLS’: hue, luminous, saturation         ‘HSV’: hue, saturation, value         ‘LUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELUV">https://en.wikipedia.org/wiki/CIELUV</a>         ‘LAB’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">https://en.wikipedia.org/wiki/CIELAB_color_space</a>         ‘YUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/YUV">https://en.wikipedia.org/wiki/YUV</a>         ‘XYZ’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>         ‘GRAY’: grayscale images (single channel), image presented doesn’t have to be gray, the threshold will convert it</p></li>
+</ul>
 </dd>
 </dl>
-<p>in the shape of 3x2 for a color image and 1x2 for a gray image
-:param thresh_type: a string, the type of color encoding to transform the image before applying the range test         binary filter         can be selected from the given list:         ‘BGR’: default opencv color encoding (no change)         ‘RGB’: default opencv color encoding in reverse         ‘HLS’: hue, luminous, saturation         ‘HSV’: hue, saturation, value         ‘LUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELUV">https://en.wikipedia.org/wiki/CIELUV</a>         ‘LAB’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">https://en.wikipedia.org/wiki/CIELAB_color_space</a>         ‘YUV’: <a class="reference external" href="https://en.wikipedia.org/wiki/YUV">https://en.wikipedia.org/wiki/YUV</a>         ‘XYZ’: <a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>         ‘GRAY’: grayscale images (single channel), image presented doesn’t have to be gray, the threshold will convert it</p>
 <dl class="attribute">
 <dt id="gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_BGR">
 <code class="sig-name descname">THRESH_TYPE_BGR</code><em class="property"> = 'BGR'</em><a class="headerlink" href="#gbvision.utils.thresholds.color_threshold.ColorThreshold.THRESH_TYPE_BGR" title="Permalink to this definition">¶</a></dt>
