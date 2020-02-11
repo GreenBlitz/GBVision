@@ -47,8 +47,8 @@ if [ $? -ne 0 ]; then
   fi
   exit 1
 fi
-git add docs
-git commit -m "Auto Docs"
+git add docs > /dev/null
+git commit -m "Auto Docs" > /dev/null
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
 fi
