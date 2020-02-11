@@ -9,6 +9,8 @@ from gbvision.utils.recorders.opencv_recorder import OpenCVRecorder
 
 class RecordingOpenCVWindow(OpenCVWindow, RecordingWindow):
     """
+    A basic recording window that uses an OpenCVRecorder to record videos
+
     :param file_name: the name of the output file
     :param drawing_pipeline: optional, a pipeline of drawing functions that will run on the frame before displaying
         it

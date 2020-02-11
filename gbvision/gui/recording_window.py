@@ -6,6 +6,12 @@ from gbvision.utils.recorders.recorder import Recorder
 
 
 class RecordingWindow(Window, abc.ABC):
+    """
+    A basic window that records the stream it receives
+
+    :param recording_pipeline: a drawing pipeline to run on the recorded frame, usually you will want this to be the
+        same as the drawing pipeline
+    """
 
     def __init__(self, window_name: str, recorder: Recorder, drawing_pipeline=EMPTY_PIPELINE,
                  recording_pipeline=EMPTY_PIPELINE):

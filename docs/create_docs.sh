@@ -14,4 +14,9 @@ else
   alias sphinx="py -m sphinx"
 fi
 sphinx -o source/ "$PROJECT_ROOT"/gbvision || exit 1
+if [ -n "$(command -v make)" ]; then
+  make clean html
+else
+  cmd "/C make.bat clean html"
+fi
 exit 0
