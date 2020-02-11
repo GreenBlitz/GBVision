@@ -6,6 +6,12 @@ from gbvision.models.system import EMPTY_PIPELINE
 
 
 class OpenCVWindow(Window, ABC):
+    """
+    a basic window that uses the opencv gui module
+
+    :param exit_button: a list of chars (or string) that will close the window when pressed
+    :param flags: opencv window flags (default is WINDOW_FREERATIO)
+    """
 
     def __init__(self, window_name: str, exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE, flags=cv2.WINDOW_FREERATIO):
         Window.__init__(self, window_name=window_name, drawing_pipeline=drawing_pipeline)
