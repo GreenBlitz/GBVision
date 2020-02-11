@@ -24,12 +24,12 @@ jobs:
         python setup.py install
         pip install sphinx
         pip install sphinx_rtd_theme
-        
-    - name: Build docs
-      run: |
-        sphinx-apidoc -o docs/source gbvision
-        cd docs/ && make clean html
 
     - name: Run tests
       run: |
         python -m test.test_main
+
+    - name: Build docs
+      run: |
+        sphinx-apidoc -o docs/source gbvision
+        cd docs/ && make clean html
