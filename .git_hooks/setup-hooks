@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 GIT_DIR=$(git rev-parse --git-dir)
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 
 echo "Installing hooks..."
 # this command creates symlink to our pre-push script
 rm "$GIT_DIR"/hooks/pre-push
 
-ln ./pre-push "$GIT_DIR"/hooks/pre-push
+ln "$PROJECT_ROOT"/.git_hooks/pre-push "$GIT_DIR"/hooks/pre-push
 echo "Done!"
