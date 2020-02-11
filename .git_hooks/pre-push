@@ -5,6 +5,7 @@
 
 echo 'Running tests'
 CHANGED=$(git diff-index --name-only HEAD --)
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 HAS_PY=$(command -v py)
 
 if [ -n "$CHANGED" ]; then
@@ -31,6 +32,9 @@ if [ $? -ne 0 ]; then
 fi
 
 py -m pip install --upgrade sphinx
+
+/bin/sh "$PROJECT_ROOT"/docs/create_docs.sh
+
 
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
