@@ -34,8 +34,15 @@ fi
 py -m pip install --upgrade sphinx
 
 /bin/sh "$PROJECT_ROOT"/docs/create_docs.sh
-
-
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  echo 'Aborting push because docs failed to be created'
+  echo 'Bypass with git push --no-verify'
+  if [ -n "$CHANGED" ]; then
+    git stash pop >/dev/null
+  fi
+  exit 1
+fi
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
 fi
