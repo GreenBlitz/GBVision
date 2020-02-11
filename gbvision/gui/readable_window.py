@@ -6,7 +6,7 @@ class ReadableWindow(WrapperOpenCVWindow):
     """
     a basic window that displays the stream from any readable
 
-    :type self.wrap_object: gbvision.Readable
+    :param wrap_object: a readable to read the frames from
     """
 
     def __init__(self, window_name: str, wrap_object: Readable, *args, **kwargs):
