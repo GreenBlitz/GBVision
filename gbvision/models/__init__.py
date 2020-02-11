@@ -5,7 +5,7 @@ from .contours import contours_to_rotated_rects, contours_to_rotated_rects_sorte
     contours_to_ellipses, contours_to_ellipses_sorted, contours_to_polygons, contours_to_rects, \
     contours_to_rects_sorted, convex_hull, convex_hull_multiple, sort_circles, find_contours, polygon_center, \
     polygons_centers, sort_contours, sort_rects, sort_ellipses, sort_polygons, FilterContours
-from .denoising import Erode, Dilate, MedianBlur
+from .denoising import Erode, Dilate, MedianBlur, ErodeAndDilate
 from .shapes import convex_shape_collision, filter_inner_convex_shapes, filter_inner_rotated_rects, \
     rotated_rect_collision, circle_collision, filter_inner_circles, filter_inner_rects, rect_collision
 from .system import EMPTY_PIPELINE

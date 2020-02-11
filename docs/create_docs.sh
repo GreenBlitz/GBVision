@@ -14,9 +14,4 @@ if [ -n "$(command -v sphinx-apidoc)" ]; then
 else
   py -m sphinx -o source/ "$PROJECT_ROOT"/gbvision || exit 1
 fi
-if [ -n "$(command -v make)" ]; then
-  make clean html
-else
-  cmd "/C make.bat clean html"
-fi
 exit 0
