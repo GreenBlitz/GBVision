@@ -12,10 +12,12 @@ if [ -n "$CHANGED" ]; then
 fi
 
 if [ -n "$HAS_PY" ]; then
-  py -m test.test_main
+  alias py=py
 else
-  python3 -m test.test_main
+  alias py=python3
 fi
+
+py -m test.test_main
 
 # shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
@@ -27,6 +29,8 @@ if [ $? -ne 0 ]; then
   fi
   exit 1
 fi
+
+py -m pip install --upgrade sphinx
 
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
