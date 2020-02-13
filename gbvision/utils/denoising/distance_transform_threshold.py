@@ -9,7 +9,7 @@ class DistanceTransformThreshold(PipeLine):
     nearest black frame
 
     :param min_distance_ratio: the minimum ratio between the maximum distance of a pixel from a white pixel in the
-    frame and a certain pixel for it to be included in the threshold, between 0 and 1
+        frame and a certain pixel for it to be included in the threshold, between 0 and 1
     """
     def __init__(self, min_distance_ratio: float):
         PipeLine.__init__(self)
