@@ -112,7 +112,7 @@ def normalize(frame):
     :param frame: the frame
     :return: the normalized frame
     """
-    return frame / max(abs(frame))
+    return frame / np.max(abs(frame))
 
 
 @PipeLine
