@@ -9,5 +9,5 @@ if test -f "$GIT_DIR"/hooks/pre-push; then
     rm "$GIT_DIR"/hooks/pre-push
 fi
 
-ln "$PROJECT_ROOT"/.git_hooks/pre-push "$GIT_DIR"/hooks/pre-push
+ln -s "$PROJECT_ROOT"/.git_hooks/pre-push "$GIT_DIR"/hooks/pre-push
 echo "Done!"
