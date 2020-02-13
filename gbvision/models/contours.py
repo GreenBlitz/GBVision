@@ -11,6 +11,7 @@ from gbvision.utils.pipeline import PipeLine
 def __mapper(func) -> PipeLine:
     return PipeLine(lambda x: list(map(func, x)))
 
+
 @PipeLine
 def find_contours(frame):
     # DO NOT CHANGE THE CHAIN_APPROX_NONE
@@ -30,7 +31,6 @@ class FilterContours(PipeLine):
 
 convex_hull = PipeLine(cv2.convexHull)
 
-
 convex_hull_multiple = __mapper(convex_hull)
 
 
@@ -41,7 +41,6 @@ def contour_center(cnt):
 
 
 contours_centers = __mapper(contour_center)
-
 
 # SHAPES
 
@@ -55,7 +54,6 @@ def sort_rects(rects):
 
 contours_to_rects_sorted = contours_to_rects + sort_rects
 
-
 contours_to_circles = __mapper(cv2.minEnclosingCircle)
 
 
@@ -66,8 +64,8 @@ def sort_circles(circs):
 
 contours_to_circles_sorted = contours_to_circles + sort_circles
 
-
 contours_to_rotated_rects = __mapper(cv2.minAreaRect)
+
 
 @PipeLine
 def sort_rotated_rects(rects):
