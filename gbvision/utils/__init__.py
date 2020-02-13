@@ -10,3 +10,4 @@ from .net import *
 from .thresholds import *
 from .shapes import *
 from .recorders import *
+from .denoising import *

@@ -5,6 +5,7 @@
 
 echo 'Running tests'
 CHANGED=$(git diff-index --name-only HEAD --)
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 HAS_PY=$(command -v py)
 
 if [ -n "$CHANGED" ]; then
@@ -12,10 +13,12 @@ if [ -n "$CHANGED" ]; then
 fi
 
 if [ -n "$HAS_PY" ]; then
-  py -m test.test_main
+  alias py=py
 else
-  python3 -m test.test_main
+  alias py=python3
 fi
+
+py -m test.test_main
 
 # shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
@@ -28,8 +31,25 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+py -c "import sphinx" 2> /dev/null
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  py -m pip install sphinx
+fi
+
+/bin/sh "$PROJECT_ROOT"/docs/create_docs.sh
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  echo 'Aborting push because docs failed to be created'
+  echo 'Bypass with git push --no-verify'
+  if [ -n "$CHANGED" ]; then
+    git stash pop >/dev/null
+  fi
+  exit 1
+fi
+git add docs > /dev/null
+git commit -m "Auto Docs" > /dev/null
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
 fi
-
 exit 0

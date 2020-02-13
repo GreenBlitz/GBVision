@@ -28,14 +28,6 @@ gbvision.models.contours module
    :undoc-members:
    :show-inheritance:
 
-gbvision.models.denoising module
---------------------------------
-
-.. automodule:: gbvision.models.denoising
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 gbvision.models.shapes module
 -----------------------------
 

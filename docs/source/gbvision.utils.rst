@@ -8,6 +8,7 @@ Subpackages
 
    gbvision.utils.cameras
    gbvision.utils.continuity
+   gbvision.utils.denoising
    gbvision.utils.finders
    gbvision.utils.net
    gbvision.utils.recorders

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='gbvision',
-    version='0.7.3',
+    version='0.7.4',
     description='A Python Vision Library for object tracking in the 3D physical space',
     license='Apache License 2.0',
     packages=['gbvision',
@@ -18,12 +18,13 @@ setup(
               'gbvision/utils/cameras',
               'gbvision/utils/thresholds',
               'gbvision/utils/shapes',
-              'gbvision/utils/recorders'],
+              'gbvision/utils/recorders',
+              'gbvision/utils/denoising'],
     author='Ido Heinemann',
     author_email='idohaineman@gmail.com',
     keywords=['computer vision', 'frc', 'first', 'image processing'],
     url='https://github.com/GreenBlitz/GBVision',
-    download_url='https://github.com/GreenBlitz/GBVision/archive/v0.7.3-beta.tar.gz',
+    download_url='https://github.com/GreenBlitz/GBVision/archive/v0.7.4-beta.tar.gz',
     install_requires=[
         'numpy',
         'opencv-python',
