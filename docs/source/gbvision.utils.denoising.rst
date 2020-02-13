@@ -12,6 +12,14 @@ gbvision.utils.denoising.dilate module
    :undoc-members:
    :show-inheritance:
 
+gbvision.utils.denoising.distance\_transform\_threshold module
+--------------------------------------------------------------
+
+.. automodule:: gbvision.utils.denoising.distance_transform_threshold
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.utils.denoising.erode module
 -------------------------------------
 
