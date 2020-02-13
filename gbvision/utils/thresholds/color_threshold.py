@@ -1,6 +1,9 @@
+from typing import List, Tuple, Union
+
 import cv2
 
 from gbvision.utils.thresholds.threshold import Threshold
+from gbvision.constants.types import Number
 
 
 def bgr_threshold(frame, params):
@@ -82,7 +85,7 @@ class ColorThreshold(Threshold):
     THRESH_TYPE_XYZ = 'XYZ'
     THRESH_TYPE_GRAY = 'GRAY'
 
-    def __init__(self, pixel_range, thresh_type='HSV'):
+    def __init__(self, pixel_range: List[Union[Tuple[Number, Number], List[Number]]], thresh_type='HSV'):
         assert thresh_type.upper() in _THRESHOLD_NAME_TABLE
         self.params = pixel_range
         self.type = thresh_type.upper()
