@@ -122,7 +122,7 @@ class ColorThreshold(Threshold):
         """
         return iter(self.params)
 
-    def __call__(self, frame):
+    def _threshold(self, frame):
         """
         activates the threshold filter on the given image
         :param frame: the image to activate the threshold on

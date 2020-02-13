@@ -2,6 +2,8 @@ import abc
 from typing import List, Callable
 
 import cv2
+import numpy as np
+from gbvision.constants.math import EPSILON
 
 from gbvision.constants.types import FilterFunction, Frame
 
@@ -18,12 +20,19 @@ class Threshold(abc.ABC):
     """
 
     @abc.abstractmethod
-    def __call__(self, frame: Frame) -> Frame:
+    def _threshold(self, frame: Frame) -> Frame:
         """
-        activates the threshold filter on the given image
+        unsafely activates the threshold filter on the given image
         :param frame: the image to activate the threshold on
         :return: a binary image, the frame after the threshold filter
         """
+
+    def __call__(self, frame: Frame) -> Frame:
+        frame = self._threshold(frame)
+        if frame.dtype == np.uint8:
+            return frame
+        frame *= 255.0 / (np.max(frame) + EPSILON)
+        return frame.astype(np.uint8)
 
     def __or__(self, other: 'Threshold') -> 'Threshold':
         return ThresholdGroup(cv2.bitwise_or, self, other)
@@ -48,7 +57,7 @@ class ThresholdGroup(Threshold):
         self.binary_mask = binary_mask
         self.thresholds: List[Threshold] = list(thresholds)
 
-    def __call__(self, frame: Frame) -> Frame:
+    def _threshold(self, frame: Frame) -> Frame:
         """
         apply the threshold filter to the frame
         :param frame: the frame to apply the filter to
