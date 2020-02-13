@@ -17,6 +17,7 @@ def circle_process(circs: List[gbv.Circle]) -> List[gbv.Circle]:
 
 def main():
     camera = gbv.AsyncUSBCamera(0)
+    camera.set_exposure(-5)
     camera.wait_start_reading()
     window = gbv.CameraWindow('feed', camera,
                               drawing_pipeline=gbv.DrawCircles(THRESHOLD, (0, 255, 0), circle_process=circle_process))
