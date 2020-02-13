@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-py -c "import sphinx"
+py -c "import sphinx" 2> /dev/null
 # shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   py -m pip install sphinx
