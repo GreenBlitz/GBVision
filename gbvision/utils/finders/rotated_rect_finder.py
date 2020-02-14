@@ -35,7 +35,6 @@ class RotatedRectFinder(ObjectFinder):
                                FilterContours(min_area=contour_min_area) +
                                contours_process +
                                contours_to_rotated_rects_sorted +
-                               filter_inner_rotated_rects +
                                rotated_rects_process)
 
     def find_shapes(self, frame: Frame) -> List[RotatedRect]:
