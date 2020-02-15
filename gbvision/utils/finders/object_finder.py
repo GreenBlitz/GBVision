@@ -67,6 +67,15 @@ class ObjectFinder(abc.ABC):
     def _shape_center(cls, shape: Shape) -> Point:
         return cls._base_shape().shape_center(shape)
 
+    def filter_inner_shapes(self, shapes: List[Shape]):
+        """
+        filters out all inner shapes in the given sorted list of shapes
+
+        :param shapes: a sorted list of shapes
+        :return: the list of shapes, without any shape intersecting with a larger shape
+        """
+        return self._base_shape().filter_inner_shapes(shapes)
+
     def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """
         finds the locations of the shapes based on the shape descriptor and camera constants
