@@ -1,3 +1,5 @@
+from typing import List
+
 from gbvision.constants.math import SQRT_PI
 
 from .base_shape import BaseShape
@@ -21,3 +23,7 @@ class BaseCircle(BaseShape):
     @classmethod
     def shape_root_area(cls, shape: Circle) -> Number:
         return shape[1] * SQRT_PI
+
+    @classmethod
+    def sort_shapes(cls, shapes: List[Circle]):
+        return sorted(shapes, key=cls.shape_root_area)

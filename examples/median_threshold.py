@@ -3,7 +3,7 @@ import numpy as np
 
 import gbvision as gbv
 
-stdv = np.array([40, 40, 40])
+stdv = np.array([10, 80, 80])
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     print(thr)
 
     original = gbv.FeedWindow(window_name='original')
-    after_proc = gbv.FeedWindow(window_name='after threshold', drawing_pipeline=thr + gbv.MedianBlur(15))
+    after_proc = gbv.FeedWindow(window_name='after threshold', drawing_pipeline=thr)
 
     original.open()
     after_proc.open()

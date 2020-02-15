@@ -105,14 +105,13 @@ def gray(frame):
 @PipeLine
 def normalize(frame):
     """
-    normalizes the frame to a pixel range of 0-1 or -1-1 (-1-1 only if there are already negative values in the frame).
-    the normalization is done only by scalar multiplication, not by shifting values.
-    equivalent to frame / max(abs(frame))
+    normalizes the frame to a pixel range of 0-1
+    equivalent to (frame - min(frame)) / max(abs(frame - min(frame)))
 
     :param frame: the frame
-    :return: the normalized frame
+    :return: the normalized frame (data type float32)
     """
-    return frame / np.max(abs(frame))
+    return cv2.normalize(frame, None, alpha=0.0, beta=1.0, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
 
 
 @PipeLine

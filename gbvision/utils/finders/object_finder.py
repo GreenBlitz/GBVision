@@ -42,13 +42,22 @@ class ObjectFinder(abc.ABC):
         """
 
     @abc.abstractmethod
-    def find_shapes(self, frame: Frame) -> List[Shape]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[Shape]:
         """
-        finds all the objects and returns them in frame after full pipeline
+        finds all the objects and returns them in frame after full pipeline (not sorted)
 
         :param: The current frame the finder searches in
         :return: A list of objects: see gbvision/constants/types
         """
+
+    def find_shapes(self, frame: Frame) -> List[Shape]:
+        """
+        finds all the objects and returns them in frame after full pipeline (sorted)
+
+        :param: The current frame the finder searches in
+        :return: A list of objects: see gbvision/constants/types
+        """
+        return self._base_shape().sort_shapes(self.find_shapes_unsorted(frame))
 
     @classmethod
     def _shape_root_area(cls, shape: Shape) -> Number:
