@@ -35,8 +35,7 @@ class ConvexPolygonFinder(ObjectFinder):
                                contours_process +
                                convex_hull_multiple +
                                contours_to_polygons +
-                               sort_polygons +
                                convex_polygons_process)
 
-    def find_shapes(self, frame: Frame) -> List[Polygon]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[Polygon]:
         return self._full_pipeline(frame)

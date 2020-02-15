@@ -3,8 +3,7 @@ from typing import List
 from gbvision.constants.types import Frame, RotatedRect, FilterFunction
 
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.models.contours import find_contours, FilterContours, contours_to_rotated_rects_sorted
-from gbvision.models.shapes import filter_inner_rotated_rects
+from gbvision.models.contours import find_contours, FilterContours, contours_to_rotated_rects
 from .object_finder import ObjectFinder
 from gbvision.utils.shapes.base_rotated_rect import BaseRotatedRect
 
@@ -34,8 +33,8 @@ class RotatedRectFinder(ObjectFinder):
                                find_contours +
                                FilterContours(min_area=contour_min_area) +
                                contours_process +
-                               contours_to_rotated_rects_sorted +
+                               contours_to_rotated_rects +
                                rotated_rects_process)
 
-    def find_shapes(self, frame: Frame) -> List[RotatedRect]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[RotatedRect]:
         return self._full_pipeline(frame)
