@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.constants.system import EMPTY_PIPELINE
+from gbvision.models.system import EMPTY_PIPELINE
 from gbvision.constants.types import Frame
 
 
@@ -27,7 +27,6 @@ class Window(abc.ABC):
         :param frame: the frame to show
         :return: False if the window should be closed, True otherwise
         """
-        pass
 
     def is_opened(self) -> bool:
         """
@@ -55,7 +54,6 @@ class Window(abc.ABC):
         unsafely opens the window
         not to be used by the programmer, only by the function open
         """
-        pass
 
     @abc.abstractmethod
     def _close(self):
@@ -63,7 +61,6 @@ class Window(abc.ABC):
         unsafely closes the window
         not to be used by the programmer, only by the function close
         """
-        pass
 
     def open(self):
         """
@@ -78,7 +75,6 @@ class Window(abc.ABC):
         """
         self._close()
         self._is_opened = False
-
 
     def __del__(self):
         self.close()

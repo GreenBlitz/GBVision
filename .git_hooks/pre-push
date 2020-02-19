@@ -4,31 +4,52 @@
 # this file has been modified from the original version
 
 echo 'Running tests'
-echo 'If you are running on a UNIX machine, ignore the " py: command not found" error'
 CHANGED=$(git diff-index --name-only HEAD --)
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+HAS_PY=$(command -v py)
 
 if [ -n "$CHANGED" ]; then
   git stash >/dev/null
 fi
 
-py -m test.test_main
-# shellcheck disable=SC2181
-if [ $? -ne 0 ]; then
-  python3 -m test.test_main
-  # shellcheck disable=SC2181
-  if [ $? -ne 0 ]; then
-    echo 'Aborting push (Attempting to push a repository where the test suite fails)'
-    echo 'If you are running on Windows and it says "python3: Permission denied", try installing python3 from the Mircosort Store'
-    echo 'Bypass with git push --no-verify'
-    if [ -n "$CHANGED" ]; then
-      git stash pop >/dev/null
-    fi
-    exit 1
-  fi
+if [ -n "$HAS_PY" ]; then
+  alias py=py
+else
+  alias py=python3
 fi
 
+py -m test.test_main
+
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  echo 'Aborting push (Attempting to push a repository where the test suite fails)'
+  echo 'If you are running on Windows and it says "python3: Permission denied", try installing python3 from the Mircosort Store'
+  echo 'Bypass with git push --no-verify'
+  if [ -n "$CHANGED" ]; then
+    git stash pop >/dev/null
+  fi
+  exit 1
+fi
+
+py -c "import sphinx" 2> /dev/null
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  py -m pip install sphinx
+fi
+
+/bin/sh "$PROJECT_ROOT"/docs/create_docs.sh
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+  echo 'Aborting push because docs failed to be created'
+  echo 'Bypass with git push --no-verify'
+  if [ -n "$CHANGED" ]; then
+    git stash pop >/dev/null
+  fi
+  exit 1
+fi
+git add docs > /dev/null
+git commit -m "Auto Docs" > /dev/null
 if [ -n "$CHANGED" ]; then
   git stash pop >/dev/null
 fi
-
 exit 0

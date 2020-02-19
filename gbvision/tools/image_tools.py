@@ -5,11 +5,11 @@ import numpy as np
 
 from gbvision.constants.images import COLOR_TYPE
 from gbvision.constants.types import Frame, Number, ROI
-from gbvision.thresholds.color_threshold import ColorThreshold
-from gbvision.thresholds.threshold import Threshold
+from gbvision.utils.thresholds import ColorThreshold
+from gbvision.utils.thresholds.threshold import Threshold
 
 
-def crop(frame: Frame, x: int, y: int, w: int, h: int) -> np.ndarray:
+def crop(frame: Frame, x: int, y: int, w: int, h: int) -> Frame:
     """
     crops the image from (x, y) to (x+w, y+h)
 

@@ -9,7 +9,8 @@ OBJECT_CONST = gbv.GameObject(0.20706279240848655)
 def main():
     camera = gbv.USBCamera(0, gbv.LIFECAM_3000)
     threshold_function = THRESHOLD_CONST + gbv.MedianBlur(5)
-    finder = gbv.RotatedRectFinder(threshold_function, OBJECT_CONST, contour_min_area=100)
+    finder = gbv.RotatedRectFinder(threshold_function, OBJECT_CONST, contour_min_area=100,
+                                   rotated_rects_process=gbv.sort_rotated_rects + gbv.filter_inner_rotated_rects)
     window = gbv.CameraWindow('feed', camera, drawing_pipeline=gbv.DrawRotatedRects(
         threshold_func=threshold_function,
         color=(255, 0, 0),

@@ -10,4 +10,8 @@ dist/
 .idea/
 
 # test videos
+*.mp4
 *.avi
+
+# python build
+build/
