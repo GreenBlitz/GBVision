@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 import cv2
 import numpy as np
@@ -92,7 +92,7 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
     return frame
 
 
-def draw_lines(frame: Frame, pts1: tuple(int, int), pts2: tuple(int, int), color: Color, *args, **kwargs) -> Frame:
+def draw_lines(frame: Frame, pts1: Tuple[int, int], pts2: Tuple[int, int], color: Color, *args, **kwargs) -> Frame:
     """
     draws all Lines on a copy of the frame and returns the copy
 
