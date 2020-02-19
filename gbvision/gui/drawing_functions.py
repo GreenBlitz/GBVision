@@ -92,6 +92,25 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
     return frame
 
 
+def draw_lines(frame: Frame, pts1: tuple(int, int), pts2: tuple(int, int), color: Color, *args, **kwargs) -> Frame:
+    """
+    draws all Lines on a copy of the frame and returns the copy
+
+    :param frame: the frame to draw on
+    :param pts1: the start points to draw from
+    :param pts2: the end points to draw to
+    :param color: the color to draw in
+    :param args: all extra args to opencv's lines (for example thickness)
+    :param kwargs: all extra keyword args to opencv's lines (for example thickness)
+    :return: a copy of the frame, after drawing
+    """
+
+    frame = frame.copy()
+    for i in len(min(pts1, pts2)):
+        cv2.line(frame, pts1[i], pts2[i], color, *args, **kwargs)
+    return frame
+
+
 def draw_text(frame: Frame, text: str, coords: Coordinates, font_scale: Number, color: Color,
               font=cv2.FONT_HERSHEY_SIMPLEX, *args, **kwargs) -> Frame:
     """
