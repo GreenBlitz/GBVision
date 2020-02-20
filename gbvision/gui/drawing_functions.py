@@ -3,7 +3,8 @@ from typing import List
 import cv2
 import numpy as np
 
-from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse, Coordinates, Number
+from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse, Coordinates, Number, \
+    Line
 
 
 def draw_contours(frame: Frame, cnts: List[Contour], color: Color, *args, **kwargs) -> Frame:
@@ -89,6 +90,24 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
     frame = frame.copy()
     for e in ellipses:
         cv2.ellipse(frame, e, color, *args, **kwargs)
+    return frame
+
+
+def draw_lines(frame: Frame, lines: List[Line], color: Color, *args, **kwargs) -> Frame:
+    """
+    draws all Lines on a copy of the frame and returns the copy
+
+    :param frame: the frame to draw on
+    :param lines: the list of lines to draw
+    :param color: the color to draw in
+    :param args: all extra args to opencv's lines (for example thickness)
+    :param kwargs: all extra keyword args to opencv's lines (for example thickness)
+    :return: a copy of the frame, after drawing
+    """
+
+    frame = frame.copy()
+    for line in lines:
+        cv2.line(frame, line[0], line[1], color, *args, **kwargs)
     return frame
 
 

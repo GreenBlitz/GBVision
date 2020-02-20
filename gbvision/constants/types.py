@@ -14,6 +14,7 @@ Frame = Union[ndarray, None]
 Color = Tuple[int, int, int]
 FilterFunction = Callable[[Frame], Frame]
 Coordinates = Tuple[int, int]
+Line = Tuple[Coordinates, Coordinates]
 Location = Union[Tuple[Number, Number, Number], ndarray]
 ROI = Tuple[int, int, int, int]  # (x, y, width, height)
 Shape = TypeVar('Shape')
