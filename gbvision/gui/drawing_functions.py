@@ -3,7 +3,8 @@ from typing import List, Tuple
 import cv2
 import numpy as np
 
-from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse, Coordinates, Number
+from gbvision.constants.types import Frame, Contour, Color, Circle, Rect, RotatedRect, Ellipse, Coordinates, Number, \
+    Line
 
 
 def draw_contours(frame: Frame, cnts: List[Contour], color: Color, *args, **kwargs) -> Frame:
@@ -92,13 +93,12 @@ def draw_ellipses(frame: Frame, ellipses: List[Ellipse], color: Color, *args, **
     return frame
 
 
-def draw_lines(frame: Frame, pts1: Tuple[int, int], pts2: Tuple[int, int], color: Color, *args, **kwargs) -> Frame:
+def draw_lines(frame: Frame, lines: List[Line], color: Color, *args, **kwargs) -> Frame:
     """
     draws all Lines on a copy of the frame and returns the copy
 
     :param frame: the frame to draw on
-    :param pts1: the start points to draw from
-    :param pts2: the end points to draw to
+    :param lines: the list pf lines to draw
     :param color: the color to draw in
     :param args: all extra args to opencv's lines (for example thickness)
     :param kwargs: all extra keyword args to opencv's lines (for example thickness)
@@ -106,8 +106,8 @@ def draw_lines(frame: Frame, pts1: Tuple[int, int], pts2: Tuple[int, int], color
     """
 
     frame = frame.copy()
-    for i in len(min(pts1, pts2)):
-        cv2.line(frame, pts1[i], pts2[i], color, *args, **kwargs)
+    for line in lines:
+        cv2.line(frame, line[0], line[1], color, *args, **kwargs)
     return frame
 
 

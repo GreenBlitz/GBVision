@@ -3,11 +3,11 @@ import numpy as np
 
 import gbvision as gbv
 
-stdv = np.array([10, 80, 80])
+stdv = np.array([5, 80, 80])
 
 
 def main():
-    camera = gbv.USBCamera(2)
+    camera = gbv.USBCamera(0)
     camera.set_exposure(-5)
     window = gbv.CameraWindow('feed', camera)
     window.open()
@@ -16,7 +16,7 @@ def main():
         k = window.last_key_pressed
         if k == 'r':
             bbox = cv2.selectROI('feed', frame)
-            thr = gbv.median_threshold(frame, stdv, bbox, 'hls')
+            thr = gbv.median_threshold(frame, stdv, bbox, 'HSV')
             break
     cv2.destroyAllWindows()
 
