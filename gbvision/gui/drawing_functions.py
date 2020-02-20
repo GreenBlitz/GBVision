@@ -98,7 +98,7 @@ def draw_lines(frame: Frame, lines: List[Line], color: Color, *args, **kwargs) -
     draws all Lines on a copy of the frame and returns the copy
 
     :param frame: the frame to draw on
-    :param lines: the list pf lines to draw
+    :param lines: the list of lines to draw
     :param color: the color to draw in
     :param args: all extra args to opencv's lines (for example thickness)
     :param kwargs: all extra keyword args to opencv's lines (for example thickness)
