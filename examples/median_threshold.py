@@ -3,7 +3,7 @@ import numpy as np
 
 import gbvision as gbv
 
-stdv = np.array([5, 80, 80])
+stdv = np.array([10, 80, 80])
 
 
 def main():
