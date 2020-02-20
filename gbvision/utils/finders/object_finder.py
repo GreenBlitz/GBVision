@@ -67,7 +67,7 @@ class ObjectFinder(abc.ABC):
     def _shape_center(cls, shape: Shape) -> Point:
         return cls._base_shape().shape_center(shape)
 
-    def filter_inner_shapes(self, shapes: List[Shape]):
+    def filter_inner_shapes(self, shapes: List[Shape]) -> List[Shape]:
         """
         filters out all inner shapes in the given sorted list of shapes
 
