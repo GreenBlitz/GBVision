@@ -31,8 +31,7 @@ class ContourFinder(ObjectFinder):
                                threshold_func +
                                find_contours +
                                FilterContours(min_area=contour_min_area) +
-                               sort_contours +
                                contours_process)
 
-    def find_shapes(self, frame: Frame) -> List[Polygon]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[Polygon]:
         return self._full_pipeline(frame)

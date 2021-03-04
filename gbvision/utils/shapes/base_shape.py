@@ -59,7 +59,7 @@ class BaseShape(abc.ABC):
         :param shapes: the list of shapes to sort
         :return: a sorted copy of the list of shapes
         """
-        return sorted(shapes, key=cls.shape_area)
+        return sorted(shapes, key=cls.shape_area, reverse=True)
 
     @classmethod
     def filter_inner_shapes(cls, shapes: List[Shape]) -> List[Shape]:

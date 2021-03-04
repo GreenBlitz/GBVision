@@ -11,6 +11,7 @@ dist/
 
 # test videos
 *.mp4
+<<<<<<< HEAD
 *.av
 
 #Pycharm virtual environment

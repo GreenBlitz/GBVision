@@ -1,8 +1,8 @@
 from typing import List
 
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.constants.types import Frame, Polygon, Contour, Number, Point, FilterFunction
-from gbvision.models.contours import FilterContours, find_contours, sort_polygons, contour_center, contours_to_polygons
+from gbvision.constants.types import Frame, Polygon, FilterFunction
+from gbvision.models.contours import FilterContours, find_contours, contours_to_polygons
 from .object_finder import ObjectFinder
 from gbvision.utils.shapes.base_polygon import BasePolygon
 
@@ -33,8 +33,7 @@ class PolygonFinder(ObjectFinder):
                                FilterContours(min_area=contour_min_area) +
                                contours_process +
                                contours_to_polygons +
-                               sort_polygons +
                                polygons_process)
 
-    def find_shapes(self, frame: Frame) -> List[Polygon]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[Polygon]:
         return self._full_pipeline(frame)

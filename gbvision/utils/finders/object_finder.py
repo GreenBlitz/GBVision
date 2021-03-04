@@ -42,13 +42,22 @@ class ObjectFinder(abc.ABC):
         """
 
     @abc.abstractmethod
-    def find_shapes(self, frame: Frame) -> List[Shape]:
+    def find_shapes_unsorted(self, frame: Frame) -> List[Shape]:
         """
-        finds all the objects and returns them in frame after full pipeline
+        finds all the objects and returns them in frame after full pipeline (not sorted)
 
         :param: The current frame the finder searches in
         :return: A list of objects: see gbvision/constants/types
         """
+
+    def find_shapes(self, frame: Frame) -> List[Shape]:
+        """
+        finds all the objects and returns them in frame after full pipeline (sorted)
+
+        :param: The current frame the finder searches in
+        :return: A list of objects: see gbvision/constants/types
+        """
+        return self._base_shape().sort_shapes(self.find_shapes_unsorted(frame))
 
     @classmethod
     def _shape_root_area(cls, shape: Shape) -> Number:
@@ -57,6 +66,15 @@ class ObjectFinder(abc.ABC):
     @classmethod
     def _shape_center(cls, shape: Shape) -> Point:
         return cls._base_shape().shape_center(shape)
+
+    def filter_inner_shapes(self, shapes: List[Shape]) -> List[Shape]:
+        """
+        filters out all inner shapes in the given sorted list of shapes
+
+        :param shapes: a sorted list of shapes
+        :return: the list of shapes, without any shape intersecting with a larger shape
+        """
+        return self._base_shape().filter_inner_shapes(shapes)
 
     def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """

@@ -3,13 +3,16 @@ import time
 
 
 def main():
-    camera = gbv.AsyncUSBCamera(0)
-    camera.wait_start_reading()
+    camera = gbv.USBCamera(0)
     camera.set_frame_size(640, 480)
-    orig_window = gbv.CameraWindow('original', camera)
-    edges_window = gbv.CameraWindow('edges', camera, drawing_pipeline=gbv.edges + gbv.gray)
-    orig_window.show_async()
-    edges_window.show()
+    orig_window = gbv.FeedWindow('original')
+    edges_window = gbv.FeedWindow('edges', drawing_pipeline=gbv.edges)
+    while True:
+        ok, frame = camera.read()
+        if not orig_window.show_frame(frame) or not edges_window.show_frame(frame):
+            break
+    orig_window.close()
+    edges_window.close()
 
 
 if __name__ == '__main__':

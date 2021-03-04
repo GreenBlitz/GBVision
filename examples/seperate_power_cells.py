@@ -8,7 +8,7 @@ THRESHOLD = gbv.ColorThreshold([[14, 34], [146, 255], [48, 208]], 'HSV') + gbv.D
 
 
 def radius_restore() -> gbv.Number:
-    return 2
+    return 1 + K
 
 
 def circle_process(circs: List[gbv.Circle]) -> List[gbv.Circle]:
