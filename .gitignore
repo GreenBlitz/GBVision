@@ -12,3 +12,6 @@ dist/
 # test videos
 *.mp4
 *.avi
+
+#PyCharm virtual environment files
+venv/*
