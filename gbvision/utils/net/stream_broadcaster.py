@@ -38,26 +38,31 @@ class StreamBroadcaster(abc.ABC):
         self.max_bitrate = max_bitrate
 
     def send_frame(self, frame: Frame):
+        """
+        safely sends the frame, doing all the pre-processing required
+        :param frame:
+        :return:
+        """
         if frame is not None:
             frame = self._prep_frame(frame)
             frame = cv2.imencode(self.im_encode, frame)[1]
-        data = pickle.dumps(frame)
-        data = struct.pack("I", len(data)) + data
+        data = self._to_bytes(frame)
         if self._can_send_frame(data):
-            self._send_frame(data)
+            self._send_bytes(data)
             self._update_time()
 
     @abc.abstractmethod
-    def _send_frame(self, frame: bytes):
+    def _send_bytes(self, frame: bytes):
         """
-        unsafely sends the given frame (as pickled data) to the stream receiver
+        unsafely sends the given binary formatted frame to the stream receiver
+        if you are using headers, it is recommended you add them here
         should not be used by the programmer, only by the api
 
-        :param frame: the frame to send as pickled data
+        :param frame: the frame to send in a binary format (like pickle)
         """
         pass
 
-    def _prep_frame(self, frame):
+    def _prep_frame(self, frame: Frame) -> Frame:
         """
         prepares an image to be sent
         resize and convert the colors of the image by the parameters of the stream broadcaster
@@ -69,6 +74,16 @@ class StreamBroadcaster(abc.ABC):
         if self.use_grayscale and len(frame.shape) > 2:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         return frame
+
+    @staticmethod
+    def _to_bytes(frame: object) -> bytes:
+        """
+        converts the given python object to a binary representation
+
+        :param frame: the python object to parse
+        :return: a binary representation of the python object
+        """
+        return pickle.dumps(frame)
 
     def _legal_time(self) -> bool:
         """

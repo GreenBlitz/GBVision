@@ -23,43 +23,33 @@ class StreamReceiver(Readable, abc.ABC):
         self.shape = shape
         self.fx = fx
         self.fy = fy
-        self.data = b''
-        self.payload_size = struct.calcsize("I")
 
     @abc.abstractmethod
-    def _receive(self) -> bytes:
+    def _get_bytes(self) -> bytes:
         """
-        reads bytes from the stream and returns them
-        the amount of bytes read is the choice of the programmer
-        for UDP / RAW formats, a large amount is recommended
-        for TCP / TCP like formats, a small amount is recommended
+        performs the entire process of reading from the socket
+        any defragmentation and headers handling necessary needs to happen here
 
+        :return: the bytes read from the socket, after defragmentation (if exists)
         """
-        pass
-
-    def _get_frame_data(self) -> bytes:
-        """
-
-        :return:
-        """
-        while len(self.data) < self.payload_size:
-            self.data += self._receive()
-        packed_msg_size = self.data[:self.payload_size]
-        self.data = self.data[self.payload_size:]
-        msg_size = struct.unpack("I", packed_msg_size)[0]
-        while len(self.data) < msg_size:
-            self.data += self._receive()
-        frame_data = self.data[:msg_size]
-        self.data = self.data[msg_size:]
-        return frame_data
 
     def read(self):
-        frame_data = self._get_frame_data()
-        frame = pickle.loads(frame_data)
+        frame_data = self._get_bytes()
+        frame = self._from_bytes(frame_data)
         if frame is None:
             return False, None
         frame = cv2.imdecode(frame, -1)
         return True, self._prep_frame(frame)
+
+    @staticmethod
+    def _from_bytes(bytes_obj: bytes) -> object:
+        """
+        parses a binary represented object back to a python object
+
+        :param bytes_obj: the binary output from the socket
+        :return: a python object
+        """
+        return pickle.loads(bytes_obj)
 
     def _prep_frame(self, frame: Frame) -> Frame:
         """

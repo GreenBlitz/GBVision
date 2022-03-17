@@ -1,5 +1,6 @@
 import socket
 from .stream_broadcaster import StreamBroadcaster
+from gbvision.constants.net import UDP_MAX_SIZE
 
 
 class UDPStreamBroadcaster(StreamBroadcaster):
@@ -18,5 +19,12 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_addr = (ip, port)
 
-    def _send_frame(self, frame):
+    @staticmethod
+    def _is_frame_legal_size(frame: bytes) -> bool:
+        return len(frame) < UDP_MAX_SIZE
+
+    def _can_send_frame(self, frame: bytes):
+        return self._is_frame_legal_size(frame) and StreamBroadcaster._can_send_frame(self, frame)
+
+    def _send_bytes(self, frame):
         self.socket.sendto(frame, self.server_addr)
