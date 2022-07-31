@@ -3,7 +3,6 @@ from typing import Union
 import cv2
 import numpy as np
 
-from gbvision.constants.images import COLOR_TYPE
 from gbvision.constants.types import Frame, Number, ROI
 from gbvision.utils.thresholds import ColorThreshold
 from gbvision.utils.thresholds.threshold import Threshold
@@ -40,6 +39,8 @@ def median_threshold(frame: Frame, stdv: Union[Number, np.ndarray],
     :param color_encoding: the type of color encoding the threshold should use, default is BGR
     :return: a Threshold object
     """
+    from gbvision.constants.images import COLOR_TYPE
+
     if box is not None:
         frame = crop(frame, *box)
     color_encoding = color_encoding.upper()
