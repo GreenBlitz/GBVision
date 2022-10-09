@@ -1,17 +1,24 @@
+from typing import List
+
 import cv2
 
 from .base_shape import BaseShape
 from gbvision.constants.types import Polygon, Number, Point
-from gbvision.models.contours import contour_center
+from gbvision.models.contours import contour_center, contours_to_polygons
+from ... import Contour, Shape
 
 
 class BasePolygon(BaseShape):
     @staticmethod
-    def shape_area(shape: Polygon) -> Number:
+    def from_contours(contours: List[Contour]) -> List[Shape]:
+        return contours_to_polygons(contours)
+
+    @staticmethod
+    def area(shape: Polygon) -> Number:
         return cv2.contourArea(shape)
 
     @staticmethod
-    def shape_center(shape: Polygon) -> Point:
+    def center(shape: Polygon) -> Point:
         return contour_center(shape)
 
     @staticmethod

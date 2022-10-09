@@ -1,11 +1,18 @@
+from typing import List
+
 from .base_shape import BaseShape
 from gbvision.constants.types import RotatedRect, Number, Point
 from gbvision.models.shapes import rotated_rect_collision
+from ... import Contour, Shape, contours_to_rotated_rects
 
 
 class BaseRotatedRect(BaseShape):
     @staticmethod
-    def shape_center(shape: RotatedRect) -> Point:
+    def from_contours(contours: List[Contour]) -> List[Shape]:
+        return contours_to_rotated_rects(contours)
+
+    @staticmethod
+    def center(shape: RotatedRect) -> Point:
         return shape[0]
 
     @staticmethod
@@ -13,5 +20,5 @@ class BaseRotatedRect(BaseShape):
         return rotated_rect_collision(shape1, shape2)
 
     @classmethod
-    def shape_area(cls, shape: RotatedRect) -> Number:
+    def area(cls, shape: RotatedRect) -> Number:
         return shape[1][0] * shape[1][1]

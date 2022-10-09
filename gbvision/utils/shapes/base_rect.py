@@ -1,11 +1,18 @@
+from typing import List
+
 from .base_shape import BaseShape
-from gbvision.constants.types import Rect, Number, Point
+from gbvision.constants.types import Rect, Number, Point, Contour, Shape
 from gbvision.models.shapes import rect_collision
+from ... import contours_to_rects
 
 
 class BaseRect(BaseShape):
     @staticmethod
-    def shape_center(shape: Rect) -> Point:
+    def from_contours(contours: List[Contour]) -> List[Shape]:
+        return contours_to_rects(contours)
+
+    @staticmethod
+    def center(shape: Rect) -> Point:
         return shape[0] + (shape[2] / 2), shape[1] + (shape[3] / 2)
 
     @staticmethod
@@ -13,5 +20,5 @@ class BaseRect(BaseShape):
         return rect_collision(shape1, shape2)
 
     @classmethod
-    def shape_area(cls, shape: Rect) -> Number:
+    def area(cls, shape: Rect) -> Number:
         return shape[2] * shape[3]

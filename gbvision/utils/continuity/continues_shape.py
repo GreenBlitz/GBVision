@@ -45,11 +45,11 @@ class ContinuesShape(abc.ABC):
 
     @classmethod
     def _shape_area(cls, shape: Shape) -> Number:
-        return cls._base_shape().shape_area(shape)
+        return cls._base_shape().area(shape)
 
     @classmethod
     def _shape_center(cls, shape: Shape) -> Point:
-        return cls._base_shape().shape_center(shape)
+        return cls._base_shape().center(shape)
 
     @staticmethod
     @abc.abstractmethod
