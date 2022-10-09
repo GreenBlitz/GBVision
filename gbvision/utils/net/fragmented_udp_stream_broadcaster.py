@@ -8,7 +8,7 @@ from gbvision.constants.types import Number, Frame
 
 class FragmentedUDPStreamBroadcaster(UDPStreamBroadcaster):
     """
-    a UDP broadcaster that can fragment big frames and send them in chunks, thus allowing it to bypass the
+    A UDP broadcaster that can fragment big frames and send them in chunks, thus allowing it to bypass the
     size limit of the UDP broadcaster
 
     :param mtu: the maximum size of a single fragment (without the fragment headers)
