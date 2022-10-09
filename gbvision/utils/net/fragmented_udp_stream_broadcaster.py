@@ -34,7 +34,7 @@ class FragmentedUDPStreamBroadcaster(UDPStreamBroadcaster):
         :param index: The fragment's index in the entire frame
         :param amount: The total amount of fragments that will be sent
         """
-        assert len(fragment) <= self.mtu, f"Cannot sent fragment of size {len(fragment)} when MTU is {self.mtu}"
+        assert len(fragment) <= self.mtu, f"Cannot send fragment of size {len(fragment)} when MTU is {self.mtu}"
         UDPStreamBroadcaster._send_bytes(self,
                                          struct.pack(FRAGMENTED_UDP_HEADERS_STRUCT, self.current_index, index,
                                                      amount) + fragment)
