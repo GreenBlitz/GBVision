@@ -1,6 +1,7 @@
 import socket
+import struct
 
-from gbvision.constants.net import LOCAL_SERVER_IP
+from gbvision.constants.net import LOCAL_SERVER_IP, TCP_HEADERS_STRUCT
 from .stream_broadcaster import StreamBroadcaster
 from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
 
@@ -23,9 +24,10 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         self.socket.listen(10)
         self.socket, addr = self.socket.accept()
 
-    def _send_frame(self, frame):
+    def _send_bytes(self, data):
         try:
-            self.socket.send(frame)
+            data = struct.pack(TCP_HEADERS_STRUCT, len(data)) + data
+            self.socket.send(data)
         except IOError as e:
             raise TCPStreamClosed() from e
         self._update_time()
