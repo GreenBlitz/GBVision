@@ -1,6 +1,6 @@
 import socket
 
-from gbvision.constants.net import LOCAL_SERVER_IP
+from gbvision.constants.net import LOCAL_SERVER_IP, UDP_MAX_SIZE
 from .stream_receiver import StreamReceiver
 
 
@@ -19,5 +19,5 @@ class UDPStreamReceiver(StreamReceiver):
         self.server_addr = (LOCAL_SERVER_IP, port)
         self.socket.bind(self.server_addr)
 
-    def _receive(self) -> bytes:
-        return self.socket.recv(2 ** 20)
+    def _get_bytes(self) -> bytes:
+        return self.socket.recv(UDP_MAX_SIZE)

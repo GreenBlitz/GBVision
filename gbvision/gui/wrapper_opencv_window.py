@@ -27,3 +27,8 @@ class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow, ABC):
         OpenCVWindow.__init__(self, window_name, flags=flags, exit_button=exit_button)
         WrapperWindow.__init__(self, window_name=window_name, wrap_object=wrap_object,
                                drawing_pipeline=drawing_pipeline)
+
+    def show_async(self):
+        self.flags = cv2.WINDOW_AUTOSIZE
+        self.open()
+        WrapperWindow.show_async(self)

@@ -27,7 +27,7 @@ def edges(frame):
     :param frame: the frame to convolve
     :return: the convolved frame
     """
-    return cv2.filter2D(frame, -1, np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]))
+    return cv2.Canny(frame, 100, 200)
 
 
 @PipeLine
