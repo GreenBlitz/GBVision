@@ -132,3 +132,10 @@ class Camera(Readable, abc.ABC):
         self._set_height(height)
         self._set_width(width)
         self.get_data().focal_length *= np.sqrt(width * height / (old_width * old_height))
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.release()
+
