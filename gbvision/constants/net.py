@@ -1,6 +1,6 @@
 LOCAL_SERVER_IP = '0.0.0.0'
 
-UDP_MAX_SIZE = 2 ** 16
+UDP_MAX_SIZE = 65507
 
 # frame_size
 TCP_HEADERS_STRUCT = "I"

@@ -37,7 +37,7 @@ class StreamBroadcaster(abc.ABC):
         self.im_encode = im_encode
         self.max_bitrate = max_bitrate
 
-    def send_frame(self, frame: Frame):
+    def send_frame(self, frame: Frame) -> None:
         """
         safely sends the frame, doing all the pre-processing required
         :param frame:
@@ -47,28 +47,27 @@ class StreamBroadcaster(abc.ABC):
             frame = self._prep_frame(frame)
             frame = cv2.imencode(self.im_encode, frame)[1]
         data = self._to_bytes(frame)
-        if self._can_send_frame(data):
+        if self._can_send_bytes(data):
             self._send_bytes(data)
             self._update_time()
 
     @abc.abstractmethod
-    def _send_bytes(self, frame: bytes):
+    def _send_bytes(self, data: bytes) -> None:
         """
-        unsafely sends the given binary formatted frame to the stream receiver
-        if you are using headers, it is recommended you add them here
-        should not be used by the programmer, only by the api
+        Unsafely sends the given binary formatted frame to the stream receiver
+        should not be used by the programmer, only by the API
 
-        :param frame: the frame to send in a binary format (like pickle)
+        :param data: The frame to send in a binary format (like pickle)
         """
         pass
 
     def _prep_frame(self, frame: Frame) -> Frame:
         """
-        prepares an image to be sent
-        resize and convert the colors of the image by the parameters of the stream broadcaster
+        Prepares an image to be sent
+        Resize and convert the colors of the image by the parameters of the stream broadcaster
 
-        :param frame: the frame to prepare
-        :return: the frame after preparation
+        :param frame: The frame to prepare
+        :return: The frame after preparation
         """
         frame = cv2.resize(frame, self.shape, fx=self.fx, fy=self.fy)
         if self.use_grayscale and len(frame.shape) > 2:
@@ -78,7 +77,7 @@ class StreamBroadcaster(abc.ABC):
     @staticmethod
     def _to_bytes(frame: object) -> bytes:
         """
-        converts the given python object to a binary representation
+        Converts the given python object to a binary representation
 
         :param frame: the python object to parse
         :return: a binary representation of the python object
@@ -87,30 +86,39 @@ class StreamBroadcaster(abc.ABC):
 
     def _legal_time(self) -> bool:
         """
-        checks if at the fps will not pass the max fps limit if an image will be sent at the current moment
+        Checks if at the fps will not pass the max fps limit if an image will be sent at the current moment
         
-        :return: true if the image can be sent, false otherwise
+        :return: True if the image can be sent, False otherwise
         """
         return self.max_fps is None or (time.time() - self.prev_time) * self.max_fps >= 1
 
-    def _update_time(self):
+    def _update_time(self) -> None:
         """
-        updates the previous time a frame was sent, used at the end of send_frame
+        Updates the previous time a frame was sent, used at the end of send_frame
         """
         self.prev_time = time.time()
 
-    def _legal_bitrate(self, frame: bytes):
+    def _legal_bitrate(self, data: bytes) -> None:
         """
-        :return: True if there's no bitrate limit or frame bitrate is below max bitrate.  
+        Checks if sending the data will be a violation of the bitrate limit
+
+        :param data: The data to send
+        :return: True if there's no bitrate limit or frame bitrate is below max bitrate, False otherwise
         """
-        return self.max_bitrate is None or len(frame) / (
+        return self.max_bitrate is None or len(data) / (
                 (time.time() - self.prev_time + EPSILON) * 1000) <= self.max_bitrate
 
-    def _can_send_frame(self, frame: bytes):
+    def _can_send_bytes(self, data: bytes) -> bool:
+        """
+        Checks if the data can be sent under the provided limitations (max FPS, max KBPS and etc)
+
+        :param data: The data to send
+        :return: True if sending the data will not violate the limitations, False otherwise
+        """
         if not self._legal_time():
             return False
 
-        if not self._legal_bitrate(frame):
+        if not self._legal_bitrate(data):
             return False
 
         return True

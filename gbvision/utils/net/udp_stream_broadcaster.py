@@ -21,10 +21,16 @@ class UDPStreamBroadcaster(StreamBroadcaster):
 
     @staticmethod
     def _is_frame_legal_size(frame: bytes) -> bool:
+        """
+        Checks if the frame's size is too large
+
+        :param frame:
+        :return:
+        """
         return len(frame) < UDP_MAX_SIZE
 
-    def _can_send_frame(self, frame: bytes):
-        return self._is_frame_legal_size(frame) and StreamBroadcaster._can_send_frame(self, frame)
+    def _can_send_bytes(self, data: bytes) -> bool:
+        return self._is_frame_legal_size(data) and StreamBroadcaster._can_send_bytes(self, data)
 
-    def _send_bytes(self, frame):
-        self.socket.sendto(frame, self.server_addr)
+    def _send_bytes(self, data: bytes) -> None:
+        self.socket.sendto(data, self.server_addr)

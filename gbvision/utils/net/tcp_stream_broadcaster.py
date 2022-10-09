@@ -24,10 +24,10 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         self.socket.listen(10)
         self.socket, addr = self.socket.accept()
 
-    def _send_bytes(self, frame):
+    def _send_bytes(self, data):
         try:
-            frame = struct.pack(TCP_HEADERS_STRUCT, len(frame)) + frame
-            self.socket.send(frame)
+            data = struct.pack(TCP_HEADERS_STRUCT, len(data)) + data
+            self.socket.send(data)
         except IOError as e:
             raise TCPStreamClosed() from e
         self._update_time()
