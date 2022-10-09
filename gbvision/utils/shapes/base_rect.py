@@ -3,7 +3,7 @@ from typing import List
 from .base_shape import BaseShape
 from gbvision.constants.types import Rect, Number, Point, Contour, Shape
 from gbvision.models.shapes import rect_collision
-from ... import contours_to_rects
+from gbvision.models.contours import contours_to_rects
 
 
 class BaseRect(BaseShape):

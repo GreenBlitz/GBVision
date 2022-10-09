@@ -3,9 +3,9 @@ from typing import List
 from gbvision.constants.math import SQRT_PI
 
 from .base_shape import BaseShape
-from gbvision.constants.types import Circle, Number, Point
+from gbvision.constants.types import Circle, Number, Point, Contour, Shape
 from gbvision.models.shapes import circle_collision
-from ... import Contour, Shape, contours_to_circles
+from gbvision.models.contours import contours_to_circles
 
 
 class BaseCircle(BaseShape):

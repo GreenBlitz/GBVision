@@ -3,9 +3,8 @@ from typing import List
 import cv2
 
 from .base_shape import BaseShape
-from gbvision.constants.types import Polygon, Number, Point
+from gbvision.constants.types import Polygon, Number, Point, Contour, Shape
 from gbvision.models.contours import contour_center, contours_to_polygons
-from ... import Contour, Shape
 
 
 class BasePolygon(BaseShape):

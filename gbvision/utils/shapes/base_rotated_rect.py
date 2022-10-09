@@ -1,9 +1,9 @@
 from typing import List
 
 from .base_shape import BaseShape
-from gbvision.constants.types import RotatedRect, Number, Point
+from gbvision.constants.types import RotatedRect, Number, Point, Contour, Shape
 from gbvision.models.shapes import rotated_rect_collision
-from ... import Contour, Shape, contours_to_rotated_rects
+from gbvision.models.contours import contours_to_rotated_rects
 
 
 class BaseRotatedRect(BaseShape):
