@@ -1,6 +1,5 @@
 import abc
 import pickle
-import struct
 import cv2
 import time
 

@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.utils.net.stream_receiver import StreamReceiver
+from .stream_receiver import StreamReceiver
 from gbvision.utils.async_readable import AsyncReadable
 
 

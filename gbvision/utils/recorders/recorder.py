@@ -14,7 +14,7 @@ class Recorder(abc.ABC):
         self.file_name = file_name
 
     @abc.abstractmethod
-    def record(self, frame: Frame):
+    def record(self, frame: Frame) -> Frame:
         """
         records the frame
 
@@ -22,16 +22,15 @@ class Recorder(abc.ABC):
         """
 
     @abc.abstractmethod
-    def close(self):
+    def close(self) -> None:
         """
-        ends the writing to the file
-
+        Ends the writing to the file
         """
 
     @abc.abstractmethod
     def is_opened(self) -> bool:
         """
-        checks if this video file is opened
+        Checks if this video file is opened
 
         :return: True if this is opened, False otherwise
         """

@@ -1,4 +1,4 @@
-from gbvision.utils.net import AsyncStreamReceiver
+from .async_stream_receiver import AsyncStreamReceiver
 from .tcp_stream_receiver import TCPStreamReceiver
 
 

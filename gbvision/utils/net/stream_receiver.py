@@ -1,7 +1,6 @@
 import abc
 import pickle
 import cv2
-import struct
 
 from gbvision.constants.types import Frame
 from gbvision.utils.readable import Readable

@@ -38,6 +38,7 @@ class OpenCVRecorder(Recorder):
             self.video_writer = cv2.VideoWriter()
             self.video_writer.open(self.file_name, self.fourcc, self.fps, (self.width, self.height))
         self.video_writer.write(frame)
+        return frame
 
     def close(self):
         self.video_writer.release()
