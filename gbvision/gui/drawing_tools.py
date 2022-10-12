@@ -1,23 +1,31 @@
+import abc
+
 from gbvision.constants.types import Color, FilterFunction
 
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.models.contours import find_contours, contours_to_circles, contours_to_rects, contours_to_rotated_rects, \
-    contours_to_ellipses
+from gbvision.models.contours import find_contours
 from gbvision.utils.pipeline import PipeLine
 from .drawing_functions import draw_contours, draw_circles, draw_rects, draw_rotated_rects, draw_ellipses
+from gbvision.utils.shapes.base_shape import BaseShapeType
 
 
-class _DrawObject(PipeLine):
-    def __init__(self, finding_func, color, drawing_func, *args, **kwargs):
+class _DrawObject(PipeLine, abc.ABC):
+    def __init__(self, finding_func, color, *args, **kwargs):
         def _draw(frame):
             return drawing_func(frame, finding_func(frame), color, *args, **kwargs)
 
         PipeLine.__init__(self, _draw)
 
+    @staticmethod
+    @abc.abstractmethod
+    def _base_shape() -> BaseShapeType:
+        """
+        :return: A BaseShape of this shape
+        """
 
 class DrawContours(_DrawObject):
     """
-    a pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing
+    A pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing
     """
 
     def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE, *args,

@@ -1,10 +1,10 @@
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Optional
 import functools
 
 
-class _DocsClassForPipeLine:
+class PipeLine:
     """
-    a class representing a pipeline of function
+    A class representing a pipeline of function
     each function receives one input, which is the output of the previous function in the pipeline
     pipelines are great for representing a long computer vision function (which is why such functions
     are called pipelines).
@@ -49,31 +49,42 @@ class _DocsClassForPipeLine:
     Example::
         multiply_by_2_then_add_3 = PipeLine(lambda x: x * 2) + PipeLine(lambda x: x + 3)
 
-    :param functions: a tuple of functions to run one after the other as a pipeline
+    :param functions: A tuple of functions to run one after the other as a pipeline
+    :param qualname: Optional,
     """
+    __NO_DOCS = '\n\tNo Docs :('
 
-    def __init__(self, *functions: Callable[[Any], Any]):
-        raise NotImplementedError('You should not create an instance of this class')
-
-
-class _GetDocsForPipeLine:
-    def __get__(self, var, cls):
-        if isinstance(var, PipeLine):
-            if len(var.functions) == 0:
-                return _DocsClassForPipeLine.__doc__
-            if len(var.functions) == 1:
-                return var.functions[0].__doc__
-            elif len(var.functions) > 1:
-                all_docs = []
-                for i, func in enumerate(var.functions):
-                    all_docs.append(f'{i}. {func.__qualname__}\n{func.__doc__ or "No Docs :("}')
-                return '\n\n'.join(all_docs)
-        return _DocsClassForPipeLine.__doc__
-
-
-class PipeLine:
-    def __init__(self, *functions: Callable[[Any], Any]):
+    def __init__(self, *functions: Callable[[Any], Any], qualname: Optional[str] = None, module: Optional[str] = None):
         self.functions = list(functions)
+
+        # set qual name
+        if qualname is not None:
+            self.__qualname__ = qualname
+        if len(functions) == 1:
+            if hasattr(functions[0], '__qualname__'):
+                self.__qualname__ = functions[0].__qualname__
+        elif len(functions) > 1:
+            self.__qualname__ = ' + '.join(x.__qualname__ for x in functions if hasattr(x, '__module__')) or None
+
+        # set module
+        if module is not None:
+            self.__module__ = module
+        if len(functions) == 1:
+            if hasattr(functions[0], '__module__'):
+                self.__module__ = functions[0].__module__
+        elif len(functions) > 1:
+            all_modules = set(x.__module__ for x in functions if hasattr(x, '__module__'))
+            if len(all_modules) == 1:
+                self.__module__ = next(iter(all_modules))
+
+        # set doc
+        if len(functions) == 1:
+            self.__doc__ = functions[0].__doc__
+        elif len(functions) > 1:
+            all_docs = []
+            for i, func in enumerate(functions):
+                all_docs.append(f'{i}. {func.__qualname__}\n{func.__doc__ or self.__NO_DOCS}')
+            self.__doc__ = '\n\n'.join(all_docs)
 
     def __call__(self, image: Any) -> Any:
         """
@@ -136,4 +147,4 @@ class PipeLine:
         """
         return len(self.functions)
 
-    __doc__ = _GetDocsForPipeLine()
+    # __doc__ = _GetDocsForPipeLine()
