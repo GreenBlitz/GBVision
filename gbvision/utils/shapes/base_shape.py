@@ -3,13 +3,26 @@ from typing import Type, List
 
 import numpy as np
 
-from gbvision.constants.types import Shape, Number, Rect, Point
+from gbvision.constants.types import Shape, Number, Rect, Point, Contour
 
 
 class BaseShape(abc.ABC):
+    def __init__(self):
+        raise Exception("Can't create an instance of a base shape class")
+
     @staticmethod
     @abc.abstractmethod
-    def shape_collision(shape1: Shape, shape2: Shape) -> bool:
+    def from_contours(cnts: List[Contour]) -> List[Shape]:
+        """
+        Converts the given list of contours to a list of this shape
+
+        :param cnts: The contours to convert
+        :return: A list of this shape, the same length as the contours list
+        """
+
+    @staticmethod
+    @abc.abstractmethod
+    def collision(shape1: Shape, shape2: Shape) -> bool:
         """
         checks if the two shapes are colliding
 
@@ -20,7 +33,7 @@ class BaseShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def shape_area(shape: Shape) -> Number:
+    def area(shape: Shape) -> Number:
         """
         calculates the area of the shape
 
@@ -30,7 +43,7 @@ class BaseShape(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def shape_center(shape: Shape) -> Point:
+    def center(shape: Shape) -> Point:
         """
         calculates the center-of-mass of the shape
 
@@ -39,7 +52,7 @@ class BaseShape(abc.ABC):
         """
 
     @classmethod
-    def shape_root_area(cls, shape: Shape) -> Number:
+    def root_area(cls, shape: Shape) -> Number:
         """
         calculates the square root of the area of the shape
         default is the square root of cls.shape_area, but it can be overridden in case there is a simpler way\
@@ -48,10 +61,10 @@ class BaseShape(abc.ABC):
         :param shape: the shape
         :return: the square root of the area of the shape
         """
-        return np.sqrt(cls.shape_area(shape))
+        return np.sqrt(cls.area(shape))
 
     @classmethod
-    def sort_shapes(cls, shapes: List[Shape]) -> List[Shape]:
+    def sort(cls, shapes: List[Shape]) -> List[Shape]:
         """
         sorts the list of shapes by area, should be overridden to use area root in case it's better
         doesn't modify the given list, returns a new list
@@ -59,10 +72,10 @@ class BaseShape(abc.ABC):
         :param shapes: the list of shapes to sort
         :return: a sorted copy of the list of shapes
         """
-        return sorted(shapes, key=cls.shape_area, reverse=True)
+        return sorted(shapes, key=cls.area, reverse=True)
 
     @classmethod
-    def filter_inner_shapes(cls, shapes: List[Shape]) -> List[Shape]:
+    def filter_inners(cls, shapes: List[Shape]) -> List[Shape]:
         """
         filters out all shapes that are colliding with a shape with a smaller index in the given list
         returns a list of all shapes that aren't colliding
@@ -74,7 +87,7 @@ class BaseShape(abc.ABC):
         for i, shape in enumerate(shapes):
             shape_invalid = False
             for j in range(i):
-                shape_invalid = cls.shape_collision(shape, shapes[j])
+                shape_invalid = cls.collision(shape, shapes[j])
                 if shape_invalid:
                     break
             if not shape_invalid:

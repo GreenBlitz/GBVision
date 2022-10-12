@@ -41,15 +41,15 @@ class ContinuesShape(abc.ABC):
         """
 
     def _shape_collision(self, shape: Shape) -> bool:
-        return self._base_shape().shape_collision(self._shape, shape)
+        return self._base_shape().collision(self._shape, shape)
 
     @classmethod
     def _shape_area(cls, shape: Shape) -> Number:
-        return cls._base_shape().shape_area(shape)
+        return cls._base_shape().area(shape)
 
     @classmethod
     def _shape_center(cls, shape: Shape) -> Point:
-        return cls._base_shape().shape_center(shape)
+        return cls._base_shape().center(shape)
 
     @staticmethod
     @abc.abstractmethod
