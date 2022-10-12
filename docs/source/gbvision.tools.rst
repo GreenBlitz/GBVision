@@ -28,6 +28,14 @@ gbvision.tools.list\_tools module
    :undoc-members:
    :show-inheritance:
 
+gbvision.tools.math\_tools module
+---------------------------------
+
+.. automodule:: gbvision.tools.math_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
