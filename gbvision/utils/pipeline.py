@@ -63,8 +63,6 @@ class _GetDocsForPipeLine:
                 return _DocsClassForPipeLine.__doc__
             if len(var.functions) == 1:
                 return var.functions[0].__doc__
-                # self.__qualname__ = functions[0].__qualname__
-                # self.__module__ = functions[0].__module__
             elif len(var.functions) > 1:
                 all_docs = []
                 for i, func in enumerate(var.functions):
