@@ -57,15 +57,15 @@ class ObjectFinder(abc.ABC):
         :param: The current frame the finder searches in
         :return: A list of objects: see gbvision/constants/types
         """
-        return self._base_shape().sort_shapes(self.find_shapes_unsorted(frame))
+        return self._base_shape().sort(self.find_shapes_unsorted(frame))
 
     @classmethod
     def _shape_root_area(cls, shape: Shape) -> Number:
-        return cls._base_shape().shape_root_area(shape)
+        return cls._base_shape().root_area(shape)
 
     @classmethod
     def _shape_center(cls, shape: Shape) -> Point:
-        return cls._base_shape().shape_center(shape)
+        return cls._base_shape().center(shape)
 
     def filter_inner_shapes(self, shapes: List[Shape]) -> List[Shape]:
         """
@@ -74,7 +74,7 @@ class ObjectFinder(abc.ABC):
         :param shapes: a sorted list of shapes
         :return: the list of shapes, without any shape intersecting with a larger shape
         """
-        return self._base_shape().filter_inner_shapes(shapes)
+        return self._base_shape().filter_inners(shapes)
 
     def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """
