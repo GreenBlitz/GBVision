@@ -4,6 +4,14 @@ gbvision.utils.net package
 Submodules
 ----------
 
+gbvision.utils.net.async\_fragmented\_udp\_stream\_receiver module
+------------------------------------------------------------------
+
+.. automodule:: gbvision.utils.net.async_fragmented_udp_stream_receiver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.utils.net.async\_stream\_receiver module
 -------------------------------------------------
 
