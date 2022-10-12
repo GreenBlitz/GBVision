@@ -8,10 +8,12 @@ dist/
 
 # editor files
 .idea/
+.vscode/
 
 # test videos
 *.mp4
 *.av
+*.avi
 
 #Pycharm virtual environment
 venv/*
