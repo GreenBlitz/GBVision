@@ -1,8 +1,8 @@
-from typing import Any, Callable
+from typing import Any, Callable, Iterable
 import functools
 
 
-class PipeLine:
+class _DocsClassForPipeLine:
     """
     a class representing a pipeline of function
     each function receives one input, which is the output of the previous function in the pipeline
@@ -13,7 +13,7 @@ class PipeLine:
     Example::
         inc = PipeLine(lambda x: x + 1)
         three = inc(2)
-        
+
     or
     Example::
         @PipeLine
@@ -26,7 +26,7 @@ class PipeLine:
     Example::
         open_and_read_file = PipeLine(open, lambda x: x.read())
         text = open_and_read_file("file.txt")
-            
+
     You can also inherit from the PipeLine class to make a PipeLine factory:
     Example::
         class Adder(PipeLine):
@@ -53,9 +53,31 @@ class PipeLine:
     """
 
     def __init__(self, *functions: Callable[[Any], Any]):
+        raise NotImplementedError('You should not create an instance of this class')
+
+
+class _GetDocsForPipeLine:
+    def __get__(self, var, cls):
+        if isinstance(var, PipeLine):
+            if len(var.functions) == 0:
+                return _DocsClassForPipeLine.__doc__
+            if len(var.functions) == 1:
+                return var.functions[0].__doc__
+                # self.__qualname__ = functions[0].__qualname__
+                # self.__module__ = functions[0].__module__
+            elif len(var.functions) > 1:
+                all_docs = []
+                for i, func in enumerate(var.functions):
+                    all_docs.append(f'{i}. {func.__qualname__}\n{func.__doc__ or "No Docs :("}')
+                return '\n\n'.join(all_docs)
+        return _DocsClassForPipeLine.__doc__
+
+
+class PipeLine:
+    def __init__(self, *functions: Callable[[Any], Any]):
         self.functions = list(functions)
 
-    def __call__(self, image):
+    def __call__(self, image: Any) -> Any:
         """
         activate this pipeline and return the result
 
@@ -65,7 +87,7 @@ class PipeLine:
         """
         return functools.reduce(lambda x, f: f(x), self.functions, image)
 
-    def __add__(self, other):
+    def __add__(self, other: Callable[[Any], Any]) -> 'PipeLine':
         """
         creates a new pipeline which uses the output of this pipeline as input to the other pipeline
 
@@ -77,7 +99,7 @@ class PipeLine:
             return PipeLine(*self.functions + other.functions)
         return PipeLine(*self.functions + [other])
 
-    def __radd__(self, other):
+    def __radd__(self, other: Callable[[Any], Any]) -> 'PipeLine':
         """
         adds this PipeLine to another function that isn't a PipeLine
 
@@ -86,7 +108,7 @@ class PipeLine:
         """
         return PipeLine(other) + self
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: int) -> Callable[[Any], Any]:
         """
         gets the function at index item
 
@@ -95,7 +117,7 @@ class PipeLine:
         """
         return self.functions[item]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: int, value: Callable[[Any], Any]) -> None:
         """
         sets the function at index key to the new function value
 
@@ -104,8 +126,16 @@ class PipeLine:
         """
         self.functions[key] = value
 
-    def __iter__(self):
+    def __iter__(self) -> Iterable[Callable[[Any], Any]]:
         """
         :return: an iterator that iterates through all functions in this pipeline
         """
         return iter(self.functions)
+
+    def __len__(self):
+        """
+        :return: The amount of functions in this pipeline
+        """
+        return len(self.functions)
+
+    __doc__ = _GetDocsForPipeLine()
