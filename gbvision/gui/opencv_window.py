@@ -3,6 +3,7 @@ from abc import ABC
 from .window import Window
 import cv2
 from gbvision.models.system import EMPTY_PIPELINE
+from gbvision.constants.types import ROI
 
 
 class OpenCVWindow(Window, ABC):
@@ -34,3 +35,6 @@ class OpenCVWindow(Window, ABC):
 
     def _release(self):
         cv2.destroyWindow(self.window_name)
+
+    def select_roi(self, frame) -> ROI:
+        return cv2.selectROI(self.window_name, frame)

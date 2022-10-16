@@ -15,7 +15,7 @@ def main():
         frame = window.show_and_get_frame()
         k = window.last_key_pressed
         if k == 'r':
-            bbox = cv2.selectROI('feed', frame)
+            bbox = window.select_roi(frame)
             thr = gbv.median_threshold(frame, stdv, bbox, 'HSV')
             break
     window.release()
