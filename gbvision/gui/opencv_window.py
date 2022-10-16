@@ -10,7 +10,7 @@ class OpenCVWindow(Window, ABC):
     """
     A basic window that uses the opencv gui module
 
-    :param exit_button: S list of chars (or string) that will close the window when pressed
+    :param exit_button: A list of chars (or string) that will close the window when pressed
     :param flags: OpenCV window flags (default is WINDOW_FREERATIO)
     """
 
