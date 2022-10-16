@@ -54,8 +54,17 @@ class PipeLine:
     """
     __NO_DOCS = '\n\tNo Docs :('
 
+    @staticmethod
+    def __get_qual_name(func: Callable[[Any], Any]) -> str:
+        return func.__qualname__ if hasattr(func, '__qualname__') else 'Unknown Function'
+
     def __init__(self, *functions: Callable[[Any], Any], qualname: Optional[str] = None, module: Optional[str] = None):
-        self.functions = list(functions)
+        self.functions = []
+        for f in functions:
+            if isinstance(f, PipeLine):
+                self.functions += f.functions
+            else:
+                self.functions.append(f)
 
         # set qual name
         if qualname is not None:
@@ -64,7 +73,7 @@ class PipeLine:
             if hasattr(functions[0], '__qualname__'):
                 self.__qualname__ = functions[0].__qualname__
         elif len(functions) > 1:
-            self.__qualname__ = ' + '.join(x.__qualname__ for x in functions if hasattr(x, '__module__')) or None
+            self.__qualname__ = ' + '.join(self.__get_qual_name(func) for func in functions) or None
 
         # set module
         if module is not None:
@@ -83,25 +92,25 @@ class PipeLine:
         elif len(functions) > 1:
             all_docs = []
             for i, func in enumerate(functions):
-                all_docs.append(f'{i}. {func.__qualname__}\n{func.__doc__ or self.__NO_DOCS}')
+                all_docs.append(f'{i}. {self.__get_qual_name(func)}\n{func.__doc__ or self.__NO_DOCS}')
             self.__doc__ = '\n\n'.join(all_docs)
 
     def __call__(self, image: Any) -> Any:
         """
-        activate this pipeline and return the result
+        Activate this pipeline and return the result
 
-        :param image: the input to the first function in the pipeline (also the input to the entire pipeline) \
+        :param image: The input to the first function in the pipeline (also the input to the entire pipeline) \
         doesn't have to be an image, can be anything
-        :return: the output of the last function in the pipeline, can be data type
+        :return: The output of the last function in the pipeline, can be data type
         """
         return functools.reduce(lambda x, f: f(x), self.functions, image)
 
     def __add__(self, other: Callable[[Any], Any]) -> 'PipeLine':
         """
-        creates a new pipeline which uses the output of this pipeline as input to the other pipeline
+        Creates a new pipeline which uses the output of this pipeline as input to the other pipeline
 
-        :param other: the second pipeline
-        :return: a new pipeline, and calling this pipeline with the parameter image is similar to \
+        :param other: The second pipeline
+        :return: A new pipeline, and calling this pipeline with the parameter image is similar to \
         performing other(self(image))
         """
         if isinstance(other, PipeLine):
@@ -110,34 +119,34 @@ class PipeLine:
 
     def __radd__(self, other: Callable[[Any], Any]) -> 'PipeLine':
         """
-        adds this PipeLine to another function that isn't a PipeLine
+        Adds this PipeLine to another function that isn't a PipeLine
 
-        :param other: the function
-        :return: a new PipeLine which performs self(other(image)) on the parameter image
+        :param other: The function
+        :return: A new PipeLine which performs self(other(image)) on the parameter image
         """
         return PipeLine(other) + self
 
     def __getitem__(self, item: int) -> Callable[[Any], Any]:
         """
-        gets the function at index item
+        Gets the function at index item
 
-        :param item: the index
-        :return: the item
+        :param item: The index
+        :return: The item
         """
         return self.functions[item]
 
     def __setitem__(self, key: int, value: Callable[[Any], Any]) -> None:
         """
-        sets the function at index key to the new function value
+        Sets the function at index key to the new function value
 
-        :param key: the index
-        :param value: the new function
+        :param key: The index
+        :param value: The new function
         """
         self.functions[key] = value
 
     def __iter__(self) -> Iterable[Callable[[Any], Any]]:
         """
-        :return: an iterator that iterates through all functions in this pipeline
+        :return: An iterator that iterates through all functions in this pipeline
         """
         return iter(self.functions)
 
@@ -146,5 +155,3 @@ class PipeLine:
         :return: The amount of functions in this pipeline
         """
         return len(self.functions)
-
-    # __doc__ = _GetDocsForPipeLine()

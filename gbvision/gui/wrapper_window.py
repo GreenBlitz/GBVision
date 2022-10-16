@@ -11,7 +11,7 @@ class WrapperWindow(Window, abc.ABC):
     """
     A window class that uses an object (wrap_object) and reads frames from it in to display it's feed
 
-    :param wrap_object: an object to read frames from, can be of any type
+    :param wrap_object: An object to read frames from, can be of any type
     """
 
     def __init__(self, window_name: str, wrap_object: Any, drawing_pipeline=EMPTY_PIPELINE):
@@ -20,9 +20,9 @@ class WrapperWindow(Window, abc.ABC):
 
     def show_and_get_frame(self) -> Frame:
         """
-        shows one frame and returns it
+        Shows one frame and returns it
 
-        :return: the frame if the window was not closed, None otherwise
+        :return: The frame if the window was not closed, None otherwise
         """
         frame = self._get_frame()
         if self.show_frame(frame):
@@ -31,7 +31,7 @@ class WrapperWindow(Window, abc.ABC):
 
     def show(self):
         """
-        reads from the wrap object and shows the frame until the window is closed
+        Reads from the wrap object and shows the frame until the window is closed
         """
         while True:
             if self.show_and_get_frame() is None:
@@ -40,14 +40,16 @@ class WrapperWindow(Window, abc.ABC):
     @abc.abstractmethod
     def _get_frame(self) -> Frame:
         """
-        unsafely reads a frame from the wrapped object and returns the read frame
+        Unsafely reads a frame from the wrapped object and returns the read frame
         
-        :return: the read frame
+        :return: The read frame
         """
-        pass
 
-    def show_async(self):
+    def show_async(self) -> None:
         """
-        opens the steam video window on another thread
+        Opens the steam video window on another thread
         """
+        # Close existing window to allow it to re-open on the new thread
+        if self.is_opened():
+            self.release()
         Thread(target=self.show).start()

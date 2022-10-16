@@ -7,11 +7,11 @@ class UDPStreamBroadcaster(StreamBroadcaster):
     """
     this class uses UDP to send a stream over the network, the stream is by default set to be MJPEG
     the broadcaster is the client and the receiver is the server
-    WARNING: do not use this class to send large images, udp has a limited packet size
+    WARNING: Do not use this class to send large images, UDP has a limited packet size (the IPv4 limit)
+    To send a stream of frames larger then the maximum size of an IP packet, use FragmentedUDPStreamBroadcaster
 
-    :param ip: the IPv4 address of the udp stream receiver, for example '10.45.90.5'
-    :param port: the port that UDP uses to send packets on
-    :param im_encode: the type of image encoding to send over the network, default is '.jpg' (JPEG)
+    :param ip: The IPv4 address of the udp stream receiver, for example '10.45.90.5'
+    :param port: The UDP port to use
     """
 
     def __init__(self, ip: str, port: int, *args, **kwargs):
@@ -20,17 +20,23 @@ class UDPStreamBroadcaster(StreamBroadcaster):
         self.server_addr = (ip, port)
 
     @staticmethod
-    def _is_frame_legal_size(frame: bytes) -> bool:
+    def _is_frame_legal_size(data: bytes) -> bool:
         """
         Checks if the frame's size is too large
 
-        :param frame:
-        :return:
+        :param data: The frame
+        :return: True if the data is small enough, False otherwise
         """
-        return len(frame) < UDP_MAX_SIZE
+        return len(data) < UDP_MAX_SIZE
 
     def _can_send_bytes(self, data: bytes) -> bool:
         return self._is_frame_legal_size(data) and StreamBroadcaster._can_send_bytes(self, data)
 
     def _send_bytes(self, data: bytes) -> None:
         self.socket.sendto(data, self.server_addr)
+
+    def release(self) -> None:
+        self.socket.close()
+
+    def is_opened(self) -> bool:
+        return self.socket.fileno() != -1

@@ -2,12 +2,12 @@ import gbvision as gbv
 
 FUEL = gbv.GameObject(0.04523893421169302263386206471922)
 
-FUEL_THRESHOLD = gbv.ColorThreshold([[0, 73], [129, 209], [119, 199]], 'HSV')
+FUEL_THRESHOLD = gbv.ColorThreshold(((0, 73), (129, 209), (119, 199)), 'HSV')
 
 
 def main():
     camera = gbv.USBCamera(0)
-    find_fuel = gbv.CircleFinder(FUEL_THRESHOLD, FUEL, contour_min_area=1000)
+    find_fuel = gbv.CircleFinder(FUEL_THRESHOLD, FUEL, contours_hook=gbv.FilterContours(1000))
     fuel_follower = None
     window = gbv.FeedWindow('follow')
     window.open()
@@ -27,8 +27,7 @@ def main():
                     break
             else:
                 fuel_follower.update_forced(frame=frame)
-            frame = gbv.draw_circles(frame=frame, circs=[fuel_follower.get()],
-                                     color=(255, 0, 0), thickness=10)
+            frame = gbv.BaseCircle.draw(frame=frame, shape=fuel_follower.get(), color=(255, 0, 0), thickness=10)
 
         if len(all_fuels) == 0:
             found_fuel = False

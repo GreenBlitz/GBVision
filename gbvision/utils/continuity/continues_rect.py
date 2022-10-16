@@ -1,4 +1,3 @@
-from gbvision.constants.types import Rect
 from .continues_shape import ContinuesShape
 from gbvision.utils.shapes.base_rect import BaseRect
 
@@ -12,7 +11,4 @@ class ContinuesRect(ContinuesShape):
     @staticmethod
     def _base_shape():
         return BaseRect
-
-    def __init__(self, shape: Rect, *args, **kwargs):
-        ContinuesShape.__init__(self, shape=shape, *args, **kwargs)
 

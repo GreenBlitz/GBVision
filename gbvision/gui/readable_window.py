@@ -4,9 +4,9 @@ from gbvision.utils.readable import Readable
 
 class ReadableWindow(WrapperOpenCVWindow):
     """
-    a basic window that displays the stream from any readable
+    A basic window that displays the stream from any readable
 
-    :param wrap_object: a readable to read the frames from
+    :param wrap_object: A readable to read the frames from
     """
 
     def __init__(self, window_name: str, wrap_object: Readable, *args, **kwargs):

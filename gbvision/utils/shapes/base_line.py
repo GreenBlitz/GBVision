@@ -16,7 +16,8 @@ class BaseLine(BaseShape):
 
     @staticmethod
     def _unsafe_draw(frame: Frame, shape: Line, color: Color, *args, **kwargs) -> None:
-        cv2.line(frame, shape[0], shape[1], color, *args, **kwargs)
+        cv2.line(frame, (int(shape[0][0]), int(shape[0][1])), (int(shape[1][0]), int(shape[1][1])), color, *args,
+                 **kwargs)
 
     @staticmethod
     def to_bounding_rect(shape: Line) -> Rect:

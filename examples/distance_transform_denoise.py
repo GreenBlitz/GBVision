@@ -1,6 +1,6 @@
 import gbvision as gbv
 
-THRESHOLD = gbv.ColorThreshold([[0, 62], [215, 255], [15, 95]], 'HSV')
+THRESHOLD = gbv.ColorThreshold(((0, 62), (215, 255), (15, 95)), 'HSV')
 
 
 def main():
@@ -13,6 +13,7 @@ def main():
     denoising_window = gbv.CameraWindow('denoised', camera,
                                         drawing_pipeline=THRESHOLD + gbv.DistanceTransformThreshold(0.4))
     denoising_window.show()
+    camera.release()
 
 
 if __name__ == '__main__':

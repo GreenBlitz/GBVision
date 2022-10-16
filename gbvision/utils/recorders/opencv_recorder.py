@@ -1,5 +1,4 @@
 from os.path import splitext
-from typing import Optional
 
 import cv2
 from gbvision.constants.video import VIDEO_FILE_TYPE
@@ -7,17 +6,18 @@ from gbvision.constants.video import VIDEO_FILE_TYPE
 from .recorder import Recorder
 
 
-class OpenCVRecorder(Recorder):
+class OpenCVRecorder(cv2.VideoWriter, Recorder):
     """
-    a basic implementation of the recorder class using OpenCV
+    A basic implementation of the recorder class using OpenCV
 
-    :param file_name: the path to the output file
-    :param fps: the fps of the video
-    :param width: optional, the width of the video (will be set automatically if not given)
-    :param height: optional, the height of the video (will be set automatically if not given)
+    :param file_name: The path to the output file
+    :param fps: The fps of the video
+    :param width: Optional. The width of the video (will be set automatically if not given)
+    :param height: Optional. The height of the video (will be set automatically if not given)
     """
     def __init__(self, file_name, fps, width=None, height=None):
         Recorder.__init__(self, file_name)
+        cv2.VideoWriter.__init__(self)
 
         _, file_ext = splitext(file_name)
 
@@ -25,25 +25,25 @@ class OpenCVRecorder(Recorder):
 
         self.fps = fps
 
-        self.video_writer: Optional[cv2.VideoWriter] = None
         self.width = width
         self.height = height
+        self.__initialized = False
 
-    def record(self, frame):
+    def write(self, frame):
         if frame is None or len(frame.shape) == 0:
             return
-        if self.video_writer is None:
+        if not self.__initialized:
             self.width = self.width if self.width is not None else frame.shape[1]
             self.height = self.height if self.height is not None else frame.shape[0]
-            self.video_writer = cv2.VideoWriter()
-            self.video_writer.open(self.file_name, self.fourcc, self.fps, (self.width, self.height))
-        self.video_writer.write(frame)
+            self.open(self.file_name, self.fourcc, self.fps, (self.width, self.height))
+            self.__initialized = True
+        cv2.VideoWriter.write(self, frame)
         return frame
 
-    def close(self):
-        self.video_writer.release()
+    def release(self) -> None:
+        cv2.VideoWriter.release(self)
 
     def is_opened(self) -> bool:
-        if self.video_writer is None:
+        if not self.__initialized:
             return True
-        return self.video_writer.isOpened()
+        return self.isOpened()

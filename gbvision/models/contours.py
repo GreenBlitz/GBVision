@@ -3,7 +3,7 @@ from typing import List
 import cv2
 
 from gbvision.constants.system import CONTOURS_INDEX
-from gbvision.constants.types import Contour, Polygon, Frame, Circle, Rect, RotatedRect
+from gbvision.constants.types import Contour, Polygon, Frame
 from gbvision.utils.pipeline import PipeLine
 
 

@@ -9,7 +9,7 @@ class RecordingWindow(Window, abc.ABC):
     """
     A basic window that records the stream it receives
 
-    :param recording_pipeline: a drawing pipeline to run on the recorded frame, usually you will want this to be the
+    :param recording_pipeline: A drawing pipeline to run on the recorded frame, usually you will want this to be the
         same as the drawing pipeline
     """
 
@@ -20,8 +20,8 @@ class RecordingWindow(Window, abc.ABC):
         self.recorder = recorder
 
     def show_frame(self, frame):
-        self.recorder.record(self.recording_pipeline(frame))
+        self.recorder.write(self.recording_pipeline(frame))
         return Window.show_frame(self, frame)
 
-    def _close(self):
-        self.recorder.close()
+    def _release(self):
+        self.recorder.release()

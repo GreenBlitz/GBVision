@@ -1,18 +1,20 @@
 import abc
+from typing import Callable
 
-from gbvision.constants.types import Color, FilterFunction
-
-from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.models.contours import find_contours
+from gbvision.constants.types import Frame, Shape, Color
 from gbvision.utils.pipeline import PipeLine
-from .drawing_functions import draw_contours, draw_circles, draw_rects, draw_rotated_rects, draw_ellipses
 from gbvision.utils.shapes.base_shape import BaseShapeType
+from gbvision.utils.shapes.base_contour import BaseContour
+from gbvision.utils.shapes.base_circle import BaseCircle
+from gbvision.utils.shapes.base_rect import BaseRect
+from gbvision.utils.shapes.base_rotated_rect import BaseRotatedRect
+from gbvision.utils.shapes.base_ellipse import BaseEllipse
 
 
 class _DrawObject(PipeLine, abc.ABC):
-    def __init__(self, finding_func, color, *args, **kwargs):
+    def __init__(self, finding_func: Callable[[Frame], Shape], color: Color, *args, **kwargs):
         def _draw(frame):
-            return drawing_func(frame, finding_func(frame), color, *args, **kwargs)
+            return self._base_shape().draw_multiple(frame, finding_func(frame), color, *args, **kwargs)
 
         PipeLine.__init__(self, _draw)
 
@@ -23,64 +25,52 @@ class _DrawObject(PipeLine, abc.ABC):
         :return: A BaseShape of this shape
         """
 
+
 class DrawContours(_DrawObject):
     """
     A pipeline that draws all contours according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE, *args,
-                 **kwargs):
-        contour_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process
-        _DrawObject.__init__(self, contour_finding, color, draw_contours, *args, **kwargs)
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
+        return BaseContour
 
 
 class DrawCircles(_DrawObject):
     """
-    a pipeline that draws all circles according to the given parameters, and returns a copy of the frame after drawing
+    A pipeline that draws all circles according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE,
-                 circle_process=EMPTY_PIPELINE, *args, **kwargs):
-        circle_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_circles + \
-                         circle_process
-
-        _DrawObject.__init__(self, circle_finding, color, draw_circles, *args, **kwargs)
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
+        return BaseCircle
 
 
 class DrawRects(_DrawObject):
     """
-    a pipeline that draws all rects according to the given parameters, and returns a copy of the frame after drawing
+    A pipeline that draws all rects according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE,
-                 rects_process=EMPTY_PIPELINE, *args, **kwargs):
-        rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rects + \
-                       rects_process
-
-        _DrawObject.__init__(self, rect_finding, color, draw_rects, *args, **kwargs)
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
+        return BaseRect
 
 
 class DrawRotatedRects(_DrawObject):
     """
-    a pipeline that draws all rotated rects according to the given parameters, and returns a copy of the frame after drawing
+    A pipeline that draws all rotated rects according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE,
-                 rotated_rects_process=EMPTY_PIPELINE, *args, **kwargs):
-        rotated_rect_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_rotated_rects + \
-                               rotated_rects_process
-
-        _DrawObject.__init__(self, rotated_rect_finding, color, draw_rotated_rects, *args, **kwargs)
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
+        return BaseRotatedRect
 
 
 class DrawEllipses(_DrawObject):
     """
-    a pipeline that draws all ellipses according to the given parameters, and returns a copy of the frame after drawing
+    A pipeline that draws all ellipses according to the given parameters, and returns a copy of the frame after drawing
     """
 
-    def __init__(self, threshold_func: FilterFunction, color: Color, contours_process=EMPTY_PIPELINE,
-                 ellipses_process=EMPTY_PIPELINE, *args, **kwargs):
-        ellipses_finding = EMPTY_PIPELINE + threshold_func + find_contours + contours_process + contours_to_ellipses + \
-                           ellipses_process
-
-        _DrawObject.__init__(self, ellipses_finding, color, draw_ellipses, *args, **kwargs)
+    @staticmethod
+    def _base_shape() -> BaseShapeType:
+        return BaseEllipse

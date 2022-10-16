@@ -32,6 +32,8 @@ class GameObject:
 
     def location(self, camera: cameras.Camera, root_area: Number, center: Point) -> Location:
         """
+        Calculates the 3D location of this object, relative to the camera
+
         :param camera: the camera, can be either Camera or CameraList
         :param root_area: a float representing the square root of the area of the object (in pixels)
         :param center: the center (x,y) of this object in the frame

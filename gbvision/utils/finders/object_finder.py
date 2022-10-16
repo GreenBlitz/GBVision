@@ -1,14 +1,13 @@
 import abc
-from typing import List, Iterable, Union
+from typing import List, Iterable, Union, Callable
 
+from gbvision.constants.types import Frame, Location, Shape, FilterFunction, Contour, Number
 from gbvision.models.contours import find_contours
-from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.utils.thresholds.threshold import Threshold
+from gbvision.models.system import EMPTY_PIPELINE, EMPTY_GAME_OBJECT
 from gbvision.utils.cameras.camera import Camera
-
-from gbvision.constants.types import Frame, Location, Shape, FilterFunction
 from gbvision.utils.game_object import GameObject
 from gbvision.utils.shapes.base_shape import BaseShapeType
+from gbvision.utils.thresholds.threshold import Threshold
 
 
 class ObjectFinder(abc.ABC):
@@ -23,11 +22,11 @@ class ObjectFinder(abc.ABC):
 
     def __init__(
             self,
-            game_object: GameObject,
             threshold_func: Union[FilterFunction, Threshold],
-            area_scalar=1.0,
-            contours_hook: FilterFunction = EMPTY_PIPELINE,
-            shapes_hook: FilterFunction = EMPTY_PIPELINE,
+            game_object: GameObject = EMPTY_GAME_OBJECT,
+            area_scalar: Number = 1.0,
+            contours_hook: Callable[[List[Contour]], List[Contour]] = EMPTY_PIPELINE,
+            shapes_hook: Callable[[List[Shape]], List[Shape]] = EMPTY_PIPELINE,
     ):
         self.game_object = game_object
         self.area_scalar = area_scalar
@@ -40,11 +39,11 @@ class ObjectFinder(abc.ABC):
 
     def __call__(self, frame: Frame, camera: Camera) -> List[Location]:
         """
-        finds all instances of the object in the frame
+        Finds all instances of the object in the frame
 
-        :param frame: the frame in which to find
-        :param camera: the camera used to read the frame
-        :return: all object of this type in the physical space
+        :param frame: The frame in which to find
+        :param camera: The camera used to read the frame
+        :return: All object of this type in the physical space
         """
         return self.locations_from_shapes(self.find_shapes(frame), camera)
 
@@ -52,36 +51,45 @@ class ObjectFinder(abc.ABC):
     @abc.abstractmethod
     def _base_shape() -> BaseShapeType:
         """
-        returns the base shape matching this finder
+        Returns the base shape matching this finder
 
-        :return: the base shape (a class that inherits from BaseShape)
+        :return: The base shape (a class that inherits from BaseShape)
         """
 
     def find_shapes_unsorted(self, frame: Frame) -> List[Shape]:
         """
-        finds all the objects and returns them in frame after full pipeline (not sorted)
+        Finds all the shapes and returns them in frame after full pipeline (not sorted)
 
         :param: The current frame the finder searches in
-        :return: A list of objects: see gbvision/constants/types
+        :return: A list of shapes: see gbvision/constants/types
         """
         return self._find_shapes_pipeline(frame)
 
     def find_shapes(self, frame: Frame) -> List[Shape]:
         """
-        Finds all the objects and returns them in frame after full pipeline (sorted)
+        Finds all the shapes and returns them in frame after full pipeline (sorted)
 
         :param: The current frame the finder searches in
-        :return: A list of objects: see gbvision/constants/types
+        :return: A list of shapes: see gbvision/constants/types
         """
         return self._base_shape().sort(self.find_shapes_unsorted(frame))
+
+    def find_and_filter_shapes(self, frame: Frame) -> List[Shape]:
+        """
+        Finds all the shapes and returns them in frame after full pipeline (sorted), removes all inner shapes
+
+        :param: The current frame the finder searches in
+        :return: A list of shapes: see gbvision/constants/types
+        """
+        return self._base_shape().filter_inners(self.find_shapes(frame))
 
     def locations_from_shapes(self, shapes: Iterable[Shape], camera: Camera) -> List[Location]:
         """
         Finds the locations of the shapes based on the shape descriptor and camera constants
 
-        :param shapes: a list of the shapes
-        :param camera: the camera used to capture the frame that the shapes were found in
-        :return: a list of the locations of all the shapes
+        :param shapes: A list of the shapes
+        :param camera: The camera used to capture the frame that the shapes were found in
+        :return: A list of the locations of all the shapes
         """
         return list(
             map(lambda shape: self.game_object.location(camera,

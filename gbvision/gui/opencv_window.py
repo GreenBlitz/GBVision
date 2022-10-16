@@ -7,10 +7,10 @@ from gbvision.models.system import EMPTY_PIPELINE
 
 class OpenCVWindow(Window, ABC):
     """
-    a basic window that uses the opencv gui module
+    A basic window that uses the opencv gui module
 
-    :param exit_button: a list of chars (or string) that will close the window when pressed
-    :param flags: opencv window flags (default is WINDOW_FREERATIO)
+    :param exit_button: S list of chars (or string) that will close the window when pressed
+    :param flags: OpenCV window flags (default is WINDOW_FREERATIO)
     """
 
     def __init__(self, window_name: str, exit_button='qQ', drawing_pipeline=EMPTY_PIPELINE, flags=cv2.WINDOW_FREERATIO):
@@ -32,5 +32,5 @@ class OpenCVWindow(Window, ABC):
     def _open(self):
         cv2.namedWindow(self.window_name, self.flags)
 
-    def _close(self):
+    def _release(self):
         cv2.destroyWindow(self.window_name)

@@ -1,13 +1,14 @@
 import cv2
 import numpy as np
 
+from gbvision.constants.types import Frame
 from gbvision.utils.pipeline import PipeLine
 
 
 @PipeLine
-def corners(frame):
+def corners(frame: Frame) -> Frame:
     """
-    corner finding by a laplacian convolution of the frame by the matrix:
+    Corner finding by a laplacian convolution of the frame by the matrix:
         [-1 1]
         [1 -1]
 
@@ -18,109 +19,107 @@ def corners(frame):
 
 
 @PipeLine
-def edges(frame):
+def edges(frame: Frame) -> Frame:
     """
-    edges finding by a laplacian convolution of the frame by the matrix:
-        [-1 -1 -1]
-        [-1 8 -1]
-        [-1 -1 -1]
-    :param frame: the frame to convolve
-    :return: the convolved frame
+    Edges finding by the Canny algorithm
+
+    :param frame: The frame to convolve
+    :return: The convolved frame
     """
     return cv2.Canny(frame, 100, 200)
 
 
 @PipeLine
-def sharpen(frame):
+def sharpen(frame: Frame) -> Frame:
     """
-    sharpens the frame by a laplacian convolution of the frame by the matrix:
+    Sharpens the frame by a laplacian convolution of the frame by the matrix:
         [-1 -1 -1]
         [-1 9 -1]
         [-1 -1 -1]
 
-    :param frame: the frame to convolve
-    :return: the convolved frame
+    :param frame: The frame to convolve
+    :return: The convolved frame
     """
     return cv2.filter2D(frame, -1, np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]]))
 
 
 @PipeLine
-def blur(frame):
+def blur(frame: Frame) -> Frame:
     """
-    blurs the frame by a laplacian convolution of the frame by the matrix:
+    Blurs the frame by a laplacian convolution of the frame by the matrix:
         [1/9 1/9 1/9]
         [1/9 1/9 1/9]
         [1/9 1/9 1/9]
 
-    :param frame: the frame to convolve
-    :return: the convolved frame
+    :param frame: The frame to convolve
+    :return: The convolved frame
     """
     return cv2.filter2D(frame, -1, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) / 9)
 
 
 @PipeLine
-def blue(frame):
+def blue(frame: Frame) -> Frame:
     """
-    gets the blue channel of the frame
+    Gets the blue channel of the frame
 
-    :param frame: the frame
-    :return: the blue channel only (as a grayscale frame)
+    :param frame: The frame
+    :return: The blue channel only (as a grayscale frame)
     """
     return frame[:, :, 0]
 
 
 @PipeLine
-def green(frame):
+def green(frame: Frame) -> Frame:
     """
-    gets the green channel of the frame
+    Gets the green channel of the frame
 
-    :param frame: the frame
-    :return: the green channel only (as a grayscale frame)
+    :param frame: The frame
+    :return: The green channel only (as a grayscale frame)
     """
     return frame[:, :, 1]
 
 
 @PipeLine
-def red(frame):
+def red(frame: Frame) -> Frame:
     """
-    gets the red channel of the frame
+    Gets the red channel of the frame
 
-    :param frame: the frame
-    :return: the red channel only (as a grayscale frame)
+    :param frame: The frame
+    :return: The red channel only (as a grayscale frame)
     """
     return frame[:, :, 2]
 
 
 @PipeLine
-def gray(frame):
+def gray(frame: Frame) -> Frame:
     """
-    turns the frame to grayscale
+    Turns the frame to grayscale
 
-    :param frame: the frame
-    :return: the frame in grayscale form
+    :param frame: The frame
+    :return: The frame in grayscale form
     """
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 
 @PipeLine
-def normalize(frame):
+def normalize(frame: Frame) -> Frame:
     """
-    normalizes the frame to a pixel range of 0-1
-    equivalent to (frame - min(frame)) / max(abs(frame - min(frame)))
+    Normalizes the frame to a pixel range of 0-1
+    Equivalent to (frame - min(frame)) / max(abs(frame - min(frame)))
 
-    :param frame: the frame
-    :return: the normalized frame (data type float32)
+    :param frame: The frame
+    :return: The normalized frame (data type float32)
     """
     return cv2.normalize(frame, None, alpha=0.0, beta=1.0, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
 
 
 @PipeLine
-def distance_transform(frame):
+def distance_transform(frame: Frame) -> Frame:
     """
-    performs the distance transform algorithm on a binary frame
+    Performs the distance transform algorithm on a binary frame
 
-    :param frame: the frame (binary, usually after threshold)
-    :return: the distance transform of the frame using euclidean distance method
+    :param frame: The frame (binary, usually after threshold)
+    :return: The distance transform of the frame using euclidean distance method
     """
     return cv2.distanceTransform(frame, cv2.DIST_L2, 3)
 

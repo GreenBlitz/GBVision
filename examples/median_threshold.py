@@ -18,7 +18,7 @@ def main():
             bbox = cv2.selectROI('feed', frame)
             thr = gbv.median_threshold(frame, stdv, bbox, 'HSV')
             break
-    cv2.destroyAllWindows()
+    window.release()
 
     print(thr)
 
@@ -34,8 +34,8 @@ def main():
         if not after_proc.show_frame(frame):
             break
 
-    original.close()
-    after_proc.close()
+    original.release()
+    after_proc.release()
 
 
 if __name__ == '__main__':

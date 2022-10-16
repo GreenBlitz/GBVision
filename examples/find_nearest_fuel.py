@@ -2,7 +2,7 @@ import gbvision as gbv
 
 FUEL = gbv.GameObject(0.04523893421169302263386206471922)
 
-FUEL_THRESHOLD = gbv.ColorThreshold([[0, 76], [215, 255], [40, 120]], 'HSV')
+FUEL_THRESHOLD = gbv.ColorThreshold(((0, 76), (215, 255), (40, 120)), 'HSV')
 
 
 def main():

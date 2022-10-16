@@ -1,18 +1,18 @@
 import socket
 import struct
 
-from .stream_receiver import StreamReceiver
-from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
 from gbvision.constants.net import TCP_HEADERS_STRUCT
+from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
+from .stream_receiver import StreamReceiver
 
 
 class TCPStreamReceiver(StreamReceiver):
     """
-    this class uses TCP to receive a stream over the network, the stream is by default set to be MJPEG
+    This class uses TCP to receive a stream over the network, the stream is by default set to be MJPEG
     the broadcaster is the server and the receiver is the client
 
-    :param ip: the IPv4 address of the stream broadcaster, for example '10.45.90.8'
-    :param port: the port which TCP should use
+    :param ip: The IPv4 address of the stream broadcaster, for example '10.45.90.8'
+    :param port: The TCP port to use
     """
 
     def __init__(self, ip: str, port: int, *args, **kwargs):
@@ -26,6 +26,7 @@ class TCPStreamReceiver(StreamReceiver):
         try:
             return self.socket.recv(2 ** 32)
         except OSError as e:
+            self.release()
             raise TCPStreamClosed() from e
 
     def _get_bytes(self) -> bytes:
@@ -39,3 +40,9 @@ class TCPStreamReceiver(StreamReceiver):
             data += self._receive()
         frame_data = data[:msg_size]
         return frame_data
+
+    def release(self) -> None:
+        self.socket.close()
+
+    def is_opened(self) -> bool:
+        return self.socket.fileno() != -1

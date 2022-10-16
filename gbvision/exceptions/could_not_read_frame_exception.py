@@ -5,4 +5,3 @@ class CouldNotReadFrameException(VisionException):
     """
     this is raised when the camera could not be read from
     """
-    pass

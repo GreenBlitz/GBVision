@@ -7,12 +7,12 @@ from gbvision.constants.types import Frame
 
 class EmptyCamera(Camera):
     """
-    a camera class used for testing, it cannot be read from but can be used for location finding with finders and game\
+    A camera class used for testing, it cannot be read from but can be used for location finding with finders and game\
      objects, also used for measuring of distances when using streams instead of cameras to read frames
 
-    :param data: the camera's CameraData object, should match the fake camera's data
-    :param width: the width of a frame read from the fake camera
-    :param height: the height of a frame read from the fake camera
+    :param data: The camera's CameraData object, should match the fake camera's data
+    :param width: The width of a frame read from the fake camera
+    :param height: The height of a frame read from the fake camera
     """
 
     def __init__(self, data: CameraData, width: int, height: int):

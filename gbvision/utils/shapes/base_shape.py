@@ -233,5 +233,16 @@ class BaseShape(abc.ABC):
         cls._unsafe_draw_multiple(frame, shapes, color, *args, **kwargs)
         return frame
 
+    @classmethod
+    def sort_and_filter_inners(cls, shapes: List[Shape]):
+        """
+        Sorts the given list of shapes and filters out any inner shapes
+
+        :param shapes: The list of shapes
+        :return: The list of shapes sorted, with all inner shapes filtered out
+        """
+        return cls.filter_inners(cls.sort(shapes))
+    
+
 
 BaseShapeType = Type[BaseShape]

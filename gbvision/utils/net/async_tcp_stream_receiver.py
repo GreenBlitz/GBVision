@@ -10,3 +10,6 @@ class AsyncTCPStreamReceiver(AsyncStreamReceiver, TCPStreamReceiver):
 
     def _read(self):
         return TCPStreamReceiver.read(self)
+
+    def _release(self) -> None:
+        TCPStreamReceiver.release(self)

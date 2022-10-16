@@ -1,6 +1,6 @@
 import abc
 
-from gbvision.constants.types import Rect, Number, Frame, Point, Shape
+from gbvision.constants.types import Number, Frame, Shape
 from gbvision.utils.shapes.base_shape import BaseShapeType
 from gbvision.utils.tracker import Tracker
 
