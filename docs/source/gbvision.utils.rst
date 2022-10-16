@@ -50,6 +50,14 @@ gbvision.utils.readable module
    :undoc-members:
    :show-inheritance:
 
+gbvision.utils.releasable module
+--------------------------------
+
+.. automodule:: gbvision.utils.releasable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.utils.tracker module
 -----------------------------
 

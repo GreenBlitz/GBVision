@@ -12,14 +12,6 @@ gbvision.gui.camera\_window module
    :undoc-members:
    :show-inheritance:
 
-gbvision.gui.drawing\_functions module
---------------------------------------
-
-.. automodule:: gbvision.gui.drawing_functions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 gbvision.gui.drawing\_tools module
 ----------------------------------
 

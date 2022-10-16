@@ -4,6 +4,14 @@ gbvision.tools package
 Submodules
 ----------
 
+gbvision.tools.drawing\_tools module
+------------------------------------
+
+.. automodule:: gbvision.tools.drawing_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.tools.finding\_tools module
 ------------------------------------
 
