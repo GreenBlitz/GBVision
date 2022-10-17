@@ -9,6 +9,7 @@ Subpackages
    gbvision.utils.cameras
    gbvision.utils.continuity
    gbvision.utils.denoising
+   gbvision.utils.drawing
    gbvision.utils.finders
    gbvision.utils.net
    gbvision.utils.recorders
@@ -46,6 +47,14 @@ gbvision.utils.readable module
 ------------------------------
 
 .. automodule:: gbvision.utils.readable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gbvision.utils.releasable module
+--------------------------------
+
+.. automodule:: gbvision.utils.releasable
    :members:
    :undoc-members:
    :show-inheritance:

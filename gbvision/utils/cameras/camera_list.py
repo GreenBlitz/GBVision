@@ -1,68 +1,75 @@
-from typing import Union, List, Generator, Any, Tuple
+from typing import Union, List, Generator, Any, Tuple, Optional
 
 from .camera_data import CameraData
-from .stream_camera import Camera, StreamCamera
+from .streaming_camera import Camera, StreamingCamera
 from gbvision.constants.types import Frame, Number
 
 
 class CameraList(Camera):
     """
-    behaves as both a camera and a list of cameras
+    Behaves as both a camera and a list of cameras
     camera list holds in it a list of cameras referenced as the field cameras
     and also a single camera to be the current camera used for every operation on the camera list
     as a single camera
 
-    :param cameras: list of the cameras which will be part of the camera list
+    :param cameras: List of the cameras which will be part of the camera list
         you can also add and remove cameras later using the
-    :param select_cam: optional, an initial camera to be selected, if not set default camera is the first
+    :param select_cam: Optional, an initial camera to be selected, if not set default camera is the first
         one in the list
     """
 
-    def __init__(self, cameras: List[Camera], select_cam: int = None):
+    def __init__(self, cameras: List[Camera], select_cam: Optional[int] = None):
         self.cameras: List[Camera] = cameras.copy()
         if select_cam is None and len(cameras) > 0:
             select_cam = 0
-        self.selected_camera: Union[Camera, StreamCamera] = self.cameras[select_cam] if select_cam is not None else None
+        self.selected_camera: Union[Camera, StreamingCamera] = self.cameras[select_cam] if select_cam is not None else None
 
     def __getitem__(self, item: int) -> Camera:
         """
-        returns the camera at the index
-        :param item: the index
-        :return: the camera
+        Returns the camera at the index
+
+        :param item: The index
+        :return: The camera
         """
         return self.cameras[item]
 
     def __setitem__(self, item: int, value: Camera):
         """
-        sets the camera at the index to the new camera
-        :param item: the index
-        :param value: the new camera
+        Sets the camera at the index to the new camera
+
+        :param item: The index
+        :param value: The new camera
         """
         self.cameras[item] = value
 
     def select_camera(self, index: int):
         """
-        sets the selected camera to be the camera at the index
-        :param index: the new selected camera's index
+        Sets the selected camera to be the camera at the index
+
+        :param index: The new selected camera's index
         """
         self.selected_camera = self.cameras[index]
 
-    def __delitem__(self, item: int):
+    def __delitem__(self, index: int):
         """
-        deletes the camera at the index
-        :param item:
+        Deletes the camera at the index
+
+        :param index: The camera's index
         """
-        if self.selected_camera is self.cameras[item]:
+        if self.selected_camera is self.cameras[index]:
             self.selected_camera = None
-        del self.cameras[item]
+        del self.cameras[index]
 
     def __iter__(self):
         """
-        :return: an iterator that iterates through all the cameras
+        :return: An iterator that iterates through all the cameras
         """
         return iter(self.cameras)
 
     def __len__(self):
+        """
+        :return: The amount of cameras in this camera list
+        """
         return len(self.cameras)
 
     def read(self, foreach=False) -> Union[Tuple[bool, Frame], Generator[Tuple[bool, Frame], Any, None]]:
@@ -77,8 +84,9 @@ class CameraList(Camera):
 
     def add_camera(self, cam: Camera):
         """
-        adds a new camera to the end of the list
-        :param cam: the new camera
+        Adds a new camera to the end of the list
+
+        :param cam: The new camera
         """
         self.cameras.append(cam)
 
@@ -92,7 +100,7 @@ class CameraList(Camera):
 
     def default(self):
         """
-        sets the selected camera to the default camera (first camera in the list)
+        Sets the selected camera to the default camera (first camera in the list)
         """
         self.selected_camera = self.cameras[0] if len(self.cameras) > 0 else None
 
@@ -137,14 +145,14 @@ class CameraList(Camera):
     def toggle_stream(self, should_stream, foreach=False):
         if foreach:
             for cam in self.cameras:
-                if isinstance(cam, StreamCamera):
+                if isinstance(cam, StreamingCamera):
                     cam.toggle_stream(should_stream)
         else:
             self.selected_camera.toggle_stream(should_stream)
 
     def is_streaming(self, foreach=False) -> Union[bool, Generator[bool, Any, None]]:
         if foreach:
-            return (cam.is_streaming() if isinstance(cam, StreamCamera) else False for cam in self.cameras)
+            return (cam.is_streaming() if isinstance(cam, StreamingCamera) else False for cam in self.cameras)
         return self.selected_camera.is_streaming()
 
     def get_width(self, foreach=False) -> Union[int, Generator[int, Any, None]]:

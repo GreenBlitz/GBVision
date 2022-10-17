@@ -28,14 +28,6 @@ gbvision.models.contours module
    :undoc-members:
    :show-inheritance:
 
-gbvision.models.shapes module
------------------------------
-
-.. automodule:: gbvision.models.shapes
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 gbvision.models.system module
 -----------------------------
 

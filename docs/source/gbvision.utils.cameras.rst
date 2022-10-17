@@ -60,6 +60,14 @@ gbvision.utils.cameras.stream\_camera module
    :undoc-members:
    :show-inheritance:
 
+gbvision.utils.cameras.streaming\_camera module
+-----------------------------------------------
+
+.. automodule:: gbvision.utils.cameras.streaming_camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.utils.cameras.usb\_camera module
 -----------------------------------------
 
@@ -68,10 +76,10 @@ gbvision.utils.cameras.usb\_camera module
    :undoc-members:
    :show-inheritance:
 
-gbvision.utils.cameras.usb\_stream\_camera module
--------------------------------------------------
+gbvision.utils.cameras.usb\_streaming\_camera module
+----------------------------------------------------
 
-.. automodule:: gbvision.utils.cameras.usb_stream_camera
+.. automodule:: gbvision.utils.cameras.usb_streaming_camera
    :members:
    :undoc-members:
    :show-inheritance:

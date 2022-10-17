@@ -6,10 +6,10 @@ from gbvision.constants.types import Number
 
 class CameraData:
     """
-    describes constant about a camera in it's default state used to approximate distance
-    between the camera and an object seen in a frame
+    Describes constant about a camera in it's default state used to approximate distance
+    Between the camera and an object seen in a frame
 
-    :param focal_length: the focal length of the camera at it's default state, in units of pixels
+    :param focal_length: The focal length of the camera at it's default state, in units of pixels
         can be described as the square root of the amount of pixels an object takes on a frame, multiplied by it's
         distance from the camera and divided by the square root of it's surface
 
@@ -20,7 +20,7 @@ class CameraData:
         S is the real life surface area (in 2d projection) of the object
         note that this is a constant, whatever object you choose to use, this formula will yield the same result
     :param fov_width:
-        half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
+        Half the viewing angle of the camera (field of view) in radians, can be calculated by placing an object in front
         of the camera, so that the entire object is captured and it's center is at the frame's center.
         the tangent of the angle can be described as the width of the object in real life, divided by the
         product of the object's distance from the camera in real life and the ratio between the width of the frame
@@ -37,36 +37,36 @@ class CameraData:
         FOV = math:: arctan(tan(FOV))
 
     :param fov_height:
-        same as fov_width but on the height/y axis
+        Same as fov_width but on the height/y axis
 
     :param yaw_angle:
-        the clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
+        The clockwise yaw angle (in radians) in which the camera is rotated, the yaw angle is the angle around the y axis,
         it's output only affects the x and z axises.
         set this variable when the camera is rotated around the y axis and you want the output of finder functions
         to represent the original space, rather then the rotated one.
     :param pitch_angle:
-        the clockwise pitch angle (in radians) in which the camera is rotated, the pitch angle is the angle around the x axis,
+        The clockwise pitch angle (in radians) in which the camera is rotated, the pitch angle is the angle around the x axis,
         it's output only affects the y and z axises.
         set this variable when the camera is rotated around the x axis and you want the output of finder functions
         to represent the original space, rather then the rotated one.
     :param roll_angle:
-        the clockwise roll angle (in radians) in which the camera is rotated, the roll angle is the angle around the z axis,
+        The clockwise roll angle (in radians) in which the camera is rotated, the roll angle is the angle around the z axis,
         it's output only affects the x and y axises.
         set this variable when the camera is rotated around the z axis and you want the output of finder functions
         to represent the original space, rather then the rotated one.
     :param x_offset:
-        the x offset in which the camera is placed
+        The x offset in which the camera is placed
         the distance from the measuring point (usually the center of the robot) to the camera on the x axis (left/right),
         if the camera is to the right this should be positive and if it is left this should be negative
     :param y_offset:
-        the y offset in which the camera is placed
+        The y offset in which the camera is placed
         the distance from the measuring point to the camera on the y axis (up/down), if the camera is above the measuring point
         this variable should be positive and if it is below this should be negative
     :param z_offset:
-        the z offset in which the camera is placed
+        The z offset in which the camera is placed
         the distance from the measuring point to the camera on the z axis (depth), if the camera is placed outer then the measuring point
         this variable should be positive and if it is inner this should be negative
-    :param is_immutable: determines whether the camera data object's values are immutable (True) or mutable (False)
+    :param is_immutable: Determines whether the camera data object's values are immutable (True) or mutable (False)
     """
 
     def __init__(self, focal_length, fov_width, fov_height, pitch_angle=0, yaw_angle=0, roll_angle=0, x_offset=0, y_offset=0, z_offset=0,

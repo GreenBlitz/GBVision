@@ -1,4 +1,4 @@
-from gbvision.utils.net import AsyncStreamReceiver
+from .async_stream_receiver import AsyncStreamReceiver
 from .tcp_stream_receiver import TCPStreamReceiver
 
 
@@ -10,3 +10,6 @@ class AsyncTCPStreamReceiver(AsyncStreamReceiver, TCPStreamReceiver):
 
     def _read(self):
         return TCPStreamReceiver.read(self)
+
+    def _release(self) -> None:
+        TCPStreamReceiver.release(self)

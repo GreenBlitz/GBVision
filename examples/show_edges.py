@@ -11,8 +11,8 @@ def main():
         ok, frame = camera.read()
         if not orig_window.show_frame(frame) or not edges_window.show_frame(frame):
             break
-    orig_window.close()
-    edges_window.close()
+    orig_window.release()
+    edges_window.release()
 
 
 if __name__ == '__main__':

@@ -1,12 +1,13 @@
 import abc
 
+from gbvision.utils.releasable import Releasable
 from gbvision.constants.types import Frame
 
 
-class Recorder(abc.ABC):
+class Recorder(Releasable, abc.ABC):
     """
     An abstract recorder class
-    records a given feed of frames into a file
+    Records a given feed of frames into a file
 
     :param file_name: the file name
     """
@@ -14,24 +15,9 @@ class Recorder(abc.ABC):
         self.file_name = file_name
 
     @abc.abstractmethod
-    def record(self, frame: Frame):
+    def write(self, frame: Frame) -> Frame:
         """
-        records the frame
+        Writes the given frame to the file
 
-        :param frame: the frame to record
-        """
-
-    @abc.abstractmethod
-    def close(self):
-        """
-        ends the writing to the file
-
-        """
-
-    @abc.abstractmethod
-    def is_opened(self) -> bool:
-        """
-        checks if this video file is opened
-
-        :return: True if this is opened, False otherwise
+        :param frame: the frame to write
         """

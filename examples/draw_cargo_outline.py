@@ -1,6 +1,6 @@
 import gbvision as gbv
 
-CARGO_THRESHOLD = gbv.ColorThreshold([[0, 73], [167, 247], [40, 120]], 'HSV')
+CARGO_THRESHOLD = gbv.ColorThreshold(((0, 73), (167, 247), (40, 120)), 'HSV')
 
 
 def main():
@@ -16,10 +16,12 @@ def main():
     # the full pipeline of thresholding and denoising
 
     window = gbv.CameraWindow('camera 0', camera,
-                              drawing_pipeline=gbv.DrawCircles(  # draw the outline circles of the cargos
-                                  threshold_func, (255, 0, 0),  # threshold and color is blue (bgr)
-                                  contours_process=gbv.FilterContours(100),  # filter small contours
-                                  circle_process=gbv.sort_circles + gbv.filter_inner_circles))  # sort circles and delete the inner circles
+                              drawing_pipeline=gbv.DrawCircles(
+                                  finding_func=gbv.CircleFinder(threshold_func=threshold_func,
+                                                                contours_hook=gbv.FilterContours(
+                                                                    100)).find_and_filter_shapes,
+                                  color=(255, 0, 0),
+                              ))
 
     window.show()
 

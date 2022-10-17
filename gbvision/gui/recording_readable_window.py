@@ -4,6 +4,5 @@ from .readable_window import ReadableWindow
 
 class RecordingReadableWindow(RecordingWrapperOpenCVWindow, ReadableWindow):
     """
-    a basic window that displays the video from a readable
-    and records the video to a file
+    A basic window that displays the video from a readable and records the video to a file
     """

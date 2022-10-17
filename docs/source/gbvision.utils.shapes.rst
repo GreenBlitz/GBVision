@@ -28,6 +28,30 @@ gbvision.utils.shapes.base\_convex\_polygon module
    :undoc-members:
    :show-inheritance:
 
+gbvision.utils.shapes.base\_ellipse module
+------------------------------------------
+
+.. automodule:: gbvision.utils.shapes.base_ellipse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gbvision.utils.shapes.base\_line module
+---------------------------------------
+
+.. automodule:: gbvision.utils.shapes.base_line
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gbvision.utils.shapes.base\_point module
+----------------------------------------
+
+.. automodule:: gbvision.utils.shapes.base_point
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 gbvision.utils.shapes.base\_polygon module
 ------------------------------------------
 
