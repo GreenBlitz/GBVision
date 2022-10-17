@@ -1,5 +1,5 @@
 import abc
-from typing import Type, List, Union
+from typing import Type, List
 
 import numpy as np
 
@@ -242,7 +242,6 @@ class BaseShape(abc.ABC):
         :return: The list of shapes sorted, with all inner shapes filtered out
         """
         return cls.filter_inners(cls.sort(shapes))
-    
 
 
 BaseShapeType = Type[BaseShape]

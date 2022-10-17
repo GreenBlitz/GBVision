@@ -1,9 +1,11 @@
 from copy import deepcopy
 
-from .base_shape import BaseShape
+import numpy as np
+
+from gbvision.constants.types import Number, Point, Frame, Color, Rect, Contour
 from .base_circle import BaseCircle
 from .base_rect import BaseRect
-from gbvision.constants.types import Number, Point, Frame, Color, Rect, Contour
+from .base_shape import BaseShape
 
 
 class BasePoint(BaseShape):
@@ -50,4 +52,6 @@ class BasePoint(BaseShape):
         :param angle: The angle by which to rotate
         :return: The point after rotation
         """
-        return 0, 0
+        sin = np.sin(angle)
+        cos = np.cos(angle)
+        return cos * shape[0] - sin * shape[1], cos * shape[1] + sin * shape[0]
