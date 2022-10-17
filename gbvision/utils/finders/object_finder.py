@@ -16,20 +16,20 @@ class ObjectFinder(abc.ABC):
     An object finder is a type that outputs an object's 3d real location based on an of it image it's
     GameObject real-life parameters
 
+    :param threshold_func: The threshold function used to find the shapes in the frame
     :param game_object: The game object descriptor for the real-life parameters of the finder's target
-    :param area_scalar: A scalar to multiply the root of the area of the shape in the image by, default is 1
+    :param contours_hook: Optional. A pipeline to run on the contours after finding them
+    :param shapes_hook: Optional. A pipeline to run on the shapes after parsing the contours to them
     """
 
     def __init__(
             self,
             threshold_func: Union[FilterFunction, Threshold],
             game_object: GameObject = EMPTY_GAME_OBJECT,
-            area_scalar: Number = 1.0,
             contours_hook: Callable[[List[Contour]], List[Contour]] = EMPTY_PIPELINE,
             shapes_hook: Callable[[List[Shape]], List[Shape]] = EMPTY_PIPELINE,
     ):
         self.game_object = game_object
-        self.area_scalar = area_scalar
         self._find_shapes_pipeline = EMPTY_PIPELINE + \
                                      threshold_func + \
                                      find_contours + \
@@ -93,5 +93,5 @@ class ObjectFinder(abc.ABC):
         """
         return list(
             map(lambda shape: self.game_object.location(camera,
-                                                        self._base_shape().root_area(shape) * self.area_scalar,
+                                                        self._base_shape().root_area(shape),
                                                         self._base_shape().center(shape)), shapes))
