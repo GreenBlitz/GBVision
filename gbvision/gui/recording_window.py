@@ -3,6 +3,7 @@ import abc
 from .window import Window
 from gbvision.models.system import EMPTY_PIPELINE
 from gbvision.utils.recorders.recorder import Recorder
+from gbvision.constants.types import Frame
 
 
 class RecordingWindow(Window, abc.ABC):
@@ -19,9 +20,9 @@ class RecordingWindow(Window, abc.ABC):
         self.recording_pipeline = recording_pipeline
         self.recorder = recorder
 
-    def show_frame(self, frame):
+    def show_frame(self, frame: Frame) -> bool:
         self.recorder.write(self.recording_pipeline(frame))
         return Window.show_frame(self, frame)
 
-    def _release(self):
+    def _release(self) -> None:
         self.recorder.release()

@@ -5,6 +5,7 @@ import cv2
 from gbvision.models.system import EMPTY_PIPELINE
 from .opencv_window import OpenCVWindow
 from .wrapper_window import WrapperWindow
+from gbvision.constants.types import Frame, ROI
 
 
 class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow, ABC):
@@ -23,6 +24,11 @@ class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow, ABC):
         WrapperWindow.__init__(self, window_name=window_name, wrap_object=wrap_object,
                                drawing_pipeline=drawing_pipeline)
 
-    def show_async(self):
+    def show_async(self) -> None:
         self.flags = cv2.WINDOW_AUTOSIZE
         WrapperWindow.show_async(self)
+
+    def select_roi(self, frame: Frame = None) -> ROI:
+        if frame is None:
+            frame = self._get_frame()
+        return OpenCVWindow.select_roi(self, frame)

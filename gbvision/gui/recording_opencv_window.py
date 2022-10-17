@@ -26,6 +26,6 @@ class RecordingOpenCVWindow(OpenCVWindow, RecordingWindow):
         RecordingWindow.__init__(self, window_name=window_name, recorder=recorder, drawing_pipeline=drawing_pipeline,
                                  recording_pipeline=recording_pipeline)
 
-    def _release(self):
+    def _release(self) -> None:
         OpenCVWindow._release(self)
         RecordingWindow._release(self)

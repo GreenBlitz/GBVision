@@ -3,7 +3,7 @@ from abc import ABC
 from .window import Window
 import cv2
 from gbvision.models.system import EMPTY_PIPELINE
-from gbvision.constants.types import ROI
+from gbvision.constants.types import ROI, Frame
 
 
 class OpenCVWindow(Window, ABC):
@@ -20,7 +20,7 @@ class OpenCVWindow(Window, ABC):
         self.flags = flags
         self.last_key_pressed = None
 
-    def _show_frame(self, frame):
+    def _show_frame(self, frame: Frame) -> bool:
         if frame is None:
             return False
         cv2.imshow(self.window_name, frame)
@@ -30,11 +30,17 @@ class OpenCVWindow(Window, ABC):
             return False
         return True
 
-    def _open(self):
+    def _open(self) -> None:
         cv2.namedWindow(self.window_name, self.flags)
 
-    def _release(self):
+    def _release(self) -> None:
         cv2.destroyWindow(self.window_name)
 
-    def select_roi(self, frame) -> ROI:
+    def select_roi(self, frame: Frame) -> ROI:
+        """
+        Presents this frame on the window, and allows the user to select a rectangular area from the frame
+
+        :param frame: The frame to show
+        :return: The selected rectangular area, as a gbvision.ROI (similar to gbvision.Rect but all values are integers)
+        """
         return cv2.selectROI(self.window_name, frame)

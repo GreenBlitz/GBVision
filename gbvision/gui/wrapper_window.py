@@ -29,7 +29,7 @@ class WrapperWindow(Window, abc.ABC):
             return frame
         return None
 
-    def show(self):
+    def show(self) -> None:
         """
         Reads from the wrap object and shows the frame until the window is closed
         """
