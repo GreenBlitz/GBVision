@@ -30,5 +30,5 @@ class WrapperOpenCVWindow(OpenCVWindow, WrapperWindow, ABC):
 
     def select_roi(self, frame: Frame = None) -> ROI:
         if frame is None:
-            frame = self._get_frame()
+            _, frame = self._get_frame()
         return OpenCVWindow.select_roi(self, frame)

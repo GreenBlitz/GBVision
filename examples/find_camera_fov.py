@@ -15,7 +15,7 @@ def main():
     window = gbv.CameraWindow('feed', camera)
     window.open()
     while True:
-        frame = window.show_and_get_frame()
+        ok, frame = window.read()
         k = window.last_key_pressed
         if k == 'r':
             bbox = window.select_roi(frame)

@@ -18,7 +18,7 @@ def main():
                               drawing_pipeline=gbv.DrawCircles(find_fuel.find_shapes_unsorted, (0, 255, 0),
                                                                thickness=6))
     while True:
-        frame = window.show_and_get_frame()
+        ok, frame = window.read()
         fuels = find_fuel.find_shapes(frame)
         k = window.last_key_pressed
         if k == 'r':

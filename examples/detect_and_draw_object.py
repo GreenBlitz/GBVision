@@ -21,7 +21,7 @@ def main():
     ))
     window.open()
     while window.is_opened():
-        frame = window.show_and_get_frame()
+        ok, frame = window.read()
         objects = finder(frame, camera)
         if len(objects):
             print("object is at distance: %s meters" % (gbv.distance_from_object(objects[0])))
