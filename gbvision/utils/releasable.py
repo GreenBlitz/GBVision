@@ -27,6 +27,6 @@ class Releasable(abc.ABC):
         if self.is_opened():
             self.release()
 
-    def __del__(self):
+    def __del__(self) -> None:
         if self.is_opened():
             self.release()

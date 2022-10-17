@@ -18,7 +18,7 @@ class StreamCamera(Camera):
         self.__data = data.copy()
         self.stream_receiver = stream_receiver
 
-    def release(self):
+    def release(self) -> None:
         self.stream_receiver.release()
 
     def is_opened(self) -> bool:
@@ -39,17 +39,17 @@ class StreamCamera(Camera):
     def get_height(self) -> int:
         return self.stream_receiver.get_height()
 
-    def _set_width(self, width: int):
+    def _set_width(self, width: int) -> None:
         self.stream_receiver.set_width(width)
 
-    def _set_height(self, height: int):
+    def _set_height(self, height: int) -> None:
         self.stream_receiver.set_height(height)
 
     def read(self) -> Tuple[bool, Frame]:
         return self.stream_receiver.read()
 
-    def get_fps(self):
+    def get_fps(self) -> int:
         return -1
 
-    def set_fps(self, fps):
+    def set_fps(self, fps: int) -> bool:
         return False
