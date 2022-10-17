@@ -50,7 +50,8 @@ class PipeLine:
         multiply_by_2_then_add_3 = PipeLine(lambda x: x * 2) + PipeLine(lambda x: x + 3)
 
     :param functions: A tuple of functions to run one after the other as a pipeline
-    :param qualname: Optional,
+    :param qualname: Optional. A string that will be the __qualname__ of the pipeline object
+    :param module: Optional. A string that will be the __module__ of the pipeline object
     """
     __NO_DOCS = '\n\tNo Docs :('
 
