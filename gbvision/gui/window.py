@@ -1,15 +1,16 @@
 import abc
 
+from gbvision.utils.releasable import Releasable
 from gbvision.models.system import EMPTY_PIPELINE
 from gbvision.constants.types import Frame
 
 
-class Window(abc.ABC):
+class Window(Releasable, abc.ABC):
     """
-    an abstract window class
+    An abstract window class
 
-    :param window_name: the title of the new window
-    :param drawing_pipeline: optional, a pipeline that draws on each frame before displaying it
+    :param window_name: The title of the new window
+    :param drawing_pipeline: Optional. A pipeline that draws on each frame before displaying it
     """
 
     def __init__(self, window_name: str, drawing_pipeline=EMPTY_PIPELINE):
@@ -23,13 +24,14 @@ class Window(abc.ABC):
     @abc.abstractmethod
     def _show_frame(self, frame: Frame) -> bool:
         """
-        shows the frame
+        Shows the frame
         :param frame: the frame to show
         :return: False if the window should be closed, True otherwise
         """
 
     def is_opened(self) -> bool:
         """
+        Checks if the window is opened
 
         :return: True is the window is opened, False otherwise
         """
@@ -37,7 +39,8 @@ class Window(abc.ABC):
 
     def show_frame(self, frame: Frame) -> bool:
         """
-        shows the frame on the window
+        Shows the frame on the window
+
         :param frame: the frame to show
         :return: false if the window was closed, true otherwise
         """
@@ -45,36 +48,44 @@ class Window(abc.ABC):
             self.open()
         if self._show_frame(self.drawing_pipeline(frame)):
             return True
-        self.close()
+        self.release()
         return False
 
-    @abc.abstractmethod
-    def _open(self):
+    def show_and_return_frame(self, frame: Frame) -> Frame:
         """
-        unsafely opens the window
-        not to be used by the programmer, only by the function open
+        Shows and returns the given frame
+
+        :param frame: The frame to show
+        :return: The given frame, or None if the window has closed
         """
+        return frame if self.show_frame(frame) else None
 
     @abc.abstractmethod
-    def _close(self):
+    def _open(self) -> None:
         """
-        unsafely closes the window
-        not to be used by the programmer, only by the function close
+        Unsafely opens the window
+        Not to be used by the programmer, only by the function open
         """
 
-    def open(self):
+    @abc.abstractmethod
+    def _release(self) -> None:
         """
-        opens the window
+        Unsafely closes the window
+        Not to be used by the programmer, only by the function close
         """
-        self._open()
-        self._is_opened = True
 
-    def close(self):
+    def open(self) -> None:
         """
-        closes the window
+        Opens the window
         """
-        self._close()
-        self._is_opened = False
+        if not self.is_opened():
+            self._open()
+            self._is_opened = True
 
-    def __del__(self):
-        self.close()
+    def release(self) -> None:
+        """
+        Closes the window
+        """
+        if self.is_opened():
+            self._release()
+            self._is_opened = False

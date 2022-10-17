@@ -1,5 +1,4 @@
 class VisionException(Exception):
     """
-    generic vision exception
+    Generic vision exception
     """
-    pass

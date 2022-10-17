@@ -14,6 +14,12 @@ class AsyncUSBCamera(AsyncCamera, USBCamera):
     def _read(self) -> Tuple[bool, Frame]:
         return USBCamera.read(self)
 
+    def release(self) -> None:
+        return AsyncCamera.release(self)
+
+    def _release(self) -> None:
+        return USBCamera.release(self)
+
     def __init__(self, port, data=UNKNOWN_CAMERA):
         USBCamera.__init__(self, port, data)
         AsyncCamera.__init__(self)

@@ -11,7 +11,7 @@ class FragmentedUDPStreamBroadcaster(UDPStreamBroadcaster):
     A UDP broadcaster that can fragment big frames and send them in chunks, thus allowing it to bypass the
     size limit of the UDP broadcaster
 
-    :param mtu: the maximum size of a single fragment (without the fragment headers)
+    :param mtu: The maximum size of a single fragment (without the fragment headers)
     """
 
     HEADER_SIZE = struct.calcsize(FRAGMENTED_UDP_HEADERS_STRUCT)

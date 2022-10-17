@@ -4,7 +4,7 @@ import gbvision as gbv
 
 K = 0.6
 
-THRESHOLD = gbv.ColorThreshold([[14, 34], [146, 255], [48, 208]], 'HSV') + gbv.DistanceTransformThreshold(K)
+THRESHOLD = gbv.ColorThreshold(((14, 34), (146, 255), (48, 208)), 'HSV') + gbv.DistanceTransformThreshold(K)
 
 
 def radius_restore() -> gbv.Number:
@@ -20,7 +20,9 @@ def main():
     camera.set_exposure(-5)
     camera.wait_start_reading()
     window = gbv.CameraWindow('feed', camera,
-                              drawing_pipeline=gbv.DrawCircles(THRESHOLD, (0, 255, 0), circle_process=circle_process))
+                              drawing_pipeline=gbv.DrawCircles(finding_func=gbv.CircleFinder(THRESHOLD,
+                                                                                             shapes_hook=circle_process).find_and_filter_shapes,
+                                                               color=(0, 255, 0)))
     window.show_async()
     denoising_window = gbv.CameraWindow('denoised', camera,
                                         drawing_pipeline=THRESHOLD)

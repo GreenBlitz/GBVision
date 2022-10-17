@@ -2,18 +2,16 @@ import socket
 import struct
 
 from gbvision.constants.net import LOCAL_SERVER_IP, TCP_HEADERS_STRUCT
-from .stream_broadcaster import StreamBroadcaster
 from gbvision.exceptions.tcp_stream_closed import TCPStreamClosed
+from .stream_broadcaster import StreamBroadcaster
 
 
 class TCPStreamBroadcaster(StreamBroadcaster):
     """
-    this class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
+    This class uses TCP to send a stream over the network, the stream is by default set to be MJPEG
     the broadcaster is the server and the receiver is the client
     
-    :param port: the port which TCP will be using
-    :param im_encode: the type of image encoding to send over the network, default is .jpg (JPEG)
-        for missing parameters, see documentation on StreamBroadcaster
+    :param port: The TCP port to use
     """
 
     def __init__(self, port: int, *args, **kwargs):
@@ -31,3 +29,9 @@ class TCPStreamBroadcaster(StreamBroadcaster):
         except IOError as e:
             raise TCPStreamClosed() from e
         self._update_time()
+
+    def release(self) -> None:
+        self.socket.close()
+
+    def is_opened(self) -> bool:
+        return self.socket.fileno() != -1

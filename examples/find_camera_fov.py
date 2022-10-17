@@ -15,13 +15,13 @@ def main():
     window = gbv.CameraWindow('feed', camera)
     window.open()
     while True:
-        frame = window.show_and_get_frame()
+        ok, frame = window.read()
         k = window.last_key_pressed
         if k == 'r':
-            bbox = cv2.selectROI('feed', frame)
+            bbox = window.select_roi(frame)
             fov = find_fov(bbox, (width, height), z, (camera.get_width(), camera.get_height()))
             break
-    cv2.destroyAllWindows()
+    window.release()
 
     print(f'width fov: {fov[0] / 2}\nheight fov: {fov[1] / 2}')
 

@@ -15,5 +15,8 @@ dist/
 *.av
 *.avi
 
-#Pycharm virtual environment
+# Pycharm virtual environment
 venv/*
+
+# Build files
+build/

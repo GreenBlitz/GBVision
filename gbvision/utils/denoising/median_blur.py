@@ -5,11 +5,11 @@ from gbvision.utils.pipeline import PipeLine
 
 class MedianBlur(PipeLine):
     """
-    creates a pipeline that blurs the given frame using the median blur method
-    works very good for denoising purposes
+    Creates a pipeline that blurs the given frame using the median blur method
+    Works very good for denoising purposes
 
-    :param ksize: the size of the kernel used by the filter, must be an odd number
-    :return: a pipeline that filters the image using the median blur method
+    :param ksize: The size of the kernel used by the filter, must be an odd number
+    :return: A pipeline that filters the image using the median blur method
     """
 
     def __init__(self, ksize: int):

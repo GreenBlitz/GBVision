@@ -4,6 +4,7 @@ from .camera import Camera
 from .camera_data import CameraData
 from .camera_list import CameraList
 from .empty_camera import EmptyCamera
-from .stream_camera import StreamCamera, SimpleStreamCamera
+from .stream_camera import StreamCamera
+from .streaming_camera import StreamingCamera, SimpleStreamingCamera
 from .usb_camera import USBCamera
-from .usb_stream_camera import USBStreamCamera
+from .usb_streaming_camera import USBStreamingCamera

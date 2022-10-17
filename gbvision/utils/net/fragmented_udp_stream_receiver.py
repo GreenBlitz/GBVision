@@ -14,7 +14,7 @@ class FragmentedUDPStreamReceiver(UDPStreamReceiver):
     A UDP receiver that can de-fragment packets sent from the fragmented UDP broadcaster, and rebuild large
     frames from several chunks
 
-    :param max_wait: the maximum time in seconds the receiver will wait for chunks of a frame to arrive from
+    :param max_wait: The maximum time in seconds the receiver will wait for chunks of a frame to arrive from
     the moment it received the first chunk, if this time passed and not all fragments have arrived,
     the receiver will stop handling the current frame and move on the the next frame that will arrive
     can be None to not set a wait limit (same as infinity)

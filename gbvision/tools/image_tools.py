@@ -2,9 +2,10 @@ from typing import Union
 
 import cv2
 import numpy as np
+import typing
 
 from gbvision.constants.images import COLOR_TYPE
-from gbvision.constants.types import Frame, Number, ROI
+from gbvision.constants.types import Frame, Number, ROI, ColorThresholdParams, GrayScaleThresholdParams
 from gbvision.utils.thresholds import ColorThreshold
 from gbvision.utils.thresholds.threshold import Threshold
 
@@ -48,6 +49,6 @@ def median_threshold(frame: Frame, stdv: Union[Number, np.ndarray],
     med = np.median(frame, axis=(0, 1)).astype(int)
     if type(med) is not np.ndarray:
         med = np.array([med])
-    params = list(map(lambda x: list(map(int, x)),
+    params = tuple(map(lambda x: tuple(map(int, x)),
                       np.vectorize(lambda x: min(255, max(0, x)))(np.array([med - stdv, med + stdv])).T))
-    return ColorThreshold(params, color_encoding)
+    return ColorThreshold(typing.cast(Union[ColorThresholdParams, GrayScaleThresholdParams], params), color_encoding)

@@ -3,7 +3,6 @@ import numpy as np
 
 from gbvision.constants.math import EPSILON
 import gbvision.utils.cameras as cameras
-from gbvision.models.contours import contour_center
 from gbvision.constants.types import Point, Contour, Number, Location
 
 
@@ -19,18 +18,7 @@ class GameObject:
     def __init__(self, root_area: Number):
         self.root_area = root_area
 
-    def distance_by_contours(self, camera: cameras.Camera, cnt: Contour) -> float:
-        """
-        Note: this measures the distance between the camera and the object, to use another measuring point
-        calculate the norm of the location
-        
-        :param camera: the camera, can be either Camera or CameraList
-        :param cnt: the contours of this object in the frame
-        :return: the norm of the vector between the camera and the object (in meters)
-        """
-        return self.distance_by_params(camera, np.sqrt(cv2.contourArea(cnt)))
-
-    def distance_by_params(self, camera: cameras.Camera, root_area: Number) -> float:
+    def distance(self, camera: cameras.Camera, root_area: Number) -> float:
         """
         Note: this measures the distance between the camera and the object, to use another measuring point
         calculate the norm of the location
@@ -42,16 +30,10 @@ class GameObject:
         """
         return camera.get_data().focal_length * self.root_area / (root_area + EPSILON)
 
-    def location_by_contours(self, camera: cameras.Camera, cnt: Contour) -> Location:
+    def location(self, camera: cameras.Camera, root_area: Number, center: Point) -> Location:
         """
-        :param camera: the camera, can be either Camera or CameraList
-        :param cnt: the contours of this object in the frame
-        :return: a 3d vector of the relative [x y z] location between the object and the camera (in meters)
-        """
-        return self.location_by_params(camera, np.sqrt(cv2.contourArea(cnt)), contour_center(cnt))
+        Calculates the 3D location of this object, relative to the camera
 
-    def location_by_params(self, camera: cameras.Camera, root_area: Number, center: Point) -> Location:
-        """
         :param camera: the camera, can be either Camera or CameraList
         :param root_area: a float representing the square root of the area of the object (in pixels)
         :param center: the center (x,y) of this object in the frame
@@ -63,5 +45,5 @@ class GameObject:
         alpha = x * camera.get_data().fov_width / frame_center[0]
         beta = y * camera.get_data().fov_height / frame_center[1]
         rel = np.array([[np.sin(alpha), np.sin(beta),
-                         np.sqrt(1 - np.sin(alpha) ** 2 - np.sin(beta) ** 2)]]) * self.distance_by_params(camera, root_area)
+                         np.sqrt(1 - np.sin(alpha) ** 2 - np.sin(beta) ** 2)]]) * self.distance(camera, root_area)
         return camera.get_data().rotation_matrix.dot(rel.T).flatten() + camera.get_data().offset

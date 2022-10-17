@@ -1,5 +1,4 @@
 class VisionWarning(Warning):
     """
-    generic vision warning
+    Generic vision warning
     """
-    pass

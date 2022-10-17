@@ -1,19 +1,23 @@
 from typing import Tuple
 
 from gbvision.constants.types import Frame
-from .stream_camera import SimpleStreamCamera
+from .streaming_camera import SimpleStreamingCamera
 from gbvision.models.cameras import UNKNOWN_CAMERA
 from .usb_camera import USBCamera
 
 
-class USBStreamCamera(SimpleStreamCamera, USBCamera):
+class USBStreamingCamera(SimpleStreamingCamera, USBCamera):
     """
-    a simple USB stream camera
+    A simple USB stream camera
     """
+
+    def release(self) -> None:
+        USBCamera.release(self)
+        self.stream_broadcaster.release()
 
     def _read(self) -> Tuple[bool, Frame]:
         return USBCamera.read(self)
 
     def __init__(self, broadcaster, port, should_stream=False, data=UNKNOWN_CAMERA):
-        SimpleStreamCamera.__init__(self, broadcaster, should_stream=should_stream)
+        SimpleStreamingCamera.__init__(self, broadcaster, should_stream=should_stream)
         USBCamera.__init__(self, port, data)

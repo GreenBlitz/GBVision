@@ -1,21 +1,22 @@
 import abc
 import pickle
+from typing import Optional
+
 import cv2
 import time
 
+from gbvision.utils.releasable import Releasable
 from gbvision.constants.math import EPSILON
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, Coordinates
 
 
-class StreamBroadcaster(abc.ABC):
+class StreamBroadcaster(Releasable, abc.ABC):
     """
-    this is an abstract broadcaster that sends stream to a broadcast receiver
-    this class should not be instanced but inherited from
-    creates a new stream broadcaster with all parameters that are used in every broadcaster
+    An abstract broadcaster that sends stream to a stream receiver
     
-    :param shape: optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
+    :param shape: Optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
         the fx and fy parameters, when set to (0, 0) it is not used
-    :param fx: ratio between width of the given frame to the width of the frame sent, default is 1 (same width)
+    :param fx: Ratio between width of the given frame to the width of the frame sent, default is 1 (same width)
     :param fy: ratio between height of the given frame to the height of the frame sent, default is 1 (same height)
     :param use_grayscale: boolean indicating if the frame should be converted to grayscale when sent,
         default is False
@@ -25,8 +26,8 @@ class StreamBroadcaster(abc.ABC):
         The bitrate is messured with Kbps and default is None.
     """
 
-    def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0, use_grayscale: bool = False,
-                 max_fps: int = None, im_encode='.jpg', max_bitrate: int = None):
+    def __init__(self, shape: Optional[Coordinates] = None, fx: Optional[float] = None, fy: Optional[float] = None,
+                 use_grayscale: bool = False, max_fps: int = None, im_encode='.jpg', max_bitrate: int = None):
         self.shape = shape
         self.fx = fx
         self.fy = fy
@@ -58,7 +59,6 @@ class StreamBroadcaster(abc.ABC):
 
         :param data: The frame to send in a binary format (like pickle)
         """
-        pass
 
     def _prep_frame(self, frame: Frame) -> Frame:
         """
@@ -68,7 +68,10 @@ class StreamBroadcaster(abc.ABC):
         :param frame: The frame to prepare
         :return: The frame after preparation
         """
-        frame = cv2.resize(frame, self.shape, fx=self.fx, fy=self.fy)
+        if self.shape is not None:
+            frame = cv2.resize(frame, self.shape)
+        if self.fx is not None or self.fy is not None:
+            frame = cv2.resize(frame, (0, 0), fx=self.fx or 1.0, fy=self.fy or 1.0)
         if self.use_grayscale and len(frame.shape) > 2:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         return frame
@@ -78,8 +81,8 @@ class StreamBroadcaster(abc.ABC):
         """
         Converts the given python object to a binary representation
 
-        :param frame: the python object to parse
-        :return: a binary representation of the python object
+        :param frame: The python object to parse
+        :return: A binary representation of the python object
         """
         return pickle.dumps(frame)
 

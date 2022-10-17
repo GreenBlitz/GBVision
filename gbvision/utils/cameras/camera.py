@@ -2,27 +2,21 @@ import abc
 from typing import Union
 
 import numpy as np
-from gbvision.constants.types import Number
 
-from .camera_data import CameraData
+from gbvision.constants.types import Number
 from gbvision.utils.readable import Readable
+from .camera_data import CameraData
 
 
 class Camera(Readable, abc.ABC):
     """
-    an abstract class representing a camera
+    An abstract class representing a camera
     """
-
-    @abc.abstractmethod
-    def release(self):
-        """
-        closes the handle to this camera, if it is not necessary please override this method to a blank method
-        """
 
     @abc.abstractmethod
     def is_opened(self) -> bool:
         """
-        checks if the camera can be read from
+        Checks if the camera can be read from
 
         :return: True if the camera can be read from, otherwise False
         """
@@ -30,7 +24,7 @@ class Camera(Readable, abc.ABC):
     @abc.abstractmethod
     def set_exposure(self, exposure: Union[int, float, bool]) -> bool:
         """
-        sets the camera's exposure
+        Sets the camera's exposure
 
         :param exposure: the new exposure
         :return: True on success, False on failure
@@ -39,7 +33,7 @@ class Camera(Readable, abc.ABC):
     @abc.abstractmethod
     def set_auto_exposure(self, auto: Union[int, float, bool]) -> bool:
         """
-        sets the camera's auto exposure
+        Sets the camera's auto exposure
 
         :param auto: the new auto exposure
         :return: True on success, False on failure
@@ -55,31 +49,31 @@ class Camera(Readable, abc.ABC):
     @abc.abstractmethod
     def get_width(self) -> int:
         """
-        :return: the width of a frame read from this camera
+        :return: The width of a frame read from this camera
         """
 
     @abc.abstractmethod
     def get_height(self) -> int:
         """
-        :return: the height of a frame read from this camera
+        :return: The height of a frame read from this camera
         """
 
     @abc.abstractmethod
-    def _set_width(self, width: int):
+    def _set_width(self, width: int) -> None:
         """
-        unsafe set width
-        supposed to be overridden and only used by rescale, resize and set_frame size methods
-        never to be used by the programmer, only by the api
+        Snsafe set width
+        Only used by rescale, resize and set_frame size methods
+        Never to be used by the programmer, only by the API
 
         :param width: new width
         """
 
     @abc.abstractmethod
-    def _set_height(self, height: int):
+    def _set_height(self, height: int) -> None:
         """
-        unsafe set height
-        supposed to be overridden and only used by rescale, resize and set_frame size methods
-        never to be used by the programmer, only by the api
+        Unsafe set height
+        Only used by rescale, resize and set_frame size methods
+        Never to be used by the programmer, only by the API
 
         :param height: new height
         """
@@ -87,55 +81,48 @@ class Camera(Readable, abc.ABC):
     @abc.abstractmethod
     def get_fps(self) -> Number:
         """
-        gets the fps of this camera
+        Gets the fps of this camera
 
-        :return: the fps of the camera
+        :return: The fps of the camera
         """
 
     @abc.abstractmethod
     def set_fps(self, fps: Number) -> bool:
         """
-        sets the fps for this camera
+        Sets the fps for this camera
 
         :return: True on success, False otherwise
         """
 
-    def rescale(self, factor: float):
+    def rescale(self, factor: float) -> None:
         """
-        rescale the size of the frames read from this camera by a factor
+        Rescale the size of the frames read from this camera by a factor
 
-        :param factor: the rescaling factor
+        :param factor: The rescaling factor
         """
         self._set_width(int(self.get_width() * factor))
         self._set_height(int(self.get_height() * factor))
         self.get_data().focal_length *= factor
 
-    def resize(self, fx: float, fy: float):
+    def resize(self, fx: float, fy: float) -> None:
         """
-        rescale the size of the frames read from this camera by different width and height factors
+        Rescale the size of the frames read from this camera by different width and height factors
 
-        :param fx: the width factor
-        :param fy: the height factor
+        :param fx: The width factor
+        :param fy: The height factor
         """
         self._set_width(int(self.get_width() * fx))
         self._set_height(int(self.get_height() * fy))
         self.get_data().focal_length *= np.sqrt(fx * fy)
 
-    def set_frame_size(self, width: int, height: int):
+    def set_frame_size(self, width: int, height: int) -> None:
         """
-        reset the width and height of frames read from this camera to given values
+        Reset the width and height of frames read from this camera to given values
         
-        :param width: the new width
-        :param height: the new height
+        :param width: The new width
+        :param height: The new height
         """
         old_width, old_height = self.get_width(), self.get_height()
         self._set_height(height)
         self._set_width(width)
         self.get_data().focal_length *= np.sqrt(width * height / (old_width * old_height))
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.release()
-

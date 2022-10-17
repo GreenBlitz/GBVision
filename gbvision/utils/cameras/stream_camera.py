@@ -1,83 +1,55 @@
-import abc
-from typing import Tuple
+from typing import Tuple, Union
 
-from gbvision.constants.types import Frame
-from gbvision.utils.net.stream_broadcaster import StreamBroadcaster
 from .camera import Camera
+from .camera_data import CameraData
+from gbvision.constants.types import Frame
+from gbvision.utils.net.stream_receiver import StreamReceiver
 
 
-class StreamCamera(Camera, abc.ABC):
+class StreamCamera(Camera):
     """
-    an abstract class that represents a streaming camera
-    the streaming camera is very similar to a regular camera, but has an option
-    which allows it to stream the frames when it reads them
-    """
+    A camera class which receives it's frames from a stream receiver
 
-    @abc.abstractmethod
-    def is_streaming(self) -> bool:
-        """
-        checks if the camera is currently streaming
-
-        :return: True if camera is streaming, otherwise False
-        """
-
-    @abc.abstractmethod
-    def toggle_stream(self, should_stream: bool):
-        """
-        turn on or off the stream feature
-
-        :param should_stream: True to activate stream, False to deactivate
-        """
-
-    def read(self):
-        ok, frame = self._read()
-        self._stream(frame)
-        return ok, frame
-
-    @abc.abstractmethod
-    def _read(self) -> Tuple[bool, Frame]:
-        """
-        unsafely reads from the camera, not to use by the programmer, only by the api
-        usually this function is a set to return the value of super(self, CameraClass).read()
-
-        :return: the return value of Camera.read: (ok, frame)
-        """
-
-    @abc.abstractmethod
-    def _stream(self, frame: Frame):
-        """
-        unsafely streams a frame, not to use by the programmer, only by the api
-
-        :param frame: the frame to stream
-        """
-
-
-class SimpleStreamCamera(StreamCamera, abc.ABC):
-    """
-    a simple abstract camera that uses a gbvision.StreamBroadcaster to send streams
-    this class is abstract and cannot exist on it's own, you must inherit from it and implement the _read method
-
-    for example:
-
-    Example::
-        class USBStreamCamera(SimpleStreamCamera, USBCamera):
-            def _read(self) -> Tuple[bool, Frame]:
-                return USBCamera.read(self)
-
-            def __init__(self, broadcaster, port, data=UNKNOWN_CAMERA):
-                SimpleStreamCamera.__init__(self, broadcaster)
-                USBCamera.__init__(port, data)
+    :param data: The camera's CameraData object, should match the remote camera's data
+    :param stream_receiver: The stream receiver to use
     """
 
-    def __init__(self, broadcaster: StreamBroadcaster, should_stream=False):
-        self.__is_streaming = should_stream
-        self.stream_broadcaster = broadcaster
+    def __init__(self, data: CameraData, stream_receiver: StreamReceiver):
+        self.__data = data.copy()
+        self.stream_receiver = stream_receiver
 
-    def is_streaming(self):
-        return self.__is_streaming
+    def release(self) -> None:
+        self.stream_receiver.release()
 
-    def toggle_stream(self, should_stream: bool):
-        self.__is_streaming = should_stream
+    def is_opened(self) -> bool:
+        return self.stream_receiver.is_opened()
 
-    def _stream(self, frame):
-        self.stream_broadcaster.send_frame(frame)
+    def set_exposure(self, exposure: Union[int, float, bool]) -> bool:
+        return False
+
+    def set_auto_exposure(self, auto: Union[int, float, bool]) -> bool:
+        return False
+
+    def get_data(self) -> CameraData:
+        return self.__data
+
+    def get_width(self) -> int:
+        return self.stream_receiver.get_width()
+
+    def get_height(self) -> int:
+        return self.stream_receiver.get_height()
+
+    def _set_width(self, width: int) -> None:
+        self.stream_receiver.set_width(width)
+
+    def _set_height(self, height: int) -> None:
+        self.stream_receiver.set_height(height)
+
+    def read(self) -> Tuple[bool, Frame]:
+        return self.stream_receiver.read()
+
+    def get_fps(self) -> int:
+        return -1
+
+    def set_fps(self, fps: int) -> bool:
+        return False

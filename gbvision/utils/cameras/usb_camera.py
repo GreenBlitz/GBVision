@@ -1,3 +1,5 @@
+from typing import Union
+
 from .camera import CameraData, Camera
 from gbvision.models.cameras import UNKNOWN_CAMERA
 import cv2
@@ -8,13 +10,14 @@ import subprocess
 
 class USBCamera(cv2.VideoCapture, Camera):
     """
-    a basic usb connected camera which inherits from cv2 VideoCapture
+    A basic usb connected camera which inherits from cv2 VideoCapture
+    Can also be used to represent a video file instead of a camera
 
-    :param port: the usb port to which the camera is connected
-    :param data: the camera data object that describes this camera
+    :param port: The usb port to which the camera is connected (or path to the video file)
+    :param data: The camera data object that describes this camera
     """
 
-    def __init__(self, port: int, data: CameraData = UNKNOWN_CAMERA):
+    def __init__(self, port: Union[int, str], data: CameraData = UNKNOWN_CAMERA):
         """
         initializes the camera
         
@@ -30,7 +33,7 @@ class USBCamera(cv2.VideoCapture, Camera):
     def __is_on_linux() -> bool:
         return platform.system() == 'Linux'
 
-    def __v4l2_ctl_command(self, cmd, value) -> int:
+    def __v4l2_ctl_command(self, cmd: str, value: Union[str, int, float]) -> int:
         try:
             return subprocess.call(['v4l2-ctl', '-d', f'/dev/video{self.port}', '-c', f'{cmd}={value}'])
         except FileNotFoundError:

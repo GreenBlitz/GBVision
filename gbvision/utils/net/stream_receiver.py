@@ -1,8 +1,10 @@
 import abc
 import pickle
+from typing import Optional
+
 import cv2
 
-from gbvision.constants.types import Frame
+from gbvision.constants.types import Frame, Coordinates
 from gbvision.utils.readable import Readable
 
 
@@ -11,17 +13,20 @@ class StreamReceiver(Readable, abc.ABC):
     this is an abstract receiver that receives stream from a broadcast receiver
     this class should not be instanced but inherited from
 
-    :param shape: optional, the shape (x, y) of the sent frame, when set to something other then (0, 0) it overrides
-        the fx and fy parameters, when set to (0, 0) it is not used
-    :param fx: ratio between width of the read frame to the width of the frame returned, default is 1 (same width)
-    :param fy: ratio between height of the read frame to the height of the frame returned,
-        default is 1 (same height)
+    :param shape: Optional. The shape (x, y) of the sent frame (None to use the given frame's shape)
+    :param fx: Optional, The ratio between width of the read frame to the width of the frame returned (None for 1)
+    :param fy: ratio between height of the read frame to the height of the frame returned (None for 1)
+    :param convert_from_grayscale: Should this receiver convert grayscale images to BGR images (default True)
     """
 
-    def __init__(self, shape=(0, 0), fx: float = 1.0, fy: float = 1.0):
+    def __init__(self, shape: Optional[Coordinates] = None, fx: Optional[float] = None, fy: Optional[float] = None,
+                 convert_from_grayscale: bool = True):
         self.shape = shape
         self.fx = fx
         self.fy = fy
+        self.convert_from_grayscale = convert_from_grayscale
+        self.__width = 0
+        self.__height = 0
 
     @abc.abstractmethod
     def _get_bytes(self) -> bytes:
@@ -60,7 +65,27 @@ class StreamReceiver(Readable, abc.ABC):
         """
         if frame is None:
             return frame
-        if len(frame.shape) < 3:
+        if len(frame.shape) < 3 and self.convert_from_grayscale:
             frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
-        frame = cv2.resize(frame, self.shape, fx=self.fx, fy=self.fy)
+        if self.shape is not None:
+            frame = cv2.resize(frame, self.shape)
+        if self.fx is not None or self.fy is not None:
+            frame = cv2.resize(frame, (0, 0), fx=self.fx or 1.0, fy=self.fy or 1.0)
+        self.__height, self.__width = frame.shape[:2]
         return frame
+
+    def get_width(self) -> int:
+        if self.shape is not None:
+            return self.shape[0]
+        return self.__width
+
+    def get_height(self) -> int:
+        if self.shape is not None:
+            return self.shape[1]
+        return self.__height
+
+    def set_width(self, width: int) -> None:
+        self.shape = (width, self.get_height())
+
+    def set_height(self, height: int) -> None:
+        self.shape = (self.get_width(), height)
