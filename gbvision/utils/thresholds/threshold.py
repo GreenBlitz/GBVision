@@ -3,12 +3,13 @@ from typing import List, Callable
 
 import cv2
 import numpy as np
+
 from gbvision.constants.math import EPSILON
+from gbvision.constants.types import Frame
+from gbvision.utils.pipeline import PipeLine
 
-from gbvision.constants.types import FilterFunction, Frame
 
-
-class Threshold(abc.ABC):
+class Threshold(PipeLine, abc.ABC):
     """
     An abstract class that represents a function that maps from an image to a binary image
     where 255 states that the pixel at the original image was in a range represented by the threshold object
@@ -21,6 +22,9 @@ class Threshold(abc.ABC):
     relatively red will be given the value 255, and every pixel that isn't will be given the value of 0
     """
 
+    def __init__(self):
+        PipeLine.__init__(self, self.threshold)
+
     @abc.abstractmethod
     def _threshold(self, frame: Frame) -> Frame:
         """
@@ -30,7 +34,14 @@ class Threshold(abc.ABC):
         :return: a binary image, the frame after the threshold filter
         """
 
-    def __call__(self, frame: Frame) -> Frame:
+    def threshold(self, frame: Frame) -> Frame:
+        """
+        Runs this threshold on the given frame, and returns the resulting binary frame
+
+        :param frame: The frame to run the threshold on
+        :return: The binary frame, with the type being uint8. each pixel should either be 0
+                 (not captured in the threshold) or 1 (cuptured in the threshold)
+        """
         frame = self._threshold(frame)
         if frame.dtype == np.uint8:
             return frame
@@ -57,6 +68,7 @@ class ThresholdGroup(Threshold):
     """
 
     def __init__(self, binary_mask: Callable[[Frame, Frame], Frame], *thresholds):
+        Threshold.__init__(self)
         self.binary_mask = binary_mask
         self.thresholds: List[Threshold] = list(thresholds)
 

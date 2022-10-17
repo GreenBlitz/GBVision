@@ -1,7 +1,7 @@
-from typing import Callable, Tuple
+import typing
+from typing import Callable, Tuple, Optional
 
 import cv2
-import typing
 
 from gbvision.constants.types import Frame, Rect, TrackerType
 
@@ -20,13 +20,18 @@ class _EmptyTracker:
         return True, self.__rect
 
 
-def _get_tracker_create(tracker_name: str) -> Callable[[], TrackerType]:
-    if int(_major_ver) < 4 and int(_minor_ver) < 3:
-        return lambda: cv2.cv2.Tracker_create(tracker_name.upper())
-    attr_full_name = f'Tracker{tracker_name}_create'
-    if hasattr(cv2, attr_full_name):
-        return cv2.__dict__[attr_full_name]
-    return cv2.legacy.__dict__[attr_full_name]
+def _get_tracker_create(tracker_name: str) -> Optional[Callable[[], TrackerType]]:
+    if tracker_name == 'EMPTY':
+        return _EmptyTracker
+    try:
+        if int(_major_ver) < 4 and int(_minor_ver) < 3:
+            return lambda: cv2.cv2.Tracker_create(tracker_name.upper())
+        attr_full_name = f'Tracker{tracker_name}_create'
+        if hasattr(cv2, attr_full_name):
+            return cv2.__dict__[attr_full_name]
+        return cv2.legacy.__dict__[attr_full_name]
+    except AttributeError:
+        return None
 
 
 class Tracker:
@@ -47,28 +52,25 @@ class Tracker:
     TRACKER_TYPE_CSRT = 'CSRT'
     TRACKER_TYPE_EMPTY = 'EMPTY'
 
-    try:
-        _TRACKER_ALGORITHMS = {
-            TRACKER_TYPE_BOOSTING: _get_tracker_create('Boosting'),
-            TRACKER_TYPE_MIL: _get_tracker_create('MIL'),
-            TRACKER_TYPE_KCF: _get_tracker_create('KCF'),
-            TRACKER_TYPE_TLD: _get_tracker_create('TLD'),
-            TRACKER_TYPE_MEDIANFLOW: _get_tracker_create('MedianFlow'),
-            TRACKER_TYPE_GOTURN: _get_tracker_create('GOTURN'),
-            TRACKER_TYPE_MOSSE: _get_tracker_create('MOSSE'),
-            TRACKER_TYPE_CSRT: _get_tracker_create('CSRT'),
-            TRACKER_TYPE_EMPTY: _EmptyTracker
-        }
-    except AttributeError:
-        import sys
-        print("[WARN] no trackers in your version of opencv, you may only use the empty tracker", file=sys.stderr)
-        _TRACKER_ALGORITHMS = {
-            TRACKER_TYPE_EMPTY: _EmptyTracker
-        }
+    _TRACKER_ALGORITHMS = {
+        tracker_name: _get_tracker_create(tracker_type)
+        for tracker_name, tracker_type in
+        [(TRACKER_TYPE_BOOSTING, 'Boosting'),
+         (TRACKER_TYPE_MIL, 'MIL'),
+         (TRACKER_TYPE_KCF, 'KCF'),
+         (TRACKER_TYPE_TLD, 'TLD'),
+         (TRACKER_TYPE_MEDIANFLOW, 'MedianFlow'),
+         (TRACKER_TYPE_GOTURN, 'GOTURN'),
+         (TRACKER_TYPE_MOSSE, 'MOSSE'),
+         (TRACKER_TYPE_CSRT, 'CSRT'),
+         (TRACKER_TYPE_EMPTY, 'EMPTY')]
+    }
 
     def __init__(self, tracker_type: str = TRACKER_TYPE_EMPTY):
         tracker_type = tracker_type.upper()
         assert tracker_type in self._TRACKER_ALGORITHMS, f'Unknown tracker type: {tracker_type}'
+        assert self._TRACKER_ALGORITHMS[tracker_type] is not None,\
+            f'Your version of OpenCV has no support for tracker type {tracker_type}'
         self.tracker = self._TRACKER_ALGORITHMS[tracker_type]()
         self.tracker_type = tracker_type
 

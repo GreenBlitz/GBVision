@@ -85,32 +85,10 @@ class ColorThreshold(Threshold):
     }
 
     def __init__(self, pixel_range: Union[ColorThresholdParams, GrayScaleThresholdParams], thresh_type=THRESH_TYPE_BGR):
+        Threshold.__init__(self)
         assert thresh_type.upper() in self._THRESHOLD_NAME_TABLE
         self.params = pixel_range
         self.type = thresh_type.upper()
-
-    def __len__(self):
-        """
-        The amount of parameters is equal to the amount of channels
-
-        :return: 1 if the threshold is for grayscale images, 3 if it is for color images
-        """
-        return len(self.params)
-
-    def __getitem__(self, item: int):
-        """
-        Returns the item'th channel's range
-
-        :param item: the index
-        :return: the range of the pixel in the item'th channel
-        """
-        return self.params[item]
-
-    def __iter__(self):
-        """
-        :return: An iterator that iterates through the channel ranges
-        """
-        return iter(self.params)
 
     def _threshold(self, frame):
         """

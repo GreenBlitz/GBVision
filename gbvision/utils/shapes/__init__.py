@@ -1,4 +1,4 @@
-from .base_shape import BaseShape
+from .base_shape import BaseShape, BaseShapeType
 from .base_circle import BaseCircle
 from .base_rect import BaseRect
 from .base_convex_polygon import BaseConvexPolygon

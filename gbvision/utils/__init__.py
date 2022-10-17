@@ -12,3 +12,4 @@ from .thresholds import *
 from .shapes import *
 from .recorders import *
 from .denoising import *
+from .drawing import *
