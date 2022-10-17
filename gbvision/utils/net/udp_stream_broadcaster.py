@@ -22,9 +22,9 @@ class UDPStreamBroadcaster(StreamBroadcaster):
     @staticmethod
     def _is_frame_legal_size(data: bytes) -> bool:
         """
-        Checks if the frame's size is too large
+        Checks if the data's size is too large for a single UDP packet
 
-        :param data: The frame
+        :param data: The data to try and send
         :return: True if the data is small enough, False otherwise
         """
         return len(data) < UDP_MAX_SIZE
