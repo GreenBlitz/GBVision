@@ -1,9 +1,9 @@
-from .object_finder import ObjectFinder
+from .object_finder import ShapeFinder
 from gbvision.utils.shapes.base_rect import BaseRect
 from ..shapes.base_shape import BaseShapeType
 
 
-class RectFinder(ObjectFinder):
+class RectFinder(ShapeFinder):
     """
     Finds a rectangular shaped object
     """

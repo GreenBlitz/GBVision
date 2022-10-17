@@ -10,7 +10,7 @@ from gbvision.utils.shapes.base_shape import BaseShapeType
 from gbvision.utils.thresholds.threshold import Threshold
 
 
-class ObjectFinder(abc.ABC):
+class ShapeFinder(abc.ABC):
     """
     This is an abstract class that represents an object finder
     An object finder is a type that outputs an object's 3d real location based on an of it image it's

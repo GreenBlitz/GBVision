@@ -1,9 +1,9 @@
-from .object_finder import ObjectFinder
+from .object_finder import ShapeFinder
 from gbvision.utils.shapes.base_polygon import BasePolygon
 from ..shapes.base_shape import BaseShapeType
 
 
-class PolygonFinder(ObjectFinder):
+class PolygonFinder(ShapeFinder):
     """
     Finds any generic polygon, not recommended when another finder can be used
     """
