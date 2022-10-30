@@ -104,3 +104,5 @@ class ColorThreshold(Threshold):
 
     def __str__(self):
         return f"ColorThreshold({self.params}, '{self.type}')"
+    
+    
